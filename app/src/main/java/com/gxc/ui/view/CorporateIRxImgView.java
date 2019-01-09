@@ -1,12 +1,16 @@
 package com.gxc.ui.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gxc.ui.activity.EditReportInfoActivity;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
 
@@ -21,6 +25,8 @@ public class CorporateIRxImgView extends BaseView {
     protected CorporateInfoItemView textTitle,zhiwuText;
     protected TextView textDes,titleImgText;
     protected EditText editCotent;
+    private ImageView photoImg;
+    private int type;
 
     public CorporateIRxImgView(Context context) {
         super(context);
@@ -47,14 +53,21 @@ public class CorporateIRxImgView extends BaseView {
         textDes = (TextView) findViewById(R.id.text_des);
         editCotent = (EditText) findViewById(R.id.edit_cotent);
         titleImgText = (TextView) findViewById(R.id.text_img_title);
+        photoImg = (ImageView)findViewById(R.id.img_photo);
     }
 
     @Override
     protected void initActions() {
-
+        photoImg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppUtils.pictureSelect((Activity)mContext, true, 1, null,type);
+            }
+        });
     }
 
     public void setData(int type) {
+        this.type=type;
         if (type == EditReportInfoActivity.TYPE_RY) {
             textTitle.setData("企业荣誉");
             titleImgText.setText("荣誉图片");

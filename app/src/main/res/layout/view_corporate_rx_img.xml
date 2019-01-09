@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_img_title" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/img_photo"
         android:layout_width="0dp"
         android:layout_height="125dp"
         android:layout_marginTop="30dp"
@@ -63,7 +63,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8">
+        app:layout_constraintTop_toBottomOf="@+id/img_photo">
 
         <View style="@style/s_line" />
 

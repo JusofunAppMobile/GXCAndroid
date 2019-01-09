@@ -104,6 +104,32 @@ public class AppUtils {
         model.forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
+
+    public static void pictureSelect(final Activity activity, boolean enableCrop, int maxSelectNum, List<String> selectList,int requestCode) {
+        PictureSelectionModel model = PictureSelector.create(activity)
+                .openGallery(PictureMimeType.ofImage())
+                .enableCrop(enableCrop)// 是否裁剪 true or false
+                .imageSpanCount(3)// 每行显示个数 int
+                .maxSelectNum(maxSelectNum);
+        if (enableCrop) {
+            model.withAspectRatio(1, 1)
+                    .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
+                    .circleDimmedLayer(true)// 是否圆形裁剪 true or false
+                    .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
+                    .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
+            ;
+        }
+        if (maxSelectNum == 1)
+            model.selectionMode(PictureConfig.SINGLE);
+        else
+            model.selectionMode(PictureConfig.MULTIPLE);
+
+        if (selectList != null && !selectList.isEmpty()) {
+            model.selectionMedia(parseToMediaList(selectList));
+        }
+        model.forResult(requestCode);
+    }
+
     public static void compress(Context context, File file, final OnSimpleCompressListener listener) {
         Luban.with(context)
                 .load(file)
