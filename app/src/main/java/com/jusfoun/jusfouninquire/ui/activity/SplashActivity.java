@@ -22,6 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.baidu.mobstat.StatService;
+import com.gxc.ui.activity.HomeActivity;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.AdvertiseModel;
 import com.jusfoun.jusfouninquire.net.model.CheckVersionModel;
@@ -132,7 +133,7 @@ public class SplashActivity extends BaseInquireActivity {
 //        Intent intent = new Intent(this, StartService.class);
 //        mContext.startService(intent);
 
-
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
     @Override
@@ -381,7 +382,7 @@ public class SplashActivity extends BaseInquireActivity {
 //            }
 //        }
 
-        goActivity(MainActivity.class);
+//        goActivity(MainActivity.class);
         finish();
     }
 
