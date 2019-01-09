@@ -178,6 +178,481 @@
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
 
 
+        <!-- 忘记密码-->
+        <activity
+            android:name=".ui.activity.ForgetPwdActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <!-- 关于我们-->
+
+        <!-- 注册信息补充页面-->
+        <activity
+            android:name=".ui.activity.SupplementRegisterInfoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 修改个人信息页面-->
+        <activity
+            android:name=".ui.activity.EditPersonActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+
+        <!-- 我的关注-->
+        <activity
+            android:name=".ui.activity.MyAttentionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 近期变更、企业雷达-->
+        <activity
+            android:name=".ui.activity.RecentChangeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.PayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.RiskListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.RiskTabActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.MoreMonitorListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.MoreNewsListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.WebActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.MonitorCompanyListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.BindPhoneActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.InforActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.InforEditActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.OrderListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.RelationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.RiskTipActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.SettingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity
+            android:name="com.yalantis.ucrop.PictureMultiCuttingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+
+        <!-- 系统信息-->
+        <activity
+            android:name=".ui.activity.SystemMessageActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+
+        <!-- 意见反馈-->
+        <activity
+            android:name=".ui.activity.FeedbackActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 常见问题-->
+        <activity
+            android:name=".ui.activity.CommonProblemActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 详情页面-->
+        <activity
+            android:name=".ui.activity.CompanyDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 高级搜索-->
+        <activity
+            android:name=".ui.activity.AdvancedSearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <!-- 高级搜索选择区域页面-->
+        <activity
+            android:name=".ui.activity.ChooseAreaActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 高级搜索选择注册资金页面-->
+        <activity
+            android:name=".ui.activity.ChooseRegisterFundActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 高级搜索选择注册时间页面-->
+        <activity
+            android:name=".ui.activity.ChooseRegisterTimeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 高级搜索结果页面-->
+        <activity
+            android:name=".ui.activity.DoAdvancedSearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 测试下下拉刷新-->
+        <activity
+            android:name=".ui.activity.ScrollRefreshActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 企业所有详情-->
+        <activity
+            android:name=".ui.activity.CompanyDetailsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!--企业纠错界面-->
+        <activity
+            android:name=".ui.activity.CompanyAmendActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 百度地图-->
+        <activity
+            android:name=".ui.activity.BaiduMapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 企业图谱-->
+        <activity
+            android:name=".ui.activity.CompanyMapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+
+        <!-- webview界面-->
+        <activity
+            android:name=".ui.activity.WebActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 热门企业列表界面-->
+        <activity
+            android:name=".ui.activity.HotCompanyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 失信榜单列表界面-->
+        <activity
+            android:name=".ui.activity.DishonestyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <!-- 企业查询web页面-->
+        <activity
+            android:name=".ui.activity.WebSearchCompanyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+
+        <!-- 企信宝2.0搜索页面-->
+        <activity
+            android:name=".ui.activity.TypeSearchActivity"
+            android:configChanges="orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!--android:windowSoftInputMode="adjustResize"-->
+
+        <!-- 企信宝2.0搜索结果页面-->
+        <activity
+            android:name=".ui.activity.SearchResultActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+
+        <!-- 企信宝失信搜索页面-->
+        <activity
+            android:name=".ui.activity.DishonestySearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.MyReportActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
+        <!-- 企信宝2.0失信搜索页面-->
+        <activity
+            android:name=".ui.activity.SearchDishonestActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 企信宝2.0.4热门资讯页面-->
+        <activity
+            android:name=".ui.activity.HotConsultingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 企信宝2.0失信搜索结果页面-->
+        <activity
+            android:name=".ui.activity.DishonestResultActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!-- 任务进度页面-->
+        <activity
+            android:name=".ui.util.crawl.TaskScheduleActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!-- 招聘搜索-->
+        <activity
+            android:name=".ui.activity.RecruitmentSearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!-- 税号搜索-->
+        <activity
+            android:name=".ui.activity.TaxIdSearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!--金融终端相关-->
+        <!-- 精准营销 -->
+        <activity
+            android:name="com.jusfoun.bigdata.NearMapActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.jusfoun.bigdata.CompanySituationActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- 通讯录搜索-->
+        <activity
+            android:name=".ui.activity.ContactsListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+        <!-- 通讯录搜索-->
+        <activity
+            android:name=".ui.activity.ExportContactsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
+        <!-- 股东个穿透详情-->
+        <activity
+            android:name=".ui.activity.ShareHolderActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@style/my_style_horizontal"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!-- 自助信息填报-->
+        <activity
+            android:name="com.gxc.ui.activity.ReportInfoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
+        <!-- 编辑自助信息填报-->
+        <activity
+            android:name="com.gxc.ui.activity.EditReportInfoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!-- 认证企业-->
+        <activity
+            android:name="com.gxc.ui.activity.CertifiedCompanyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!-- 信用服务-信用报告-->
+        <activity
+            android:name="com.gxc.ui.activity.CreditReportActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <!-- 照相或者取图片的工具 Activity。 -->
         <activity
             android:name="simplecropimage.CropImage"
