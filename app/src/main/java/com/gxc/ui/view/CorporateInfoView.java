@@ -1,12 +1,18 @@
 package com.gxc.ui.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.gxc.ui.activity.EditReportInfoActivity;
+import com.gxc.utils.AppUtils;
+import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
 
@@ -37,7 +43,9 @@ public class CorporateInfoView extends BaseView {
     TextView textDes;
     @BindView(R.id.text_content)
     TextView textContent;
-
+    @BindView(R.id.img_icon)
+    ImageView imgIcon;
+    private RequestOptions requestOptions;
 
     public CorporateInfoView(Context context) {
         super(context);
@@ -53,7 +61,12 @@ public class CorporateInfoView extends BaseView {
 
     @Override
     protected void initData() {
-
+        requestOptions = new RequestOptions()
+                .centerCrop()
+                .circleCrop()//设置圆形
+                .placeholder(R.color.white)
+                .error(R.color.white)
+                .transform(new GlideRoundTransform(mContext,5));
     }
 
     @Override
@@ -64,7 +77,12 @@ public class CorporateInfoView extends BaseView {
 
     @Override
     protected void initActions() {
-
+        imgIcon.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppUtils.pictureSelect((Activity) mContext, false, 1, null);
+            }
+        });
     }
 
     public void setData(int type) {
@@ -87,6 +105,9 @@ public class CorporateInfoView extends BaseView {
             textIcon.setText("产品图片");
             textDes.setText("简介");
         }
+    }
+    public void setImageSrc(String imageUrl){
+        Glide.with(mContext).load(imageUrl).apply(requestOptions).into(imgIcon);
     }
 
 }
