@@ -64,8 +64,6 @@ public abstract class BaseInquireActivity extends BaseActivity {
     protected void goActivity(Class<?> clazz) {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
-
-        startActivity(new Intent(this, HomeActivity.class));
     }
 
     protected void goActivity(Class<?> clazz, Bundle bundle) {
