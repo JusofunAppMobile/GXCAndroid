@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/common_search_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/search_history_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:id="@+id/search_history_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/bottom_selector"
+                android:layout_centerInParent="true"
+                android:text="@string/search_history"
+                android:textColor="@drawable/search_table_background"
+                android:gravity="center"
+                android:textSize="16dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/my_focuses_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:id="@+id/my_focuses"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/bottom_selector"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/my_focuses"
+                android:textColor="@drawable/search_table_background"
+                android:textSize="16dp"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#d9d9d9"
+        android:layout_below="@id/common_search_top"
+        />
+
+    <com.jusfoun.jusfouninquire.ui.widget.SearchViewPager
+        android:id="@+id/common_search_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider_line"
+        >
+    </com.jusfoun.jusfouninquire.ui.widget.SearchViewPager>
+
+</RelativeLayout>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <com.jusfoun.jusfouninquire.ui.view.ObserveScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navigation"
+        android:background="@drawable/img_com_detail_top"
+        android:fillViewport="true"
+        android:paddingLeft="0dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/vBarEmpty1"
+                android:layout_width="1px"
+                android:layout_height="20dp"
+                android:visibility="gone" />
+
+            <com.jusfoun.jusfouninquire.ui.view.CompanyDetailHeaderView
+                android:id="@+id/headerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:paddingLeft="0dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_title_left_shareholder"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="股        东"
+                    android:textColor="#df282d"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_shareholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="2dp" />
+            </LinearLayout>
+
+            <View style="@style/s_line_h" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:includeFontPadding="false"
+                    android:text="自身风险:"
+                    android:textColor="#333333"
+                    android:textSize="13sp" />
+
+                <TextView
+                    style="@style/C_Xucun_guoxin"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="111条" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:includeFontPadding="false"
+                    android:text="关联风险:"
+                    android:textColor="#333333"
+                    android:textSize="13sp" />
+
+                <TextView
+                    style="@style/C_Xucun_guoxin"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="111条" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/text_fengxian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/bg_item_credi_report_preview"
+                        android:gravity="center"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="查看风险"
+                        android:textColor="#df282d"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <com.gxc.ui.view.CompanyMapView
+                android:id="@+id/view_company_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View style="@style/s_line_h" />
+
+            <LinearLayout
+                android:id="@+id/layout_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_underline_gray"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="3dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/icon_indicator" />
+
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="企业背景"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/company_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_company_menu" />
+
+            <View style="@style/s_line_h" />
+            <!--风险信息-->
+            <com.jusfoun.jusfouninquire.ui.view.CompanyDetailMenuView
+                android:id="@+id/view_risk_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View style="@style/s_line_h" />
+            <!--经营状况-->
+            <com.jusfoun.jusfouninquire.ui.view.CompanyDetailMenuView
+                android:id="@+id/view_operating_conditions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View style="@style/s_line_h" />
+            <!--无形资产-->
+            <com.jusfoun.jusfouninquire.ui.view.CompanyDetailMenuView
+                android:id="@+id/view_intangible_assets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </com.jusfoun.jusfouninquire.ui.view.ObserveScrollView>
+
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+       />
+
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/net_work_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/vTitleParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_tra_white"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/vBarEmpty2"
+            android:layout_width="1px"
+            android:layout_height="20dp"
+            android:visibility="gone" />
+
+        <com.jusfoun.jusfouninquire.ui.view.PropagandaView.BackAndImageTitleView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            style="@style/C_Line"
+            android:background="@drawable/selector_line" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/loading_img"
+            android:layout_width="@dimen/loading_width"
+            android:layout_height="@dimen/loading_height"
+            android:layout_centerInParent="true" />
+
+        <com.jusfoun.jusfouninquire.ui.view.PropagandaView.BackAndImageTitleView
+            android:id="@+id/title_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

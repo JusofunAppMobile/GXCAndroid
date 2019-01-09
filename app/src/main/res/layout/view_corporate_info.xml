@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_hangye"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_http"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/text_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:paddingLeft="15dp"
+                android:text="LOGO"
+                android:textColor="#333"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <View
+                style="@style/s_line"
+                android:layout_marginTop="18dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="#f0f2f5" />
+
+            <View style="@style/s_line" />
+
+            <TextView
+                android:id="@+id/text_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:paddingLeft="15dp"
+                android:text="公司介绍"
+                android:textColor="#333"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15sp"
+                android:text="公司介绍"
+                android:textColor="#666"
+                android:textSize="12sp"
+
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

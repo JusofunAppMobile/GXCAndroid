@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/input_companyName"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入公司关键字"
+        />
+
+    <Button
+        android:id="@+id/search_companyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="搜索"
+        />
+
+</LinearLayout>

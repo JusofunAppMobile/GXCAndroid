@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/company_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="13dp"
+        android:textColor="@color/search_text_color"
+        android:textSize="16dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/company_name"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+          >
+
+            <ImageView
+                android:id="@+id/legal_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/company_name"
+                android:paddingLeft="10dp"
+                android:src="@mipmap/search_legal"
+                android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                android:id="@+id/legal_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/company_name"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/legal_image"
+                android:paddingBottom="10dp"
+                android:textColor="#9a969d"
+                android:textSize="14dp"
+                android:layout_gravity="center_vertical"
+
+                />
+
+            <TextView
+                android:id="@+id/legal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/company_name"
+                android:layout_toRightOf="@id/legal_prefix"
+                android:maxLength="12"
+                android:textColor="#9a969d"
+                android:textSize="14dp"
+                android:layout_gravity="center_vertical"
+
+
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/company_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#9a969d"
+            android:textSize="14dp"
+            android:gravity="right"
+            android:lines="1"
+
+            />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/company_status_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/company_name"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="11dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/company_status_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/company_name"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/company_status_image"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:text="@string/company_status"
+        android:textColor="#9a969d"
+        android:textSize="14dp"
+        android:visibility="gone"
+        />
+
+
+</RelativeLayout>

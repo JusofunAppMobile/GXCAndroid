@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <RelativeLayout
+        android:id="@+id/item_industry_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dip" >
+
+        <TextView
+            android:id="@+id/item_industry_textview_name"
+            android:layout_width="wrap_content"
+            android:layout_height="44dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="农、林、牡、副、渔"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/item_arrow_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@mipmap/arrows" />
+
+        <TextView
+            android:id="@+id/item_checkedText"
+            android:layout_width="wrap_content"
+            android:layout_height="44dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:layout_toLeftOf="@+id/item_arrow_image"
+            android:gravity="center_vertical"
+            android:text="已选行业"
+            android:textColor="#818181"
+            android:textSize="16sp" 
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</RelativeLayout>

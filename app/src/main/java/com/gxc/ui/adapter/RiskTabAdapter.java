@@ -1,0 +1,28 @@
+package com.gxc.ui.adapter;
+
+import android.support.annotation.Nullable;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.gxc.model.RiskTabModel;
+import com.jusfoun.jusfouninquire.R;
+
+import java.util.List;
+
+/**
+ * @author liuguangdan
+ * @version create at 2019/1/5/005 19:21
+ * @Email lgd@jusfoun.com
+ * @Description ${}
+ */
+public class RiskTabAdapter extends BaseQuickAdapter<RiskTabModel, BaseViewHolder> {
+
+    public RiskTabAdapter() {
+        super(R.layout.item_risk_tab);
+    }
+
+    @Override
+    protected void convert(BaseViewHolder holder, RiskTabModel riskTabModel) {
+
+    }
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5">
+
+    <com.jusfoun.jusfouninquire.ui.view.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vHeadIcon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:infor_image="@drawable/me_head_default_loggedin"
+        app:infor_label="头像"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:infor_label="手机"
+        app:infor_value="18855555555"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vHeadIcon" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:infor_label="密码"
+        app:infor_value="修改密码"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vPhone" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:infor_label="邮箱"
+        app:infor_value="请输入邮箱"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vPassword" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vCompany"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:infor_label="公司"
+        app:infor_value="填写公司"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vEmail" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vJob"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:infor_label="职务"
+        app:infor_value="填写职务"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vDepartment" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vDepartment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:infor_label="部门"
+        app:infor_value="填写部门"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vCompany" />
+
+    <com.gxc.ui.widgets.InforInputView
+        android:id="@+id/vTrade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:infor_label="行业"
+        app:infor_value="填写行业"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vJob" />
+</android.support.constraint.ConstraintLayout>

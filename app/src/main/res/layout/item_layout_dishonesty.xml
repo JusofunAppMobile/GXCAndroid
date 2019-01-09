@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroudcolor"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_bg_line"/>
+
+
+        <TextView
+            android:id="@+id/dishonesty"
+            android:text="失信榜单"
+            android:background="#e8f1f4"
+            android:gravity="center|left"
+            android:textSize="16dp"
+            android:drawableLeft="@drawable/line_green"
+            android:drawableRight="@drawable/more_arrow"
+            android:paddingRight="10dp"
+            android:textColor="#1f2423"
+            android:drawablePadding="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="38dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_bg_line"/>
+
+        <com.jusfoun.jusfouninquire.ui.view.MarqueeVerticalView
+            android:id="@+id/marquee_dishonesty"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_bg_line"/>
+    </LinearLayout>
+</LinearLayout>

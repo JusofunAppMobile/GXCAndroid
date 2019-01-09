@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/MyTheme.Layout.Root">
+
+
+    <com.jusfoun.jusfouninquire.ui.view.TitleView
+        android:id="@+id/title_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_tip"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="#fcf4f4"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="填写身份证信息，快速认证企业"
+        android:textColor="#f22b26"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_bar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tip">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_zhiwei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/view_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateIInfoImgItemView
+                android:id="@+id/img_yyzz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.gxc.ui.view.CorporateIInfoImgItemView
+                android:id="@+id/img_idfen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_commit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_commit_renzhneg"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textSize="19sp"
+                android:textColor="@color/white"
+                android:text="提交认证"
+                android:layout_marginTop="10dp"
+                android:elevation="1dp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

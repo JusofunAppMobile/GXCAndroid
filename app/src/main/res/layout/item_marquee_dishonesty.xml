@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/item_list_min_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/dishonest_layout"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/dishonest_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="9dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/bg_dishonesty_date_two"
+            />
+
+        <TextView
+            android:id="@+id/dishonesty_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-1dp"
+            android:textSize="12dp"
+            android:gravity="center"
+            android:textColor="#ff6631"
+            android:layout_below="@+id/dishonest_year"
+            android:background="@drawable/bg_dishonesty_date_third"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dishonesty_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:textColor="@color/list_title_text_color"
+         />
+
+</LinearLayout>

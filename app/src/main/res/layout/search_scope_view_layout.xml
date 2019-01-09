@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/search_scope_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:text="@string/search_scope_prefix"
+        android:textSize="14dp"
+        />
+
+    <TextView
+        android:id="@+id/search_scope_province"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/search_scope_prefix"
+        android:text="全国"
+        android:textColor="@color/search_table_background"
+
+        android:textSize="16dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/scope_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/search_scope_province"
+        android:layout_marginLeft="10dp"
+        >
+        <ImageView
+            android:id="@+id/select_province_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="10dp"
+            android:src="@mipmap/downunfold"
+            />
+
+        <TextView
+            android:id="@+id/select_province_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/select_province_image"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="@string/select_province"
+            android:textColor="@color/search_table_background"
+            android:textSize="12dp"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

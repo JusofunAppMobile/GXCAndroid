@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <View
+        android:id="@+id/msg_unread_indicator"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/unread_background"
+        />
+
+    <RelativeLayout
+        android:layout_toRightOf="@id/msg_unread_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/msg_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="公司名称"
+            android:textColor="@color/list_title_text_color"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="@dimen/padding_margin_left_or_right"
+            android:paddingLeft="@dimen/padding_margin_left_or_right"
+            />
+
+
+        <TextView
+            android:id="@+id/msg_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我们已经收到你的反馈"
+            android:textSize="14dp"
+            android:textColor="@color/list_subtitle_text_color"
+            android:layout_marginTop="10dip"
+            android:layout_below="@+id/msg_name"
+            android:paddingRight="@dimen/padding_margin_left_or_right"
+            android:paddingLeft="@dimen/padding_margin_left_or_right"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textColor="@color/list_subtitle_text_color"
+            android:layout_marginTop="10dip"
+            android:paddingRight="@dimen/padding_margin_left_or_right"
+            android:paddingLeft="@dimen/padding_margin_left_or_right"
+            android:layout_below="@+id/msg_contact"
+
+            />
+        <View
+            android:id="@+id/drive_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_color"
+            android:layout_below="@+id/time"
+            android:layout_marginLeft="@dimen/padding_margin_left_or_right"
+            android:layout_marginRight="@dimen/padding_margin_left_or_right"
+            android:layout_marginTop="15dip"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

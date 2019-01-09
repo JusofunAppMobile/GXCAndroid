@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/img_item_bg_chashuihao">
+
+        <ImageView
+            android:id="@+id/location_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/location_value"
+            android:src="@mipmap/location" />
+
+        <TextView
+            android:id="@+id/location_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="50dp"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/dishonest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/location_image"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textSize="15dp" />
+
+        <RelativeLayout
+            android:id="@+id/id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/dishonest_name"
+            android:layout_marginTop="20dp"
+            android:layout_toLeftOf="@+id/location_image"
+            android:paddingLeft="15dp">
+
+            <ImageView
+                android:id="@+id/id_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_dis_company" />
+
+            <TextView
+                android:id="@+id/id_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/id_image"
+                android:paddingLeft="12dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/number_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/id_layout"
+            android:layout_toLeftOf="@+id/location_image"
+            android:paddingBottom="20dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp">
+
+            <ImageView
+                android:id="@+id/number_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:src="@mipmap/legal_image" />
+
+            <TextView
+                android:id="@+id/number_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/number_image"
+                android:paddingLeft="12dp"
+                android:singleLine="true"
+                android:textColor="#333333" />
+        </RelativeLayout>
+
+        <!--<View-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_below="@+id/number_layout"-->
+        <!--android:background="@color/line_color"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"/>-->
+    </RelativeLayout>
+
+</LinearLayout>

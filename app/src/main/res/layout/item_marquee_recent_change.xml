@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@mipmap/bg_radar"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.jusfoun.jusfouninquire.ui.view.RadarCountView
+        android:id="@+id/view_radra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="13dp"
+       />
+
+    <TextView
+        android:id="@+id/text_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="家企业进行了"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_alignBottom="@+id/view_radra"
+        android:layout_toRightOf="@+id/view_radra"
+        android:paddingLeft="5dp"
+      />
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+      >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:src="@drawable/bg_radar_right"
+            android:minWidth="58dp"
+            android:adjustViewBounds="true"
+            android:layout_alignLeft="@+id/tvTip"
+            android:layout_alignRight="@+id/tvTip"
+            android:scaleType="fitXY"/>
+        <TextView
+            android:id="@+id/tvTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#fc7b2b"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerInParent="true"
+            android:textSize="10sp"
+            android:paddingBottom="2dp"
+           />
+    </RelativeLayout>
+
+
+</RelativeLayout>

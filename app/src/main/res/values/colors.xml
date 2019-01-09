@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="common_red">#E2292F</color>
+    <color name="common_deeper">#E2292F</color><!--透明状态栏的颜色，不能包含透明度-->
+
+    <color name="title_bar_background">#303F9F</color>
+    <color name="search_table_background">#FF6008</color>
+
+    <color name="common">#FA6939</color>
+    <color name="c_line">#EDEBE9</color>
+
+    <!--页面title的背景-->
+    <color name="title_background">#26c280</color>
+
+
+    <color name="activity_background">#f2f3f4</color><!--activity背景颜色-->
+    <color name="search_text_color">#333333</color><!--高级搜索字体颜色-->
+    <color name="search_text_hint_color">#c7c7cd</color><!--高级搜索hint字体颜色-->
+
+    <color name="area_level_one_color">#e8e8e8</color><!--选择区域第一级颜色-->
+    <color name="area_level_two_color">#f7f7f7</color><!--选择区域第二级颜色-->
+    <color name="area_level_three_color">#ffffff</color><!--选择区域第二级颜色-->
+
+    <!--企业图谱相关颜色 -->
+    <color name="shareholder">#fe741f</color>
+    <color name="investment">#26c180</color>
+    <color name="company_map_text">#323232</color>
+
+    <color name="button_text_color">#f2e9dd</color> <!--按钮文字颜色-->
+    <color name="button_text">#08ad64</color>
+    <color name="get_auth_code_textcolor">#fe6206</color><!--获取验证嘛文字颜色-->
+
+    <color name="error_textcolor">#ff1300</color><!--登录 验证码 等错误的文字颜色-->
+
+    <color name="hit_tag_textcolor">#6c6c6c</color> <!--tag 之类的提示文字-->
+
+    <color name="eidt_hint_textcolor">#a3a3a3</color><!--输入时 提示文字颜色-->
+    <color name="edit_text_color">#333333</color><!--输入文字颜色-->
+    <color name="edit_text_colors">#fda850</color>
+
+    <color name="bg_amend">#656566</color>
+    <color name="line_color">#d4d4d5</color> <!--分割线的颜色-->
+    <color name="white">#ffffff</color> <!--白色-->
+    <color name="black">#000000</color> <!--黑色-->
+    <color name="fix">#1AFFFFFF</color> <!--白色-->
+    <color name="fex">#8A020101</color> <!--白色-->
+    <color name="title_view_text_color">#382428</color> <!--黑色-->
+    <color name="backgroudcolor">#f1f4f4</color> <!--一般页面的背景-->
+
+
+    <color name="color_text_yellow">#ff721f</color>
+    <color name="color_text_black">#333333</color>
+
+    <color name="company_map_un_click_text">#969696</color>
+    <color name="company_map_cleck_text">#343434</color>
+
+    <color name="list_title_text_color">#343434</color>
+    <color name="list_subtitle_text_color">#999c9c</color>
+
+    <color name="color_text_home_black">#454545</color>
+    <color name="color_bg_line">#d5d5d5</color>
+    <color name="color_text_gray">#9a9a9a</color>
+
+    <color name="color_dishonesty_bg_one">#fb6432</color>
+    <color name="color_dishonesty_bg_two">#f99435</color>
+    <color name="color_dishonesty_bg_three">#ffbe2e</color>
+
+    <color name="color_bg_menu">#d9d9d9</color>
+    <color name="color_text_menu_select">#fb6600</color>
+    <color name="color_text_menu_unselect">#323232</color>
+    <color name="color_text_menu_unclick">#aaaaaa</color>
+    <color name="color_company_map_line">#d8d8d9</color>
+    <color name="color_text_contact_way">#ff7833</color>
+    <color name="color_text_contact_close">#666666</color>
+    <color name="color_text_company_detail_menu">#7d7d7d</color>
+    <color name="color_text_company_map_info">#353535</color>
+    <color name="color_text_home_company">#ffdebb</color>
+    <color name="color_text_title">#332923</color>
+
+    <color name="color_bg">#704c4c4c</color>
+    <color name="bg_home_lead">#000000</color>
+
+    <!-- 下载颜色 -->
+    <color name="download_pro_color">#666666</color>
+
+    <!--首页红色-->
+    <color name="color_home_back">#ff6207</color>
+
+
+    <color name="color_home_propaganda_selected">#ffffff</color>
+    <color name="color_home_propaganda_unselected">#c9c9c9</color>
+
+
+    <!--搜索相关-->
+    <color name="item_option_text">#ffb267</color>
+    <color name="delete_search_history">#666666</color>
+    <color name="divider_line_color">#d9d9d9</color>
+    <color name="divider_view_color">#f1f4f4</color>
+
+    <color name="search_name_color">#fe782c</color>
+    <color name="search_info_color">#999999</color>
+
+    <color name="line_draw_one">#26c180</color>
+    <color name="line_draw_two">#ff7200</color>
+
+    <!--金融终端先关-->
+    <color name="type_item_text_ffb2b2">#ffb2b2</color>
+    <color name="list_adapter_nodata_color">#828590</color>
+    <color name="filter_type_layout_bg_n">#E35353</color>
+    <color name="background_color">#f1f1f1</color>
+    <color name="findpwd_line_color">#46484d</color>
+    <color name="background_color_n">#F9F9F9</color>
+    <color name="city_list_bgcolor_n">#eaeaea</color>
+    <drawable name="city_list_bg_n">@color/city_list_bgcolor_n</drawable>
+    <color name="list_sub_content_hightextcolor">#d00808</color>
+    <color name="list_sub_content_lighttextcolor">#999999</color>
+    <drawable name="listview_divider_n">#C9C9C9</drawable>
+    <color name="city_list_bgcolor">#f6f6f6</color>
+    <drawable name="city_list_bg">@color/city_list_bgcolor</drawable>
+
+    <color name="login_enable_bg">#cc2626</color>
+    <drawable name="btn_ren_selector">@color/login_enable_bg</drawable>
+    <color name="relative_layout_bgcolor_n">#F9F9F9</color>
+    <drawable name="listview_first_selector_n">@color/relative_layout_bgcolor_n</drawable>
+    <color name="company_select_default_ff2f2f">#d00808</color>
+    <drawable name="btn_ren_default">@color/company_select_default_ff2f2f</drawable>
+    <drawable name="listview_first_selector">@color/relative_layout_bgcolor</drawable>
+    <color name="relative_layout_bgcolor">#ffffff</color>
+    <color name="title_bgcolor_red">#D81F1F</color>
+    <color name="skin_title_or_listtitle_color_n">#F92E45</color>
+    <drawable name="listview_first_normal">@color/background_color</drawable>
+    <color name="choosetextvalue_tag">#333333</color>
+    <color name="line_color_n">#E4E4E4</color>
+    <color name="skin_title_or_listtitle_color">#333333</color>
+    <color name="skin_error_page_text_color">#333333</color>
+    <color name="dialog_title_color">#333333</color>
+    <color name="dialog_sub_title_color">#d00808</color>
+</resources>

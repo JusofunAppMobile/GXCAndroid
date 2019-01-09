@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.jusfoun.jusfouninquire.ui.view.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/system_msg_xlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleView"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="1px" />
+
+    <include layout="@layout/view_no_result" />
+
+    <LinearLayout
+        android:id="@+id/nodatalayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleView"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/no_message" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:text="还没有消息..."
+            android:textColor="#333333"
+            android:textSize="16dp" />
+
+
+    </LinearLayout>
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/neterrorlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleView"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/image_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleView"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_frame"
+            android:layout_width="@dimen/loading_width"
+            android:layout_height="@dimen/loading_height"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

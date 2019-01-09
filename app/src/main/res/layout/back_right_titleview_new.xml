@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:id="@+id/titleBackgroud"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/titleView_height"
+    android:background="#FFF"
+    skin:enable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/left_padding_or_margin"
+        android:paddingRight="@dimen/right_padding_or_margin">
+
+        <ImageView
+            android:id="@+id/left_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:gravity="center"
+            android:minHeight="25dp"
+            android:minWidth="25dp"
+            android:src="@drawable/icon_back_black"
+            android:textSize="@dimen/title_right_textsize"
+             />
+
+        <TextView
+            android:id="@+id/rightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_btn_bgcolor"
+            android:gravity="center"
+            android:minHeight="25dp"
+            android:minWidth="25dp"
+            android:paddingLeft="7dip"
+            android:paddingRight="7dip"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_right_textsize"
+            android:visibility="invisible"
+            skin:enable="true"
+            />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/title_center_textsize"
+            skin:enable="true" />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/s_line"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_common_list"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="企业信用报告-专业版"
+        android:textColor="#333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view32" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="已生成"
+        android:textColor="@color/common_red"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="小米科技有限责任公司"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/view30"
+        app:layout_constraintTop_toBottomOf="@+id/view30" />
+
+    <View
+        android:id="@+id/view30"
+        style="@style/C_Line"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvLabel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="订单编号："
+        android:textColor="#999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/textView30"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <TextView
+        android:id="@+id/tvLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="购买时间："
+        android:textColor="#999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvLabel1"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel1" />
+
+    <TextView
+        android:id="@+id/tvLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="接收邮箱："
+        android:textColor="#999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvLabel2"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel2" />
+
+    <TextView
+        android:id="@+id/tvLabel4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="报告格式："
+        android:textColor="#999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvLabel3"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel3" />
+
+    <TextView
+        android:id="@+id/tvValue1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12121212121212"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabel1"
+        app:layout_constraintStart_toEndOf="@+id/tvLabel1"
+        app:layout_constraintTop_toTopOf="@+id/tvLabel1" />
+
+    <TextView
+        android:id="@+id/tvValue2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-12-31 14:21:20"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabel2"
+        app:layout_constraintStart_toEndOf="@+id/tvLabel2"
+        app:layout_constraintTop_toTopOf="@+id/tvLabel2" />
+
+    <TextView
+        android:id="@+id/tvValue3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2222@jusfoun.com"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabel3"
+        app:layout_constraintStart_toEndOf="@+id/tvLabel3"
+        app:layout_constraintTop_toTopOf="@+id/tvLabel3" />
+
+    <TextView
+        android:id="@+id/tvValue4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PDF"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabel4"
+        app:layout_constraintStart_toEndOf="@+id/tvLabel4"
+        app:layout_constraintTop_toTopOf="@+id/tvLabel4" />
+
+    <TextView
+        android:id="@+id/tvMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="¥20"
+        android:textColor="@color/common_red"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView30" />
+
+    <View
+        android:id="@+id/vLine"
+        style="@style/C_Line"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel4" />
+
+    <TextView
+        android:id="@+id/tvSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/shape_order_stroke"
+        android:padding="4dp"
+        android:text="重新发送"
+        android:textColor="@color/common_red"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCheck"
+        app:layout_constraintEnd_toStartOf="@+id/tvCheck"
+        app:layout_constraintTop_toTopOf="@+id/tvCheck" />
+
+    <TextView
+        android:id="@+id/tvCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_solid_red"
+        android:padding="4dp"
+        android:text="查看报告"
+        android:textColor="#FFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vLine" />
+
+    <View
+        android:id="@+id/view32"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:background="#F0F2F5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="vLine,tvSend,tvCheck,tvLabel4,tvValue4" />
+</android.support.constraint.ConstraintLayout>

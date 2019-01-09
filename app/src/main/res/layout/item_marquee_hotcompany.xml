@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:descendantFocusability="blocksDescendants"
+              android:gravity="center_vertical"
+              android:minHeight="@dimen/item_list_min_height"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/hot_company_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="公司名称"
+        android:textColor="@color/list_title_text_color"
+        android:textSize="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <RatingBar
+            android:id="@+id/hot_company_rating"
+            style="@style/custom_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:isIndicator="true"
+            android:max="5"
+            android:numStars="5"
+            />
+
+        <TextView
+            android:id="@+id/hot_company_follow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:text="@string/people_follow"
+            android:textColor="@color/list_subtitle_text_color"/>
+    </LinearLayout>
+
+</LinearLayout>

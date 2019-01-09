@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/top_yuan"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout style="@style/C_122">
+
+            <ImageView
+                style="@style/C_123"
+                android:src="@drawable/img_phone" />
+
+            <EditText
+                android:id="@+id/etPhone"
+                style="@style/C_124"
+                android:inputType="number"
+                android:maxLength="11"
+                android:hint="输入手机号" />
+
+        </LinearLayout>
+
+        <View style="@style/C_Line" />
+
+        <LinearLayout style="@style/C_122">
+
+            <ImageView
+                style="@style/C_123"
+                android:src="@drawable/img_msg" />
+
+            <EditText
+                android:id="@+id/etCode"
+                style="@style/C_124"
+                android:maxLength="6"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="输入验证码" />
+
+            <TextView
+                android:id="@+id/vSendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_sendcode_bg"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                android:text="获取验证码"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <View style="@style/C_Line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:lineSpacingExtra="5dp"
+            android:text="填写手机号后，企信宝将同步您原有账号信息，为了避免账户的重要信息及财产丢失，请务必填写您原有注册手机号码。"
+            android:textColor="#FC7B2B"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/text_vip_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
+        android:text="您已是VIP包年用户，是否续费？"
+        android:textColor="#666"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_message"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <View style="@style/C_Line" />
+
+        <LinearLayout
+            android:id="@+id/layout_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/vCancel"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/selector_common_list"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="#999"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vSure"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/selector_common_list"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="确认"
+                android:textColor="#FC7B2B"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

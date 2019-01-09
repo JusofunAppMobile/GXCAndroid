@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minHeight="@dimen/item_list_min_height">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/follow_update_layout"
+        android:gravity="center_vertical"
+        android:minHeight="96dp">
+
+        <TextView
+            android:id="@+id/follow_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/list_title_text_color"
+            android:textSize="16dp"/>
+
+
+        <TextView
+            android:id="@+id/follow_legal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/follow_company_name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dip"
+            android:drawableLeft="@mipmap/legal_icon"
+            android:drawablePadding="5dip"
+            android:maxLength="12"
+            android:textColor="@color/color_text_gray"
+            android:textSize="13dp"
+            />
+
+        <TextView
+            android:id="@+id/follow_company_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/follow_company_name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dip"
+            android:paddingRight="15dp"
+            android:textColor="@color/color_text_gray"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/follow_update_layout"
+        android:layout_width="25dip"
+        android:layout_height="26dip"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/update_icon"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/update_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="1dip"
+            android:layout_marginTop="1dip"
+            android:text="新"
+            android:textColor="@color/white"
+            android:textSize="12dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

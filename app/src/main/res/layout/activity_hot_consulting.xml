@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/MyTheme.Layout.Root"
+    android:background="@color/white">
+    <com.jusfoun.jusfouninquire.ui.view.BackAndRightImageTitleView
+        android:id="@+id/hot_consulting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/drive_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"
+        />
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/list_hot_consulting"
+        android:listSelector="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:dividerHeight="1px"
+        android:divider="@android:color/transparent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

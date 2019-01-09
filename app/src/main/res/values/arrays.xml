@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="createtime_tag">
+        <item>不限</item>
+        <item>3年以内</item>
+        <item>3年-5年</item>
+        <item>5年-10年</item>
+        <item>10年以上</item>
+    </string-array>
+
+    <string-array name="createtime_value">
+        <item></item>
+        <item>,3</item>
+        <item>3,5</item>
+        <item>5,10</item>
+        <item>10,</item>
+    </string-array>
+
+    <!-- TODO:参数-->
+    <string-array name="register_fund">
+        <item>不限</item>
+        <item>50万以下</item>
+        <item>50万-100万</item>
+        <item>100万-500万</item>
+        <item>500万-1000万</item>
+        <item>1000万-5000万</item>
+        <item>5000万-1亿</item>
+        <item>1亿以上</item>
+    </string-array>
+
+    <string-array name="register_fund_value">
+        <item></item>
+        <item>,50</item>
+        <item>50,100</item>
+        <item>100,500</item>
+        <item>500,1000</item>
+        <item>1000,5000</item>
+        <item>5000,10000</item>
+        <item>10000,</item>
+    </string-array>
+
+
+    <string-array name="advanced_search_config">
+        <item>showname</item>
+        <item>showproduct</item>
+        <item>showlegal</item>
+        <item>showbusiness</item>
+        <item>showarea</item>
+        <item>showstreet</item>
+        <item>showoffice</item>
+        <item>showcapital</item>
+        <item>showtime</item>
+    </string-array>
+
+
+    <string-array name="income_tag">
+        <item>不限</item>
+        　　
+        <item>50亿以上</item>
+        　　
+        <item>10亿-50亿</item>
+        　　
+        <item>5亿-10亿</item>
+        　　
+        <item>3亿-5亿</item>
+        <item>1亿-3亿</item>
+        　　
+        <item>5000万-1亿</item>
+        <item>3000万-5000万</item>
+        <item>1000万-3000万</item>
+        <item>1000万以下</item>
+    </string-array>
+
+    <string-array name="income_value">
+        <item>""</item>
+        　　
+        <item>500000,</item>
+        　　
+        <item>100000,500000</item>
+        　　
+        <item>50000,100000</item>
+        　　
+        <item>30000,50000</item>
+        <item>10000,30000</item>
+        　　
+        <item>5000,10000</item>
+        <item>3000,5000</item>
+        <item>1000,3000</item>
+        <item>,1000</item>
+    </string-array>
+    <string-array name="sort_tag">
+        <item>默认排序</item>
+        <item>营收规模最大</item>
+        <item>资产规模最大</item>
+        <item>按距离排序</item>
+    </string-array>
+    <string-array name="sort_value">
+        <item></item>
+        <item>incomemoney</item>
+        <item>totalmoney</item>
+        <item>distance</item>
+    </string-array>
+
+    <string-array name="special_sort_tag">
+        <item>营收规模最大</item>
+        <item>资产规模最大</item>
+        <item>诉讼处罚最多</item>
+    </string-array>
+</resources>

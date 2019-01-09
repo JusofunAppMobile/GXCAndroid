@@ -1,0 +1,269 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        jusfoun {
+            keyAlias 'jusfoun'
+            keyPassword 'jusfoun'
+            storeFile file('keystore/jusfoun.keystore')
+            storePassword 'jusfoun'
+        }
+    }
+    compileSdkVersion 28
+//    buildToolsVersion '28.0.2'
+
+    defaultConfig {
+        applicationId "com.jusfoun.gxt"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 129
+        versionName "2.1.7"
+        ndk {
+            moduleName "jso" // 生成的so名字
+//            ldLibs.add("log")
+        }
+        multiDexEnabled true
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            //移除无用的资源文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.jusfoun
+            resValue "bool", "debug", "false"
+            resValue "string", "req_url", "https://api.jusfoun.com/api_qixinbao"
+            resValue "string", "http_host", "https://api.jusfoun.com/api_qixinbao"
+//            resValue "string", "req_url", "http://api.jusfoun.com/api_qixinbao"
+        }
+        debug {
+            signingConfig signingConfigs.jusfoun
+            resValue "bool", "debug", "true"
+            resValue "string", "req_url", "http://192.168.1.6:9981"
+            resValue "string", "http_host", "http://192.168.1.6:9981"
+//            resValue "string", "req_url", "https://qixinbaointranettest.jusfoun.com"
+
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+
+//        instrumentTest.setRoot('tests')
+//        debug.setRoot('build-types/debug')
+//        release.setRoot('build-types/release')
+    }
+
+    // 防止报错
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    useLibrary 'org.apache.http.legacy'
+
+    productFlavors {
+//        jusfoun {
+//        }
+//        '360_channel' {
+//
+//        }
+//        baidu {
+//        }
+//        '91zhushou' {
+//        }
+//        anzhuoshichang {
+//        }
+//        gfan {
+//
+//        }
+//        anzhi {
+//
+//        }
+//        xiaomi {
+//
+//        }
+//        myapp {
+//
+//        }
+//        wandoujia {
+//
+//        }
+//        appchina {
+//
+//        }
+//        huawei {
+//
+//        }
+//        samsung {
+//
+//        }
+//        meizu {
+//
+//        }
+//
+//        mumayi {
+//
+//        }
+//
+//        woshangdian {
+//
+//        }
+//        tianyikongjian {
+//
+//        }
+//        leshangdian {
+//
+//        }
+//        sougou {
+//
+//        }
+//        jinli {
+//
+//        }
+////
+//        vivo {
+//
+//        }
+//        oppo {
+//
+//        }
+//        kaiqi {
+//
+//        }
+//        liqu {
+//
+//        }
+//        aiqiyi {
+//
+//        }
+//
+//        haixin {
+//
+//        }
+//        'pc6' {
+//
+//        }
+//        anfeng {
+//
+//        }
+//        zol {
+//
+//        }
+//        tiankong {
+//
+//        }
+    }
+
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            output.processManifest.doLast {
+//                def manifestFile = output.processManifest.manifestOutputFile
+//                def updatedContent = manifestFile.getText('UTF-8').replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}")
+//                manifestFile.write(updatedContent, 'UTF-8')
+//            }
+//        }
+//    }
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+
+
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0-rc01'
+    implementation 'com.android.support:support-v4:28.0.0-rc01'
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.google.code.gson:gson:2.3.1'
+    implementation 'com.facebook.fresco:fresco:0.7.0'
+    implementation 'de.greenrobot:eventbus:2.4.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0-rc01'
+    implementation project(':library')
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    //    compile files('libs/SocialSDK_Sina.jar')
+    //    compile files('libs/SocialSDK_WeiXin_1.jar')
+    //    compile files('libs/SocialSDK_WeiXin_2.jar')
+    implementation files('libs/httpmime-4.1.3.jar')
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //    compile files('libs/time.jar')
+    //    compile files('libs/Baidu_Mtj_3.7.4.5.jar')
+    //    compile files('libs/libammsdk.jar')
+    //            {
+    //        exclude group: 'com.tencent.mm.sdk.openapi'
+    //    }
+    //    compile (files('libs/wechat-sdk-android-with-mta-1.0.2.jar')) {
+    //            exclude group: 'com.tencent'
+    //        }
+
+    implementation files('libs/alipaySdk-20170922.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    //    compile files('libs/baidumapapi_base_v3_6_1.jar')
+    //    compile files('libs/baidumapapi_map_v3_6_1.jar')
+    implementation files('libs/Baidu_Mtj_3.8.1.1.jar')
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation('com.github.hotchemi:permissionsdispatcher:3.1.0@aar') {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
+//    compile(name: 'mylibrary-release', ext: 'aar')
+    implementation files('libs/classes.jar')
+
+    ///////////////////////////////////////////////
+    //   retrofit
+    implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.5'
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    //   logger
+    implementation 'com.orhanobut:logger:2.1.1'
+    //   BottomNavigation
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.5'
+    //   butterknife
+    implementation 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //   BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
+    // constraint
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    implementation 'com.android.support:multidex:1.0.3'
+    //   glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    //  AgentWeb
+    implementation 'com.just.agentweb:agentweb:4.0.2'
+    // PictureSelector，包含 ucrop
+    implementation 'top.zibin:Luban:1.1.8'
+    implementation('com.github.LuckSiege.PictureSelector:picture_library:v2.2.3') {
+        exclude group: 'com.github.bumptech.glide'
+    }
+    // ViewPagerIndicator
+    implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+}

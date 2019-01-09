@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/background_color"
+    skin:enable="true"
+    >
+
+    <com.jusfoun.bigdata.BackAndRightTitleViewNew
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <WebView
+        android:id="@+id/aboutwebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleView"
+        android:visibility="gone"
+        />
+    
+	<RelativeLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/titleView"
+        android:background="@color/background_color"
+        skin:enable="true"
+        android:visibility="gone"
+         >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/tempView"
+            android:src="@drawable/error_image"
+            android:layout_marginBottom="10dp"
+            />
+        
+        <View 
+            android:id="@+id/tempView"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/background_color"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tempView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="页面出错了，请稍候再试"
+            android:textSize="16dp"
+             />
+    </RelativeLayout>
+</RelativeLayout>

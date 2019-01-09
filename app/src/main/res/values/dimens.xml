@@ -1,0 +1,113 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- activity title height -->
+    <dimen name="height_top_bar">48dp</dimen>
+    <dimen name="top_bar_center_text_size">18dp</dimen>
+
+    <dimen name="textsize_select">16sp</dimen>
+    <dimen name="textsize_normal">14sp</dimen>
+
+    <dimen name="fragment_common_list_smart_tab_padding">20dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_indicator_height">2dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_indicator_radius">2dp</dimen>
+
+    <!-- 加载框 -->
+    <dimen name="default_progress_bar_width">100.0dip</dimen>
+    <dimen name="default_progress_bar_height">100.0dip</dimen>
+
+    <!--scroll下拉刷新-->
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+    <integer name="card_flip_time_full">200</integer>
+    <integer name="card_flip_time_half">200</integer>
+
+
+    <!--高级搜索输入条件高度-->
+    <integer name="advanced_search_condition_height">48</integer>
+    <integer name="advanced_search_condition_margin">20</integer>
+
+    <dimen name="relative_layout_height">50dp</dimen>
+    <dimen name="padding_margin_left_or_right">10dp</dimen>
+
+    <dimen name="title_view_height">48dp</dimen>
+    <dimen name="title_view_center_textsize">18dp</dimen>
+    <dimen name="title_view_right_textsize">16dp</dimen>
+
+    <dimen name="button_margin_left_right">32dp</dimen>
+    <dimen name="head_image_size">102dp</dimen><!--头像的大小-->
+
+    <!--对话框-->
+    <dimen name="bg_radius_dialog">4dp</dimen>
+
+    <!-- listview高度 -->
+    <dimen name="item_list_min_height">90dp</dimen>
+
+    <dimen name="tab_text_size">16sp</dimen>
+    <dimen name="tab_text_size_select">16sp</dimen>
+
+
+
+
+
+
+
+    <dimen name="titleView_height">48dp</dimen>
+    <dimen name="title_right_textsize">16dp</dimen>
+    <dimen name="title_center_textsize">18dp</dimen>
+
+    <dimen name="left_padding_or_margin">13dp</dimen>
+    <dimen name="right_padding_or_margin">10dp</dimen>
+
+
+    <!-- textchooseview 文字大小-->
+    <dimen name="textchoose_textsize">15dp</dimen>
+
+
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="textandiconmargin">10dp</dimen>
+
+    <dimen name="loading_width">160dp</dimen>
+    <dimen name="loading_height">160dp</dimen>
+
+    <!--#############################################################  BottomNavigationBar ##################################################################-->
+    <!--所有dimen参数设置 https://github.com/Ashok-Varma/BottomNavigation/blob/master/bottom-navigation-bar/src/main/res/values/dimens.xml-->
+
+    <!--文字距离底部的高度-->
+    <dimen name="fixed_height_bottom_padding">4dp</dimen>
+
+    <!--图片距离顶部高度，大小不一致就会有动画-->
+    <dimen name="fixed_height_top_padding_inactive">0dp</dimen>
+    <dimen name="fixed_height_top_padding_active">0dp</dimen>
+
+    <!--文字大小，大小不一致就会有动画-->
+    <dimen name="fixed_label_active">12sp</dimen>
+    <dimen name="fixed_label_inactive">10sp</dimen>
+    <!--第一次从 fixed_label_inactive 的大小 到  fixed_label_active 大小 的 过度比例，默认为0.857-->
+    <item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">1.00</item>
+
+    <!--图标的大小-->
+    <dimen name="fixed_icon_grid">20dp</dimen>
+
+    <!--顶部横线阴影高度-->
+    <dimen name="bottom_navigation_elevation">4dp</dimen>
+
+    <!--导航栏的高度-->
+    <dimen name="bottom_navigation_height">50dp</dimen>
+    <dimen name="fixed_height">50dp</dimen>
+
+
+    <!--标记相关设置：字体、宽高边距-->
+    <dimen name="badge_text_size">10sp</dimen>
+    <dimen name="badge_height_padding">2dp</dimen>
+    <dimen name="badge_width_padding">4dp</dimen>
+    <!--#############################################################  BottomNavigationBar ##################################################################-->
+
+
+    <dimen name="item_image_empty">48dp</dimen>
+</resources>

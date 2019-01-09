@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/C_118">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="#333"
+                android:textSize="16sp" />
+
+            <LinearLayout style="@style/C_109">
+
+                <TextView
+                    style="@style/C_116_2"
+                    android:text="所属地区：" />
+
+                <TextView
+                    android:id="@+id/tvArea"
+                    style="@style/C_117" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/C_109">
+
+                <TextView
+                    style="@style/C_116_2"
+                    android:text="发布日期：" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    style="@style/C_117" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/C_109"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    style="@style/C_116_2"
+                    android:text="项目分类：" />
+
+                <TextView
+                    android:id="@+id/tvType"
+                    style="@style/C_117"
+                    android:textColor="#1E9EFB" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView style="@style/C_119" />
+
+    </RelativeLayout>
+
+</LinearLayout>

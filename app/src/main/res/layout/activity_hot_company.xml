@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_height="match_parent">
+
+    <com.jusfoun.jusfouninquire.ui.view.TitleView
+        android:id="@+id/title_hot_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/drive_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"
+        />
+
+    <include
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/net_work_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone" />
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/list_hot_company"
+        android:listSelector="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:dividerHeight="1px"
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

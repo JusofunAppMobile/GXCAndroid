@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroudcolor"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <com.jusfoun.jusfouninquire.ui.view.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        style="@style/C_Line"
+        android:layout_marginTop="10dp" />
+
+    <com.jusfoun.jusfouninquire.ui.widget.DisableMenuEditText
+        android:id="@+id/feekback_contact"
+        android:layout_width="match_parent"
+        android:layout_height="244dip"
+        android:layout_below="@+id/line2"
+        android:background="@color/white"
+        android:gravity="top|left"
+        android:hint="请输入您的意见或建议"
+        android:longClickable="false"
+        android:maxLength="2000"
+        android:padding="10dip"
+        android:textColor="@color/edit_text_color"
+        android:textColorHint="#999999"
+        android:textCursorDrawable="@drawable/shape_cursor"
+        android:textSize="16dp" />
+
+
+    <com.jusfoun.jusfouninquire.ui.widget.DisableMenuEditText
+        android:id="@+id/contact_person"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/relative_layout_height"
+        android:layout_below="@+id/line4"
+        android:background="@color/white"
+        android:hint="您的联系电话"
+        android:inputType="phone"
+        android:longClickable="false"
+        android:paddingLeft="10dip"
+        android:singleLine="true"
+        android:textColor="@color/edit_text_color"
+        android:textColorHint="@color/eidt_hint_textcolor"
+        android:textSize="16dp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/submitFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_person"
+        android:layout_marginLeft="32dip"
+        android:layout_marginRight="32dip"
+        android:layout_marginTop="50dip"
+        android:background="@mipmap/button"
+        android:text="提交"
+        android:textColor="@color/button_text_color"
+        android:textSize="16dp"
+        android:visibility="gone" />
+
+
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/C_118">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/C_109">
+
+                <TextView
+                    style="@style/C_116"
+                    android:text="决定书文号：" />
+
+                <TextView
+                    android:id="@+id/tvWriter"
+                    style="@style/C_117" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/C_109">
+
+                <TextView
+                    style="@style/C_116"
+                    android:text="违法行为类型：" />
+
+                <TextView
+                    android:id="@+id/tvType"
+                    style="@style/C_117" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/C_109"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    style="@style/C_116"
+                    android:text="处罚决定日期：" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    style="@style/C_117" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView style="@style/C_119" />
+
+    </RelativeLayout>
+
+</LinearLayout>

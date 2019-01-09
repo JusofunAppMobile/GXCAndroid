@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/height_top_bar"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
+    <TextView
+        android:id="@+id/title_left_image_company"
+        android:layout_width="30dip"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@mipmap/back_image"
+        android:gravity="center_vertical"
+        />
+
+    <LinearLayout
+        android:id="@+id/title_right_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        >
+        <!--<TextView
+            android:id="@+id/title_one_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/company_amend"
+            android:layout_centerVertical="true"
+
+            android:textSize="11sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/color_text_yellow"
+            />-->
+        <TextView
+            android:id="@+id/title_one_company"
+            android:gravity="center"
+            android:textColor="@color/color_text_yellow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/company_amend"
+            android:singleLine="true"
+            android:paddingRight="5dip"
+            android:paddingLeft="5dip"
+            android:text="纠错"/>
+
+        <TextView
+            android:id="@+id/title_two_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/phone"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:id="@+id/title_three_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/share"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

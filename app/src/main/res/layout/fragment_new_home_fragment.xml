@@ -1,0 +1,225 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg_xiala" />
+
+    <in.srain.cube.views.ptr.PtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        cube_ptr:ptr_duration_to_close="50"
+        cube_ptr:ptr_duration_to_close_header="10000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.0"
+        cube_ptr:ptr_resistance="1.7">
+
+        <com.jusfoun.jusfouninquire.ui.view.CustomScrollView
+            android:id="@+id/scrollview"
+            style="@style/dislodge_scroll_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:clickable="true"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_top_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="167dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/backfirst" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/vSearchParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/search"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:background="@drawable/img_home_search"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="40dp"
+                        android:singleLine="true"
+                        android:text="@string/common_search_hint"
+                        android:textColor="#999999"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="44dp"
+                        android:src="@mipmap/sercher" />
+                </RelativeLayout>
+
+                <com.jusfoun.jusfouninquire.ui.view.HomeIconView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_bg_line" />
+
+                <include layout="@layout/item_layout_recent_change" />
+
+                <com.jusfoun.jusfouninquire.ui.view.HomeHotListView
+                    android:id="@+id/view_home_hot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:scrollbars="none"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/color_bg_line" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="13dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/img_icon_flag_hot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/img_home_biaoqian" />
+
+                    <TextView
+                        android:id="@+id/text_hot_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/img_icon_flag_hot"
+                        android:gravity="center|left"
+                        android:paddingRight="10dp"
+                        android:text="新增企业"
+                        android:textColor="#1f2423"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:id="@+id/img_new_add_more"
+                        style="@style/C_More"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
+                <com.jusfoun.jusfouninquire.ui.view.PropagandaView.RollPagerView
+                    android:id="@+id/roll_view_pager1"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    app:rollviewpager_play_delay="3000" />
+            </LinearLayout>
+
+        </com.jusfoun.jusfouninquire.ui.view.CustomScrollView>
+
+    </in.srain.cube.views.ptr.PtrFrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_home_jianbian_titlebar"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:id="@+id/search_titile_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/vTopSearch"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/shape_title_input2"
+                android:clickable="true"
+                android:drawablePadding="5dp"
+                android:gravity="center|left"
+                android:paddingLeft="20dp"
+                android:text="@string/common_search_hint"
+                android:textColor="#999999"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="70dp"
+                android:src="@mipmap/sercher" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/net_work_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
+</RelativeLayout>

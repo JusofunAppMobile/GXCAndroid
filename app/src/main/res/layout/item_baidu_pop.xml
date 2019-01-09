@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top"
+        android:background="@mipmap/company_location_red"
+        android:drawableTop="@mipmap/company_location_arrows"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:text="导航"
+        android:textColor="@color/white"
+        android:visibility="invisible"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/company_location">
+            <TextView
+                android:id="@+id/company_name_seconde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="170dp"
+                android:gravity="center"
+                android:textSize="12dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="170dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_centerInParent="true"
+            android:paddingBottom="5dp"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top"
+        android:layout_marginLeft="-1dp"
+        android:background="@mipmap/company_location_red"
+        android:drawableTop="@mipmap/company_location_arrows"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:text="导航"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

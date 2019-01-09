@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/top_yuan"
+    >
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp"
+        android:text="提示"
+        android:textColor="@android:color/black"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/text_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_title"
+        android:background="#fcfcfc"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dip"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/edit_text_color"
+        />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_message"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color"
+             />
+
+        <LinearLayout
+            android:id="@+id/layout_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" >
+
+            <TextView
+                android:id="@+id/btn_center"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="取消"
+                android:textSize="16dp"
+                android:textColor="@color/edit_text_color"
+                android:gravity="center"
+                />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/line_color"
+                />
+
+            <TextView
+                android:id="@+id/btn_right"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="确定"
+                android:textSize="16dp"
+                android:textColor="@color/edit_text_color"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_one"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="确定"
+            android:textSize="16dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#26c080"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="9dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="9dp">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_back_write" />
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="28dp"
+            android:layout_weight="1"
+            android:background="@drawable/dishones_search_edit"
+            android:drawableLeft="@mipmap/sercher"
+            android:paddingLeft="12dp"
+            android:paddingRight="10dp"
+            android:textColor="#343434"
+            android:textSize="13dp"
+            android:hint="请输入涉诉人名称或证件号"
+            />
+       <!--android:drawableRight="@mipmap/close_down"-->
+    </LinearLayout>
+
+    <com.jusfoun.jusfouninquire.ui.view.SearchScopeView
+        android:id="@+id/dishonest_search_scope_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/layout_search"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/dishonest_search_scope_view"
+        android:background="@color/line_color" />
+
+    <ListView
+        android:id="@+id/dishonest_scope_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider_line"
+        android:visibility="gone">
+
+    </ListView>
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/search_dishonest_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/dishonest_search_scope_view"
+        android:footerDividersEnabled="false"
+        android:visibility="gone">
+
+    </com.jusfoun.jusfouninquire.ui.view.XListView>
+
+    <RelativeLayout
+        android:id="@+id/search_none_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/dishonest_search_scope_view"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/not_found_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp"
+            android:paddingTop="35dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/not_found" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="6dp"
+                android:text="没找到信息？试试以下方式..." />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/optmise_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/not_found_layout"
+            android:paddingTop="10dp"
+            android:src="@mipmap/optmise" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/optmise_image"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="14dp"
+            android:text="看一看如何优化搜索词"
+            android:textColor="@color/search_table_background" />
+    </RelativeLayout>
+
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/net_work_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/image_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/dishonest_search_scope_view"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_frame"
+            android:layout_width="@dimen/loading_width"
+            android:layout_height="@dimen/loading_height"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/image_frame"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/load_data_warn_str" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/note_text"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f1f4f4"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/dishonest_notice"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:id="@+id/text_q"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="  数据来源：全国法院信息公示系统，仅供参考"
+            android:textSize="12dp"
+            android:textColor="#999999"
+
+            />
+    </LinearLayout>
+
+</RelativeLayout>

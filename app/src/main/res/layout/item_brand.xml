@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <LinearLayout
+        android:id="@+id/vContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/img_item_bg_chashuihao"
+        android:gravity="center_vertical"
+        android:padding="15dp">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivIcon"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_margin="15dp"
+            app:failureImage="@mipmap/img_brand_def"
+            app:failureImageScaleType="centerCrop"
+            app:placeholderImage="@mipmap/img_brand_def"
+            app:placeholderImageScaleType="centerCrop"
+            app:progressBarImage="@mipmap/img_brand_def"
+            app:progressBarImageScaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/C_3">
+
+                <TextView
+                    style="@style/C_1"
+                    android:text="商标名称：" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/C_2"
+                    android:text="36-金融物管" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/C_3">
+
+                <TextView
+                    style="@style/C_1"
+                    android:text="商标状态：" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    style="@style/C_2"
+                    android:text="36-金融物管" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/C_3">
+
+                <TextView
+                    style="@style/C_1"
+                    android:text="商标类型：" />
+
+                <TextView
+                    android:id="@+id/tvType"
+                    style="@style/C_2"
+                    android:text="36-金融物管" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/img_right_arrow" />
+
+
+    </LinearLayout>
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="8dp"-->
+    <!--android:layout_below="@+id/vContent"-->
+    <!--android:background="#F6F5F4" />-->
+</RelativeLayout>

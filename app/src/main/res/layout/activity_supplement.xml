@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.jusfoun.jusfouninquire.ui.view.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/titleView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/headImageView"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dip"
+                fresco:actualImageScaleType="focusCrop"
+                fresco:failureImage="@mipmap/default_head_image"
+                fresco:placeholderImage="@mipmap/default_head_image"
+                fresco:roundAsCircle="true"
+                fresco:roundedCornerRadius="180dp" />
+
+
+            <LinearLayout
+                android:id="@+id/phone_number_bind_layout"
+                style="@style/C_107"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/my_BindphoneNumText"
+                    style="@style/C_106"
+                    android:layout_width="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/bindText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#1E9EFB"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View style="@style/C_Reg_Line" />
+
+            <LinearLayout
+                android:id="@+id/inputPwd_layout"
+                style="@style/C_107"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/my_inputPwdText"
+                    style="@style/C_106"
+                    android:hint="输入密码"
+                    android:inputType="textPassword" />
+
+            </LinearLayout>
+
+            <View style="@style/C_Reg_Line" />
+
+            <LinearLayout
+                android:id="@+id/my_name_layout"
+                style="@style/C_107"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/my_nameText"
+                    style="@style/C_106"
+                    android:hint="请输入姓名"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <View style="@style/C_Reg_Line" />
+
+            <LinearLayout
+                android:id="@+id/my_company_layout"
+                style="@style/C_107"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/my_company_Text"
+                    style="@style/C_106"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="输入公司名"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <View style="@style/C_Reg_Line" />
+
+            <LinearLayout
+                style="@style/C_107"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/my_job_Text"
+                    style="@style/C_106"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="请选择职业"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <View style="@style/C_Reg_Line" />
+
+            <Button
+                android:id="@+id/registerBtn"
+                style="@style/C_Common_Bt"
+                android:layout_marginBottom="35.35dp"
+                android:layout_marginTop="35.5dp"
+                android:text="确认" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

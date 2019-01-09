@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.jusfoun.jusfouninquire.ui.view.BackAndRightImageTitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/gl_company_list"
+        style="@style/xlistview_style"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_company_layout"
+        android:background="#fff"
+        android:descendantFocusability="blocksDescendants"
+        android:dividerHeight="1px" />
+
+    <RelativeLayout
+        android:id="@+id/emptylayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_company_layout"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/fail_data_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dip"
+            android:gravity="center"
+            android:padding="15dip"
+            android:text="输入所要查找的公司名称"
+            android:textColor="#999999"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/search_company_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_view_height"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/cencel"
+                style="@style/C_Back_Black" />
+
+            <RelativeLayout
+                android:id="@+id/search_title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:layout_toRightOf="@id/cencel"
+                android:background="@drawable/search_title_background">
+
+                <ImageView
+                    android:id="@+id/search_pre_image"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/sercher" />
+
+                <EditText
+                    android:id="@+id/query_company_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="10dp"
+                    android:textColor="#999999"
+                    android:hint="请输入企业名称"
+                    android:textCursorDrawable="@drawable/shape_cursor"
+                    android:textSize="12dp" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/C_Line"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

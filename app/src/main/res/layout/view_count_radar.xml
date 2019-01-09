@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_radar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp">
+
+    <ImageView
+        android:id="@+id/img_radar1"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+     />
+
+    <ImageView
+        android:id="@+id/img_radar2"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+       />
+
+    <ImageView
+        android:id="@+id/img_radar3"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_radar4"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_radar5"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_radar6"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_radar7"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_radar8"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_radar9"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/img_radar10"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/img_radar11"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/img_radar12"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/img_radar13"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"/>
+
+
+</LinearLayout>

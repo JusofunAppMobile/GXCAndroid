@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    skin:enable="true"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/error_image"
+        android:layout_above="@+id/tempView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dip"
+        skin:enable="true"
+        />
+
+    <View
+        android:id="@+id/tempView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_centerVertical="true"
+        android:background="@color/background_color"
+        skin:enable="true"
+        />
+    <TextView
+        android:id="@+id/failedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/register_login_neterror"
+        android:layout_below="@+id/tempView2"
+        android:layout_marginTop="10dip"
+        skin:enable="true"
+        />
+
+</RelativeLayout>

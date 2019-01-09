@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    >
+    <RelativeLayout
+        android:id="@+id/outLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <ListView
+            android:id="@+id/famousCompanyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:layout_above="@+id/list_line"
+            />
+        <View
+            android:id="@+id/list_line"
+            android:layout_width="match_parent"
+            android:layout_height="10dip"
+            android:layout_above="@+id/cancelBtn"
+            skin:enable="true"
+            />
+
+        <TextView
+            android:id="@+id/cancelBtn"
+            android:text="取消"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/choosetextvalue_tag"
+            skin:enable="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/img_sele" android:state_selected="true" />
+    <item>
+        <shape>
+            <solid android:color="#00000000" />
+            <stroke android:width="0.5dp" android:color="#C8C8C8" />
+        </shape>
+    </item>
+
+</selector>

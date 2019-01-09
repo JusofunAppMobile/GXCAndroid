@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.jusfoun.jusfouninquire.ui.view.SearchScopeView
+        android:id="@+id/legal_search_scope_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        />
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/legal_search_scope_view"
+        android:background="@color/line_color"
+        />
+
+    <ListView
+        android:id="@+id/legal_scope_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider_line"
+        android:visibility="gone"
+        >
+
+    </ListView>
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/search_legal_shareholder_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/legal_search_scope_view"
+        android:footerDividersEnabled="false"
+        android:visibility="gone"
+        >
+
+    </com.jusfoun.jusfouninquire.ui.view.XListView>
+
+    <RelativeLayout
+        android:id="@+id/search_none_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/legal_search_scope_view"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:id="@+id/not_found_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="35dp"
+            android:paddingBottom="16dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/not_found"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没找到信息？试试以下方式..."
+                android:paddingLeft="6dp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/optmise_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/not_found_layout"
+            android:src="@mipmap/optmise"
+            android:paddingTop="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/optmise_image"
+            android:paddingTop="14dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:gravity="center"
+            android:text="看一看如何优化搜索词"
+            android:textColor="@color/search_table_background"
+            />
+    </RelativeLayout>
+
+
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/net_work_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+    <RelativeLayout
+        android:id="@+id/image_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/legal_search_scope_view"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:id="@+id/image_frame"
+            android:layout_width="@dimen/loading_width"
+            android:layout_height="@dimen/loading_height"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/image_frame"
+            android:text="@string/load_data_warn_str"
+            android:gravity="center"
+            android:padding="10dp"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

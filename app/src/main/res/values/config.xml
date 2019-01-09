@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 用来放置一些控制类 string 资源  如：url  debug -->
+<resources>
+
+    <string name="wx_appid">wx564790f4b9d02d6b</string>
+    <string name="wx_appSecret">d4624c36b6795d1d99dcf0547af5443d</string>
+
+    <string name="search_tip_url">/Html/tip.html</string>
+    <string name="optmise_searchkey_url">/Html/optimize.html</string>
+    <string name="faq_url">Html/cjwt.html</string>
+
+    <string name="all_net_search_url">/Html/AIC_search.html</string>//工商查询，即：全网搜索
+
+    <!--旧的百度统计key已弃用-->
+    <string name="baidu_statistics_key">7jHpGvM2Gh4iHQ9FPGxVUjltmDzc92CF</string>
+    <!--新的百度统计key-->
+    <string name="baidu_statistics_key_new">01d6b5d1f5</string>
+
+    <string name="baidu_appid">7546249</string>
+    <string name="baidu_appkey">7jHpGvM2Gh4iHQ9FPGxVUjltmDzc92CF</string>
+
+    <string name="sina_appid">135919882</string>
+    <string name="sina_appSecret">b2fa4118714fb42e610baf83b2da134a</string>
+
+
+</resources>

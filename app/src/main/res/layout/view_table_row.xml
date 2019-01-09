@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/C_125"
+        android:layout_weight="1"
+        android:textColor="#333"
+        />
+
+    <TextView
+        android:id="@+id/time"
+        style="@style/C_125"
+        android:textColor="#333"
+        />
+
+    <TextView
+        android:id="@+id/phone"
+        style="@style/C_125"
+        android:textColor="#1E9EFB"
+         />
+
+</TableRow>

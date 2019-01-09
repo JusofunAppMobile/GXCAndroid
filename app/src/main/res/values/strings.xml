@@ -1,0 +1,197 @@
+<resources>
+    <string name="app_name">国信查</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="demo_min_label">""</string>
+    <string name="demo_max_label">""</string>
+    <string name="load_data_warn_str">数据加载中\u2026</string>
+
+    <string name="jpush_key">883bd9b69d39ef53d379c1cf</string>
+    <string name="baidu_map_key">hTTjvMfupQWy1e8GZOFcFTqY</string>
+    <string name="umeng_key">56494900e0f55a30ee00388d</string>
+
+    <string name="saving_image">保存图片</string>
+    <string name="preparing_card">存储卡准备中</string>
+    <string name="no_storage_card">没有发现存储卡</string>
+    <string name="not_enough_space">没有足够的空间保存图片</string>
+    <string name="refreshing">正在刷新数据中...</string>
+
+    <!-- listview 上拉加载下拉刷新 -->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="search_history">搜索记录</string>
+    <string name="my_focuses">我的关注</string>
+    <string name="industry">企业</string>
+    <string name="legal_shareholder">法人/股东</string>
+    <string name="dishonest">失信</string>
+    <string name="clearHistory">清空搜索记录</string>
+    <string name="search_scope_prefix">搜索范围：</string>
+    <string name="manually_search_submit">提交</string>
+    <string name="manually_search_content">我们会收集您提交的请求，并在3~5个工作日内给你回复</string>
+    <string name="manually_search_phone">您的联系电话：</string>
+    <string name="advanced_search_condition_unlimited">不限</string>
+    <string name="advanced_search_condition_prefix">请在下方输入检索条件</string>
+    <string name="advanced_search_condition_company_name">输入公司名</string>
+    <string name="advanced_search_condition_company_products">输入公司主营产品服务</string>
+    <string name="advanced_search_condition_company_legal">输入企业法人/股东</string>
+    <string name="advanced_search_condition_industry_type">行业类型</string>
+    <string name="advanced_search_condition_area">区域选择</string>
+    <string name="advanced_search_condition_street">输入公司所在街道</string>
+    <string name="advanced_search_condition_building">输入公司所在写字楼</string>
+    <string name="advanced_search_condition_registered_fund">注册资金</string>
+    <string name="advanced_search_condition_registered_time">注册时间</string>
+    <string name="industry_search">企业查询</string>
+    <string name="legal">法人：</string>
+    <string name="company_status">企业状态：</string>
+
+    <string name="select_province">试一试，明确省份增加查找效率</string>
+    <string name="switch_province">没找到？换个省份试一试</string>
+    <string name="searched_too_many">结果过多，明确省份增加查找效率</string>
+    <string name="no_search_history">试试在上面的搜索框中输入你要搜索的企业名字，例如“创动蓝枫科技”</string>
+    <string name="search_tip_first">输入的公司名称越精确，查找到的结果越精确</string>
+    <string name="search_tip_second">如果找到多个符合条件的企业，确定企业所在城市会有助于找到你需要的信息</string>
+    <string name="search_tip_third">如果知道更详细的企业信息，也可以尝试高级查询，也可以联系我们人工查找</string>
+
+    <string name="search_none_tip_first">换个具体省份试一试？</string>
+    <string name="search_none_tip_first_post">明确的省份能大幅度增加找到的机会</string>
+    <string name="search_none_tip_second">试试多条件组合的高级检索</string>
+    <string name="search_none_tip_third">看一看如何优化搜索词</string>
+    <string name="search_none_tip_forth">提交协助查询</string>
+
+    <string name="search_append_advanced">试试多条件组合的高级检索</string>
+    <string name="search_append_manual">试试提交协助查询</string>
+    <string name="search_append_optmise">看看如何优化关键词</string>
+    <string name="all_internet_search">试试全网查找</string>
+
+    <string name="home_search_legal">请输入法定代表人或股东名</string>
+    <string name="home_search_dishonest">请输入涉诉人名称或证件号</string>
+
+    <string name="unlogin_status">您还没有登录</string>
+    <string name="unlogin_tip">登录后我们将保存您所关注的企业，并在企业信息更新时，为您推送消息</string>
+    <string name="no_focus_text">您可以在企业详情页点击关注按钮来关注企业，被关注企业信息一旦发生变化，我们会第一时间发消息通知您</string>
+
+    <string name="company_follow">关注</string>
+    <string name="register_num">注册号</string>
+    <string name="people_follow">人关注</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+
+    <!-- 设置页分享文本 -->
+    <string name="share_content_setting">几千万家企业工商信息、法人信息、失信信息 一次查询全掌握。关注企业更可随时了解企业信息变化。</string>
+    <string name="share_title_setting">企信宝 - 最权威企业信用查询工具</string>
+    <string name="share_url_seting">http://a.app.qq.com/o/simple.jsp?pkgname=com.jusfoun.jusfouninquire</string>
+
+    <!-- 公司详情页分享文本 -->
+    <string name="share_content_company">查询公司：</string>
+    <string name="share_title_company">企信宝 - 最权威企业信用查询工具</string>
+    <string name="share_url_company">http://www.baidu.com</string>
+
+    <!-- scroll下拉刷新-->
+    <string name="pull_to_refresh_pull_label">下拉刷新…</string>
+    <string name="pull_to_refresh_release_label">放开以刷新…</string>
+    <string name="pull_to_refresh_refreshing_label">正在载入…</string>
+
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+
+    <!--调用外部地图-->
+    <string name="no_map_app">抱歉，没有检测到地图应用</string>
+    <string name="map_baidu_url"><![CDATA[intent://map/direction?origin=latlng:%1$s|name:我的位置&destination=latlng:%2$s|name=%3$s
+    &mode=driving&src=九次方&&zoom=17#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end]]></string>
+    <string name="map_auto_url"><![CDATA[androidamap://route?sourceApplication=九次方
+    &slat=%1$s&slon=%2$s&sname=我的位置&dlat=%3$s&dlon=%4$s&dname=d%5$s&dev=0&m=0&t=2]]></string>
+    <string name="map_tencent_url"><![CDATA[sosomap://map/routeplan?type=drive&from=我的位置&fromcoord=%1$s
+    &to=%2$s&tocoord=%3$s&referer=九次方]]></string>
+    <string name="map_google_url"><![CDATA[http://ditu.google.cn/maps?f=d&source=s_d&saddr=%1$s&daddr=%2$s&hl=zh]]></string>
+
+    <!--失信榜单列表-->
+    <string name="dishonesty_url">/Html/MonthlyTitle.html</string>
+
+    <!--企业图谱-->
+    <string name="shareholder">股东</string>
+    <string name="investment">投资</string>
+
+    <string name="feedback_contact_max">字数超过最大限制</string>
+    <string name="reminder_company_update_text">企业数据不断更新中</string>
+
+
+    <string name="net_error">连接失败，请检查网络设置</string>
+
+
+
+    <!-- 下载 -->
+    <string name="download_title">应用更新</string>
+    <string name="download_fail">请检查网络设置并重新下载</string>
+    <string name="download_progress">已下载{0}%,下载速度为{1}k/s</string>
+
+    <string name="intro_share">企信宝是国内最大的企业数据查询服务平台。 内含几千万企业信息数据。可在登录后，添加关注，确保第一时间收到企业信息变化通知。</string>
+
+
+    <!--企信宝2.0版本搜索相关-->
+    <string name="search_history_title">历史搜索</string>
+    <string name="search_history_clear">清除</string>
+    <string name="hot_search">热门搜索</string>
+    <string name="focus_sort">默认排序</string>
+    <string name="fund_sort">注册资金</string>
+    <string name="time_sort">注册时间</string>
+    <string name="common_search_hint">请输入企业名称、人名、品牌等关键字</string>
+    <string name="type_search_hint">请输入主营产品服务、商标名称等</string>
+    <string name="type_search_product">请输入主营产品服务</string>
+    <string name="type_search_shareholder">请输入股东法人姓名</string>
+    <string name="type_search_address">请输入企业地址或电话</string>
+    <string name="type_search_internet">请输入企业网址</string>
+    <string name="type_search_dishonest">请输入涉诉人、证件号或企业名称</string>
+    <string name="type_search_taxid">请输入企业名称或统一信用代码</string>
+    <string name="type_search_zhaopin">请输入企业名称</string>
+    <string name="type_search_contact">请输入企业名称</string>
+
+    <string name="search_cancel">取消</string>
+
+    <string name="search_result_none">没有相关数据</string>
+    <string name="search_result_back">返回</string>
+    <string name="search_result_filter">筛选</string>
+    
+    <string name="search_whole_net"><![CDATA[/Html/AIC_search.html?Province=%1$s&text=%2$s&appType=0&version=%3$s]]></string>
+
+
+
+
+
+    <!-- 附近 -->
+    <string name="title_map">精准营销</string>
+    <!--<string name="title_map">附近企业</string>-->
+    <string name="title_list">附近企业</string>
+
+    <string name="register_login_neterror">连接失败，请检查你的网络设置</string>
+
+    <string name="listview_header_hint_normal">下拉刷新</string>
+    <string name="listview_header_hint_release">释放立即刷新</string>
+    <string name="listview_loading">正在加载...</string>
+    <string name="nomore_loading">没有了</string>
+    <string name="refresh_done">刷新完成</string>
+    <string name="listview_header_last_time">上次更新时间：</string>
+
+    <string name="find_for_you">为您找到%1$s家企业</string>
+
+    <!--连续点击退出应用-->
+    <string name="doublExitApp">再按一次退出程序</string>
+
+
+    <string name="text_img_carme_tip">仅支持JPG、JPEG、和PNG格式，大小不超过5兆。文字应清晰可辩。企业名称必须与您填写的名称一致。</string>
+    <string name="text_img_carme_top_identity">仅支持JPG、JPEG、和PNG格式，大小不超过5兆。请手持身份证进行拍照</string>
+    <string name="text_credit_report_biaozhun">报告内容包括：\n1.基本工商、股东、司法风险信息\n2.知识产权、经营状况及企业年报信息</string>
+    <string name="text_credit_report_zhuanye">1.主要人员详细信息\n2.疑似实际股权控制路径\n3.企业联系方式\n4.注册资本组成部分</string>
+
+
+    <string name="relation_tip">请分别添加2个公司或个人\n再点击“查关系”发现关系</string>
+    <string name="risk_tip">对企业及关联企业全方位风险监控\n可实时或定时推送至邮箱、手机</string>
+
+
+
+</resources>

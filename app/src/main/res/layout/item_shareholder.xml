@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_shareholder"
+    android:layout_margin="4dp"
+    android:paddingLeft="8dp"
+    android:paddingTop="8dp"
+    android:paddingRight="45dp"
+    android:paddingBottom="8dp"
+    android:elevation="4dp">
+
+
+    <TextView
+        android:id="@+id/text_img"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/bg_shareholder_name"
+        android:gravity="center"
+        android:text="赵"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="赵亚鹏"
+        android:textColor="#333"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/text_img"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="大股东"
+        android:textColor="#df282d"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_img"
+        app:layout_constraintStart_toEndOf="@+id/text_img" />
+
+    <TextView
+        android:id="@+id/text_libi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="持股比例"
+        android:textColor="#999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_img" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="公司"
+        android:textColor="#999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_libi" />
+</android.support.constraint.ConstraintLayout>

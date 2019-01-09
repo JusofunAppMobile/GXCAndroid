@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.jusfoun.jusfouninquire.ui.view.SearchScopeView
+        android:id="@+id/industry_search_scope_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"></com.jusfoun.jusfouninquire.ui.view.SearchScopeView>
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/industry_search_scope_view"
+        android:background="@color/line_color" />
+
+
+    <ListView
+        android:id="@+id/industry_scope_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider_line"
+        android:visibility="gone">
+
+    </ListView>
+
+    <com.jusfoun.jusfouninquire.ui.view.XListView
+        android:id="@+id/search_industry_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/industry_search_scope_view"
+        android:footerDividersEnabled="false"
+        android:visibility="gone">
+
+    </com.jusfoun.jusfouninquire.ui.view.XListView>
+
+    <ScrollView
+        android:id="@+id/search_none_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/industry_search_scope_view"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.jusfoun.jusfouninquire.ui.view.SearchedNoneView
+                android:id="@+id/real_search_none_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+        </LinearLayout>
+    </ScrollView>
+
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/net_work_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/image_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/industry_search_scope_view"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_frame"
+            android:layout_width="@dimen/loading_width"
+            android:layout_height="@dimen/loading_height"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_frame"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/load_data_warn_str"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_1000m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp"
+        android:visibility="gone" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_100m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_10m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_1m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:paddingRight="2dp"
+        android:src="@drawable/commer" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_100k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_10k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_1k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:paddingRight="2dp"
+        android:src="@drawable/commer" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingRight="2dp" />
+
+    <com.jusfoun.library.flipdigit.FlipmeterSpinner
+        android:id="@+id/widget_flipmeter_spinner_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" />
+
+</LinearLayout>

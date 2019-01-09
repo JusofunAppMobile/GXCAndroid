@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/layout_hot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp">
+
+        <ImageView
+            android:id="@+id/img_icon_flag_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_home_biaoqian" />
+
+        <TextView
+            android:id="@+id/text_hot_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/img_icon_flag_hot"
+            android:gravity="center|left"
+            android:paddingRight="10dp"
+            android:text="热门企业"
+            android:textColor="#1f2423"
+            android:textSize="16dp" />
+
+        <ImageView
+            style="@style/C_More"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <com.jusfoun.jusfouninquire.ui.view.HotCompanyListView
+        android:id="@+id/listview_hot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_hot" />
+</RelativeLayout>

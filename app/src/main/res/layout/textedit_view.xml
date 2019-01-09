@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <TextView 
+        android:id="@+id/textedit_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+	    android:layout_alignParentLeft="true"
+        />
+
+	<EditText
+	    android:id="@+id/textedit_value"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_toRightOf="@+id/textedit_tag"
+		android:paddingRight="30dp"
+	    android:gravity="center_vertical|right"
+	    android:focusable="true"
+	    android:background="@null"
+		android:maxLength="50"
+		android:ellipsize="end"
+
+	    />
+
+</RelativeLayout>

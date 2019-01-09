@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_red"
+        android:gravity="center"
+        android:paddingTop="32dp"
+        android:paddingBottom="10dp"
+        android:text="监控动态"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/vMonitorCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="#F1F2F6"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="我的监控企业"
+                            android:textColor="#333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvNum"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/shape_red_circle"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="#FFF"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="14dp"
+                            android:layout_marginLeft="10dp"
+                            android:adjustViewBounds="true"
+                            android:tint="#3F494B"
+                            android:src="@drawable/me_listicon_more" />
+
+                    </LinearLayout>
+
+                    <com.gxc.ui.widgets.NavTitleView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:showImage="false"
+                        app:showLine="true"
+                        app:text="企业动态"
+                        app:tip="成为VIP掌握企业风险动态" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbarStyle="outsideOverlay"
+                        android:scrollbarThumbVertical="@drawable/shape_scrollbar_vertical_thumb"
+                        android:scrollbars="vertical" />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+        <include layout="@layout/view_empty" />
+    </RelativeLayout>
+
+</LinearLayout>

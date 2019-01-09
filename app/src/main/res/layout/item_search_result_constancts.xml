@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout_root"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <LinearLayout
+        android:id="@+id/vTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_item_2"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/company_state"
+            style="@style/C_Xucun" />
+
+        <LinearLayout style="@style/C_110">
+
+            <TextView
+                style="@style/C_111"
+                android:text="法定代表人：" />
+
+            <TextView
+                android:id="@+id/tvLegal"
+                style="@style/C_113"
+                android:textColor="#1E9EFB" />
+
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/C_110">
+
+            <TextView
+                style="@style/C_111"
+                android:text="成立时间：&#160;&#160;&#160;&#160;" />
+
+            <TextView
+                android:id="@+id/tvEstablish"
+                style="@style/C_113" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/C_110">
+
+            <TextView
+                style="@style/C_111"
+                android:text="联系电话：&#160;&#160;&#160;&#160;" />
+
+            <TextView
+                android:id="@+id/text_phone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="#1e9efb"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/text_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                android:text="..."
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/text_phone2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="#1e9efb"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <com.jusfoun.jusfouninquire.ui.view.ContactsOpenView
+            android:id="@+id/view_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_constant_select_no"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"/>
+    <!--img_bott_gra-->
+    <LinearLayout
+        android:id="@+id/relate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:background="@drawable/img_item_1"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:id="@+id/tvRelate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#999"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

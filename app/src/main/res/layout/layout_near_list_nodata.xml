@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:gravity="center"
+    android:paddingBottom="100dp"
+    skin:enable="true"
+    >
+
+    <ImageView
+        android:id="@+id/no_data_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/no_company" />
+
+    <TextView
+        android:id="@+id/no_dataText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/no_data_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:text="很遗憾，暂无符合您条件的公司"
+        android:textColor="#6F7781"
+        android:textSize="14sp"
+        skin:enable="true" />
+
+</RelativeLayout>
