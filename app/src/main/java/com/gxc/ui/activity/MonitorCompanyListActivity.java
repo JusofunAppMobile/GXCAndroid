@@ -1,5 +1,9 @@
 package com.gxc.ui.activity;
 
+import android.text.Html;
+import android.view.View;
+import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.ui.adapter.MonitorCompanyAdapter;
@@ -28,6 +32,10 @@ public class MonitorCompanyListActivity extends BaseListActivity {
     @Override
     protected void initUi() {
         titleView.setTitle("我的监控");
+        View view = View.inflate(this, R.layout.view_num_header, null);
+        TextView textView = view.findViewById(R.id.textView);
+        textView.setText(Html.fromHtml("数量： <font color='#E2292F'>2</font>条"));
+        adapter.addHeaderView(view);
     }
 
     @Override
