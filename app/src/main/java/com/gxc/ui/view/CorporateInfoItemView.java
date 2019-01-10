@@ -39,7 +39,7 @@ public class CorporateInfoItemView extends BaseView {
     @Override
     protected void initViews() {
         LayoutInflater.from(mContext).inflate(R.layout.view_corporate_info_item, this, true);
-        textView13 = (TextView) findViewById(R.id.textView13);
+        textView13 = (TextView) findViewById(R.id.vSendCode);
         editText2 = (EditText) findViewById(R.id.editText2);
     }
 

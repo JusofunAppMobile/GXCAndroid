@@ -50,9 +50,9 @@ public class LoginActivity extends BaseActivity {
             case R.id.vLogin:
                 break;
             case R.id.tvForget:
+                startActivity(BindPhoneActivity.getIntent(this, BindPhoneActivity.TYPE_FORGET_PASSWORD));
                 break;
             case R.id.ivSina:
-                startActivity(BindPhoneActivity.class);
                 break;
             case R.id.ivWechat:
                 startActivity(BindPhoneActivity.class);

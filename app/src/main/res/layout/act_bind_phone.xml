@@ -38,8 +38,8 @@
         android:textCursorDrawable="@drawable/shape_cursor"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintStart_toStartOf="@+id/tvLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel" />
 
     <View
         android:id="@+id/view26"
@@ -47,7 +47,7 @@
         android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="@+id/etPhone"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintStart_toStartOf="@+id/tvLabel"
         app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
     <EditText
@@ -85,14 +85,15 @@
         style="@style/C_Common_Bt_Red"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:text="完成"
         app:layout_constraintEnd_toEndOf="@+id/view28"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/view28"
-        app:layout_constraintTop_toBottomOf="@+id/view28" />
+        app:layout_constraintTop_toBottomOf="@+id/view21" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/vSendCode"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="center_vertical"
@@ -103,8 +104,39 @@
         app:layout_constraintEnd_toEndOf="@+id/etCode"
         app:layout_constraintTop_toTopOf="@+id/etCode" />
 
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="#00000000"
+        android:hint="请输入密码"
+        android:inputType="textPassword|number"
+        android:maxLength="20"
+        android:singleLine="true"
+        android:textColor="#333"
+        android:textCursorDrawable="@drawable/shape_cursor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvLabel"
+        app:layout_constraintTop_toBottomOf="@+id/view28" />
+
+    <View
+        android:id="@+id/view21"
+        style="@style/C_Line"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/etPhone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvLabel"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -126,5 +158,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/etPhone"
         app:layout_constraintStart_toStartOf="@+id/view26"
         app:layout_constraintTop_toTopOf="@+id/etPhone" />
+
+    <android.support.constraint.Group
+        android:id="@+id/pwdGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="etPassword,view21" />
 
 </android.support.constraint.ConstraintLayout>

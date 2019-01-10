@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MyTheme.Layout.Root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/index_topbg" />
+
+    <RelativeLayout
+        android:id="@+id/titleBackgroud"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_view_height"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="@dimen/padding_margin_left_or_right"
+        android:paddingRight="@dimen/padding_margin_left_or_right">
+
+        <ImageView
+            android:id="@+id/ivLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_back_black"
+            android:tint="#FFF" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/rightText"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="访客"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/vCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleBackgroud"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户访问："
+            android:textColor="#FFF"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:textColor="#F7D43C"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="次"
+            android:textColor="#F7D43C"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vCount"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_bg_corner_top"
+        android:elevation="4dp"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbarThumbVertical="@drawable/shape_scrollbar_vertical_thumb"
+                    android:scrollbars="none" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <include layout="@layout/view_empty" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
