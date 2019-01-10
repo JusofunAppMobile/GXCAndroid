@@ -249,11 +249,12 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             public void onTabSelected(int position) {
                 if (position == 0) {
                     getReroet();
-                } else if (position == 2) {
+                } else if (position == 1) {
                     if (model != null) {
                         EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("company", model);
+                        bundle.putInt(CompanyAmendActivity.TYPE,CompanyAmendActivity.TYPE_ERROR);
                         goActivity(CompanyAmendActivity.class, bundle);
                     }
                 }
@@ -266,7 +267,16 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
             @Override
             public void onTabReselected(int position) {
-
+                if (position == 0) {
+                    getReroet();
+                } else if (position == 1) {
+                    if (model != null) {
+                        EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("company", model);
+                        goActivity(CompanyAmendActivity.class, bundle);
+                    }
+                }
             }
         });
         netWorkError.setListener(new NetWorkErrorView.OnRefreshListener() {

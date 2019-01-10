@@ -1,5 +1,7 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.Selection;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * Author  JUSFOUN
  * CreateDate 2015/11/13.
@@ -48,6 +53,14 @@ public class CompanyAmendActivity extends BaseInquireActivity {
     private static final int contactMaxLength = 20;
     private static final int contentMaxLength = 5000;
     public static final String POSITION = "position";
+    protected TextView textCompany;
+    protected TextView textXinyongCode;
+    protected TextView textCompayType;
+    protected DisableMenuEditText editName;
+    protected DisableMenuEditText editCode;
+    protected DisableMenuEditText editEmail;
+    protected LinearLayout layoutUserInfo;
+
 
     /**
      * 组件
@@ -74,14 +87,21 @@ public class CompanyAmendActivity extends BaseInquireActivity {
     private ViewGroup vQuestion;
 
 
+    private int type;//
+
+    public static final int TYPE_OBJECTION = 1, TYPE_ERROR = 2;
+
+    public static String TYPE = "type";
+
     @Override
     protected void initData() {
         super.initData();
         if ((getIntent() != null) && (getIntent().getExtras() != null)) {
             model = (CompanyDetailModel) getIntent().getExtras().getSerializable("company");
-
             Log.e("tag", "model===" + new Gson().toJson(model));
+            type = getIntent().getExtras().getInt(TYPE, TYPE_ERROR);
         }
+
 
         position = getIntent().getExtras().getInt(POSITION, -1);
         if (model != null) {
@@ -113,11 +133,20 @@ public class CompanyAmendActivity extends BaseInquireActivity {
         submitAmend = (Button) findViewById(R.id.submit_amend);
         mErrorContent = (DisableMenuEditText) findViewById(R.id.error_content);
         mContactEdit = (DisableMenuEditText) findViewById(R.id.contact_edit);
+        textCompany = (TextView) findViewById(R.id.text_company);
+        textXinyongCode = (TextView) findViewById(R.id.text_xinyong_code);
+        textCompayType = (TextView) findViewById(R.id.text_compay_type);
+        editName = (DisableMenuEditText) findViewById(R.id.edit_name);
+        editCode = (DisableMenuEditText) findViewById(R.id.edit_code);
+        editEmail = (DisableMenuEditText) findViewById(R.id.edit_email);
+        layoutUserInfo = (LinearLayout) findViewById(R.id.layout_user_info);
+
 
     }
 
     /**
      * 回答问题
+     *
      * @param view
      * @param questionid
      * @param answerid
@@ -137,11 +166,10 @@ public class CompanyAmendActivity extends BaseInquireActivity {
             public void onSuccess(Object data) {
                 hideLoadDialog();
                 BaseModel model = (BaseModel) data;
-                if(model.success()) {
+                if (model.success()) {
                     view.setVisibility(View.GONE);
                     showToast("已提交");
-                }
-                else {
+                } else {
                     subView.setSelected(false);
                     showToast(model.getMsg());
                 }
@@ -223,7 +251,7 @@ public class CompanyAmendActivity extends BaseInquireActivity {
                             @Override
                             public void onClick(View v) {
                                 v2.setSelected(!v2.isSelected());
-                                askQuestion(view,v, bean.questionid, answerBean2.answerid);
+                                askQuestion(view, v, bean.questionid, answerBean2.answerid);
                             }
                         });
                     }
@@ -313,6 +341,22 @@ public class CompanyAmendActivity extends BaseInquireActivity {
 
         mErrorContent.setLongClickable(false);
         mContactEdit.setLongClickable(false);
+
+        if (model != null) {
+            textCompany.setText(model.getCompanyname());
+            textXinyongCode.setText(model.taxid);
+            textCompayType.setText(model.getStates());
+        }
+
+        if (type == TYPE_ERROR) {
+            layoutUserInfo.setVisibility(View.VISIBLE);
+            titleView.setTitle("异议纠错");
+        } else {
+            layoutUserInfo.setVisibility(View.GONE);
+            titleView.setTitle("信用异议");
+        }
+
+        textCompany.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     private void postCompanyAmend() {
@@ -371,5 +415,12 @@ public class CompanyAmendActivity extends BaseInquireActivity {
                 Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
