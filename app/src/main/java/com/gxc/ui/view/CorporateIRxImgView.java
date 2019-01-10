@@ -2,6 +2,7 @@ package com.gxc.ui.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ public class CorporateIRxImgView extends BaseView {
     private int type;
 
     private RequestOptions requestOptions;
+
+    private boolean editTable;
 
     public CorporateIRxImgView(Context context) {
         super(context);
@@ -71,9 +74,12 @@ public class CorporateIRxImgView extends BaseView {
         photoImg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppUtils.pictureSelect((Activity)mContext, false, 1, null);
+                if(editTable) {
+                    AppUtils.pictureSelect((Activity) mContext, false, 1, null);
+                }
             }
         });
+        setEditTable(false);
     }
 
     public void setData(int type) {
@@ -100,5 +106,16 @@ public class CorporateIRxImgView extends BaseView {
 
     public void setImageSrc(String imageUrl){
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(photoImg);
+    }
+
+    public void setEditTable(boolean editTable) {
+        this.editTable = editTable;
+        textTitle.setEditTable(editTable);
+        zhiwuText.setEditTable(editTable);
+
+        editCotent.setFocusable(editTable);
+        editCotent.setFocusableInTouchMode(editTable);
+        editCotent.setLongClickable(editTable);
+        editCotent.setInputType(editTable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
     }
 }
