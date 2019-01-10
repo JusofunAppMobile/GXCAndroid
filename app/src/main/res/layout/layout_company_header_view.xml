@@ -280,7 +280,7 @@
                 android:layout_width="17dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/img_detail_phone_icon" />
+                android:src="@drawable/info_icon_phone" />
 
             <TextView
                 android:id="@+id/phone_content"

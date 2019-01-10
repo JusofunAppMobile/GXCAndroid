@@ -234,10 +234,10 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         mCompanyMenu.setNestedScrollingEnabled(false);
         navigation.setElevation(0);
         navigation
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab1, "获取报告"))
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab2, "纠错"))
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab3, "监控"))
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab4, "认证"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_baogao, "获取报告"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_yiyi, "纠错/异议"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_jiankong, "监控"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_renzheng, "认证"))
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .setInActiveColor("#ffffff") // 默认颜色
