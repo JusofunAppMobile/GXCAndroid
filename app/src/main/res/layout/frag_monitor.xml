@@ -75,14 +75,6 @@
 
                     </LinearLayout>
 
-                    <com.gxc.ui.widgets.NavTitleView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:showImage="false"
-                        app:showLine="true"
-                        app:text="企业动态"
-                        app:tip="成为VIP掌握企业风险动态" />
-
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycle"
                         android:layout_width="match_parent"

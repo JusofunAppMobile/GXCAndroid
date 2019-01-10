@@ -65,9 +65,21 @@ public class NavTitleView extends LinearLayout {
             image.setVisibility(showImage ? View.VISIBLE : View.GONE);
             vLine.setVisibility(showLine ? View.VISIBLE : View.GONE);
             tvLabel.setText(tip);
-            if(id != 0)
+            if (id != 0)
                 image.setImageResource(id);
         }
+    }
+
+    public void setLabel(String label) {
+        textView.setText(label);
+    }
+
+    public void setTip(String tip) {
+        tvLabel.setText(tip);
+    }
+
+    public void setImageVisibility(int visibility) {
+        image.setVisibility(visibility);
     }
 
     public void setImageResource(int id) {

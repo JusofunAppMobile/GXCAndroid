@@ -69,8 +69,10 @@ public class InforActivity extends BaseActivity {
                 AppUtils.pictureSelect(activity, true, 1, null);
                 return;
             case R.id.vPhone:
+                startActivity(BindPhoneActivity.getIntent(this, BindPhoneActivity.TYPE_UPDATE_PHONE));
                 return;
             case R.id.vPassword:
+                startActivity(BindPhoneActivity.getIntent(this, BindPhoneActivity.TYPE_UPDATE_PASSWORD));
                 return;
             case R.id.vEmail:
                 type = Constants.INFOR_TYPE_EMAIL;

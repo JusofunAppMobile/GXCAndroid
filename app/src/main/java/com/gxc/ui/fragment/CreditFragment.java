@@ -29,6 +29,7 @@ import com.gxc.model.HomeMenuModel;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.ReportInfoActivity;
+import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
@@ -136,6 +137,8 @@ public class CreditFragment extends BaseFragment {
                 } else if (model.menuType == 7) {
                     Intent intent = new Intent(activity, ReportInfoActivity.class);
                     startActivity(intent);
+                }else if(model.menuType == 6){ // 访客
+                    startActivity(VisitorListActivity.class);
                 }
 
             }
