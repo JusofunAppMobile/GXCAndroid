@@ -91,6 +91,7 @@
                 android:layout_marginTop="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15sp"
+                android:gravity="top"
                 android:textColor="#666"
                 android:background="@null"
                 android:textSize="12sp" />
