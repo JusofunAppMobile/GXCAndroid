@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,7 +37,8 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
     private Context context;
 
     private View vEmpty;
-    private TextView tvEmpty;
+    private TextView tvEmpty, tvError, tvReload;
+    private ImageView ivEmpty;
 
     public int INIT_PAGE_INDEX = 1;
 
@@ -81,6 +83,10 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
             refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refreshLayout);
             vEmpty = rootView.findViewById(R.id.vEmpty);
             tvEmpty = (TextView) rootView.findViewById(R.id.tvEmpty);
+            tvEmpty = (TextView) rootView.findViewById(R.id.tvEmpty);
+            tvError = (TextView) rootView.findViewById(R.id.tvError);
+            tvReload = (TextView) rootView.findViewById(R.id.tvReload);
+            ivEmpty = rootView.findViewById(R.id.ivEmpty);
             adapter = getAdapter();
 
             if (recyclerView == null)
@@ -158,19 +164,28 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
     }
 
     protected String getHttpErrorTip() {
-        return "网络连接错误，点击重试";
+        return "刷新试试吧~";
     }
 
     protected boolean isLoadMoreEnable() {
         return true;
     }
 
-    private void showEmptyView(String text) {
+
+    private void showEmptyView(boolean isError) {
+        String text = isError ? getHttpErrorTip() : getEmptyTipText();
         adapter.setNewData(new ArrayList());
         if (vEmpty != null) {
             vEmpty.setVisibility(View.VISIBLE);
             if (tvEmpty != null) {
                 tvEmpty.setText(text);
+            }
+            if (isError) {
+                tvError.setVisibility(View.VISIBLE);
+                tvReload.setVisibility(View.VISIBLE);
+            }else{
+                tvError.setVisibility(View.GONE);
+                tvReload.setVisibility(View.GONE);
             }
         }
     }
@@ -181,11 +196,11 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
             if (isLoadMoreData)
                 adapter.loadMoreFail();
             if (pageIndex == INIT_PAGE_INDEX)
-                showEmptyView(getHttpErrorTip());
+                showEmptyView(true);
         } else {
             if (list == null || list.isEmpty()) {
                 if (pageIndex == INIT_PAGE_INDEX)
-                    showEmptyView(getEmptyTipText());
+                    showEmptyView(false);
                 else
                     adapter.loadMoreEnd(true);
             } else {

@@ -1,17 +1,11 @@
 package com.gxc.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.gxc.base.BaseActivity;
-import com.gxc.ui.fragment.CreditFragment;
-import com.gxc.ui.fragment.HomeFragment;
-import com.gxc.ui.fragment.MonitorFragment;
-import com.gxc.ui.fragment.MyFragment;
 import com.gxc.ui.fragment.RiskListFragment;
 import com.gxc.ui.widgets.ScrollableViewPager;
 import com.gxc.ui.widgets.TabView;
@@ -22,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

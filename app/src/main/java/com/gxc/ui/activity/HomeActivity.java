@@ -10,7 +10,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gxc.base.BaseActivity;
 import com.gxc.ui.fragment.CreditFragment;
 import com.gxc.ui.fragment.HomeFragment;
-import com.gxc.ui.fragment.MonitorFragment;
+import com.gxc.ui.fragment.MonitorListFragment;
 import com.gxc.ui.fragment.MyFragment;
 import com.gxc.ui.widgets.ScrollableViewPager;
 import com.jusfoun.jusfouninquire.R;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author liuguangdan
@@ -93,7 +92,7 @@ public class HomeActivity extends BaseActivity {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
             list.add(new HomeFragment());
-            list.add(new MonitorFragment());
+            list.add(new MonitorListFragment());
             list.add(new CreditFragment());
             list.add(new MyFragment());
         }

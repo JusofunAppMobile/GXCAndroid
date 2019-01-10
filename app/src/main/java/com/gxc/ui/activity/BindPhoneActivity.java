@@ -18,8 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import netlib.util.SendMessage;
 
-import static com.jusfoun.bigdata.Toaster.showToast;
-
 /**
  * @author liuguangdan
  * @version create at 2019/1/7/007 17:18
@@ -59,16 +57,17 @@ public class BindPhoneActivity extends BaseActivity {
         type = getIntent().getIntExtra("type", 0);
         switch (type) {
             case TYPE_FORGET_PASSWORD:
-                tvLabel.setText("忘记密码");
+                tvLabel.setText("找回密码");
                 break;
             case TYPE_UPDATE_PHONE:
-                tvLabel.setText("修改手机号");
+                tvLabel.setText("绑定新手机号");
                 pwdGroup.setVisibility(View.GONE);
                 break;
             case TYPE_UPDATE_PASSWORD:
-                tvLabel.setText("修改密码");
+                tvLabel.setText("重置密码");
                 break;
         }
+
 
         sendMessage = SendMessage.newInstant(activity)
                 .setClickView(vSendCode)

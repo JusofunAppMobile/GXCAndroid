@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -31,7 +32,8 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
     private Context context;
 
     private View vEmpty;
-    private TextView tvEmpty;
+    private TextView tvEmpty, tvError, tvReload;
+    private ImageView ivEmpty;
 
     public final static int INIT_PAGE_INDEX = 1;
 
@@ -77,6 +79,9 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
         vEmpty = findViewById(R.id.vEmpty);
         tvEmpty = (TextView) findViewById(R.id.tvEmpty);
+        tvError = (TextView) findViewById(R.id.tvError);
+        tvReload = (TextView) findViewById(R.id.tvReload);
+        ivEmpty = findViewById(R.id.ivEmpty);
         adapter = getAdapter();
 
         if (recyclerView == null)
@@ -149,19 +154,27 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
     }
 
     protected String getHttpErrorTip() {
-        return "网络连接错误，点击重试";
+        return "刷新试试吧~";
     }
 
     protected boolean isLoadMoreEnable() {
         return true;
     }
 
-    private void showEmptyView(String text) {
+    private void showEmptyView(boolean isError) {
+        String text = isError ? getHttpErrorTip() : getEmptyTipText();
         adapter.setNewData(new ArrayList());
         if (vEmpty != null) {
             vEmpty.setVisibility(View.VISIBLE);
             if (tvEmpty != null) {
                 tvEmpty.setText(text);
+            }
+            if (isError) {
+                tvError.setVisibility(View.VISIBLE);
+                tvReload.setVisibility(View.VISIBLE);
+            }else{
+                tvError.setVisibility(View.GONE);
+                tvReload.setVisibility(View.GONE);
             }
         }
     }
@@ -172,11 +185,11 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
             if (isLoadMoreData)
                 adapter.loadMoreFail();
             if (pageIndex == INIT_PAGE_INDEX)
-                showEmptyView(getHttpErrorTip());
+                showEmptyView(true);
         } else {
             if (list == null || list.isEmpty()) {
                 if (pageIndex == INIT_PAGE_INDEX)
-                    showEmptyView(getEmptyTipText());
+                    showEmptyView(false);
                 else
                     adapter.loadMoreEnd(true);
             } else {
