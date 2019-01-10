@@ -32,6 +32,7 @@ import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +126,13 @@ public class CreditFragment extends BaseFragment {
                 HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
                 if (model.menuType == 1) {
                     Intent intent = new Intent(activity, CreditReportActivity.class);
+                    startActivity(intent);
+                } else if (model.menuType == 3) {
+                    Intent intent = new Intent(activity, CompanyAmendActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("company", null);
+                    bundle.putInt(CompanyAmendActivity.TYPE,CompanyAmendActivity.TYPE_OBJECTION);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (model.menuType == 7) {
                     Intent intent = new Intent(activity, ReportInfoActivity.class);

@@ -2,14 +2,17 @@ package com.gxc.ui.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.ui.activity.EditReportInfoActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
@@ -41,11 +44,15 @@ public class CorporateInfoView extends BaseView {
     TextView textIcon;
     @BindView(R.id.text_des)
     TextView textDes;
-    @BindView(R.id.text_content)
-    TextView textContent;
+    @BindView(R.id.edit_content)
+    EditText editContent;
     @BindView(R.id.img_icon)
     ImageView imgIcon;
     private RequestOptions requestOptions;
+
+    private String imgUrl;
+
+    private boolean editTable;
 
     public CorporateInfoView(Context context) {
         super(context);
@@ -66,7 +73,7 @@ public class CorporateInfoView extends BaseView {
                 .circleCrop()//设置圆形
                 .placeholder(R.color.white)
                 .error(R.color.white)
-                .transform(new GlideRoundTransform(mContext,5));
+                .transform(new GlideRoundTransform(mContext, 5));
     }
 
     @Override
@@ -80,13 +87,18 @@ public class CorporateInfoView extends BaseView {
         imgIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppUtils.pictureSelect((Activity) mContext, false, 1, null);
+                if (editTable) {
+                    AppUtils.pictureSelect((Activity) mContext, false, 1, null);
+                }
             }
         });
+        setEditTable(false);
     }
 
-    public void setData(int type) {
+    private int type;
 
+    public void setData(int type,EditReportInfoTextModel model) {
+        this.type = type;
         if (type == EditReportInfoActivity.TYPE_INFO) {
             viewName.setData("企业名称");
             viewHangye.setData("行        业");
@@ -96,6 +108,16 @@ public class CorporateInfoView extends BaseView {
             textIcon.setText("LOGO");
             textDes.setText("公司介绍");
 
+            if(model!=null){
+                viewName.setEditText(model.companyName);
+                viewHangye.setEditText(model.industry);
+                viewPhone.setEditText(model.phone);
+                viewEmail.setEditText(model.email);
+                viewHttp.setEditText(model.webURL);
+                textDes.setText(model.introduce);
+                Glide.with(mContext).load(model.logo).apply(requestOptions).into(imgIcon);
+
+            }
         } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
             viewName.setData("所属公司");
             viewHangye.setData("产品名称");
@@ -104,10 +126,63 @@ public class CorporateInfoView extends BaseView {
             viewHttp.setData("链接地址");
             textIcon.setText("产品图片");
             textDes.setText("简介");
+
+
+            if(model!=null){
+                viewName.setEditText(model.companyName);
+                viewHangye.setEditText(model.product);
+                viewPhone.setEditText(model.industry);
+                viewEmail.setEditText(model.tag);
+                viewHttp.setEditText(model.url);
+                textDes.setText(model.introduce);
+                Glide.with(mContext).load(model.image).apply(requestOptions).into(imgIcon);
+
+            }
         }
     }
-    public void setImageSrc(String imageUrl){
+
+    public void setImageSrc(String imageUrl) {
+        this.imgUrl = imageUrl;
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(imgIcon);
+    }
+
+
+    public void setEditTable(boolean editTable) {
+        this.editTable = editTable;
+        viewName.setEditTable(editTable);
+        viewHangye.setEditTable(editTable);
+        viewPhone.setEditTable(editTable);
+        viewEmail.setEditTable(editTable);
+        viewHttp.setEditTable(editTable);
+
+        editContent.setFocusable(editTable);
+        editContent.setFocusableInTouchMode(editTable);
+        editContent.setLongClickable(editTable);
+        editContent.setInputType(editTable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
+    }
+
+
+    public EditReportInfoTextModel getData() {
+        EditReportInfoTextModel model = new EditReportInfoTextModel();
+
+        if (type == EditReportInfoActivity.TYPE_INFO) {
+            model.companyName = viewName.getEditText();
+            model.industry = viewHangye.getEditText();
+            model.phone = viewPhone.getEditText();
+            model.email = viewEmail.getEditText();
+            model.webURL = viewHttp.getEditText();
+            model.logo = imgUrl;
+            model.introduce = editContent.getText().toString();
+        }else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
+            model.companyName = viewName.getEditText();
+            model.industry = viewPhone.getEditText();
+            model.product = viewHangye.getEditText();
+            model.tag = viewEmail.getEditText();
+            model.url = viewHttp.getEditText();
+            model.image = imgUrl;
+            model.introduce = editContent.getText().toString();
+        }
+        return  model;
     }
 
 }

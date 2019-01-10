@@ -59,7 +59,7 @@ public class CompanyDetailHeaderView extends LinearLayout {
     private CompanyDetailModel model;
     private Context context;
 
-    private TextView mCompanyState;
+    private TextView mCompanyState,xinyongfenText;
     private LinearLayout locationWebLayout;
     private ImageView jtImg, refreshImg;
     private RefreshAnimUtil refreshAnimUtil;
@@ -116,6 +116,7 @@ public class CompanyDetailHeaderView extends LinearLayout {
         jtImg = (ImageView) findViewById(R.id.img_jiantou);
         refreshImg = (ImageView) findViewById(R.id.img_update);
         refreshLayout = (RelativeLayout) findViewById(R.id.layout_refresh);
+        xinyongfenText = (TextView)findViewById(R.id.text_fen);
 
         refreshAnimUtil = new RefreshAnimUtil(refreshImg);
     }
@@ -316,8 +317,8 @@ public class CompanyDetailHeaderView extends LinearLayout {
         }
         if (model.getCompanyphonelist() != null && model.getCompanyphonelist().size() > 0) {
             phone_content.setText(model.getCompanyphonelist().get(0).getNumber());
-            if (!TextUtils.isEmpty(phone_content.getText().toString().trim()))
-                vExport.setVisibility(View.VISIBLE);
+//            if (!TextUtils.isEmpty(phone_content.getText().toString().trim()))
+//                vExport.setVisibility(View.VISIBLE);
 //            phone_content.setTextColor(Color.parseColor("#ff8d57"));
         } else {
             phone_content.setText("企业选择不公示");
@@ -340,6 +341,8 @@ public class CompanyDetailHeaderView extends LinearLayout {
         } catch (Exception e) {
             address_content.setTextColor(Color.parseColor("#333333"));
         }
+
+        xinyongfenText.setText("100");
     }
 
     private SpannableString getText(String str1, String str2) {

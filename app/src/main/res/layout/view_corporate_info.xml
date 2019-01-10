@@ -84,18 +84,17 @@
                 android:textColor="#333"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/text_content"
+            <EditText
+                android:id="@+id/edit_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginTop="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15sp"
-                android:text="公司介绍"
+                android:gravity="top"
                 android:textColor="#666"
-                android:textSize="12sp"
-
-                />
+                android:background="@null"
+                android:textSize="12sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

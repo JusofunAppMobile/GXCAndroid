@@ -20,7 +20,7 @@
             android:layout_width="19dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:src="@drawable/selector_share" />
+            android:src="@drawable/info_top_icon_fenxiang" />
 
         <ImageView
             android:id="@+id/heart"
@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:src="@drawable/selector_report"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView

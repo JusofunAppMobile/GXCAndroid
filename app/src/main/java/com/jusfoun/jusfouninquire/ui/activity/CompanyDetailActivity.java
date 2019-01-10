@@ -119,8 +119,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private int selectType = TYPE_QIYEBAOGAO;
 
 
-    private RecyclerView shareHolderRecycle;
-    private ShareholderAdapter shareholderAdapter;
+    private RecyclerView shareHolderRecycle,dongshiRecycle;
+    private ShareholderAdapter shareholderAdapter,dongshiAdaper;
 
     private BottomNavigationBar navigation;
 
@@ -157,6 +157,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         contactWayDialogWindow.setGravity(Gravity.BOTTOM); // 此处可以设置dialog显示的位置
         contactWayDialogWindow.setWindowAnimations(R.style.share_dialog_style); // 添加动画
         shareholderAdapter = new ShareholderAdapter();
+        dongshiAdaper = new ShareholderAdapter();
 //        mSwipeBackLayout.setEnableGesture(true);
 
     }
@@ -192,6 +193,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         vBarEmpty2 = findViewById(R.id.vBarEmpty2);
         vTitleParent = findViewById(R.id.vTitleParent);
         shareHolderRecycle = (RecyclerView) findViewById(R.id.recyclerview_shareholder);
+        dongshiRecycle = (RecyclerView) findViewById(R.id.recyclerview_dongshi);
+
         navigation = (BottomNavigationBar) findViewById(R.id.navigation);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
@@ -231,10 +234,10 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         mCompanyMenu.setNestedScrollingEnabled(false);
         navigation.setElevation(0);
         navigation
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab1, "获取报告"))
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab2, "纠错"))
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab3, "监控"))
-                .addItem(new BottomNavigationItem(R.drawable.selector_tab4, "认证"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_baogao, "获取报告"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_yiyi, "纠错/异议"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_jiankong, "监控"))
+                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_renzheng, "认证"))
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .setInActiveColor("#ffffff") // 默认颜色
@@ -497,7 +500,16 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         shareHolderRecycle.setLayoutManager(linearLayoutManager);
         shareHolderRecycle.setAdapter(shareholderAdapter);
 
-        shareholderAdapter.addData(AppUtils.getTestList(RiskModel.class, 20));
+        shareholderAdapter.addData(AppUtils.getTestList(RiskModel.class, 5));
+
+
+        LinearLayoutManager dongshiManager = new LinearLayoutManager(mContext);
+        dongshiManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        dongshiRecycle.setLayoutManager(dongshiManager);
+        dongshiRecycle.setAdapter(dongshiAdaper);
+        dongshiAdaper.addData(AppUtils.getTestList(RiskModel.class, 5));
+
+
     }
 
 

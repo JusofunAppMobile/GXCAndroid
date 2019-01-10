@@ -1,17 +1,18 @@
 package com.gxc.ui.activity;
 
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.UpdateReoprtInfoEvent;
 import com.gxc.ui.view.EditReportInfoItemView;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author zhaoyapeng
@@ -48,11 +49,11 @@ public class ReportInfoActivity extends BaseActivity {
         textCompany.setText("大洋科技");
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
-        viewInfo.setData(EditReportInfoActivity.TYPE_INFO);
-        viewProduct.setData(EditReportInfoActivity.TYPE_PRODUCE);
-        viewRongyu.setData(EditReportInfoActivity.TYPE_RY);
-        viewHezuohuoban.setData(EditReportInfoActivity.TYPE_HB);
-        viewChengyuan.setData(EditReportInfoActivity.TYPE_CY);
+        viewInfo.setData(EditReportInfoActivity.TYPE_INFO, null);
+        viewProduct.setData(EditReportInfoActivity.TYPE_PRODUCE, null);
+        viewRongyu.setData(EditReportInfoActivity.TYPE_RY, null);
+        viewHezuohuoban.setData(EditReportInfoActivity.TYPE_HB, null);
+        viewChengyuan.setData(EditReportInfoActivity.TYPE_CY, null);
 
 
     }
@@ -62,4 +63,21 @@ public class ReportInfoActivity extends BaseActivity {
         return super.isBarDark();
     }
 
+
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+
+        Log.e("tag","onEventonEvent1");
+        if (event instanceof UpdateReoprtInfoEvent) {
+            if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_INFO) {
+                Log.e("tag","onEventonEvent2");
+                viewInfo.setData(EditReportInfoActivity.TYPE_INFO, ((UpdateReoprtInfoEvent) event).editReportInfoTextModel);
+            } else if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_PRODUCE) {
+                Log.e("tag","onEventonEvent3");
+                viewProduct.setData(EditReportInfoActivity.TYPE_PRODUCE, ((UpdateReoprtInfoEvent) event).editReportInfoTextModel);
+            }
+
+        }
+    }
 }

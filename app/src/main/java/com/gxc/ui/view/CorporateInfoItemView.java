@@ -1,6 +1,7 @@
 package com.gxc.ui.view;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -48,9 +49,23 @@ public class CorporateInfoItemView extends BaseView {
 
     }
 
-    public void setData(String title){
-        textView13.setText(title+":");
-        editText2.setHint("请用户输入"+title.replaceAll(" ",""));
+    public void setData(String title) {
+        textView13.setText(title + ":");
+        editText2.setHint("请用户输入" + title.replaceAll(" ", ""));
     }
 
+    public void setEditText(String str) {
+        editText2.setText(str);
+    }
+
+    public void setEditTable(boolean editTable) {
+        editText2.setFocusable(editTable);
+        editText2.setFocusableInTouchMode(editTable);
+        editText2.setLongClickable(editTable);
+        editText2.setInputType(editTable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
+    }
+
+    public String getEditText() {
+        return editText2.getText().toString();
+    }
 }

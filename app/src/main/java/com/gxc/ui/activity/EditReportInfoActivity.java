@@ -2,9 +2,11 @@ package com.gxc.ui.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.UpdateReoprtInfoEvent;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.ui.view.CorporateIRxImgView;
 import com.gxc.ui.view.CorporateInfoView;
@@ -20,6 +22,7 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
 
 /**
  * @author zhaoyapeng
@@ -49,6 +52,8 @@ public class EditReportInfoActivity extends BaseActivity {
     private CorporateInfoView corporateInfoView;
     private CorporateIRxImgView corporateIRxImgView;
 
+    private boolean isEdit = true;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_edit_repory_info;
@@ -56,34 +61,52 @@ public class EditReportInfoActivity extends BaseActivity {
 
     @Override
     public void initActions() {
+        corporateInfoView = new CorporateInfoView(this);
+        corporateIRxImgView = new CorporateIRxImgView(this);
+        titlebar.setRightText("编辑");
         type = getIntent().getIntExtra(TYPE, TYPE_INFO);
-
         if (type == TYPE_INFO) {
-            corporateInfoView = new CorporateInfoView(this);
-            corporateInfoView.setData(TYPE_INFO);
+            corporateInfoView.setData(TYPE_INFO,null);
             layoutView.addView(corporateInfoView);
             titlebar.setTitle("企业信息");
         } else if (type == TYPE_PRODUCE) {
-            corporateInfoView = new CorporateInfoView(this);
-            corporateInfoView.setData(TYPE_PRODUCE);
+            corporateInfoView.setData(TYPE_PRODUCE,null);
             layoutView.addView(corporateInfoView);
             titlebar.setTitle("企业产品");
         } else if (type == TYPE_RY) {
-            corporateIRxImgView = new CorporateIRxImgView(this);
             corporateIRxImgView.setData(TYPE_RY);
-            layoutView.addView(corporateInfoView);
+            layoutView.addView(corporateIRxImgView);
             titlebar.setTitle("企业荣誉");
         } else if (type == TYPE_HB) {
-            corporateIRxImgView = new CorporateIRxImgView(this);
             corporateIRxImgView.setData(TYPE_HB);
             layoutView.addView(corporateIRxImgView);
             titlebar.setTitle("企业伙伴");
         } else if (type == TYPE_CY) {
-            corporateIRxImgView = new CorporateIRxImgView(this);
             corporateIRxImgView.setData(TYPE_CY);
             layoutView.addView(corporateIRxImgView);
             titlebar.setTitle("企业成员");
         }
+
+        titlebar.setRightClickListener(new TitleView.OnRightClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEdit){
+                    isEdit = false;
+                    titlebar.setRightText("完成");
+                    corporateInfoView.setEditTable(true);
+                    corporateIRxImgView.setEditTable(true);
+                }else{
+                    isEdit = true;
+                    titlebar.setRightText("编辑");
+                    corporateInfoView.setEditTable(false);
+                    corporateIRxImgView.setEditTable(false);
+                    UpdateReoprtInfoEvent event = new UpdateReoprtInfoEvent();
+                    event.type = type;
+                    event.editReportInfoTextModel =corporateInfoView.getData();
+                    EventBus.getDefault().post(event);
+                }
+            }
+        });
     }
 
 
