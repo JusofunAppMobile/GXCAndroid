@@ -26,7 +26,7 @@ public class SearchTitleView extends RelativeLayout{
 
 
 
-    private TextView mRight;
+    private ImageView mRight;
     private ImageView mClear,mLeft;
     private TextView mSearchEditText;
     private RelativeLayout mEditLayout;
@@ -71,7 +71,7 @@ public class SearchTitleView extends RelativeLayout{
     private void initView() {
         LayoutInflater.from(mContext).inflate(R.layout.view_search_title, this, true);
         mLeft = (ImageView) findViewById(R.id.left_text);
-        mRight = (TextView) findViewById(R.id.right_text);
+        mRight = (ImageView) findViewById(R.id.right_text);
         mClear = (ImageView) findViewById(R.id.clear_search_image);
         mSearchEditText = (TextView) findViewById(R.id.search_edittext);
         mEditLayout = (RelativeLayout) findViewById(R.id.search_title_layout);

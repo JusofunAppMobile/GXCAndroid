@@ -1,12 +1,14 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.net.model.TaxationDataModel;
@@ -20,7 +22,6 @@ import com.jusfoun.jusfouninquire.ui.view.XListView;
 import java.util.HashMap;
 
 import netlib.util.EventUtils;
-import com.jusfoun.jusfouninquire.TimeOut;
 
 /**
  * @author zhaoyapeng
@@ -64,6 +65,17 @@ public class TaxIdSearchActivity extends BaseInquireActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStatusBarRed();
+    }
+
+    @Override
+    public boolean isBarDark() {
+        return false;
+    }
+
+    @Override
     protected void initWidgetActions() {
         searchResultListview.setAdapter(taxIdAdapter);
 
@@ -77,7 +89,7 @@ public class TaxIdSearchActivity extends BaseInquireActivity {
                 pageIndex++;
                 searchResultListview.setPullLoadEnable(true);
             }
-            textCount.setText(taxationDataModel.totalCount+"");
+            textCount.setText(taxationDataModel.totalCount + "");
         }
 
 
@@ -97,10 +109,10 @@ public class TaxIdSearchActivity extends BaseInquireActivity {
                     TaxationItemModel model = holder.model;
                     if (model != null) {
                         Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-                        if(!TextUtils.isEmpty(model.companyid))
-                        intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.companyid);
-                        if(!TextUtils.isEmpty(model.companyname))
-                        intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.companyname);
+                        if (!TextUtils.isEmpty(model.companyid))
+                            intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.companyid);
+                        if (!TextUtils.isEmpty(model.companyname))
+                            intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.companyname);
                         startActivity(intent);
                     }
 
@@ -156,7 +168,7 @@ public class TaxIdSearchActivity extends BaseInquireActivity {
         params.put("searchkey", key);
         params.put("type", SearchHistoryItemModel.SEARCH_TAXID);
         params.put("pageSize", "20");
-        params.put("pageIndex", pageIndex+"");
+        params.put("pageIndex", pageIndex + "");
         showLoading();
         EventUtils.event(mContext, EventUtils.SEARCH29);
         SearchRoute.searchTaxIdNet(this, params, getLocalClassName(), new NetWorkCallBack() {

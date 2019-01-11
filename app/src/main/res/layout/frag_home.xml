@@ -275,7 +275,7 @@
             android:hint="请输入企业名、法人姓名、品牌等关键字"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
