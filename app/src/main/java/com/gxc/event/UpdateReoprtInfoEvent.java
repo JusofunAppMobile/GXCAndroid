@@ -1,5 +1,6 @@
 package com.gxc.event;
 
+import com.gxc.model.EditReportInfoImgModel;
 import com.gxc.model.EditReportInfoTextModel;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 
@@ -13,4 +14,5 @@ public class UpdateReoprtInfoEvent implements IEvent {
     public int type;
 
     public EditReportInfoTextModel editReportInfoTextModel;
+    public EditReportInfoImgModel editReportInfoImgModel;
 }

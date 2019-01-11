@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gxc.model.EditReportInfoImgModel;
 import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.ui.activity.EditReportInfoActivity;
 import com.jusfoun.jusfouninquire.R;
@@ -69,6 +70,7 @@ public class EditReportInfoItemView extends BaseView {
 
     public void setData(int type,Object model) {
         this.type = type;
+
         if (type == EditReportInfoActivity.TYPE_INFO) {
             textTitle.setText("企业信息");
             if(model!=null) {
@@ -88,10 +90,29 @@ public class EditReportInfoItemView extends BaseView {
             }
         } else if (type == EditReportInfoActivity.TYPE_RY) {
             textTitle.setText("企业荣誉");
+            if(model!=null) {
+                addLayout.removeAllViews();
+                CorporateIRxImgView corporateIRxImgView = new CorporateIRxImgView(mContext);
+                corporateIRxImgView.setData(type, (EditReportInfoImgModel) model);
+                addLayout.addView(corporateIRxImgView);
+            }
+
         } else if (type == EditReportInfoActivity.TYPE_HB) {
             textTitle.setText("企业伙伴");
+            if(model!=null) {
+                addLayout.removeAllViews();
+                CorporateIRxImgView corporateIRxImgView = new CorporateIRxImgView(mContext);
+                corporateIRxImgView.setData(type, (EditReportInfoImgModel) model);
+                addLayout.addView(corporateIRxImgView);
+            }
         } else if (type == EditReportInfoActivity.TYPE_CY) {
             textTitle.setText("企业成员");
+            if(model!=null) {
+                addLayout.removeAllViews();
+                CorporateIRxImgView corporateIRxImgView = new CorporateIRxImgView(mContext);
+                corporateIRxImgView.setData(type, (EditReportInfoImgModel) model);
+                addLayout.addView(corporateIRxImgView);
+            }
         }
     }
 }

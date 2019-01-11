@@ -68,14 +68,19 @@ public class ReportInfoActivity extends BaseActivity {
     public void onEvent(IEvent event) {
         super.onEvent(event);
 
-        Log.e("tag","onEventonEvent1");
+
+
         if (event instanceof UpdateReoprtInfoEvent) {
             if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_INFO) {
-                Log.e("tag","onEventonEvent2");
                 viewInfo.setData(EditReportInfoActivity.TYPE_INFO, ((UpdateReoprtInfoEvent) event).editReportInfoTextModel);
             } else if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_PRODUCE) {
-                Log.e("tag","onEventonEvent3");
                 viewProduct.setData(EditReportInfoActivity.TYPE_PRODUCE, ((UpdateReoprtInfoEvent) event).editReportInfoTextModel);
+            }else if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_RY) {
+                viewRongyu.setData(EditReportInfoActivity.TYPE_RY, ((UpdateReoprtInfoEvent) event).editReportInfoImgModel);
+            }else if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_HB) {
+                viewHezuohuoban.setData(EditReportInfoActivity.TYPE_HB, ((UpdateReoprtInfoEvent) event).editReportInfoImgModel);
+            }else if (((UpdateReoprtInfoEvent) event).type == EditReportInfoActivity.TYPE_CY) {
+                viewChengyuan.setData(EditReportInfoActivity.TYPE_CY, ((UpdateReoprtInfoEvent) event).editReportInfoImgModel);
             }
 
         }

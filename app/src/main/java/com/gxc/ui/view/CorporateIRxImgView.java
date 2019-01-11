@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.gxc.model.EditReportInfoImgModel;
+import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.ui.activity.EditReportInfoActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
@@ -82,18 +85,34 @@ public class CorporateIRxImgView extends BaseView {
         setEditTable(false);
     }
 
-    public void setData(int type) {
+    public void setData(int type, EditReportInfoImgModel model) {
         this.type=type;
         if (type == EditReportInfoActivity.TYPE_RY) {
             textTitle.setData("企业荣誉");
             titleImgText.setText("荣誉图片");
-            textDes.setText("荣誉图片");
+            textDes.setText("荣誉简介");
             editCotent.setHint("请输入荣誉简介");
+
+            if(model!=null){
+                textTitle.setEditText(model.honor);
+                editCotent.setText(model.introduce);
+                Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
+
+            }
+
         }else if(type == EditReportInfoActivity.TYPE_HB){
             textTitle.setData("企业伙伴名称");
             titleImgText.setText("合作伙伴图片");
             textDes.setText("简介");
             editCotent.setHint("请输入简介");
+
+
+            if(model!=null){
+                textTitle.setEditText(model.partner);
+                editCotent.setText(model.introduce);
+                Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
+
+            }
         }else if(type == EditReportInfoActivity.TYPE_CY){
             textTitle.setData("企业姓名");
             titleImgText.setText("企业成员图片");
@@ -101,10 +120,21 @@ public class CorporateIRxImgView extends BaseView {
             editCotent.setHint("请输入简介");
             zhiwuText.setVisibility(VISIBLE);
             zhiwuText.setData("成员职务");
+
+            if(model!=null){
+                textTitle.setEditText(model.name);
+                zhiwuText.setEditText(model.position);
+                editCotent.setText(model.introduce);
+                Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
+
+            }
         }
     }
 
+    private String imageUrl;
     public void setImageSrc(String imageUrl){
+        Log.e("tag","imageUrlimageUrl1"+imageUrl);
+        this.imageUrl=imageUrl;
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(photoImg);
     }
 
@@ -117,5 +147,27 @@ public class CorporateIRxImgView extends BaseView {
         editCotent.setFocusableInTouchMode(editTable);
         editCotent.setLongClickable(editTable);
         editCotent.setInputType(editTable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
+    }
+
+
+    public EditReportInfoImgModel getData() {
+        EditReportInfoImgModel model = new EditReportInfoImgModel();
+
+        Log.e("tag","imageUrlimageUrl"+imageUrl);
+        if (type == EditReportInfoActivity.TYPE_RY) {
+            model.honor  = textTitle.getEditText();
+            model.introduce = editCotent.getText().toString();
+            model.image = imageUrl;
+        }else if (type == EditReportInfoActivity.TYPE_HB) {
+            model.partner  = textTitle.getEditText();
+            model.introduce = editCotent.getText().toString();
+            model.image = imageUrl;
+        }else if (type == EditReportInfoActivity.TYPE_CY) {
+            model.name  = textTitle.getEditText();
+            model.position  = zhiwuText.getEditText();
+            model.introduce = editCotent.getText().toString();
+            model.image = imageUrl;
+        }
+        return  model;
     }
 }
