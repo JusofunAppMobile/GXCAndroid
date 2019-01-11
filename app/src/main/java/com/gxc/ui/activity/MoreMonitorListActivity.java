@@ -1,5 +1,7 @@
 package com.gxc.ui.activity;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.model.HomeMonitorModel;
@@ -34,5 +36,11 @@ public class MoreMonitorListActivity extends BaseListActivity {
     @Override
     protected void startLoadData() {
         completeLoadData(AppUtils.getTestList(HomeMonitorModel.class, 20));
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClick(adapter, view, position);
+        startActivity(MonitorDetailActivity.class);
     }
 }

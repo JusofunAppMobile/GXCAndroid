@@ -18,6 +18,7 @@ import com.gxc.base.BaseFragment;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.model.HomeNewsModel;
+import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.MoreMonitorListActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
 import com.gxc.ui.activity.PayActivity;
@@ -323,7 +324,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void monitorItemClick(HomeMonitorModel model, int position) {
-
+        startActivity(MonitorDetailActivity.class);
     }
 
     private void newsItemClick(HomeNewsModel model, int position) {

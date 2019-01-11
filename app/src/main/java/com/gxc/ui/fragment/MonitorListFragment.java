@@ -1,8 +1,11 @@
 package com.gxc.ui.fragment;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListFragment;
 import com.gxc.model.MonitorModel;
+import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.MonitorAdpater;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
@@ -28,6 +31,12 @@ public class MonitorListFragment extends BaseListFragment {
     @Override
     protected void initUi() {
 
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClick(adapter, view, position);
+        startActivity(MonitorDetailActivity.class);
     }
 
     @Override
