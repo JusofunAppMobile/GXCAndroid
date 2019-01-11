@@ -27,6 +27,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.gxc.base.BaseFragment;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
+import com.gxc.ui.activity.CreditCommitmentActivity;
 import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.VisitorListActivity;
@@ -139,7 +140,12 @@ public class CreditFragment extends BaseFragment {
                     startActivity(intent);
                 }else if(model.menuType == 6){ // 访客
                     startActivity(VisitorListActivity.class);
+                }else if(model.menuType == 5){ // 访客
+                    startActivity(CreditCommitmentActivity.class);
                 }
+
+
+
 
             }
         });

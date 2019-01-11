@@ -634,6 +634,14 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
+        <!-- 信用服务-信用承诺-->
+        <activity
+            android:name="com.gxc.ui.activity.CreditCommitmentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"

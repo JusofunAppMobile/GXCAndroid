@@ -133,7 +133,6 @@ public class CorporateIRxImgView extends BaseView {
 
     private String imageUrl;
     public void setImageSrc(String imageUrl){
-        Log.e("tag","imageUrlimageUrl1"+imageUrl);
         this.imageUrl=imageUrl;
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(photoImg);
     }
@@ -153,7 +152,6 @@ public class CorporateIRxImgView extends BaseView {
     public EditReportInfoImgModel getData() {
         EditReportInfoImgModel model = new EditReportInfoImgModel();
 
-        Log.e("tag","imageUrlimageUrl"+imageUrl);
         if (type == EditReportInfoActivity.TYPE_RY) {
             model.honor  = textTitle.getEditText();
             model.introduce = editCotent.getText().toString();
