@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.FilterModel;
-import com.jusfoun.jusfouninquire.net.model.SearchListModel;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
 import com.jusfoun.jusfouninquire.service.event.GoHomeEvent;
 import com.jusfoun.jusfouninquire.service.event.GoTypeSearchEvent;
@@ -77,6 +76,18 @@ public class SearchResultActivity extends BaseInquireActivity {
         mFilterView = (FilterDrawerView) findViewById(R.id.filter_drawer);
         mTitle = (SearchTitleView) findViewById(R.id.search_title);
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStatusBarRed();
+    }
+
+    @Override
+    public boolean isBarDark() {
+        return false;
+    }
+
 
     @Override
     protected void initWidgetActions() {

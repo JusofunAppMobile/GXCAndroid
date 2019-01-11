@@ -7,48 +7,42 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/common_left_text"
+        style="@style/C_Back_Black"
+        android:tint="#FFF" />
+
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/common_left_text">
 
-        <ImageView
-            android:id="@+id/common_left_text"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/icon_back_black"
-            android:textColor="#666666"
-            android:tint="#FFF"
-            android:textSize="15dp" />
 
         <RelativeLayout
             android:id="@+id/search_title_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_toRightOf="@id/common_left_text"
-            android:background="@drawable/shape_title_input">
+
+            android:background="@drawable/shape_title_input3">
 
             <ImageView
                 android:id="@+id/search_pre_image"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:src="@mipmap/sercher" />
+                android:src="@drawable/icon_search" />
 
             <EditText
                 android:id="@+id/common_search_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@id/search_pre_image"
                 android:background="@null"
                 android:hint="@string/common_search_hint"
@@ -56,20 +50,20 @@
                 android:singleLine="true"
                 android:textColor="#333"
                 android:textCursorDrawable="@drawable/shape_cursor"
-                android:textSize="12dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/common_search_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@id/search_pre_image"
-                android:text="@string/common_search_hint"
                 android:gravity="center_vertical"
+                android:text="@string/common_search_hint"
                 android:textColor="#333333"
                 android:textSize="14sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
 

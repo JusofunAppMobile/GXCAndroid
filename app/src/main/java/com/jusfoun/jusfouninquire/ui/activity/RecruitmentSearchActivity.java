@@ -1,26 +1,25 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.RecruitmentModel;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
 import com.jusfoun.jusfouninquire.net.util.AppUtil;
 import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.adapter.RecruitmentListAdapter;
-import com.jusfoun.jusfouninquire.ui.adapter.TaxIdAdapter;
 import com.jusfoun.jusfouninquire.ui.view.CommonSearchTitleView;
 import com.jusfoun.jusfouninquire.ui.view.XListView;
 
 import java.util.HashMap;
 
 import netlib.util.EventUtils;
-import com.jusfoun.jusfouninquire.TimeOut;
 
 /**
  * @author zhaoyapeng
@@ -63,6 +62,17 @@ public class RecruitmentSearchActivity extends BaseInquireActivity {
         searchTitleView = (CommonSearchTitleView) findViewById(R.id.search_title_view);
         textCount = (TextView) findViewById(R.id.text_count);
         searchResultListview = (XListView) findViewById(R.id.search_result_listview);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStatusBarRed();
+    }
+
+    @Override
+    public boolean isBarDark() {
+        return false;
     }
 
     @Override
