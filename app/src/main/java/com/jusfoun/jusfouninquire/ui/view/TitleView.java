@@ -2,6 +2,7 @@ package com.jusfoun.jusfouninquire.ui.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -32,31 +33,31 @@ public class TitleView extends LinearLayout {
     private TextView titleText, rightText;
     private RelativeLayout titleBackGroud;
     private Context context;
-    private ImageView leftText,rightImage;
+    private ImageView leftText, rightImage;
 
 
     public TitleView(Context context) {
         super(context);
-        initView(context);
+        initView(context, null);
     }
 
     public TitleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initView(context);
+        initView(context, attrs);
     }
 
     public TitleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initView(context);
+        initView(context, attrs);
     }
 
-    private void initView(final Context context){
-        this.context=context;
+    private void initView(final Context context, AttributeSet attrs) {
+        this.context = context;
         View view = LayoutInflater.from(context).inflate(R.layout.view_title_view, this, true);
         titleBackGroud = (RelativeLayout) view.findViewById(R.id.titleBackgroud);
         leftText = (ImageView) findViewById(R.id.left_textview);
         rightImage = (ImageView) findViewById(R.id.rightImage);
-        TouchUtil.createTouchDelegate(leftText, PhoneUtil.dip2px(context,10));
+        TouchUtil.createTouchDelegate(leftText, PhoneUtil.dip2px(context, 10));
         leftText.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -93,9 +94,21 @@ public class TitleView extends LinearLayout {
             }
         });
 
+        if (attrs != null) {
+            TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.title_view);
+            boolean isRed= array.getBoolean(R.styleable.title_view_title_is_red, false);
+            if (isRed) {
+                titleBackGroud.setBackgroundColor(Color.parseColor("#E2292F"));
+                leftText.setColorFilter(Color.WHITE);
+                rightText.setTextColor(Color.WHITE);
+                titleText.setTextColor(Color.WHITE);
+                rightImage.setColorFilter(Color.WHITE);
+            }
+        }
+
     }
 
-    public void setTitleBackGroud(int id){
+    public void setTitleBackGroud(int id) {
         titleBackGroud.setBackgroundColor(id);
     }
 
@@ -141,21 +154,21 @@ public class TitleView extends LinearLayout {
         leftText.setImageResource(resid);
     }
 
-    public void setLeftIsShow(boolean isShow){
-        if(isShow){
+    public void setLeftIsShow(boolean isShow) {
+        if (isShow) {
             leftText.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             leftText.setVisibility(View.GONE);
         }
     }
 
-    public void setTitleDrawableRight(int resid){
-        Drawable drawable=context.getResources().getDrawable(resid);
-        drawable.setBounds(0,0,0,0);
-        titleText.setCompoundDrawablesWithIntrinsicBounds(null,null,drawable,null);
+    public void setTitleDrawableRight(int resid) {
+        Drawable drawable = context.getResources().getDrawable(resid);
+        drawable.setBounds(0, 0, 0, 0);
+        titleText.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
     }
 
-    public void setRightClickable(boolean clickable){
+    public void setRightClickable(boolean clickable) {
         rightText.setClickable(clickable);
     }
 
@@ -168,8 +181,8 @@ public class TitleView extends LinearLayout {
         this.leftListener = leftListener;
     }
 
-    public void setTitleClickListener(OnClickListener listener){
-        if (listener!=null)
+    public void setTitleClickListener(OnClickListener listener) {
+        if (listener != null)
             titleText.setOnClickListener(listener);
     }
 

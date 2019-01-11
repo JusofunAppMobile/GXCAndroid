@@ -235,4 +235,8 @@
         <attr name="left_bottom_radius" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="title_view">
+        <attr name="title_is_red" format="boolean"/>
+    </declare-styleable>
+
 </resources>
