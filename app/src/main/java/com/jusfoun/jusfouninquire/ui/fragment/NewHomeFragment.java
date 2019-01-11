@@ -170,6 +170,7 @@ public class NewHomeFragment extends BaseInquireFragment {
                 Object object = recentChangeView.getCurrentModel();
                 if(object == null) return;
                 if (object != null && object instanceof HomeRecentModel.RecentBean) {
+                    Log.e("tag","new Gson().toJson(object)="+new Gson().toJson(object));
                     intent.putExtra("bean", new Gson().toJson(object));
                 }
                 mContext.startActivity(intent);

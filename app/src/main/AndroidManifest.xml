@@ -325,12 +325,12 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name="com.yalantis.ucrop.PictureMultiCuttingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
 
         <!-- 系统信息-->
@@ -597,8 +597,8 @@
         <activity
             android:name=".ui.activity.ShareHolderActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@style/my_style_horizontal"
             android:screenOrientation="landscape"
+            android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
         <!-- 自助信息填报-->
@@ -641,6 +641,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+        <!-- 确认订单-->
+        <activity
+            android:name="com.gxc.ui.activity.ConfirmOrderActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
 
         <activity
             android:name=".WBShareActivity"
@@ -650,13 +658,12 @@
         </activity>
 
 
-
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -894,8 +901,9 @@
             android:value="true" />
 
         <!-- 适配全面屏底部黑边的问题 -->
-        <meta-data android:name="android.max_aspect"
-            android:value="2.1"/>
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
 
 
     </application>
