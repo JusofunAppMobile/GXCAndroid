@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#e22a30">
 
     <com.jusfoun.jusfouninquire.ui.view.ObserveScrollView
         android:id="@+id/scroll_view"
@@ -12,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/navigation"
         android:fillViewport="true"
-        android:background="@drawable/index_topbg"
+        android:background="#e22a30"
         android:paddingLeft="0dp"
         android:scrollbars="none">
 
@@ -257,7 +258,7 @@
         android:id="@+id/vTitleParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_tra_white"
+        android:background="#e22a30"
         android:orientation="vertical">
 
         <View
@@ -269,7 +270,8 @@
         <com.jusfoun.jusfouninquire.ui.view.PropagandaView.BackAndImageTitleView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
         <View
             style="@style/C_Line"

@@ -59,7 +59,9 @@
                 android:id="@+id/img_tupu"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/info_pic_tupu"
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +86,9 @@
                 android:id="@+id/img_guanxi"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/info_pic_guanxi"
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,7 +113,9 @@
                 android:id="@+id/img_jiegou"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/info_pic_jiegou"
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
