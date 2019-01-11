@@ -47,12 +47,39 @@
         </LinearLayout>
 
 
-        <TextView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/vMenu"
-            android:layout_width="240dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="#0F0" />
+            android:background="#FFF"
+            android:fillViewport="true">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="动态维度"
+                    android:textColor="#333"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/menuRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
 
     </android.support.v4.widget.DrawerLayout>
 

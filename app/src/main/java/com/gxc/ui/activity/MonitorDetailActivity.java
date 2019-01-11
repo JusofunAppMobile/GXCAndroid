@@ -1,12 +1,17 @@
 package com.gxc.ui.activity;
 
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.model.MonitorDetailModel;
 import com.gxc.ui.adapter.MonitorDetailAdapter;
+import com.gxc.ui.adapter.MonitorMenuAdpater;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -28,7 +33,12 @@ public class MonitorDetailActivity extends BaseListActivity {
     @BindView(R.id.drawerLayout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.vMenu)
-    View vMenu;
+    NestedScrollView vMenu;
+
+    @BindView(R.id.menuRecycler)
+    RecyclerView menuRecycler;
+
+    private MonitorMenuAdpater menuAdpater;
 
     @Override
     protected BaseQuickAdapter getAdapter() {
@@ -51,6 +61,12 @@ public class MonitorDetailActivity extends BaseListActivity {
                 toggleDrawer();
             }
         });
+        menuAdpater = new MonitorMenuAdpater();
+        menuAdpater.setNewData(AppUtils.getTestList(String.class, 90));
+        menuRecycler.setAdapter(menuAdpater);
+        menuRecycler.setLayoutManager(new GridLayoutManager(this, 3));
+
+        vMenu.setNestedScrollingEnabled(false);
     }
 
     private void toggleDrawer() {
