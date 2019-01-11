@@ -23,6 +23,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gxc.model.RiskModel;
+import com.gxc.ui.activity.*;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
@@ -201,28 +202,28 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             vBarEmpty2.setVisibility(View.VISIBLE);
         }
 
-        scrollView.setOnScrollChange(new ObserveScrollView.OnScrollChange() {
-            @Override
-            public void onChange(int l, int t, int oldl, int oldt) {
-
-                if (SCROLLHEIGHT == 0)
-                    SCROLLHEIGHT = vTitleParent.getHeight();
-
-                vTitleParent.setSelected(t > 0);
-                setStatusBarFontDark(vTitleParent.isSelected());
-
-//                LogUtil.e("alpha", "t=" + t);
-
-                float alpha = (SCROLLHEIGHT - t) / (float) SCROLLHEIGHT;
-//                LogUtil.e("alpha", "alpha=" + alpha);
-                if (alpha < 0)
-                    alpha = 0;
-                vTitleParent.setAlpha(1 - alpha);
-
-                if (t == 0)
-                    vTitleParent.setAlpha(1);
-            }
-        });
+//        scrollView.setOnScrollChange(new ObserveScrollView.OnScrollChange() {
+//            @Override
+//            public void onChange(int l, int t, int oldl, int oldt) {
+//
+//                if (SCROLLHEIGHT == 0)
+//                    SCROLLHEIGHT = vTitleParent.getHeight();
+//
+//                vTitleParent.setSelected(t > 0);
+//                setStatusBarFontDark(vTitleParent.isSelected());
+//
+////                LogUtil.e("alpha", "t=" + t);
+//
+//                float alpha = (SCROLLHEIGHT - t) / (float) SCROLLHEIGHT;
+////                LogUtil.e("alpha", "alpha=" + alpha);
+//                if (alpha < 0)
+//                    alpha = 0;
+//                vTitleParent.setAlpha(1 - alpha);
+//
+//                if (t == 0)
+//                    vTitleParent.setAlpha(1);
+//            }
+//        });
 
 
     }
@@ -231,6 +232,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     @Override
     protected void initWidgetActions() {
+
+        title.setTitleText("企业详情");
         mCompanyMenu.setNestedScrollingEnabled(false);
         navigation.setElevation(0);
         navigation
@@ -682,7 +685,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
             params.put("userid", userInfo.getUserid());
         } else {
-            startActivity(new Intent(mContext, LoginActivity.class));
+            startActivity(new Intent(mContext, com.gxc.ui.activity.LoginActivity.class));
             return;
         }
         if ("true".equals(followState)) {
@@ -864,7 +867,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private void getReroet() {
         UserInfoModel model = InquireApplication.getUserInfo();
         if (model == null) {
-            goActivity(LoginActivity.class);
+            goActivity(com.gxc.ui.activity.LoginActivity.class);
             return;
         }
 

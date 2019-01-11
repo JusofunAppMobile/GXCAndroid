@@ -2,6 +2,7 @@ package com.gxc.ui.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -65,6 +66,9 @@ public class EditReportInfoActivity extends BaseActivity {
         corporateIRxImgView = new CorporateIRxImgView(this);
         titlebar.setRightText("编辑");
         type = getIntent().getIntExtra(TYPE, TYPE_INFO);
+
+
+        Log.e("tag","typetypetypetype1="+type);
         if (type == TYPE_INFO) {
             corporateInfoView.setData(TYPE_INFO,null);
             layoutView.addView(corporateInfoView);
@@ -74,15 +78,15 @@ public class EditReportInfoActivity extends BaseActivity {
             layoutView.addView(corporateInfoView);
             titlebar.setTitle("企业产品");
         } else if (type == TYPE_RY) {
-            corporateIRxImgView.setData(TYPE_RY);
+            corporateIRxImgView.setData(TYPE_RY,null);
             layoutView.addView(corporateIRxImgView);
             titlebar.setTitle("企业荣誉");
         } else if (type == TYPE_HB) {
-            corporateIRxImgView.setData(TYPE_HB);
+            corporateIRxImgView.setData(TYPE_HB,null);
             layoutView.addView(corporateIRxImgView);
             titlebar.setTitle("企业伙伴");
         } else if (type == TYPE_CY) {
-            corporateIRxImgView.setData(TYPE_CY);
+            corporateIRxImgView.setData(TYPE_CY,null);
             layoutView.addView(corporateIRxImgView);
             titlebar.setTitle("企业成员");
         }
@@ -102,7 +106,10 @@ public class EditReportInfoActivity extends BaseActivity {
                     corporateIRxImgView.setEditTable(false);
                     UpdateReoprtInfoEvent event = new UpdateReoprtInfoEvent();
                     event.type = type;
+
+                    Log.e("tag","typetypetypetype2="+type);
                     event.editReportInfoTextModel =corporateInfoView.getData();
+                    event.editReportInfoImgModel =corporateIRxImgView.getData();
                     EventBus.getDefault().post(event);
                 }
             }

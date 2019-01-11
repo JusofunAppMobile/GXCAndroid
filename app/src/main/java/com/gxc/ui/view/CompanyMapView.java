@@ -61,9 +61,9 @@ public class CompanyMapView extends BaseView {
 
     @Override
     protected void initActions() {
-        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgTupu);
-        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgGuanxi);
-        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgJiegou);
+//        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgTupu);
+//        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgGuanxi);
+//        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgJiegou);
     }
 
     private void initView(View rootView) {

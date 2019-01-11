@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp">
+    android:background="@color/white"
+   >
 
 
     <LinearLayout
@@ -88,12 +89,13 @@
     <EditText
         android:id="@+id/edit_cotent"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="185dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="请输入荣誉简介"
+        android:gravity="top"
         android:inputType="textPersonName"
         android:textColor="#333"
         android:textColorHint="#999"

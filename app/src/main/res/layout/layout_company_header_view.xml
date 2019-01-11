@@ -101,7 +101,7 @@
                         <ImageView
                             android:id="@+id/img_scans"
                             android:layout_width="wrap_content"
-                            android:layout_height="10dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="2dp"
                             android:src="@mipmap/company_detail_scans" />
 
@@ -329,7 +329,7 @@
                 <ImageView
                     android:id="@+id/img_jiantou"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="6dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="18dp"
