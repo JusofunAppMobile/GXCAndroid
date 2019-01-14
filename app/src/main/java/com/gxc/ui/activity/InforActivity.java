@@ -94,6 +94,10 @@ public class InforActivity extends BaseActivity {
         startActivity(InforEditActivity.getIntent(this, type, null));
     }
 
+    private void upload() {
+        AppUtils.uploadPicture(imagePath, "Icon");
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -115,8 +119,8 @@ public class InforActivity extends BaseActivity {
                             AppUtils.compress(activity, file, new OnSimpleCompressListener() {
                                 @Override
                                 public void complete(String path) {
-                                    if(!TextUtils.isEmpty(path)){
-
+                                    if (!TextUtils.isEmpty(path)) {
+                                        upload();
                                     }
                                 }
                             });

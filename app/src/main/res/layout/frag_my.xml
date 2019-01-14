@@ -26,6 +26,7 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/bg_xinyong_company_tag"
@@ -97,7 +98,7 @@
                     app:srcCompat="@drawable/me_head_default_loggedin" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -159,7 +160,7 @@
                     app:srcCompat="@drawable/me_head_default_loggedin" />
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/tvCompany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -187,9 +188,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView27"
-                    app:layout_constraintStart_toEndOf="@+id/textView27"
-                    app:layout_constraintTop_toTopOf="@+id/textView27"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvCompany"
+                    app:layout_constraintStart_toEndOf="@+id/tvCompany"
+                    app:layout_constraintTop_toTopOf="@+id/tvCompany"
                     app:srcCompat="@drawable/icon_vip" />
 
                 <TextView

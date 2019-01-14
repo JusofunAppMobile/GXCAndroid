@@ -10,6 +10,10 @@ import com.google.gson.Gson;
 import com.gxc.constants.Constants;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.model.UserModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
@@ -22,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import netlib.util.PreferenceUtils;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -229,5 +236,24 @@ public class AppUtils {
         if (!TextUtils.isEmpty(user))
             return new Gson().fromJson(user, UserModel.class);
         return null;
+    }
+
+    public static void uploadPicture(String path, String type) {
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder
+                .addFormDataPart("type", type);
+        File file = new File(path);
+        builder.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        RxManager.http(RetrofitUtils.getApi().upload(builder.build()), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+            }
+
+            @Override
+            public void error() {
+                showHttpError();
+            }
+        });
     }
 }

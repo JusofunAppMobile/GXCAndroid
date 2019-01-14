@@ -1,13 +1,16 @@
 package com.gxc.ui.fragment;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseFragment;
 import com.gxc.model.HomeMenuModel;
+import com.gxc.model.UserModel;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.InforActivity;
 import com.gxc.ui.activity.LoginActivity;
@@ -42,6 +45,14 @@ public class MyFragment extends BaseFragment {
     NestedScrollView scrollView;
 
     HomeMenuAdapter homeMenuAdapter;
+    @BindView(R.id.vLogin)
+    ConstraintLayout vLogin;
+    @BindView(R.id.vNormal)
+    ConstraintLayout vNormal;
+    @BindView(R.id.vCompany)
+    ConstraintLayout vCompany;
+    @BindView(R.id.tvPhone)
+    TextView tvPhone;
 
     @Override
     protected int getLayoutId() {
@@ -93,6 +104,27 @@ public class MyFragment extends BaseFragment {
             case 5:// 赠送好友VIP
                 startActivity(PayActivity.class);
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUser();
+    }
+
+    private void loadUser() {
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            vCompany.setVisibility(View.GONE);
+            vNormal.setVisibility(View.GONE);
+            vLogin.setVisibility(View.VISIBLE);
+        } else {
+            vCompany.setVisibility(View.VISIBLE);
+            vNormal.setVisibility(View.VISIBLE);
+            vLogin.setVisibility(View.GONE);
+
+            tvPhone.setText(user.phone);
         }
     }
 
