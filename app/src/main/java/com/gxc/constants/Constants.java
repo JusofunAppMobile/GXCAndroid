@@ -14,4 +14,7 @@ public class Constants {
     public static int INFOR_TYPE_JOB = 4;
     public static int INFOR_TYPE_TRADE = 5;
 
+    public static String REGID = "redId";
+    public static String USER = "user";
+
 }

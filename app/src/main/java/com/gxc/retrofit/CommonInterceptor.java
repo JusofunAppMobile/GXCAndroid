@@ -1,18 +1,17 @@
 package com.gxc.retrofit;
 
 
-
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
+import com.gxc.model.UserModel;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.TimeOut;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -31,7 +30,9 @@ public class CommonInterceptor implements Interceptor {
                 .newBuilder().scheme(request.url().scheme())
                 .host(request.url().host());
 
-//        builder.addQueryParameter("Version", AppUtils.getVersionName(InquireApplication.application));
+        UserModel model = AppUtils.getUser();
+        if (model != null)
+            builder.addQueryParameter("userId", model.userId);
 
         String postBodyString = bodyToString(request.body());
         FormBody.Builder formBody = new FormBody.Builder();
@@ -39,19 +40,19 @@ public class CommonInterceptor implements Interceptor {
         } else {
 
             if (request.body() instanceof FormBody) {
-                FormBody oldRormBpody =(FormBody) request.body();
-                HashMap<String,Object> map = new HashMap<>();
-                for(int i=0;i<oldRormBpody.size();i++){
-                    map.put(oldRormBpody.name(i),oldRormBpody.value(i));
+                FormBody oldRormBpody = (FormBody) request.body();
+                HashMap<String, Object> map = new HashMap<>();
+                for (int i = 0; i < oldRormBpody.size(); i++) {
+                    map.put(oldRormBpody.name(i), oldRormBpody.value(i));
 //                    formBody.add(oldRormBpody.name(i),oldRormBpody.value(i));
                 }
                 TimeOut timeOut = new TimeOut(InquireApplication.application);
-                map.put("t",timeOut.getParamTimeMollis()+"");
+                map.put("t", timeOut.getParamTimeMollis() + "");
 
-                formBody.add("data",new Gson().toJson(map));
-                formBody.add("m",timeOut.MD5GXCtime(map));
+                formBody.add("data", new Gson().toJson(map));
+                formBody.add("m", timeOut.MD5GXCtime(map));
 
-            }else{
+            } else {
                 return chain.proceed(request);
             }
             Request newRequest = request.newBuilder()
@@ -69,6 +70,7 @@ public class CommonInterceptor implements Interceptor {
 
         return chain.proceed(newRequest);
     }
+
     private final Charset UTF8 = Charset.forName("UTF-8");
 
     private String bodyToString(final RequestBody request) {

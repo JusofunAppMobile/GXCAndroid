@@ -1,23 +1,30 @@
 package com.gxc.ui.activity;
 
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.constants.Constants;
+import com.gxc.event.LoginSucEvent;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
-import com.gxc.utils.ParamsUitl;
+import com.gxc.utils.DESUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
+import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+import netlib.util.PreferenceUtils;
 
 /**
  * @author liuguangdan
@@ -46,19 +53,34 @@ public class LoginActivity extends BaseActivity {
 
     private void login() {
 
+        String phone = etPhone.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            showToast("请输入手机号");
+            return;
+        }
+        if (!RegexUtils.checkMobile(phone)) {
+            showToast("请输入正确的手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(getValue(etPassword))) {
+            showToast("请输入手机号");
+            return;
+        }
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", getValue(etPhone));
-        map.put("password", getValue(etPassword));
-        map.put("regId", "TEST");
+        map.put("password", DESUtils.encryptDES(getValue(etPassword), new TimeOut(this).getGCXkey()));
+        map.put("regId", PreferenceUtils.getString(activity, Constants.REGID));
 
-
-        Log.e("tag", "loginApploginApp=" + ParamsUitl.getParams(this, map));
-        RxManager.http(RetrofitUtils.getApi().loginApp(ParamsUitl.getParams(this, map)), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().loginApp(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
-
+                    showToast("登录成功");
+                    PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
+                    EventBus.getDefault().post(new LoginSucEvent());
+                    finish();
                 } else {
                     showToast(model.msg);
                 }
@@ -72,6 +94,12 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof LoginSucEvent)
+            finish();
+    }
 
     @OnClick({R.id.ivLeft, R.id.vRegister, R.id.vLogin, R.id.tvForget, R.id.ivSina, R.id.ivWechat, R.id.ivQQ})
     public void onViewClicked(View view) {

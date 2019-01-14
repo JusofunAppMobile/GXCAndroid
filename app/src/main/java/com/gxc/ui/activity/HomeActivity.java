@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gxc.base.BaseActivity;
+import com.gxc.constants.Constants;
 import com.gxc.ui.fragment.CreditFragment;
 import com.gxc.ui.fragment.HomeFragment;
 import com.gxc.ui.fragment.MonitorListFragment;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import netlib.util.PreferenceUtils;
 
 /**
  * @author liuguangdan
@@ -73,6 +75,8 @@ public class HomeActivity extends BaseActivity {
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
 //        setDoubleClickExitApp(true);
+
+        PreferenceUtils.setString(this, Constants.REGID, "TEST");
     }
 
     @Override

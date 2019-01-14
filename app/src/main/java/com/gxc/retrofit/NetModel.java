@@ -33,7 +33,7 @@ public class NetModel implements Serializable {
      * @return
      */
     public boolean success() {
-        return result == 1;
+        return result == 0;
     }
 
     public <T> T dataToObject(String key, Class<T> clazz) {

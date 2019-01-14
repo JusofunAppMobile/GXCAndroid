@@ -6,7 +6,11 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.gson.Gson;
+import com.gxc.constants.Constants;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.model.UserModel;
+import com.jusfoun.jusfouninquire.InquireApplication;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -17,6 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import netlib.util.PreferenceUtils;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -133,7 +138,7 @@ public class AppUtils {
     }
 
 
-    public static void pictureSelect(final Activity activity, boolean enableCrop, int maxSelectNum, List<String> selectList,int requestCode) {
+    public static void pictureSelect(final Activity activity, boolean enableCrop, int maxSelectNum, List<String> selectList, int requestCode) {
         PictureSelectionModel model = PictureSelector.create(activity)
                 .openGallery(PictureMimeType.ofImage())
                 .enableCrop(enableCrop)// 是否裁剪 true or false
@@ -217,5 +222,12 @@ public class AppUtils {
             return parseDouble((float) size / kb, 0) + "K";
         else
             return parseDouble((float) size, 0) + "B";
+    }
+
+    public static UserModel getUser() {
+        String user = PreferenceUtils.getString(InquireApplication.application, Constants.USER);
+        if (!TextUtils.isEmpty(user))
+            return new Gson().fromJson(user, UserModel.class);
+        return null;
     }
 }

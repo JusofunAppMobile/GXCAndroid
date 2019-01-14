@@ -2,7 +2,6 @@ package com.gxc.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.constraint.Group;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
-import com.gxc.utils.ParamsUitl;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
@@ -22,7 +20,6 @@ import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import netlib.util.SendMessage;
 
@@ -100,7 +97,7 @@ public class BindPhoneActivity extends BaseActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("type", 1);
-        RxManager.http(RetrofitUtils.getApi().sendMesCode(ParamsUitl.getParams(this, map)), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().sendMesCode(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
@@ -118,8 +115,6 @@ public class BindPhoneActivity extends BaseActivity {
                 ToastUtils.showHttpError();
             }
         });
-
-//        sendMessage.reset();
     }
 
     public static Intent getIntent(Context context, int type) {
@@ -137,12 +132,5 @@ public class BindPhoneActivity extends BaseActivity {
             case R.id.vSubmit:
                 break;
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

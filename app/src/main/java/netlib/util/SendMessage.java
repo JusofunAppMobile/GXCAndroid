@@ -16,7 +16,7 @@ public class SendMessage {
     private int maxTime;
     private TextView clickView;
     private TextView inputView;
-    private Activity activity ;
+    private Activity activity;
     private int defaultMaxTime = 60;
     private String tipText;
 
@@ -66,14 +66,15 @@ public class SendMessage {
     private void setCodeTime(final int time) {
         this.activity.runOnUiThread(new Runnable() {
             public void run() {
-                if(time <= 0) {
-                    SendMessage.this.clickView.setText(SendMessage.this.tipText);
-                    SendMessage.this.clickView.setClickable(true);
-                    SendMessage.this.maxTime = SendMessage.this.defaultMaxTime;
-                    SendMessage.this.timerTask.cancel();
+                if (time <= 0) {
+                    clickView.setText(SendMessage.this.tipText);
+                    clickView.setClickable(true);
+                    maxTime = SendMessage.this.defaultMaxTime;
+                    if (timerTask != null)
+                        timerTask.cancel();
                 } else {
-                    SendMessage.this.clickView.setText("重新获取(" + time + ")");
-                    SendMessage.this.clickView.setClickable(false);
+                    clickView.setText("重新获取(" + time + ")");
+                    clickView.setClickable(false);
                 }
 
             }

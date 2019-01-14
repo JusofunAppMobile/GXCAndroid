@@ -1,6 +1,7 @@
 package com.gxc.retrofit;
 
 
+import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 
@@ -14,16 +15,17 @@ public class HeaderWeather implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request=chain.request().newBuilder()
+        Request.Builder builder = chain.request().newBuilder()
                 /**********添加头文件**********/
                 .addHeader("Version", AppUtils.getVersionName(InquireApplication.application))
                 .addHeader("VersionCode", String.valueOf(AppUtils.getVersionCode(InquireApplication.application)))
                 .addHeader("AppType", String.valueOf(0))
                 .addHeader("Channel", "test")
-                .addHeader("Deviceid", "test")
-                .addHeader("AccessToken", "")
-                .build();
+                .addHeader("Deviceid", "test");
 
-        return chain.proceed(request);
+        UserModel model = AppUtils.getUser();
+        if (model != null)
+            builder.addHeader("AccessToken", "");
+        return chain.proceed(builder.build());
     }
 }
