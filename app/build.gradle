@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         jusfoun {
-            keyAlias 'jusfoun'
-            keyPassword 'jusfoun'
-            storeFile file('keystore/jusfoun.keystore')
-            storePassword 'jusfoun'
+            keyAlias 'ztgxbj'
+            keyPassword 'ztgxbj'
+            storeFile file('keystore/ztgx.jks')
+            storePassword 'ztgxbj'
         }
     }
     compileSdkVersion 28
@@ -226,7 +226,7 @@ dependencies {
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
 //    compile(name: 'mylibrary-release', ext: 'aar')
-    implementation files('libs/classes.jar')
+    implementation files('libs/mySdk.jar')
 
     ///////////////////////////////////////////////
     //   retrofit

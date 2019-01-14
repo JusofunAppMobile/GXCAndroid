@@ -4,10 +4,10 @@
     package="com.jusfoun.jusfouninquire">
 
     <permission
-        android:name="com.jusfoun.jusfouninquire.permission.JPUSH_MESSAGE"
+        android:name="com.jusfoun.gxt.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.jusfoun.jusfouninquire.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.jusfoun.gxt.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />

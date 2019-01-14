@@ -23,6 +23,7 @@ import android.view.WindowManager;
 
 import com.baidu.mobstat.StatService;
 import com.gxc.ui.activity.HomeActivity;
+import com.jusfoun.jusfouninquire.JniGXCUtil;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.AdvertiseModel;
 import com.jusfoun.jusfouninquire.net.model.CheckVersionModel;
@@ -90,6 +91,8 @@ public class SplashActivity extends BaseInquireActivity {
     private static final int CHANGE_UPDATE_TYPE = 1;
     private static final int MUST_UPDATE_TYPE = 2;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -134,6 +137,8 @@ public class SplashActivity extends BaseInquireActivity {
 //        mContext.startService(intent);
 
         startActivity(new Intent(this, HomeActivity.class));
+
+        Log.e("tag","new com.gxc.utils.JniUtil().getGXCLineKey(this);="+new JniGXCUtil().getGXCLineKey(this));
     }
 
     @Override
