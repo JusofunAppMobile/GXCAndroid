@@ -1,5 +1,6 @@
 package com.gxc.ui.adapter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.Html;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.CreditReportModel;
+import com.gxc.ui.activity.ConfirmOrderActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
@@ -45,6 +47,13 @@ public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel, Bas
             @Override
             public void onClick(View v) {
                 mContext.startActivity(WebActivity.getIntent(mContext, "样例预览", AppUtils.TEST_URL));
+            }
+        });
+
+        reportText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext,ConfirmOrderActivity.class));
             }
         });
 

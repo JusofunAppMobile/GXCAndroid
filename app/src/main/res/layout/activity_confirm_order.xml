@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/MyTheme.Layout.Root"
+    android:background="#f0f3f5">
 
 
     <com.jusfoun.jusfouninquire.ui.view.TitleView
@@ -40,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -62,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/text_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -70,15 +72,16 @@
             android:textColor="#333"
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/textView21"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/text_title" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout6"
         android:layout_width="0dp"
-        android:layout_height="625dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
+        android:paddingBottom="36dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,13 +89,17 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/edit_email"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="35dp"
-            android:ems="10"
+            android:background="@drawable/bg_xinyongbaogao_selecter"
             android:hint="请输入接收报告的邮箱地址"
             android:inputType="textPersonName"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textColor="#999"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -106,26 +113,85 @@
             android:textColor="#999"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_email" />
+
+        <TextView
+            android:id="@+id/text_pdf"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_xinyongbaogao_normal"
+            android:gravity="center"
+            android:text="PDF"
+            android:textColor="#333"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+        <TextView
+            android:id="@+id/text_word"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_xinyongbaogao_selecter"
+            android:gravity="center"
+            android:text="PDF+word"
+            android:textColor="#df282d"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/text_pdf"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="PDF"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="8dp"
+            android:text="待支付:"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView39"
+            android:id="@+id/text_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="18dp"
-            android:text="PDF+word"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:text="￥0"
+            android:textColor="#e32730"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView38"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_finish"
+            android:layout_width="125dp"
+            android:layout_height="0dp"
+            android:background="#df282d"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
