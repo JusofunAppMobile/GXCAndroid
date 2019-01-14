@@ -1,5 +1,6 @@
 package com.gxc.ui.activity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,8 +10,10 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.utils.ParamsUitl;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,11 +47,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(){
-        Map<String, Object> map = new HashMap<>();
+
+        HashMap<String, Object> map = new HashMap<>();
         map.put("phone", getValue(etPhone));
         map.put("password", getValue(etPassword));
         map.put("regId", "TEST");
-        RxManager.http(RetrofitUtils.getApi().loginApp(map), new ResponseCall() {
+
+
+        Log.e("tag","loginApploginApp="+ParamsUitl.getParams(this,map));
+        RxManager.http(RetrofitUtils.getApi().loginApp(ParamsUitl.getParams(this,map)), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
