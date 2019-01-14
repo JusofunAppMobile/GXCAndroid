@@ -9,18 +9,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.constants.Constants;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.utils.AppUtils;
+import com.gxc.utils.DESUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import netlib.util.PreferenceUtils;
 import netlib.util.SendMessage;
 
 /**
@@ -31,9 +37,9 @@ import netlib.util.SendMessage;
  */
 public class BindPhoneActivity extends BaseActivity {
 
-    public static final int TYPE_FORGET_PASSWORD = 1; // 忘记密码
-    public static final int TYPE_UPDATE_PHONE = 2; // 修改手机号
-    public static final int TYPE_UPDATE_PASSWORD = 3; // 修改密码
+    public static final int TYPE_FORGET_PASSWORD = 4; // 忘记密码
+    public static final int TYPE_UPDATE_PHONE = 3; // 修改手机号
+    public static final int TYPE_UPDATE_PASSWORD = 2; // 修改密码
 
     @BindView(R.id.etPhone)
     EditText etPhone;
@@ -60,6 +66,13 @@ public class BindPhoneActivity extends BaseActivity {
     @Override
     public void initActions() {
         type = getIntent().getIntExtra("type", 0);
+
+        sendMessage = SendMessage.newInstant(activity)
+                .setClickView(vSendCode)
+                .setInputView(etPhone)
+                .setTipText("获取验证码")
+                .setTime(60);
+
         switch (type) {
             case TYPE_FORGET_PASSWORD:
                 tvLabel.setText("找回密码");
@@ -70,15 +83,15 @@ public class BindPhoneActivity extends BaseActivity {
                 break;
             case TYPE_UPDATE_PASSWORD:
                 tvLabel.setText("重置密码");
+                UserModel user = AppUtils.getUser();
+                if (user != null) {
+                    etPhone.setText(user.phone);
+                    etPhone.setEnabled(false);
+                    vSendCode.performClick();
+                }
                 break;
         }
 
-
-        sendMessage = SendMessage.newInstant(activity)
-                .setClickView(vSendCode)
-                .setInputView(etPhone)
-                .setTipText("获取验证码")
-                .setTime(60);
     }
 
     @OnClick(R.id.vSendCode)
@@ -96,7 +109,7 @@ public class BindPhoneActivity extends BaseActivity {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", phone);
-        map.put("type", 1);
+        map.put("type", type);
         RxManager.http(RetrofitUtils.getApi().sendMesCode(map), new ResponseCall() {
 
             @Override
@@ -130,7 +143,85 @@ public class BindPhoneActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.vSubmit:
+                submit();
                 break;
         }
+    }
+
+    public void submit() {
+        final String phone = etPhone.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            showToast("请输入手机号");
+            return;
+        }
+        if (!RegexUtils.checkMobile(phone)) {
+            showToast("请输入正确的手机号码");
+            return;
+        }
+        String code = getValue(etCode);
+        if (TextUtils.isEmpty(code)) {
+            showToast("请输入验证码");
+            return;
+        }
+        if (type != TYPE_UPDATE_PHONE) {
+            if (TextUtils.isEmpty(getValue(etPassword))) {
+                showToast("请输入密码");
+                return;
+            }
+        }
+        showLoading();
+        if (type == TYPE_UPDATE_PHONE) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("phone", phone);
+            map.put("code", code);
+            RxManager.http(RetrofitUtils.getApi().updatePhone(map), new ResponseCall() {
+
+                @Override
+                public void success(NetModel model) {
+                    hideLoadDialog();
+                    if (model.success()) {
+                        showToast("修改成功");
+                        UserModel user = AppUtils.getUser();
+                        if (user != null)
+                            user.phone = phone;
+                        PreferenceUtils.setString(activity, Constants.USER, gson.toJson(user));
+                        finish();
+                    } else {
+                        showToast(model.msg);
+                    }
+                }
+
+                @Override
+                public void error() {
+                    hideLoadDialog();
+                    ToastUtils.showHttpError();
+                }
+            });
+        } else {
+            showLoading();
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("code", code);
+            map.put("password", DESUtils.encryptDES(getValue(etPassword), new TimeOut(this).getGCXkey()));
+            RxManager.http(RetrofitUtils.getApi().updateInfo(map), new ResponseCall() {
+
+                @Override
+                public void success(NetModel model) {
+                    hideLoadDialog();
+                    if (model.success()) {
+                        showToast("修改成功");
+                        finish();
+                    } else {
+                        showToast(model.msg);
+                    }
+                }
+
+                @Override
+                public void error() {
+                    hideLoadDialog();
+                    ToastUtils.showHttpError();
+                }
+            });
+        }
+
     }
 }

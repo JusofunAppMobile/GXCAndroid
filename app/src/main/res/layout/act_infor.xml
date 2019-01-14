@@ -31,7 +31,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:infor_label="手机"
-        app:infor_value="18855555555"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

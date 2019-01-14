@@ -22,11 +22,16 @@ public class HomeMonitorAdapter extends BaseQuickAdapter<HomeMonitorModel, BaseV
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, HomeMonitorModel homeMenuModel) {
+    protected void convert(BaseViewHolder holder, HomeMonitorModel model) {
         TextView tvTitle = holder.getView(R.id.tvTitle);
         TextView tvInfo = holder.getView(R.id.tvInfo);
         TextView tvTime = holder.getView(R.id.tvTime);
         ImageView ivLogo = holder.getView(R.id.ivLogo);
+
+        tvTitle.setText(model.companyName);
+        tvTime.setText(model.changeDate);
+
+//        Glide.with(InquireApplication.application)
 
         tvInfo.setText(Html.fromHtml("变更开庭公告等<font color='#E2292F'>3</font>条动态"));
     }

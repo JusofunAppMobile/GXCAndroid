@@ -24,6 +24,26 @@ public interface Api {
     @POST("/app/UserLogin/RegisterApp")
     Observable<NetModel> registerApp(@FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/app/mineManager/upUserInfo")
+    Observable<NetModel> updateInfo(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/UserLogin/ExitApp")
+    Observable<NetModel> logout(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Home/GetHomeData")
+    Observable<NetModel> getHomeData(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/upTelphone")
+    Observable<NetModel> updatePhone(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Home/IndustryInformation")
+    Observable<NetModel> moreNews(@FieldMap Map<String, Object> params);
+
 //    @FormUrlEncoded
     @POST("/app/sys/fileupload")
     Observable<NetModel> upload(@Body RequestBody Body);

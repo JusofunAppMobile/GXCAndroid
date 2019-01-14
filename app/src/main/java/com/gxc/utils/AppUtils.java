@@ -256,4 +256,8 @@ public class AppUtils {
             }
         });
     }
+
+    public static void logout() {
+        PreferenceUtils.setString(InquireApplication.application, Constants.USER, null);
+    }
 }

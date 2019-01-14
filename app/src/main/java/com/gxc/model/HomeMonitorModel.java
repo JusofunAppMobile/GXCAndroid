@@ -7,4 +7,17 @@ package com.gxc.model;
  * @Description ${}
  */
 public class HomeMonitorModel {
+
+
+    /**
+     * companyId : 1
+     * isUserMonitor : 0
+     * companyName : 九次方大数据信息集团有限公司
+     * changeDate : 11:17
+     */
+
+    public String companyId;
+    public String isUserMonitor;
+    public String companyName;
+    public String changeDate;
 }

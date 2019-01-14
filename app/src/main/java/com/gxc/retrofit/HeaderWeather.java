@@ -25,7 +25,7 @@ public class HeaderWeather implements Interceptor {
 
         UserModel model = AppUtils.getUser();
         if (model != null)
-            builder.addHeader("AccessToken", "");
+            builder.addHeader("AccessToken", model.token);
         return chain.proceed(builder.build());
     }
 }

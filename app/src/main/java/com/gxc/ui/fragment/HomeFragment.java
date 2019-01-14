@@ -16,8 +16,13 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseFragment;
 import com.gxc.model.HomeMenuModel;
+import com.gxc.model.HomeModel;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.model.HomeNewsModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.MoreMonitorListActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
@@ -34,7 +39,7 @@ import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
-import com.gxc.utils.LogUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
@@ -42,6 +47,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +92,8 @@ public class HomeFragment extends BaseFragment {
 
     private int crisisY;
 
+    private HomeModel homeModel;
+
     @Override
     protected int getLayoutId() {
         return R.layout.frag_home;
@@ -94,16 +102,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initView() {
         homeMenuAdapter = new HomeMenuAdapter();
-        List<HomeMenuModel> list = new ArrayList<>();
-        list.add(new HomeMenuModel("股东高管", 1));
-        list.add(new HomeMenuModel("主营产品", 2));
-        list.add(new HomeMenuModel("失信查询", 3));
-        list.add(new HomeMenuModel("查关系", 4));
-        list.add(new HomeMenuModel("风险分析", 5));
-        list.add(new HomeMenuModel("查税号", 6));
-        list.add(new HomeMenuModel("招聘", 7));
-        list.add(new HomeMenuModel("全部", 0));
-        homeMenuAdapter.addData(list);
         menuRecycler.setAdapter(homeMenuAdapter);
         menuRecycler.setLayoutManager(new GridLayoutManager(activity, 4));
         homeMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -114,7 +112,6 @@ public class HomeFragment extends BaseFragment {
         });
 
         homeMonitorAdapter = new HomeMonitorAdapter();
-        homeMonitorAdapter.addData(AppUtils.getTestList(HomeMonitorModel.class, 3));
         monitorRecycler.setAdapter(homeMonitorAdapter);
         monitorRecycler.setLayoutManager(new LinearLayoutManager(activity));
         homeMonitorAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -125,7 +122,6 @@ public class HomeFragment extends BaseFragment {
         });
 
         homeNewsAdapter = new HomeNewsAdapter(activity);
-        homeNewsAdapter.addData(AppUtils.getTestList(HomeNewsModel.class, 5));
         newsRecycler.setAdapter(homeNewsAdapter);
         newsRecycler.setLayoutManager(new LinearLayoutManager(activity));
         homeNewsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -150,23 +146,6 @@ public class HomeFragment extends BaseFragment {
                 startActivity(MoreNewsListActivity.class);
             }
         });
-
-        List<String> imageIdList = new ArrayList<>();
-        imageIdList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546931637746&di=b6f2a88e293aca04290c2c80dd429dbf&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fe7cd7b899e510fb31dfc8516d433c895d0430c4d.jpg");
-        imageIdList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546931637746&di=b223981d4037353228647ad303232344&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F58ee3d6d55fbb2fbbc6b4796424a20a44723dcf6.jpg");
-        imageIdList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546931637745&di=c2b4a56050c1864bca1d11a2a326c40e&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1c950a7b02087bf49661186dffd3572c10dfcfa1.jpg");
-        pager.setAdapter(new ImagePagerAdapter(activity, imageIdList).setInfiniteLoop(true));
-
-        pager.setInterval(5000);
-        pager.startAutoScroll();
-        pager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % AppUtils.getSize(imageIdList));
-        indicator.setViewPager(pager);
-        indicator.setFillColor(Color.parseColor("#A8ACB0"));
-        indicator.setPageColor(Color.WHITE);
-        indicator.setSnap(true);
-        indicator.setRadius(8);
-        indicator.setStrokeWidth(0);
-        indicator.setPointPadding(4);
 
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -199,22 +178,83 @@ public class HomeFragment extends BaseFragment {
             }
         }, 300);
 
+        loadData();
+    }
+
+    private void initAutoPager(int size) {
+        pager.setInterval(5000);
+        indicator.setViewPager(pager);
+        indicator.setFillColor(Color.parseColor("#A8ACB0"));
+        indicator.setPageColor(Color.WHITE);
+        indicator.setSnap(true);
+        indicator.setRadius(8);
+        indicator.setStrokeWidth(0);
+        indicator.setPointPadding(4);
+        pager.startAutoScroll();
+//        pager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % size);
+    }
+
+    private void loadData() {
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        RxManager.http(RetrofitUtils.getApi().getHomeData(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    homeModel = model.dataToObject(HomeModel.class);
+                    buildView();
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+    }
+
+    private void buildView() {
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                buildHotSearch();
+                List<HomeModel.AdverModel> imageIdList = new ArrayList<>();
+                imageIdList.add(new HomeModel.AdverModel());
+                imageIdList.add(new HomeModel.AdverModel());
+                imageIdList.add(new HomeModel.AdverModel());
+                pager.setAdapter(new ImagePagerAdapter(activity, imageIdList).setInfiniteLoop(true));
+                initAutoPager(AppUtils.getSize(imageIdList));
             }
-        }, 500);
+        }, 3000);
+
+
+        if (homeModel != null) {
+            homeMenuAdapter.setNewData(homeModel.menu);
+
+            if (homeModel.adImages != null) {
+//                pager.setAdapter(new ImagePagerAdapter(activity, homeModel.adImages).setInfiniteLoop(true));
+//                initAutoPager(AppUtils.getSize(homeModel.adImages));
+
+
+            }
+            homeMonitorAdapter.addData(homeModel.monitor);
+            homeNewsAdapter.addData(homeModel.news);
+            buildHotSearch(homeModel.keywords);
+        }
     }
 
     /**
      * 热搜，需要延时操作
      */
-    private void buildHotSearch() {
-        String[] arr = new String[]{"马云1", "马云2", "马云3", "马化腾4", "马云5", "雷军6", "马云7", "马云8"};
+    private void buildHotSearch(List<String> list) {
         int maxWidth = vHot.getWidth();
         int curWidth = 0;
-        for (final String val : arr) {
+        for (final String val : list) {
             View view = View.inflate(activity, R.layout.view_hot_search, null);
             TextView text = view.findViewById(R.id.text);
             text.setText(val);
@@ -238,13 +278,15 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        pager.startAutoScroll();
+        if (homeModel != null)
+            pager.startAutoScroll();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        pager.stopAutoScroll();
+        if (pager.isBorderAnimation())
+            pager.stopAutoScroll();
     }
 
 
@@ -257,7 +299,6 @@ public class HomeFragment extends BaseFragment {
         if (show) {
             if (vTop2.isSelected()) return;
             vTop2.setSelected(true);
-            LogUtils.e(">>>>>显示动画...");
             PropertyValuesHolder translate = PropertyValuesHolder.ofFloat("translationY", -vTop2.getHeight(), 0);
             PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(vTop2, translate, alpha);
@@ -267,7 +308,6 @@ public class HomeFragment extends BaseFragment {
         } else {
             if (!vTop2.isSelected()) return;
             vTop2.setSelected(false);
-            LogUtils.e(">>>>>隐藏动画...");
             PropertyValuesHolder translate = PropertyValuesHolder.ofFloat("translationY", 0, -vTop2.getHeight());
             PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", vTop2.getAlpha(), 0f);
             ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(vTop2, translate, alpha);

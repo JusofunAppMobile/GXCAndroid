@@ -52,6 +52,8 @@ public class TabView extends LinearLayout {
             String text = array.getString(R.styleable.TabView_tab_label);
             setSelected(selected);
             textView.setText(text);
+
+            array.recycle();
         }
     }
 

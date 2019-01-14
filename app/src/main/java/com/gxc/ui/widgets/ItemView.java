@@ -62,6 +62,8 @@ public class ItemView extends LinearLayout {
             else
                 imageView.setVisibility(View.GONE);
             vLine.setVisibility(isShowLine ? View.VISIBLE : View.GONE);
+
+            array.recycle();
         }
     }
 

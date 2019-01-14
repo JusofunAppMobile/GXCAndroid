@@ -82,4 +82,18 @@
 
     </com.gxc.ui.widgets.ItemView>
 
+    <TextView
+        android:id="@+id/vLogout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/selector_common_list"
+        android:gravity="center"
+        android:text="退  出"
+        android:textColor="#333"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vAbout" />
+
 </android.support.constraint.ConstraintLayout>

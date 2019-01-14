@@ -62,11 +62,21 @@ public class InforInputView extends LinearLayout {
                 image.setImageResource(id);
             else
                 image.setVisibility(View.GONE);
+
+            array.recycle();
         }
     }
 
     public void loadImage(String url) {
         Glide.with(InquireApplication.application).load(url).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(image);
+    }
+
+    public void setValue(String value) {
+        tvValue.setText(value);
+    }
+
+    public String getValue() {
+        return tvValue.getText().toString();
     }
 
 }
