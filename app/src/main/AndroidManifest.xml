@@ -667,6 +667,15 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
+        <!-- 发送成功-->
+        <activity
+            android:name="com.gxc.ui.activity.ReportSubmitActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
 
         <activity
             android:name=".WBShareActivity"
