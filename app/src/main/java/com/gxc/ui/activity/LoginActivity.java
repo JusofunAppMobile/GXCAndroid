@@ -1,15 +1,21 @@
 package com.gxc.ui.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -37,6 +43,30 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    private void login(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone", getValue(etPhone));
+        map.put("password", getValue(etPassword));
+        map.put("regId", "TEST");
+        RxManager.http(RetrofitUtils.getApi().loginApp(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+
+                }else{
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                ToastUtils.showHttpError();
+            }
+        });
+
+    }
+
 
     @OnClick({R.id.ivLeft, R.id.vRegister, R.id.vLogin, R.id.tvForget, R.id.ivSina, R.id.ivWechat, R.id.ivQQ})
     public void onViewClicked(View view) {
@@ -48,6 +78,7 @@ public class LoginActivity extends BaseActivity {
                 startActivity(RegisterActivity.class);
                 break;
             case R.id.vLogin:
+                login();
                 break;
             case R.id.tvForget:
                 startActivity(BindPhoneActivity.getIntent(this, BindPhoneActivity.TYPE_FORGET_PASSWORD));

@@ -18,9 +18,7 @@ public class CommonInterceptor implements Interceptor {
                 .newBuilder().scheme(request.url().scheme())
                 .host(request.url().host());
 
-//        String userId = LoginSharePresenercs.getUserId(MyApplication.getContext());
-//        if (!TextUtils.isEmpty(userId))
-//            builder.addQueryParameter("userId", userId);
+//        builder.addQueryParameter("Version", AppUtils.getVersionName(InquireApplication.application));
 
         Request newRequest = request.newBuilder()
                 .method(request.method(), request.body())

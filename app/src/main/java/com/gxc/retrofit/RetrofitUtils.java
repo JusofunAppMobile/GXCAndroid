@@ -36,10 +36,10 @@ public class RetrofitUtils {
                 .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .addInterceptor(new LoggingInterceptor())
                 .addInterceptor(new CommonInterceptor())
                 .addInterceptor(new HeaderWeather())
                 .addInterceptor(new CacheInterceptor())
+                .addInterceptor(new LoggingInterceptor())
 
                 .cache(cache)
                 .build();

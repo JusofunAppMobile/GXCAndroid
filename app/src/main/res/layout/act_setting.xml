@@ -5,7 +5,7 @@
     style="@style/MyTheme.Layout.Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF">
+    android:background="#F8F8FA">
 
     <com.jusfoun.jusfouninquire.ui.view.TitleView
         android:id="@+id/titleView"
@@ -14,4 +14,72 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.gxc.ui.widgets.ItemView
+        android:id="@+id/vPush"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_show_line="false"
+        app:item_text="消息推送"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView">
+
+    </com.gxc.ui.widgets.ItemView>
+
+    <com.gxc.ui.widgets.ItemView
+        android:id="@+id/vCache"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_show_line="false"
+        app:item_text="清除缓存"
+        app:item_value="8.24MB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vPush">
+
+    </com.gxc.ui.widgets.ItemView>
+
+    <com.gxc.ui.widgets.ItemView
+        android:id="@+id/vService"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_text="服务协议"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vCache">
+
+    </com.gxc.ui.widgets.ItemView>
+
+    <com.gxc.ui.widgets.ItemView
+        android:id="@+id/vSecret"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:item_text="隐私政策"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vService">
+
+    </com.gxc.ui.widgets.ItemView>
+
+    <com.gxc.ui.widgets.ItemView
+        android:id="@+id/vAbout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:item_show_line="false"
+        app:item_text="关于我们"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vSecret">
+
+    </com.gxc.ui.widgets.ItemView>
+
 </android.support.constraint.ConstraintLayout>
