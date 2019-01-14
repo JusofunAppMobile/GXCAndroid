@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author liuguangdan
@@ -33,7 +34,9 @@ public class MonitorDetailActivity extends BaseListActivity {
     @BindView(R.id.drawerLayout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.vMenu)
-    NestedScrollView vMenu;
+    View vMenu;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
 
     @BindView(R.id.menuRecycler)
     RecyclerView menuRecycler;
@@ -66,7 +69,7 @@ public class MonitorDetailActivity extends BaseListActivity {
         menuRecycler.setAdapter(menuAdpater);
         menuRecycler.setLayoutManager(new GridLayoutManager(this, 3));
 
-        vMenu.setNestedScrollingEnabled(false);
+        scrollView.setNestedScrollingEnabled(false);
     }
 
     private void toggleDrawer() {
@@ -102,5 +105,19 @@ public class MonitorDetailActivity extends BaseListActivity {
         list.add(new MonitorDetailModel());
         list.add(new MonitorDetailModel());
         completeLoadData(list);
+    }
+
+    @OnClick({R.id.vReset, R.id.vSure})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.vReset:
+                toggleDrawer();
+                refresh();
+                break;
+            case R.id.vSure:
+                toggleDrawer();
+                refresh();
+                break;
+        }
     }
 }

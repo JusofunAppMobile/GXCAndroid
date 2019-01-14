@@ -2,6 +2,7 @@ package com.gxc.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 
@@ -43,6 +44,33 @@ public class AppUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /**
+     * 获取版本号
+     */
+    public static int getVersionCode(Context context) {
+        int verCode = -1;
+        try {
+            verCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verCode;
+    }
+
+    /**
+     * 获取版本名
+     */
+    public static String getVersionName(Context context) {
+        String verName = "";
+        try {
+            verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
     }
 
     /**

@@ -25,6 +25,10 @@ public class ItemView extends LinearLayout {
     ImageView imageView;
     @BindView(R.id.text)
     TextView textView;
+    @BindView(R.id.tvValue)
+    TextView tvValue;
+    @BindView(R.id.vLine)
+    View vLine;
 
     public ItemView(Context context) {
         super(context);
@@ -47,11 +51,21 @@ public class ItemView extends LinearLayout {
         if (attrs != null) {
             TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.ItemView);
             String text = array.getString(R.styleable.ItemView_item_text);
+            String value = array.getString(R.styleable.ItemView_item_value);
+            boolean isShowLine = array.getBoolean(R.styleable.ItemView_item_show_line, true);
             int id = array.getResourceId(R.styleable.ItemView_item_image, 0);
 
             textView.setText(text);
+            tvValue.setText(value);
             if (id != 0)
                 imageView.setImageResource(id);
+            else
+                imageView.setVisibility(View.GONE);
+            vLine.setVisibility(isShowLine ? View.VISIBLE : View.GONE);
         }
+    }
+
+    public void setValue(String value) {
+        tvValue.setText(value);
     }
 }
