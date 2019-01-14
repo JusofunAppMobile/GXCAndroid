@@ -21,7 +21,7 @@ public class NetModel implements Serializable {
 
     private static final long serialVersionUID = 5268625605268545266L;
 
-    public int code;
+    public int result;
 
     public String msg;
 
@@ -33,7 +33,7 @@ public class NetModel implements Serializable {
      * @return
      */
     public boolean success() {
-        return code == 1;
+        return result == 1;
     }
 
     public <T> T dataToObject(String key, Class<T> clazz) {

@@ -38,8 +38,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etFirst"
+        <TextView
+            android:id="@+id/tvFirst"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -47,7 +47,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="#00000000"
-            android:hint="请分别添加两个公司或这个"
+            android:gravity="center_vertical"
+            android:hint="请分别添加两个公司或个人"
             android:maxLength="20"
             android:singleLine="true"
             android:textColor="#333"
@@ -58,8 +59,8 @@
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
 
-        <EditText
-            android:id="@+id/etSecond"
+        <TextView
+            android:id="@+id/tvSecond"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -67,7 +68,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="#00000000"
-            android:hint="请分别添加两个公司或这个"
+            android:gravity="center_vertical"
+            android:hint="请分别添加两个公司或个人"
             android:maxLength="20"
             android:singleLine="true"
             android:textColor="#333"

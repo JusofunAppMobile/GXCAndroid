@@ -72,8 +72,8 @@
     <dimen name="button_height">48dp</dimen>
     <dimen name="textandiconmargin">10dp</dimen>
 
-    <dimen name="loading_width">160dp</dimen>
-    <dimen name="loading_height">160dp</dimen>
+    <dimen name="loading_width">70dp</dimen>
+    <dimen name="loading_height">80dp</dimen>
 
     <!--#############################################################  BottomNavigationBar ##################################################################-->
     <!--所有dimen参数设置 https://github.com/Ashok-Varma/BottomNavigation/blob/master/bottom-navigation-bar/src/main/res/values/dimens.xml-->

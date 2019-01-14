@@ -20,10 +20,7 @@ public class SceneAnimation {
     private long mBreakDelay;
     private boolean isStop = true;
     private int[] mFrameRess = {R.mipmap.frame_1, R.mipmap.frame_2, R.mipmap.frame_3, R.mipmap.frame_4,
-            R.mipmap.frame_5, R.mipmap.frame_6, R.mipmap.frame_7, R.mipmap.frame_8, R.mipmap.frame_9,
-            R.mipmap.frame_10, R.mipmap.frame_11, R.mipmap.frame_12, R.mipmap.frame_13, R.mipmap.frame_14,
-            R.mipmap.frame_15, R.mipmap.frame_16, R.mipmap.frame_17, R.mipmap.frame_18, R.mipmap.frame_19,
-            R.mipmap.frame_20, R.mipmap.frame_21,R.mipmap.frame_22,R.mipmap.frame_23};
+            R.mipmap.frame_5, R.mipmap.frame_6, R.mipmap.frame_7, R.mipmap.frame_8};
 
     public SceneAnimation(ImageView pImageView, int pDuration) {
         this.mImageView = pImageView;
@@ -41,7 +38,7 @@ public class SceneAnimation {
 
                     if (pFrameNo == mLastFrameNo) {
 //                        playConstant(0);
-                        playConstant(11);
+                        playConstant(0);
                     }
                     else
                         playConstant(pFrameNo + 1);
