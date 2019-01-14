@@ -40,7 +40,6 @@ public class RetrofitUtils {
                 .addInterceptor(new HeaderWeather())
                 .addInterceptor(new CacheInterceptor())
                 .addInterceptor(new LoggingInterceptor())
-
                 .cache(cache)
                 .build();
 
