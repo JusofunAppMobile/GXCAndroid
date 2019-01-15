@@ -5,10 +5,15 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListFragment;
 import com.gxc.model.MonitorModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.MonitorAdpater;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+
+import java.util.HashMap;
 
 /**
  * @author liuguangdan
@@ -41,7 +46,22 @@ public class MonitorListFragment extends BaseListFragment {
 
     @Override
     protected void startLoadData() {
-        completeLoadData(AppUtils.getTestList(MonitorModel.class, 20));
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pageSize", pageSize);
+        map.put("pageIndex", pageIndex);
+
+        RxManager.http(RetrofitUtils.getApi().monitorList(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                completeLoadData(model.dataToList("monitor", MonitorModel.class));
+            }
+
+            @Override
+            public void error() {
+                completeLoadDataError();
+            }
+        });
     }
 
 }

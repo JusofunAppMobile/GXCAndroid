@@ -45,6 +45,14 @@ public interface Api {
     @POST("/app/Home/IndustryInformation")
     Observable<NetModel> moreNews(@FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/app/MonitoringDynamics/GetmonitoringDynamics")
+    Observable<NetModel> monitorList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/MonitoringDynamics/AddOrCancelMonitor")
+    Observable<NetModel> monitorUpdate(@FieldMap Map<String, Object> params);
+
 //    @FormUrlEncoded
     @POST("/app/sys/fileupload")
     Observable<NetModel> upload(@Body RequestBody Body);
