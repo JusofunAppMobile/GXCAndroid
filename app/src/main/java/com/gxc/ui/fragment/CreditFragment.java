@@ -8,14 +8,15 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.platform.comapi.map.F;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -26,10 +27,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.gxc.base.BaseFragment;
-import com.gxc.constants.Constants;
-import com.gxc.event.LoginSucEvent;
+import com.gxc.model.CreditDataModel;
 import com.gxc.model.HomeMenuModel;
-import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -40,23 +39,16 @@ import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
-import com.gxc.utils.AppUtils;
-import com.gxc.utils.DESUtils;
-import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
-import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import de.greenrobot.event.EventBus;
-import netlib.util.PreferenceUtils;
+import netlib.util.ToastUtils;
 
 /**
  * @author liuguangdan
@@ -77,9 +69,23 @@ public class CreditFragment extends BaseFragment {
     ConstraintLayout layoutRoot;
     @BindView(R.id.line_chart)
     LineChart chart;
+    @BindView(R.id.layout_service)
+    LinearLayout layoutService;
+    @BindView(R.id.view_line)
+    View viewLine;
+    @BindView(R.id.layout_fangke)
+    LinearLayout layoutFangke;
     private ImageView certificationImg;
 
+    @BindView(R.id.img_shenhezhong)
+    ImageView shImg;
+
+    @BindView(R.id.layout2)
+    ConstraintLayout changeLayout;
+
+
     private RelativeLayout topLayout;
+
 
     @Override
     protected int getLayoutId() {
@@ -147,19 +153,17 @@ public class CreditFragment extends BaseFragment {
                     Intent intent = new Intent(activity, CompanyAmendActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("company", null);
-                    bundle.putInt(CompanyAmendActivity.TYPE,CompanyAmendActivity.TYPE_OBJECTION);
+                    bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (model.menuType == 7) {
                     Intent intent = new Intent(activity, ReportInfoActivity.class);
                     startActivity(intent);
-                }else if(model.menuType == 6){ // 访客
+                } else if (model.menuType == 6) { // 访客
                     startActivity(VisitorListActivity.class);
-                }else if(model.menuType == 5){ // 访客
+                } else if (model.menuType == 5) { // 访客
                     startActivity(CreditCommitmentActivity.class);
                 }
-
-
 
 
             }
@@ -182,24 +186,22 @@ public class CreditFragment extends BaseFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(activity, CertifiedCompanyActivity.class);
                 startActivity(intent);
-                topLayout.setVisibility(View.VISIBLE);
-                certificationImg.setVisibility(View.GONE);
+//                topLayout.setVisibility(View.VISIBLE);
+//                certificationImg.setVisibility(View.GONE);
 
-
-                textTitle.setTextColor(0xffffffff);
-                layoutRoot.setBackgroundColor(0xffe83836);
+//                textTitle.setTextColor(0xffffffff);
+//                layoutRoot.setBackgroundColor(0xffe83836);
             }
         });
 
         textTitle.setTypeface(Typeface.DEFAULT_BOLD);
-        textTitle.setTextColor(0xff333333);
-        layoutRoot.setBackgroundColor(0xffffffff);
+
         initChart();
-        setData(6,150);
+        setData(6, 150);
 
     }
 
-    private void initChart(){
+    private void initChart() {
 //        chart.setOnChartValueSelectedListener(this);
 
         // no description text
@@ -256,8 +258,6 @@ public class CreditFragment extends BaseFragment {
         leftAxis.setTextSize(10f);
 
 
-
-
     }
 
 
@@ -306,23 +306,30 @@ public class CreditFragment extends BaseFragment {
 
     private void getServiceData() {
 
-        HashMap<String, Object> map = new HashMap<>();
-
-        UserModel model = AppUtils.getUser();
-        if (model != null){
-            map.put("userId",model.userId);
-        }else{
-            map.put("userId","1");
-        }
-
-
-        RxManager.http(RetrofitUtils.getApi().getCreditService(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().getCreditService(), new ResponseCall() {
 
             @Override
-            public void success(NetModel model) {
-                if (model.success()) {
-                } else {
-                    showToast(model.msg);
+            public void success(NetModel data) {
+                if (data.success()) {
+                    CreditDataModel model = data.dataToObject(CreditDataModel.class);
+                    if (model.companyInfo != null) {
+                        //认证状态  0：未认证 1：审核中 2：审核失败 3：审核成功
+                        if ("0".equals(model.companyInfo)) {
+                            initUICredit(false);
+                            certificationImg.setVisibility(View.VISIBLE);
+                        } else if ("1".equals(model.companyInfo)) {
+                            shImg.setVisibility(View.VISIBLE);
+                            initUICredit(false);
+                        }else if ("2".equals(model.companyInfo)) {
+                            shImg.setVisibility(View.VISIBLE);
+                            initUICredit(false);
+                        }else if ("3".equals(model.companyInfo)) {
+                            shImg.setVisibility(View.GONE);
+                            initUICredit(true);
+                        }
+                    } else {
+                        showToast(data.msg);
+                    }
                 }
             }
 
@@ -332,5 +339,31 @@ public class CreditFragment extends BaseFragment {
             }
         });
 
+        initUICredit(false);
+        certificationImg.setVisibility(View.VISIBLE);
+    }
+
+
+
+    private void initUICredit(boolean isCredit){
+        if(isCredit){
+            layoutService.setVisibility(View.VISIBLE);
+            viewLine.setVisibility(View.VISIBLE);
+            layoutFangke.setVisibility(View.VISIBLE);
+            certificationImg.setVisibility(View.GONE);
+            changeLayout.setVisibility(View.VISIBLE);
+            textTitle.setTextColor(0xffffffff);
+            layoutRoot.setBackgroundColor(0xffe83836);
+            topLayout.setVisibility(View.VISIBLE);
+        }else{
+            topLayout.setVisibility(View.GONE);
+            textTitle.setTextColor(0xff333333);
+            layoutRoot.setBackgroundColor(0xffffffff);
+            layoutService.setVisibility(View.GONE);
+            viewLine.setVisibility(View.GONE);
+            layoutFangke.setVisibility(View.GONE);
+            certificationImg.setVisibility(View.GONE);
+            changeLayout.setVisibility(View.GONE);
+        }
     }
 }

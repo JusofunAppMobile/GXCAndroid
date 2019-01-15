@@ -15,6 +15,7 @@ import java.util.HashMap;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -42,11 +43,11 @@ public class CommonInterceptor implements Interceptor {
             map.put("t", timeOut.getParamTimeMollis() + "");
             formBody.add("data", new Gson().toJson(map));
             formBody.add("m", timeOut.MD5GXCtime(map));
-        } else {
+        } else if(!(request.body() instanceof MultipartBody)){
             formBody.add("data", new Gson().toJson(map));
             formBody.add("m", timeOut.MD5GXCtime(map));
-
-//            return chain.proceed(request);
+        }else{
+            return chain.proceed(request);
         }
         Request newRequest = request.newBuilder()
                 .method(request.method(), formBody.build())

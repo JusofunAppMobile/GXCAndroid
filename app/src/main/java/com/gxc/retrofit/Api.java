@@ -58,9 +58,8 @@ public interface Api {
     Observable<NetModel> upload(@Body RequestBody Body);
 
 
-    @FormUrlEncoded
     @POST("/app/CreditService/GetHomeInfo")
-    Observable<NetModel> getCreditService(@FieldMap Map<String, Object> params);
+    Observable<NetModel> getCreditService();
 
 
     @FormUrlEncoded

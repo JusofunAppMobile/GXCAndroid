@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_root"
     android:background="#e83836">
 
 
@@ -41,9 +41,7 @@
             <RelativeLayout
                 android:id="@+id/layout_top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                >
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:id="@+id/layout1"
@@ -128,6 +126,16 @@
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/textView9" />
+
+
+                        <ImageView
+                            android:id="@+id/img_shenhezhong"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/mine_icon_shenhe" />
+
                     </android.support.constraint.ConstraintLayout>
 
 
@@ -176,22 +184,22 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/shape_red_circle"
-                        android:text="3"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
                         android:gravity="center"
+                        android:text="3"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/imageView4"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
                 <View
+                    android:id="@+id/view_line"
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:layout_below="@+id/layout2"
                     android:layout_marginTop="10dp"
                     android:background="#F1F2F6" />
-
 
             </RelativeLayout>
 
@@ -199,32 +207,40 @@
                 android:id="@+id/img_no_certification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="5dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/service_pic_renzheng"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:adjustViewBounds="true"
-               />
+                android:elevation="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/service_pic_renzheng" />
 
 
-            <com.gxc.ui.widgets.NavTitleView
+            <LinearLayout
+                android:id="@+id/layout_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:showImage="false"
-                app:text="企业服务" />
+                android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycleview_service"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="#F1F2F6" />
+                <com.gxc.ui.widgets.NavTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:showImage="false"
+                    app:text="企业服务" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleview_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:background="#F1F2F6" />
+
+            </LinearLayout>
 
             <com.gxc.ui.widgets.NavTitleView
                 android:layout_width="match_parent"
@@ -239,22 +255,29 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:background="#F1F2F6" />
-
-            <com.gxc.ui.widgets.NavTitleView
+            <LinearLayout
+                android:id="@+id/layout_fangke"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:showImage="false"
-                app:text="政府访客" />
+                android:orientation="vertical">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/line_chart"
-                android:layout_width="match_parent"
-                android:layout_height="162dp"
-                />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:background="#F1F2F6" />
+
+                <com.gxc.ui.widgets.NavTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:showImage="false"
+                    app:text="政府访客" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/line_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="162dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
