@@ -1,6 +1,8 @@
 package com.gxc.retrofit;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
@@ -14,6 +16,7 @@ import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CommonInterceptor implements Interceptor {
@@ -26,23 +29,24 @@ public class CommonInterceptor implements Interceptor {
                 .host(request.url().host());
 
         FormBody.Builder formBody = new FormBody.Builder();
-
+        HashMap<String, Object> map = new HashMap<>();
+        TimeOut timeOut = new TimeOut(InquireApplication.application);
+        UserModel model = AppUtils.getUser();
+        if (model != null)
+            map.put("userId", model.userId);
         if (request.body() instanceof FormBody) {
             FormBody oldRormBpody = (FormBody) request.body();
-            HashMap<String, Object> map = new HashMap<>();
-            UserModel model = AppUtils.getUser();
-            if (model != null)
-                map.put("userId", model.userId);
             for (int i = 0; i < oldRormBpody.size(); i++) {
                 map.put(oldRormBpody.name(i), oldRormBpody.value(i));
             }
-            TimeOut timeOut = new TimeOut(InquireApplication.application);
             map.put("t", timeOut.getParamTimeMollis() + "");
-
             formBody.add("data", new Gson().toJson(map));
             formBody.add("m", timeOut.MD5GXCtime(map));
         } else {
-            return chain.proceed(request);
+            formBody.add("data", new Gson().toJson(map));
+            formBody.add("m", timeOut.MD5GXCtime(map));
+
+//            return chain.proceed(request);
         }
         Request newRequest = request.newBuilder()
                 .method(request.method(), formBody.build())

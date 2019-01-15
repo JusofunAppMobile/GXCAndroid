@@ -66,4 +66,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/CorporateInfo/CreditReport")
     Observable<NetModel> getCreditReport(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/subCompanyMsg")
+    Observable<NetModel> subCompanyMsg(@FieldMap Map<String, Object> params);
+
+    @POST("/app/CreditService/CompanyInfoReporting")
+    Observable<NetModel> companyInfoReporting();
 }

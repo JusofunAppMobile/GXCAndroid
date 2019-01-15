@@ -2,6 +2,7 @@ package com.gxc.ui.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
 import com.gxc.event.LoginSucEvent;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.inter.OnUploadListener;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -66,6 +68,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
     private final int PHOTO_YINGYE = 10001;//营业执照
     private final int PHOTO_IDENTITY = 10002;//身份证
 
+    private String yeUrl="",cardUrl="";
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_certified_company;
@@ -82,6 +86,13 @@ public class CertifiedCompanyActivity extends BaseActivity {
         imgIdfen.setData("本人身份证", getString(R.string.text_img_carme_top_identity), PHOTO_IDENTITY);
 
         titleBar.setTitle("认证企业");
+
+        btnCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                renzhengNet();
+            }
+        });
     }
 
     @Override
@@ -105,21 +116,34 @@ public class CertifiedCompanyActivity extends BaseActivity {
             if (!TextUtils.isEmpty(imagePath)) {
                 File file = new File(imagePath);
                 LogUtils.e("图片：" + file.getAbsolutePath() + ",大小" + AppUtils.byteToMB(file.length()));
-                AppUtils.uploadPicture(imagePath, "Icon");
-//                AppUtils.compress(activity, file, new OnSimpleCompressListener() {
-//                    @Override
-//                    public void complete(String path) {
-//                        if (!TextUtils.isEmpty(path)) {
-//                            if (PHOTO_YINGYE==requestCode) {
-//                                imgYyzz.setImageSrc(path);
-//                                AppUtils.uploadPicture(path, "certification");
-//                            }else if(PHOTO_IDENTITY==requestCode){
-//                                imgIdfen.setImageSrc(path);
-//                                AppUtils.uploadPicture(path, "certification");
-//                            }
-//                        }
-//                    }
-//                });
+                AppUtils.compress(activity, file, new OnSimpleCompressListener() {
+                    @Override
+                    public void complete(String path) {
+                        if (!TextUtils.isEmpty(path)) {
+                            if (PHOTO_YINGYE==requestCode) {
+                                imgYyzz.setImageSrc(path);
+                                showLoading();
+                                AppUtils.uploadPicture(path, "certification", new OnUploadListener() {
+                                    @Override
+                                    public void complete(String url, String simple) {
+                                        hideLoadDialog();
+                                        yeUrl = simple;
+                                    }
+                                });
+                            }else if(PHOTO_IDENTITY==requestCode){
+                                showLoading();
+                                imgIdfen.setImageSrc(path);
+                                AppUtils.uploadPicture(path, "idcard", new OnUploadListener() {
+                                    @Override
+                                    public void complete(String url, String simple) {
+                                        hideLoadDialog();
+                                        cardUrl = simple;
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
             }
         }
     }
@@ -131,7 +155,7 @@ public class CertifiedCompanyActivity extends BaseActivity {
             showToast("请输入企业姓名");
             return;
         }
-        if (!RegexUtils.checkMobile(viewCode.getEditText())) {
+        if (TextUtils.isEmpty(viewCode.getEditText())){
             showToast("请输入身份证姓名");
             return;
         }
@@ -149,6 +173,14 @@ public class CertifiedCompanyActivity extends BaseActivity {
             showToast("请输入邮箱");
             return;
         }
+        if (TextUtils.isEmpty(yeUrl)) {
+            showToast("请上传营业执照");
+            return;
+        }
+        if (TextUtils.isEmpty(cardUrl)) {
+            showToast("请上传身份证");
+            return;
+        }
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
@@ -157,16 +189,16 @@ public class CertifiedCompanyActivity extends BaseActivity {
         map.put("job",viewZhiwei.getEditText());
         map.put("phone",viewPhone.getEditText());
         map.put("email",viewEmail.getEditText());
+        map.put("licenseImage",yeUrl);
+        map.put("idcardImage",cardUrl);
 
-        RxManager.http(RetrofitUtils.getApi().loginApp(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().subCompanyMsg(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    showToast("登录成功");
-                    PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
-                    EventBus.getDefault().post(new LoginSucEvent());
+                    showToast("提交成功");
                     finish();
                 } else {
                     showToast(model.msg);
