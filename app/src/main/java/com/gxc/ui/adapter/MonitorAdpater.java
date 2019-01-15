@@ -1,11 +1,24 @@
 package com.gxc.ui.adapter;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gxc.base.BaseActivity;
 import com.gxc.model.MonitorModel;
+import com.gxc.model.UserModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
+import com.gxc.utils.AppUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+
+import java.util.HashMap;
 
 /**
  * @author liuguangdan
@@ -15,19 +28,74 @@ import com.jusfoun.jusfouninquire.R;
  */
 public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolder> {
 
-    public MonitorAdpater() {
+    private BaseActivity activity;
+
+    public MonitorAdpater(BaseActivity activity) {
         super(R.layout.item_monitor);
+        this.activity = activity;
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, MonitorModel monitorModel) {
-        TextView tvStatus = holder.getView(R.id.tvStatus);
-        if (holder.getLayoutPosition() % 2 == 0) {
+    protected void convert(BaseViewHolder holder, final MonitorModel model) {
+        final TextView tvStatus = holder.getView(R.id.tvStatus);
+        TextView tvTitle = holder.getView(R.id.tvTitle);
+        TextView tvInfo = holder.getView(R.id.tvInfo);
+        TextView tvTime = holder.getView(R.id.tvTime);
+        ImageView ivLogo = holder.getView(R.id.ivLogo);
+        if (model.isUserMonitor == 0) {
             tvStatus.setSelected(true);
             tvStatus.setText("监控");
         } else {
             tvStatus.setSelected(false);
             tvStatus.setText("取消监控");
         }
+        tvTime.setText(model.changeDate);
+        tvTitle.setText(model.companyName);
+        tvStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monitorHandle(model, tvStatus);
+            }
+        });
+    }
+
+    private void monitorHandle(final MonitorModel model, final TextView tvStatus) {
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            mContext.startActivity(new Intent(mContext, com.gxc.ui.activity.LoginActivity.class));
+            return;
+        }
+
+        activity.showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("companyid", model.companyId);
+        map.put("companyname", model.companyName);
+        map.put("monitorType", model.isUserMonitor == 0 ? 1 : 0); // TEST
+
+        RxManager.http(RetrofitUtils.getApi().monitorUpdate(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel net) {
+                activity.hideLoadDialog();
+                if (net.success()) {
+                    model.isUserMonitor = (model.isUserMonitor == 0 ? 1 : 0);
+                    if (model.isUserMonitor == 0) {
+                        tvStatus.setSelected(true);
+                        tvStatus.setText("监控");
+                    } else {
+                        tvStatus.setSelected(false);
+                        tvStatus.setText("取消监控");
+                    }
+                } else {
+                    ToastUtils.show(net.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                activity.hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
     }
 }

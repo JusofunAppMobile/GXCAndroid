@@ -42,7 +42,7 @@ public class LoggingInterceptor implements Interceptor {
             body = buffer.readString(charset);
         }
 
-        Logger.e("发送请求\nmethod：%s\nurl:%s\nheaders:%sbody:%s", request.method(), request.url(), request.headers(), URLDecoder.decode(body));
+        Logger.e("发送请求\nmethod：%s\nurl:%s\nheaders:%sbody:%s", request.method(), request.url(), request.headers(), getDecode(body));
 
         long startNs = System.nanoTime();
         Response response = chain.proceed(request);
@@ -69,8 +69,17 @@ public class LoggingInterceptor implements Interceptor {
         }
 
         Logger.e("收到响应 %s%s %ss\n请求url:%s\n请求body:%s\n请求header:%s响应body:%s",
-                response.code(), response.message(), tookMs, response.request().url(), URLDecoder.decode(body), request.headers(), URLDecoder.decode(rBody));
+                response.code(), response.message(), tookMs, response.request().url(), getDecode(body), request.headers(), getDecode(rBody));
         return response;
+    }
+
+    private String getDecode(String value) {
+        try {
+            return URLDecoder.decode(value);
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+        return value;
     }
 }
 

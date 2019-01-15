@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -42,6 +43,14 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
         iv1.getLayoutParams().width = imageWidth;
 
         handlerImageVisiable(model, model.newsImage == null ? 0 : model.newsImage.size(), iv1, iv2, iv3, iv4, ivBig);
+
+        TextView tvTitle = holder.getView(R.id.tvTitle);
+        TextView tvTime = holder.getView(R.id.tvTime);
+
+        tvTitle.setText(model.newsName);
+        tvTime.setText(model.newsFrom + " " + model.newsTime);
+
+
     }
 
     private void handlerImageVisiable(HomeNewsModel model, int size, ImageView iv1, ImageView iv2, ImageView iv3, ImageView iv4, ImageView ivBig) {

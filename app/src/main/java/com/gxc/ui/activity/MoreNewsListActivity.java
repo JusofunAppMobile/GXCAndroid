@@ -54,8 +54,10 @@ public class MoreNewsListActivity extends BaseListActivity {
 
             @Override
             public void success(NetModel model) {
-                hideLoadDialog();
-                completeLoadData(model.dataToList("news", HomeNewsModel.class));
+                if (model.success())
+                    completeLoadData(model.dataToList("news", HomeNewsModel.class));
+                else
+                    completeLoadDataError();
             }
 
             @Override
