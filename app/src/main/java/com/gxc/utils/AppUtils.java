@@ -9,20 +9,25 @@ import android.view.inputmethod.InputMethodManager;
 import com.google.gson.Gson;
 import com.gxc.constants.Constants;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.inter.OnUploadListener;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.jusfoun.jusfouninquire.InquireApplication;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import netlib.util.PreferenceUtils;
@@ -238,21 +243,42 @@ public class AppUtils {
         return null;
     }
 
-    public static void uploadPicture(String path, String type) {
+    /**
+     * 图片上传
+     * @param path
+     * @param type
+     * @param listener
+     */
+    public static void uploadPicture(String path, String type, final OnUploadListener listener) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        builder
-                .addFormDataPart("type", type);
+
+        HashMap<String, Object> map = new HashMap<>();
+        TimeOut timeOut = new TimeOut(InquireApplication.application);
+        map.put("t", timeOut.getParamTimeMollis() + "");
+        map.put("type", type);
+
+        builder.addFormDataPart("data", new Gson().toJson(map));
+        builder.addFormDataPart("m", timeOut.MD5GXCtime(map));
+
         File file = new File(path);
-        builder.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        builder.addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
         RxManager.http(RetrofitUtils.getApi().upload(builder.build()), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
+                if (listener != null) {
+                    try {
+                        listener.complete(model.getDataJSONObject().getString("filehttp"),model.getDataJSONObject().getString("filepath"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
             public void error() {
-                showHttpError();
+                if (listener != null)
+                    listener.complete(null, null);
             }
         });
     }

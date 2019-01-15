@@ -79,6 +79,10 @@ public class HomeActivity extends BaseActivity {
         PreferenceUtils.setString(this, Constants.REGID, "TEST");
     }
 
+    public void selectTab(int position) {
+        navigation.selectTab(position);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.act_home;

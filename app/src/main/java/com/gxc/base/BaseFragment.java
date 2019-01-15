@@ -1,6 +1,5 @@
 package com.gxc.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import com.gxc.ui.dialog.LoadingDialog;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
@@ -27,7 +25,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected ViewGroup rootView;
 
-    protected Activity activity;
+    protected BaseActivity activity;
     private LoadingDialog loadingDialog;
 
     protected abstract int getLayoutId();
@@ -37,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = getActivity();
+        activity = (BaseActivity) getActivity();
     }
 
     @Override

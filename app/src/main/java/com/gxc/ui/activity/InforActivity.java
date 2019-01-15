@@ -7,6 +7,7 @@ import android.view.View;
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.inter.OnUploadListener;
 import com.gxc.model.UserModel;
 import com.gxc.ui.widgets.InforInputView;
 import com.gxc.utils.AppUtils;
@@ -120,7 +121,12 @@ public class InforActivity extends BaseActivity {
     }
 
     private void upload() {
-        AppUtils.uploadPicture(imagePath, "Icon");
+        AppUtils.uploadPicture(imagePath, "Icon", new OnUploadListener() {
+            @Override
+            public void complete(String url, String simple) {
+
+            }
+        });
     }
 
     @Override

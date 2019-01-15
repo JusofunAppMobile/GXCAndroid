@@ -23,8 +23,8 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.activity.HomeActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
-import com.gxc.ui.activity.MoreMonitorListActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
 import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.activity.RelationActivity;
@@ -94,6 +94,8 @@ public class HomeFragment extends BaseFragment {
 
     private HomeModel homeModel;
 
+    private HomeActivity homeActivity;
+
     @Override
     protected int getLayoutId() {
         return R.layout.frag_home;
@@ -101,6 +103,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        homeActivity = (HomeActivity) getActivity();
         homeMenuAdapter = new HomeMenuAdapter();
         menuRecycler.setAdapter(homeMenuAdapter);
         menuRecycler.setLayoutManager(new GridLayoutManager(activity, 4));
@@ -136,7 +139,8 @@ public class HomeFragment extends BaseFragment {
         monitorNav.setImageClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(MoreMonitorListActivity.class);
+//                startActivity(MoreMonitorListActivity.class);
+                homeActivity.selectTab(1);
             }
         });
 
@@ -317,7 +321,7 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    // 1：股东高管 2：主营产品 3：失信查询 4：查关系 5：风险分析 6：查税号 7：招聘
+    // 1：股东高管 2：主营产品 3：失信查询 4：查关系 5：风险分析 6：查税号 7：招聘 -1:h5跳转
     private void menuItemClick(HomeMenuModel model, int position) {
         Intent intent = new Intent(activity, TypeSearchActivity.class);
         String type = null;
@@ -344,6 +348,9 @@ public class HomeFragment extends BaseFragment {
             case 7:// 招聘
                 type = SearchHistoryItemModel.SEARCH_RECRUITMENT;
                 break;
+            case -1:// h5跳转
+                startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
+                return;
             case 0:// 全部
                 return;
         }

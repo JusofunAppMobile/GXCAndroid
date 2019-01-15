@@ -49,7 +49,23 @@ public class CommonInterceptor implements Interceptor {
                 formBody.add("data", new Gson().toJson(map));
                 formBody.add("m", timeOut.MD5GXCtime(map));
 
-            } else {
+            }
+//            else if(request.body() instanceof MultipartBody){
+//                MultipartBody oldBody = (MultipartBody) request.body();
+//
+//
+//                HashMap<String, Object> map = new HashMap<>();
+//                UserModel model = AppUtils.getUser();
+//                if (model != null)
+//                    map.put("userId", model.userId);
+////                for (int i = 0; i < oldBody.size(); i++) {
+////                    map.put(oldBody.parts().get(i).), oldBody.value(i));
+////                }
+//
+//                MultipartBody.Builder mulBuilder=  new MultipartBody.Builder().setType(MultipartBody.FORM);
+//
+//            }
+            else{
                 return chain.proceed(request);
             }
             Request newRequest = request.newBuilder()

@@ -30,7 +30,7 @@ public class MonitorListFragment extends BaseListFragment {
 
     @Override
     protected BaseQuickAdapter getAdapter() {
-        return new MonitorAdpater();
+        return new MonitorAdpater(activity);
     }
 
     @Override
@@ -54,7 +54,10 @@ public class MonitorListFragment extends BaseListFragment {
 
             @Override
             public void success(NetModel model) {
-                completeLoadData(model.dataToList("monitor", MonitorModel.class));
+                if (model.success())
+                    completeLoadData(model.dataToList("monitor", MonitorModel.class));
+                else
+                    completeLoadDataError();
             }
 
             @Override
