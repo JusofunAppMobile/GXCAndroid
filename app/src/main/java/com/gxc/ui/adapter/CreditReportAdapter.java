@@ -20,13 +20,13 @@ import com.jusfoun.jusfouninquire.R;
  * @Email zyp@jusfoun.com
  * @Description ${TODO}
  */
-public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel, BaseViewHolder> {
+public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel.CreditReportItemModel, BaseViewHolder> {
     public CreditReportAdapter() {
         super(R.layout.item_credit_report);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CreditReportModel item) {
+    protected void convert(final BaseViewHolder helper, final CreditReportModel.CreditReportItemModel item) {
         TextView titleText = helper.getView(R.id.text_title);
         TextView desText = helper.getView(R.id.text_des);
         TextView contenteText = helper.getView(R.id.text_content);
@@ -34,7 +34,7 @@ public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel, Bas
         TextView reportText = helper.getView(R.id.text_report);
         if (helper.getAdapterPosition() == 0) {
             titleText.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">标准版</font>"));
-            desText.setText(Html.fromHtml("今天剩余<font  color=\"#fca249\">50</font>" + "次下载机会"));
+            desText.setText(Html.fromHtml("今天剩余<font  color=\"#fca249\">"+item.basicVersionDownloadNum+"</font>" + "次下载机会"));
             contenteText.setTextColor(Color.parseColor("#666666"));
             contenteText.setText(mContext.getString(R.string.text_credit_report_biaozhun));
         } else if (helper.getAdapterPosition() == 1) {
@@ -46,7 +46,12 @@ public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel, Bas
         previewText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(WebActivity.getIntent(mContext, "样例预览", AppUtils.TEST_URL));
+                if (helper.getAdapterPosition() == 0) {
+                    mContext.startActivity(WebActivity.getIntent(mContext, "样例预览",item.basicVersionSamplePreview));
+                }else{
+                    mContext.startActivity(WebActivity.getIntent(mContext, "样例预览",item.professionVersionSamplePreview));
+                }
+
             }
         });
 

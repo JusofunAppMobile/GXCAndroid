@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import rx.Observable;
 
 public interface Api {
@@ -56,4 +57,13 @@ public interface Api {
     @POST("/app/sys/fileupload")
     Observable<NetModel> upload(@Body RequestBody Body);
 
+
+    @FormUrlEncoded
+    @POST("/app/CreditService/GetHomeInfo")
+    Observable<NetModel> getCreditService(@FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("/app/CorporateInfo/CreditReport")
+    Observable<NetModel> getCreditReport(@FieldMap Map<String, Object> params);
 }
