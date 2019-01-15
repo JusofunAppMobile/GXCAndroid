@@ -32,7 +32,7 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, HomeNewsModel homeMenuModel) {
+    protected void convert(BaseViewHolder holder, HomeNewsModel model) {
         ImageView iv1 = holder.getView(R.id.iv1);
         ImageView iv2 = holder.getView(R.id.iv2);
         ImageView iv3 = holder.getView(R.id.iv3);
@@ -41,39 +41,47 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
 
         iv1.getLayoutParams().width = imageWidth;
 
-        Glide.with(InquireApplication.application).load("http://t2.hddhhn.com/uploads/tu/201512/264/137.jpg").into(iv1);
-        Glide.with(InquireApplication.application).load("http://t2.hddhhn.com/uploads/tu/201812/317/yishuzi-007111.jpg").into(iv2);
-        Glide.with(InquireApplication.application).load("http://t2.hddhhn.com/uploads/tu/201812/420/2106035964-3.jpg").into(iv3);
-        Glide.with(InquireApplication.application).load("http://t2.hddhhn.com/uploads/tu/201512/252/177.jpg").into(iv4);
-        Glide.with(InquireApplication.application).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546931637745&di=c2b4a56050c1864bca1d11a2a326c40e&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1c950a7b02087bf49661186dffd3572c10dfcfa1.jpg").into(ivBig);
-
-        handlerImageVisiable(holder.getLayoutPosition() % 5, iv1, iv2, iv3, iv4, ivBig);
-
+        handlerImageVisiable(model, model.newsImage == null ? 0 : model.newsImage.size(), iv1, iv2, iv3, iv4, ivBig);
     }
 
-    private void handlerImageVisiable(int size, ImageView iv1, ImageView iv2, ImageView iv3, ImageView iv4, ImageView ivBig) {
-        ivBig.setVisibility(View.GONE);
+    private void handlerImageVisiable(HomeNewsModel model, int size, ImageView iv1, ImageView iv2, ImageView iv3, ImageView iv4, ImageView ivBig) {
         if (size == 0) { //
             iv1.setVisibility(View.GONE);
             iv2.setVisibility(View.GONE);
             iv3.setVisibility(View.GONE);
             iv4.setVisibility(View.GONE);
-        } else if (size == 1) {
-            iv1.setVisibility(View.VISIBLE);
-            iv2.setVisibility(View.GONE);
-            iv3.setVisibility(View.GONE);
-            iv4.setVisibility(View.GONE);
-        } else if (size == 2 || size == 3) {
-            iv1.setVisibility(View.GONE);
-            iv2.setVisibility(size >= 2 ? View.VISIBLE : View.INVISIBLE);
-            iv3.setVisibility(size >= 2 ? View.VISIBLE : View.INVISIBLE);
-            iv4.setVisibility(size >= 3 ? View.VISIBLE : View.INVISIBLE);
         } else {
-            iv1.setVisibility(View.GONE);
-            iv2.setVisibility(View.GONE);
-            iv3.setVisibility(View.GONE);
-            iv4.setVisibility(View.GONE);
-            ivBig.setVisibility(View.VISIBLE);
+            if (model.newsType == 1) { // 直连  显示图片
+                iv1.setVisibility(View.GONE);
+                iv2.setVisibility(View.GONE);
+                iv3.setVisibility(View.GONE);
+                iv4.setVisibility(View.GONE);
+                ivBig.setVisibility(View.VISIBLE);
+                loadImage(model.newsImage.get(0), ivBig);
+            } else {
+                ivBig.setVisibility(View.GONE);
+                if (size == 1) {
+                    iv1.setVisibility(View.VISIBLE);
+                    iv2.setVisibility(View.GONE);
+                    iv3.setVisibility(View.GONE);
+                    iv4.setVisibility(View.GONE);
+                    loadImage(model.newsImage.get(0), iv1);
+                } else {
+                    iv1.setVisibility(View.GONE);
+                    iv2.setVisibility(size >= 2 ? View.VISIBLE : View.INVISIBLE);
+                    iv3.setVisibility(size >= 2 ? View.VISIBLE : View.INVISIBLE);
+                    iv4.setVisibility(size >= 3 ? View.VISIBLE : View.INVISIBLE);
+                    loadImage(model.newsImage.get(0), iv1);
+                    loadImage(model.newsImage.get(1), iv2);
+                    if (size >= 3)
+                        loadImage(model.newsImage.get(2), iv3);
+                }
+            }
         }
     }
+
+    private void loadImage(String url, ImageView imageView) {
+        Glide.with(InquireApplication.application).load(url).into(imageView);
+    }
+
 }

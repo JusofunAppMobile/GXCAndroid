@@ -2,7 +2,6 @@ package com.gxc.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,12 +9,20 @@ import android.widget.EditText;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
+import com.gxc.model.UserModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import netlib.util.PreferenceUtils;
 
 /**
  * @author liuguangdan
@@ -51,7 +58,7 @@ public class InforEditActivity extends BaseActivity {
         titleView.setRightClickListener(new TitleView.OnRightClickListener() {
             @Override
             public void onClick(View v) {
-
+                save();
             }
         });
 
@@ -60,8 +67,10 @@ public class InforEditActivity extends BaseActivity {
 
         titleView.setTitle(getTitleValue());
         etInput.setHint(getHint());
-        if (!TextUtils.isEmpty(value))
+        if (!TextUtils.isEmpty(value)) {
             etInput.setText(value);
+            etInput.setSelection(value.length());
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -69,6 +78,69 @@ public class InforEditActivity extends BaseActivity {
                 AppUtils.showSoftInput(activity);
             }
         }, 200);
+    }
+
+    private String getKey() {
+        if (type == Constants.INFOR_TYPE_COMPANY)
+            return "company";
+        else if (type == Constants.INFOR_TYPE_EMAIL)
+            return "email";
+        else if (type == Constants.INFOR_TYPE_JOB)
+            return "job";
+        else if (type == Constants.INFOR_TYPE_DEPARTMENT)
+            return "department";
+        else if (type == Constants.INFOR_TYPE_TRADE)
+            return "trade";
+        return "";
+    }
+
+    private void resetUser() {
+        UserModel user = AppUtils.getUser();
+        String value = getValue(etInput);
+        if (user != null) {
+            if (type == Constants.INFOR_TYPE_COMPANY)
+                user.company = value;
+            else if (type == Constants.INFOR_TYPE_EMAIL)
+                user.email = value;
+            else if (type == Constants.INFOR_TYPE_JOB)
+                user.job = value;
+            else if (type == Constants.INFOR_TYPE_DEPARTMENT)
+                user.department = value;
+            else if (type == Constants.INFOR_TYPE_TRADE)
+                user.trade = value;
+
+            PreferenceUtils.setString(activity, Constants.USER, gson.toJson(user));
+            finish();
+        }
+    }
+
+    public void save() {
+        if (TextUtils.isEmpty(getValue(etInput))) {
+            showToast("请" + getHint());
+            return;
+        }
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(getKey(), getValue(etInput));
+        RxManager.http(RetrofitUtils.getApi().updateInfo(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    showToast("修改成功");
+                    resetUser();
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
     }
 
     private String getTitleValue() {

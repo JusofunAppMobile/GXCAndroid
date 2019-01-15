@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.gxc.model.HomeModel;
+import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
@@ -25,12 +27,12 @@ import java.util.List;
 public class ImagePagerAdapter extends RecyclingPagerAdapter {
 
     private Context context;
-    private List<String> imageIdList;
+    private List<HomeModel.AdverModel> imageIdList;
 
     private int size;
     private boolean isInfiniteLoop;
 
-    public ImagePagerAdapter(Context context, List<String> imageIdList) {
+    public ImagePagerAdapter(Context context, List<HomeModel.AdverModel> imageIdList) {
         this.context = context;
         this.imageIdList = imageIdList;
         this.size = AppUtils.getSize(imageIdList);
@@ -58,7 +60,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup container) {
+    public View getView(final int position, View view, ViewGroup container) {
         ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
@@ -68,7 +70,13 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        Glide.with(InquireApplication.application).load(imageIdList.get(getPosition(position))).into(holder.imageView);
+        Glide.with(InquireApplication.application).load(imageIdList.get(getPosition(position)).imageURL).into(holder.imageView);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivity.getIntent(context, "", imageIdList.get(getPosition(position)).webURL);
+            }
+        });
         return view;
     }
 

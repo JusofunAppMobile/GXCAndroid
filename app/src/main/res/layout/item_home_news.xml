@@ -54,8 +54,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:srcCompat="@mipmap/account_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <ImageView
         android:id="@+id/iv3"
@@ -67,8 +66,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/iv2"
-        app:layout_constraintTop_toTopOf="@+id/iv2"
-        app:srcCompat="@mipmap/account_icon" />
+        app:layout_constraintTop_toTopOf="@+id/iv2" />
 
     <ImageView
         android:id="@+id/iv4"
@@ -84,8 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/iv3"
-        app:layout_constraintTop_toTopOf="@+id/iv3"
-        app:srcCompat="@mipmap/account_icon" />
+        app:layout_constraintTop_toTopOf="@+id/iv3" />
 
     <ImageView
         android:id="@+id/iv1"
@@ -99,8 +96,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/account_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/view9"

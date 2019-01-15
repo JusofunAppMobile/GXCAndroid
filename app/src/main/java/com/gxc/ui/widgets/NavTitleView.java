@@ -2,7 +2,6 @@ package com.gxc.ui.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +66,8 @@ public class NavTitleView extends LinearLayout {
             tvLabel.setText(tip);
             if (id != 0)
                 image.setImageResource(id);
+
+            array.recycle();
         }
     }
 

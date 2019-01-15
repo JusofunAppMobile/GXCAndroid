@@ -7,6 +7,7 @@ import android.view.View;
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.model.UserModel;
 import com.gxc.ui.widgets.InforInputView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
@@ -61,9 +62,28 @@ public class InforActivity extends BaseActivity {
         titleView.setTitle("个人设置");
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUser();
+    }
+
+    private void loadUser() {
+        UserModel user = AppUtils.getUser();
+        if (user != null) {
+            vEmail.setValue(user.email);
+            vCompany.setValue(user.company);
+            vDepartment.setValue(user.department);
+            vJob.setValue(user.job);
+            vTrade.setValue(user.trade);
+            vPhone.setValue(user.phone);
+        }
+    }
+
     @OnClick({R.id.vHeadIcon, R.id.vPhone, R.id.vPassword, R.id.vEmail, R.id.vCompany, R.id.vJob, R.id.vDepartment, R.id.vTrade})
     public void onViewClicked(View view) {
         int type = 0;
+        String value = null;
         switch (view.getId()) {
             case R.id.vHeadIcon:
                 AppUtils.pictureSelect(activity, true, 1, null);
@@ -76,22 +96,27 @@ public class InforActivity extends BaseActivity {
                 return;
             case R.id.vEmail:
                 type = Constants.INFOR_TYPE_EMAIL;
+                value = vEmail.getValue();
                 break;
             case R.id.vCompany:
                 type = Constants.INFOR_TYPE_COMPANY;
+                value = vCompany.getValue();
                 break;
             case R.id.vJob:
                 type = Constants.INFOR_TYPE_JOB;
+                value = vJob.getValue();
                 break;
             case R.id.vDepartment:
                 type = Constants.INFOR_TYPE_DEPARTMENT;
+                value = vDepartment.getValue();
                 break;
             case R.id.vTrade:
                 type = Constants.INFOR_TYPE_TRADE;
+                value = vTrade.getValue();
                 break;
         }
 
-        startActivity(InforEditActivity.getIntent(this, type, null));
+        startActivity(InforEditActivity.getIntent(this, type, value));
     }
 
     private void upload() {

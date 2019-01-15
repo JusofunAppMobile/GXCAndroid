@@ -3,10 +3,17 @@ package com.gxc.ui.activity;
 import android.view.View;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.widgets.ItemView;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,6 +30,8 @@ public class SettingActivity extends BaseActivity {
     TitleView titleView;
     @BindView(R.id.vCache)
     ItemView vCache;
+    @BindView(R.id.vLogout)
+    View vLogout;
 
     @Override
     protected int getLayoutId() {
@@ -32,6 +41,34 @@ public class SettingActivity extends BaseActivity {
     @Override
     public void initActions() {
         titleView.setTitle("设置");
+        vLogout.setVisibility(AppUtils.getUser() != null ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R.id.vLogout)
+    public void logout() {
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("a", "b");
+        RxManager.http(RetrofitUtils.getApi().logout(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    AppUtils.logout();
+                    vLogout.setVisibility(View.GONE);
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+
     }
 
     @OnClick({R.id.vPush, R.id.vCache, R.id.vService, R.id.vSecret, R.id.vAbout})

@@ -186,6 +186,8 @@ public class MyCirclePageIndicator extends View implements PageIndicator {
     }
 
     private int getCount() {
+        if (mViewPager == null || mViewPager.getAdapter() == null)
+            return 0;
         return ((ImagePagerAdapter) mViewPager.getAdapter()).getRealSize();
     }
 
@@ -504,7 +506,10 @@ public class MyCirclePageIndicator extends View implements PageIndicator {
     public void onRestoreInstanceState(Parcelable state) {
         MyCirclePageIndicator.SavedState savedState = (MyCirclePageIndicator.SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
-        mCurrentPage = savedState.currentPage % getCount();
+        if (getCount() == 0)
+            mCurrentPage = 0;
+        else
+            mCurrentPage = savedState.currentPage % getCount();
         mSnapPage = savedState.currentPage;
         requestLayout();
     }
@@ -513,7 +518,10 @@ public class MyCirclePageIndicator extends View implements PageIndicator {
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         MyCirclePageIndicator.SavedState savedState = new MyCirclePageIndicator.SavedState(superState);
-        savedState.currentPage = mCurrentPage % getCount();
+        if (getCount() == 0)
+            savedState.currentPage = 0;
+        else
+            savedState.currentPage = mCurrentPage % getCount();
         return savedState;
     }
 

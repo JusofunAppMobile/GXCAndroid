@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity {
             showToast("请输入手机号");
             return;
         }
-
+        showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", getValue(etPhone));
         map.put("password", DESUtils.encryptDES(getValue(etPassword), new TimeOut(this).getGCXkey()));
@@ -76,6 +76,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void success(NetModel model) {
+                hideLoadDialog();
                 if (model.success()) {
                     showToast("登录成功");
                     PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
@@ -88,6 +89,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void error() {
+                hideLoadDialog();
                 ToastUtils.showHttpError();
             }
         });
