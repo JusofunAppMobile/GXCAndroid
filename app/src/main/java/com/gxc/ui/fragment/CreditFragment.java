@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,22 +26,37 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.gxc.base.BaseFragment;
+import com.gxc.constants.Constants;
+import com.gxc.event.LoginSucEvent;
 import com.gxc.model.HomeMenuModel;
+import com.gxc.model.UserModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.CreditCommitmentActivity;
 import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
+import com.gxc.utils.AppUtils;
+import com.gxc.utils.DESUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
+import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import de.greenrobot.event.EventBus;
+import netlib.util.PreferenceUtils;
 
 /**
  * @author liuguangdan
@@ -59,7 +75,6 @@ public class CreditFragment extends BaseFragment {
     TextView textTitle;
     @BindView(R.id.layout_root)
     ConstraintLayout layoutRoot;
-    Unbinder unbinder;
     @BindView(R.id.line_chart)
     LineChart chart;
     private ImageView certificationImg;
@@ -217,16 +232,7 @@ public class CreditFragment extends BaseFragment {
         Legend l = chart.getLegend();
         l.setEnabled(false);
 //
-//        // modify the legend ...
-//        l.setForm(Legend.LegendForm.NONE);
-////        l.setTypeface(tfLight);
-//        l.setTextSize(11f);
-//        l.setTextColor(Color.WHITE);
-//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-//        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-//        l.setDrawInside(false);
-//        l.setYOffset(11f);
+
 
         XAxis xAxis = chart.getXAxis();
 //        xAxis.setTypeface(tfLight);
@@ -249,14 +255,7 @@ public class CreditFragment extends BaseFragment {
         leftAxis.setTextColor(0xff333333);
         leftAxis.setTextSize(10f);
 
-//        YAxis rightAxis = chart.getAxisRight();
-////        rightAxis.setTypeface(tfLight);
-//        rightAxis.setTextColor(Color.RED);
-//        rightAxis.setAxisMaximum(900);
-//        rightAxis.setAxisMinimum(-200);
-//        rightAxis.setDrawGridLines(false);
-//        rightAxis.setDrawZeroLine(false);
-//        rightAxis.setGranularityEnabled(false);
+
 
 
     }
@@ -302,6 +301,36 @@ public class CreditFragment extends BaseFragment {
             // set data
             chart.setData(data);
         }
+        getServiceData();
     }
 
+    private void getServiceData() {
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        UserModel model = AppUtils.getUser();
+        if (model != null){
+            map.put("userId",model.userId);
+        }else{
+            map.put("userId","1");
+        }
+
+
+        RxManager.http(RetrofitUtils.getApi().getCreditService(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                ToastUtils.showHttpError();
+            }
+        });
+
+    }
 }

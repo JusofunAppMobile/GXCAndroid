@@ -2,6 +2,7 @@ package com.gxc.retrofit;
 
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.gxc.model.UserModel;
@@ -30,9 +31,9 @@ public class CommonInterceptor implements Interceptor {
                 .newBuilder().scheme(request.url().scheme())
                 .host(request.url().host());
 
-        UserModel model = AppUtils.getUser();
-        if (model != null)
-            builder.addQueryParameter("userId", model.userId);
+//        UserModel model = AppUtils.getUser();
+//        if (model != null)
+//            builder.addQueryParameter("userId", model.userId);
 
         String postBodyString = bodyToString(request.body());
         FormBody.Builder formBody = new FormBody.Builder();
@@ -49,7 +50,8 @@ public class CommonInterceptor implements Interceptor {
                 TimeOut timeOut = new TimeOut(InquireApplication.application);
                 map.put("t", timeOut.getParamTimeMollis() + "");
 
-                formBody.add("data", new Gson().toJson(map));
+                Log.e("tag","mapmapmap"+map.toString());
+                formBody.add("data", map.toString());
                 formBody.add("m", timeOut.MD5GXCtime(map));
 
             } else {
