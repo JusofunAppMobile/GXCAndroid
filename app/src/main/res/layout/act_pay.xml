@@ -60,7 +60,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/append_manual" />
+                    app:srcCompat="@drawable/me_head_default_loggedin" />
 
                 <TextView
                     android:id="@+id/tvPhone"
@@ -183,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:image="@mipmap/home_icon_gudong"
+                app:image="@drawable/img_alipay"
                 app:label="支付宝"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +193,7 @@
                 android:id="@+id/vWechat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:image="@mipmap/home_icon_gudong"
+                app:image="@drawable/img_wechat"
                 app:label="微信"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

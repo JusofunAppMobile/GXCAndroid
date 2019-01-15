@@ -13,14 +13,14 @@
 
     <ImageView
         android:id="@+id/ivEmpty"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:layout_marginBottom="16dp"
-        android:background="#F00"
         android:visibility="visible"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@+id/tvError"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:src="@drawable/img_empty_image"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="没有相关数据"
-        android:textColor="#b7aeae"
+        android:textColor="#A0A0A0"
         android:textSize="14sp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/tvReload"
@@ -64,7 +64,7 @@
         android:paddingBottom="2dp"
         android:text="重新加载"
         android:textColor="@color/common_red"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
