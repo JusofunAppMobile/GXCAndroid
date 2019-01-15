@@ -6,20 +6,33 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.constants.Constants;
+import com.gxc.event.LoginSucEvent;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.view.CorporateIInfoImgItemView;
 import com.gxc.ui.view.CorporateInfoItemView;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.DESUtils;
 import com.gxc.utils.LogUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
+import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
+import netlib.util.PreferenceUtils;
 
 /**
  * @author zhaoyapeng
@@ -92,21 +105,80 @@ public class CertifiedCompanyActivity extends BaseActivity {
             if (!TextUtils.isEmpty(imagePath)) {
                 File file = new File(imagePath);
                 LogUtils.e("图片：" + file.getAbsolutePath() + ",大小" + AppUtils.byteToMB(file.length()));
-
-                AppUtils.compress(activity, file, new OnSimpleCompressListener() {
-                    @Override
-                    public void complete(String path) {
-                        if (!TextUtils.isEmpty(path)) {
-                            if (PHOTO_YINGYE==requestCode) {
-                                imgYyzz.setImageSrc(path);
-                            }else if(PHOTO_IDENTITY==requestCode){
-                                imgIdfen.setImageSrc(path);
-                            }
-                        }
-                    }
-                });
+                AppUtils.uploadPicture(imagePath, "Icon");
+//                AppUtils.compress(activity, file, new OnSimpleCompressListener() {
+//                    @Override
+//                    public void complete(String path) {
+//                        if (!TextUtils.isEmpty(path)) {
+//                            if (PHOTO_YINGYE==requestCode) {
+//                                imgYyzz.setImageSrc(path);
+//                                AppUtils.uploadPicture(path, "certification");
+//                            }else if(PHOTO_IDENTITY==requestCode){
+//                                imgIdfen.setImageSrc(path);
+//                                AppUtils.uploadPicture(path, "certification");
+//                            }
+//                        }
+//                    }
+//                });
             }
         }
     }
 
+
+    private void renzhengNet() {
+
+        if (TextUtils.isEmpty(viewName.getEditText())) {
+            showToast("请输入企业姓名");
+            return;
+        }
+        if (!RegexUtils.checkMobile(viewCode.getEditText())) {
+            showToast("请输入身份证姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(viewZhiwei.getEditText())) {
+            showToast("请输入职位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(viewPhone.getEditText())) {
+            showToast("请输入手机号");
+            return;
+        }
+
+        if (TextUtils.isEmpty(viewEmail.getEditText())) {
+            showToast("请输入邮箱");
+            return;
+        }
+
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("companyname", viewName.getEditText());
+        map.put("name",viewCode.getEditText());
+        map.put("job",viewZhiwei.getEditText());
+        map.put("phone",viewPhone.getEditText());
+        map.put("email",viewEmail.getEditText());
+
+        RxManager.http(RetrofitUtils.getApi().loginApp(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    showToast("登录成功");
+                    PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
+                    EventBus.getDefault().post(new LoginSucEvent());
+                    finish();
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+
+    }
 }
