@@ -53,4 +53,9 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/CreditService/GetHomeInfo")
     Observable<NetModel> getCreditService(@FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("/app/CorporateInfo/CreditReport")
+    Observable<NetModel> getCreditReport(@FieldMap Map<String, Object> params);
 }
