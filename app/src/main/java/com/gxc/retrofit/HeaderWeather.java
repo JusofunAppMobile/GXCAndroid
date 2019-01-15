@@ -24,8 +24,11 @@ public class HeaderWeather implements Interceptor {
                 .addHeader("Deviceid", "test");
 
         UserModel model = AppUtils.getUser();
-        if (model != null)
+        if (model != null) {
             builder.addHeader("AccessToken", model.token);
+        }else{
+            builder.addHeader("AccessToken","");
+        }
         return chain.proceed(builder.build());
     }
 }

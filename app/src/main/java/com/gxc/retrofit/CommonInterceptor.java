@@ -1,9 +1,6 @@
 package com.gxc.retrofit;
 
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
@@ -31,41 +28,35 @@ public class CommonInterceptor implements Interceptor {
                 .newBuilder().scheme(request.url().scheme())
                 .host(request.url().host());
 
-//        UserModel model = AppUtils.getUser();
-//        if (model != null)
-//            builder.addQueryParameter("userId", model.userId);
-
 //        String postBodyString = bodyToString(request.body());
         FormBody.Builder formBody = new FormBody.Builder();
 //        if (TextUtils.isEmpty(postBodyString)) {
 //        } else {
 
-            if (request.body() instanceof FormBody) {
-                FormBody oldRormBpody = (FormBody) request.body();
-                HashMap<String, Object> map = new HashMap<>();
-                UserModel model = AppUtils.getUser();
-                if (model != null) {
-                    map.put("userId", model.userId);
-                }
-                for (int i = 0; i < oldRormBpody.size(); i++) {
-                    map.put(oldRormBpody.name(i), oldRormBpody.value(i));
+        if (request.body() instanceof FormBody) {
+            FormBody oldRormBpody = (FormBody) request.body();
+            HashMap<String, Object> map = new HashMap<>();
+            UserModel model = AppUtils.getUser();
+            if (model != null)
+                map.put("userId", model.userId);
+            for (int i = 0; i < oldRormBpody.size(); i++) {
+                map.put(oldRormBpody.name(i), oldRormBpody.value(i));
 //                    formBody.add(oldRormBpody.name(i),oldRormBpody.value(i));
-                }
-                TimeOut timeOut = new TimeOut(InquireApplication.application);
-                map.put("t", timeOut.getParamTimeMollis() + "");
-
-                Log.e("tag","mapmapmap"+map.toString());
-                formBody.add("data", map.toString());
-                formBody.add("m", timeOut.MD5GXCtime(map));
-
-            } else {
-                return chain.proceed(request);
             }
-            Request newRequest = request.newBuilder()
-                    .method(request.method(), formBody.build())
-                    .url(builder.build())
-                    .build();
-            return chain.proceed(newRequest);
+            TimeOut timeOut = new TimeOut(InquireApplication.application);
+            map.put("t", timeOut.getParamTimeMollis() + "");
+
+            formBody.add("data", new Gson().toJson(map));
+            formBody.add("m", timeOut.MD5GXCtime(map));
+
+        } else {
+            return chain.proceed(request);
+        }
+        Request newRequest = request.newBuilder()
+                .method(request.method(), formBody.build())
+                .url(builder.build())
+                .build();
+        return chain.proceed(newRequest);
 
 //        }
 //        Request newRequest = request.newBuilder()

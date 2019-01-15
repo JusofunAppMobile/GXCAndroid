@@ -90,6 +90,7 @@ public class CreditReportActivity extends BaseListActivity {
 
                     completeLoadData(list);
                 } else {
+                    completeLoadData(null);
                     showToast(model.msg);
                 }
             }
