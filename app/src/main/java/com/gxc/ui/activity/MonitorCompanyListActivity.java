@@ -6,10 +6,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.model.MonitorModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MonitorCompanyAdapter;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 
@@ -40,6 +46,24 @@ public class MonitorCompanyListActivity extends BaseListActivity {
 
     @Override
     protected void startLoadData() {
-        completeLoadData(AppUtils.getTestList(String.class, 20));
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pageSize", pageSize);
+        map.put("pageIndex", pageIndex);
+        RxManager.http(RetrofitUtils.getApi().myMonitorList(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+                    completeLoadData(model.dataToList("list", MonitorModel.class));
+                } else {
+                    completeLoadDataError();
+                }
+            }
+
+            @Override
+            public void error() {
+                completeLoadDataError();
+            }
+        });
     }
 }

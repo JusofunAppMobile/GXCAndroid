@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.gxc.model.GlideApp;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
@@ -68,7 +68,10 @@ public class InforInputView extends LinearLayout {
     }
 
     public void loadImage(String url) {
-        Glide.with(InquireApplication.application).load(url).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(image);
+        RequestOptions options = RequestOptions.bitmapTransform(new CircleCrop())
+                .placeholder(R.drawable.me_head_default_loggedin)
+                .error(R.drawable.me_head_default_loggedin);
+        GlideApp.with(InquireApplication.application).load(url).apply(options).into(image);
     }
 
     public void setValue(String value) {

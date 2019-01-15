@@ -48,6 +48,7 @@ import static com.gxc.utils.ToastUtils.showHttpError;
 public class AppUtils {
 
     public final static String TEST_URL = "https://mp.weixin.qq.com/s?__biz=MzUxMDcwMDcyNQ==&mid=2247484087&idx=1&sn=533ba1192a8263b2c19146d546467e5c&chksm=f97fbf6dce08367bedc8cdfbea9da1222e265b6447a1584fbf7e78b5475b76297e05c8b2ceea&scene=0#rd";
+    public final static String TEST_IMAGE = "http://img18.3lian.com/d/file/201709/21/a05161a4469dc5ef8be88ee217d53d92.jpg";
 
     public static List getTestList(Class<?> clazz, int size) {
         try {
@@ -285,5 +286,26 @@ public class AppUtils {
 
     public static void logout() {
         PreferenceUtils.setString(InquireApplication.application, Constants.USER, null);
+    }
+
+    /**
+     * 检查用户VIP状态、企业认证状态
+     */
+    public static void checkUserStatus(){
+        HashMap<String, Object> map = new HashMap<>();
+
+        RxManager.http(RetrofitUtils.getApi().getIdentVip(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+
+                }
+            }
+
+            @Override
+            public void error() {
+            }
+        });
     }
 }

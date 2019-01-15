@@ -156,24 +156,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/menuRecycler" />
 
-
-            <com.gxc.ui.widgets.AutoScrollViewPager
-                android:id="@+id/pager"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:id="@+id/vPageParent"
+                android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view4" />
+                app:layout_constraintTop_toBottomOf="@+id/view4">
 
-            <com.gxc.ui.widgets.MyCirclePageIndicator
-                android:id="@+id/indicator"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:padding="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/pager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                <com.gxc.ui.widgets.AutoScrollViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.gxc.ui.widgets.MyCirclePageIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:padding="10dp" />
+
+            </RelativeLayout>
 
             <View
                 android:id="@+id/view5"
@@ -183,7 +184,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/indicator" />
+                app:layout_constraintTop_toBottomOf="@+id/vPageParent" />
 
             <com.gxc.ui.widgets.NavTitleView
                 android:id="@+id/monitorNav"

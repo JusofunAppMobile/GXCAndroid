@@ -41,6 +41,7 @@ public class MoreMonitorListActivity extends BaseListActivity {
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         super.onItemClick(adapter, view, position);
-        startActivity(MonitorDetailActivity.class);
+        HomeMonitorModel model = (HomeMonitorModel) adapter.getItem(position);
+        startActivity(MonitorDetailActivity.getIntent(activity, model.companyId, model.companyName));
     }
 }

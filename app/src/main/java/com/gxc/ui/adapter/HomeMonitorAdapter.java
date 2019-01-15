@@ -4,9 +4,12 @@ import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gxc.model.GlideApp;
 import com.gxc.model.HomeMonitorModel;
+import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
 /**
@@ -17,8 +20,13 @@ import com.jusfoun.jusfouninquire.R;
  */
 public class HomeMonitorAdapter extends BaseQuickAdapter<HomeMonitorModel, BaseViewHolder> {
 
+    private RequestOptions options;
+
     public HomeMonitorAdapter() {
         super(R.layout.item_home_monitor);
+        options = new RequestOptions()
+                .placeholder(R.drawable.img_default_clogo)
+                .error(R.drawable.img_default_clogo);
     }
 
     @Override
@@ -31,8 +39,8 @@ public class HomeMonitorAdapter extends BaseQuickAdapter<HomeMonitorModel, BaseV
         tvTitle.setText(model.companyName);
         tvTime.setText(model.changeDate);
 
-//        Glide.with(InquireApplication.application)
+        GlideApp.with(InquireApplication.application).load(model.logo).apply(options).into(ivLogo);
 
-        tvInfo.setText(Html.fromHtml("变更开庭公告等<font color='#E2292F'>3</font>条动态"));
+        tvInfo.setText(Html.fromHtml("共<font color='#E2292F'>" + model.changeCount + "</font>条动态"));
     }
 }

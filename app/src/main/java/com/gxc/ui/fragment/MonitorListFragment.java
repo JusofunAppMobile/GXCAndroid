@@ -41,7 +41,8 @@ public class MonitorListFragment extends BaseListFragment {
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         super.onItemClick(adapter, view, position);
-        startActivity(MonitorDetailActivity.class);
+        MonitorModel model = (MonitorModel) adapter.getItem(position);
+        startActivity(MonitorDetailActivity.getIntent(activity, model.companyId, model.companyName));
     }
 
     @Override

@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.gxc.model.GlideApp;
 import com.gxc.model.HomeModel;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.AppUtils;
@@ -32,11 +33,16 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
     private int size;
     private boolean isInfiniteLoop;
 
+    private RequestOptions options;
+
     public ImagePagerAdapter(Context context, List<HomeModel.AdverModel> imageIdList) {
         this.context = context;
         this.imageIdList = imageIdList;
         this.size = AppUtils.getSize(imageIdList);
         isInfiniteLoop = false;
+        options = new RequestOptions()
+                .placeholder(R.drawable.img_default_ad)
+                .error(R.drawable.img_default_ad);
     }
 
     @Override
@@ -70,7 +76,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        Glide.with(InquireApplication.application).load(imageIdList.get(getPosition(position)).imageURL).into(holder.imageView);
+        GlideApp.with(InquireApplication.application).load(imageIdList.get(getPosition(position)).imageURL).apply(options).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

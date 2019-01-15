@@ -20,4 +20,7 @@ public class HomeMonitorModel {
     public String isUserMonitor;
     public String companyName;
     public String changeDate;
+    public int changeCount;
+    public String logo;
+
 }

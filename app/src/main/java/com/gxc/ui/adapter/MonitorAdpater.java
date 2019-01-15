@@ -1,13 +1,16 @@
 package com.gxc.ui.adapter;
 
 import android.content.Intent;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.base.BaseActivity;
+import com.gxc.model.GlideApp;
 import com.gxc.model.MonitorModel;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
@@ -16,6 +19,7 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
+import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.HashMap;
@@ -29,10 +33,14 @@ import java.util.HashMap;
 public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolder> {
 
     private BaseActivity activity;
+    private RequestOptions options;
 
     public MonitorAdpater(BaseActivity activity) {
         super(R.layout.item_monitor);
         this.activity = activity;
+        options = new RequestOptions()
+                .placeholder(R.drawable.img_default_clogo)
+                .error(R.drawable.img_default_clogo);
     }
 
     @Override
@@ -42,24 +50,28 @@ public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolde
         TextView tvInfo = holder.getView(R.id.tvInfo);
         TextView tvTime = holder.getView(R.id.tvTime);
         ImageView ivLogo = holder.getView(R.id.ivLogo);
+        final View vMonitor = holder.getView(R.id.vMonitor);
         if (model.isUserMonitor == 0) {
-            tvStatus.setSelected(true);
+            vMonitor.setSelected(true);
             tvStatus.setText("监控");
         } else {
-            tvStatus.setSelected(false);
+            vMonitor.setSelected(false);
             tvStatus.setText("取消监控");
         }
         tvTime.setText(model.changeDate);
         tvTitle.setText(model.companyName);
-        tvStatus.setOnClickListener(new View.OnClickListener() {
+        vMonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monitorHandle(model, tvStatus);
+                monitorHandle(model, tvStatus, vMonitor);
             }
         });
+        tvInfo.setText(Html.fromHtml("共<font color='#E2292F'>" + model.changeCount + "</font>条动态"));
+
+        GlideApp.with(InquireApplication.application).load(model.logo).apply(options).into(ivLogo);
     }
 
-    private void monitorHandle(final MonitorModel model, final TextView tvStatus) {
+    private void monitorHandle(final MonitorModel model, final TextView tvStatus, final View parent) {
         UserModel user = AppUtils.getUser();
         if (user == null) {
             mContext.startActivity(new Intent(mContext, com.gxc.ui.activity.LoginActivity.class));
@@ -80,10 +92,10 @@ public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolde
                 if (net.success()) {
                     model.isUserMonitor = (model.isUserMonitor == 0 ? 1 : 0);
                     if (model.isUserMonitor == 0) {
-                        tvStatus.setSelected(true);
+                        parent.setSelected(true);
                         tvStatus.setText("监控");
                     } else {
-                        tvStatus.setSelected(false);
+                        parent.setSelected(false);
                         tvStatus.setText("取消监控");
                     }
                 } else {

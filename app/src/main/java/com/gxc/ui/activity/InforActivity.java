@@ -9,9 +9,14 @@ import com.gxc.constants.Constants;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
 import com.gxc.model.UserModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.widgets.InforInputView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
@@ -19,10 +24,12 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import netlib.util.PreferenceUtils;
 
 /**
  * @author liuguangdan
@@ -78,6 +85,8 @@ public class InforActivity extends BaseActivity {
             vJob.setValue(user.job);
             vTrade.setValue(user.trade);
             vPhone.setValue(user.phone);
+            if (TextUtils.isEmpty(imagePath))
+                vHeadIcon.loadImage(user.headIcon);
         }
     }
 
@@ -124,7 +133,36 @@ public class InforActivity extends BaseActivity {
         AppUtils.uploadPicture(imagePath, "Icon", new OnUploadListener() {
             @Override
             public void complete(String url, String simple) {
+                updateHeadIcon(url, simple);
+            }
+        });
+    }
 
+    private void updateHeadIcon(final String url, String simple) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("headIcon", simple);
+        RxManager.http(RetrofitUtils.getApi().updateInfo(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    showToast("修改成功");
+                    imagePath = null;
+                    UserModel user = AppUtils.getUser();
+                    if (user != null) {
+                        user.headIcon = url;
+                        PreferenceUtils.setString(activity, Constants.USER, gson.toJson(user));
+                    }
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
             }
         });
     }
@@ -146,12 +184,15 @@ public class InforActivity extends BaseActivity {
                             File file = new File(imagePath);
                             LogUtils.e("图片：" + file.getAbsolutePath() + ",大小" + AppUtils.byteToMB(file.length()));
                             vHeadIcon.loadImage(imagePath);
-
+                            showLoading();
                             AppUtils.compress(activity, file, new OnSimpleCompressListener() {
                                 @Override
                                 public void complete(String path) {
                                     if (!TextUtils.isEmpty(path)) {
                                         upload();
+                                    } else {
+                                        hideLoadDialog();
+                                        ToastUtils.showHttpError();
                                     }
                                 }
                             });

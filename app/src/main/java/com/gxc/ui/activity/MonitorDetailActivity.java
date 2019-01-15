@@ -1,5 +1,7 @@
 package com.gxc.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,13 +11,18 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.model.MonitorDetailModel;
+import com.gxc.model.MonitorMenuModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MonitorDetailAdapter;
 import com.gxc.ui.adapter.MonitorMenuAdpater;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,6 +55,13 @@ public class MonitorDetailActivity extends BaseListActivity {
         return new MonitorDetailAdapter(this);
     }
 
+    public static Intent getIntent(Context context, String companyId, String companyName) {
+        Intent intent = new Intent(context, MonitorDetailActivity.class);
+        intent.putExtra("companyid", companyId);
+        intent.putExtra("companyName", companyName);
+        return intent;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.act_monitor_detail;
@@ -65,11 +79,12 @@ public class MonitorDetailActivity extends BaseListActivity {
             }
         });
         menuAdpater = new MonitorMenuAdpater();
-        menuAdpater.setNewData(AppUtils.getTestList(String.class, 90));
         menuRecycler.setAdapter(menuAdpater);
         menuRecycler.setLayoutManager(new GridLayoutManager(this, 3));
 
         scrollView.setNestedScrollingEnabled(false);
+
+        loadFilter();
     }
 
     private void toggleDrawer() {
@@ -77,6 +92,28 @@ public class MonitorDetailActivity extends BaseListActivity {
             mDrawerLayout.closeDrawer(vMenu);
         else
             mDrawerLayout.openDrawer(vMenu);
+    }
+
+    private void loadFilter() {
+        HashMap<String, Object> map = new HashMap<>();
+
+        RxManager.http(RetrofitUtils.getApi().getFilterCondition(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+                    menuAdpater.setNewData(model.dataToList("filter", MonitorMenuModel.class));
+                }
+            }
+
+            @Override
+            public void error() {
+            }
+        });
+    }
+
+    private String getFilterIds() {
+        return "";
     }
 
     @Override
@@ -105,6 +142,25 @@ public class MonitorDetailActivity extends BaseListActivity {
         list.add(new MonitorDetailModel());
         list.add(new MonitorDetailModel());
         completeLoadData(list);
+
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("companyid", getIntent().getStringExtra("companyid"));
+        map.put("companyName", getIntent().getStringExtra("companyName"));
+        map.put("filterId", "107");
+//        map.put("filterId", getFilterIds());
+        RxManager.http(RetrofitUtils.getApi().dynamicDetails(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+                }
+            }
+
+            @Override
+            public void error() {
+            }
+        });
     }
 
     @OnClick({R.id.vReset, R.id.vSure})

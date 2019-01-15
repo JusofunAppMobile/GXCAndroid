@@ -8,7 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
 import rx.Observable;
 
 public interface Api {
@@ -53,11 +52,11 @@ public interface Api {
     @POST("/app/MonitoringDynamics/AddOrCancelMonitor")
     Observable<NetModel> monitorUpdate(@FieldMap Map<String, Object> params);
 
-//    @FormUrlEncoded
     @POST("/app/sys/fileupload")
     Observable<NetModel> upload(@Body RequestBody Body);
 
 
+    @FormUrlEncoded
     @POST("/app/CreditService/GetHomeInfo")
     Observable<NetModel> getCreditService();
 
@@ -72,4 +71,33 @@ public interface Api {
 
     @POST("/app/CreditService/CompanyInfoReporting")
     Observable<NetModel> companyInfoReporting();
+
+
+    @FormUrlEncoded
+    @POST("/app/order/getOrderMsg")
+    Observable<NetModel> getOrderMsg(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/order/orderPay")
+    Observable<NetModel> orderPay(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/getIdentVip")
+    Observable<NetModel> getIdentVip(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/MonitoringDynamics/GetFilterCondition")
+    Observable<NetModel> getFilterCondition(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/MonitoringDynamics/DynamicDetails")
+    Observable<NetModel> dynamicDetails(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/OrderList")
+    Observable<NetModel> orderList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/monitorList")
+    Observable<NetModel> myMonitorList(@FieldMap Map<String, Object> params);
 }

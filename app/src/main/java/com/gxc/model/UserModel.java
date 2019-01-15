@@ -8,8 +8,8 @@ package com.gxc.model;
 public class UserModel {
 
     public String headIcon;
-    public int pushStatus;
-    public int authStatus;
+    public int pushStatus; // 消息推送开关状态 0：开 1：关
+    public int authStatus; // 认证状态 0：未认证 1：已认证
     public String userId;
     public String token;
     public String trade;
@@ -18,6 +18,7 @@ public class UserModel {
     public String regId;
     public String department;
     public String job;
-    public int vipStatus;
+    public int vipStatus; // 用户vip状态 0：普通用户 1：vip用户
     public String email;
+    public int vipLastDay;
 }

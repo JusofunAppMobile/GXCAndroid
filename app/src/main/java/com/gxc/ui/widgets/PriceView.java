@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gxc.model.PriceModel;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 
 import butterknife.BindView;
@@ -59,17 +58,17 @@ public class PriceView extends LinearLayout {
 
     public void setData(PriceModel model, int type) {
         if (type == 1) {
-            tvOriPrice.setText("¥" + (int) model.oneOriPrice);
-            tvCurPrice.setText("¥" + AppUtils.parseDouble(model.oneCurPrice, 2));
-            tvEvery.setText("低至 ¥" + AppUtils.parseDouble(model.oneCurPrice / 365, 2) + "/天");
+            tvOriPrice.setText("¥" + model.oneOriPrice);
+            tvCurPrice.setText("¥" + model.oneCurPrice);
+            tvEvery.setText("低至 ¥" + model.oneDayPrice + "/天");
         } else if (type == 2) {
-            tvOriPrice.setText("¥" + (int) model.twoOriPrice);
-            tvCurPrice.setText("¥" + AppUtils.parseDouble(model.twoCurPrice, 2));
-            tvEvery.setText("低至 ¥" + AppUtils.parseDouble(model.oneCurPrice / 365 / 2, 2) + "/天");
+            tvOriPrice.setText("¥" + model.twoOriPrice);
+            tvCurPrice.setText("¥" + model.twoCurPrice);
+            tvEvery.setText("低至 ¥" + model.twoDayPrice + "/天");
         } else {
-            tvOriPrice.setText("¥" + (int) model.threeOriPrice);
-            tvCurPrice.setText("¥" + AppUtils.parseDouble(model.threeCurPrice, 2));
-            tvEvery.setText("低至 ¥" + AppUtils.parseDouble(model.oneCurPrice / 365 / 3, 2) + "/天");
+            tvOriPrice.setText("¥" + model.threeOriPrice);
+            tvCurPrice.setText("¥" + model.threeCurPrice);
+            tvEvery.setText("低至 ¥" + model.threeDayPrice + "/天");
         }
     }
 }

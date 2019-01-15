@@ -6,9 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gxc.model.GlideApp;
 import com.gxc.model.HomeNewsModel;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
@@ -23,6 +24,7 @@ import com.jusfoun.jusfouninquire.R;
 public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHolder> {
 
     private int imageWidth;
+    private RequestOptions options;
 
     public HomeNewsAdapter(Activity activity) {
         super(R.layout.item_home_news);
@@ -30,6 +32,9 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
         int width = display.getWidth();
         int emptyWidth = (int) InquireApplication.application.getResources().getDimension(R.dimen.item_image_empty);
         imageWidth = (width - emptyWidth) / 3;
+        options = new RequestOptions()
+                .placeholder(R.drawable.img_default_news)
+                .error(R.drawable.img_default_news);
     }
 
     @Override
@@ -80,17 +85,17 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
                     iv2.setVisibility(size >= 2 ? View.VISIBLE : View.INVISIBLE);
                     iv3.setVisibility(size >= 2 ? View.VISIBLE : View.INVISIBLE);
                     iv4.setVisibility(size >= 3 ? View.VISIBLE : View.INVISIBLE);
-                    loadImage(model.newsImage.get(0), iv1);
-                    loadImage(model.newsImage.get(1), iv2);
+                    loadImage(model.newsImage.get(0), iv2);
+                    loadImage(model.newsImage.get(1), iv3);
                     if (size >= 3)
-                        loadImage(model.newsImage.get(2), iv3);
+                        loadImage(model.newsImage.get(2), iv4);
                 }
             }
         }
     }
 
     private void loadImage(String url, ImageView imageView) {
-        Glide.with(InquireApplication.application).load(url).into(imageView);
+        GlideApp.with(InquireApplication.application).load(url).apply(options).into(imageView);
     }
 
 }

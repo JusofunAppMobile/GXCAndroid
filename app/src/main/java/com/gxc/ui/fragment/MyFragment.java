@@ -5,10 +5,14 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseFragment;
+import com.gxc.model.GlideApp;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
@@ -23,6 +27,7 @@ import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.dialog.AuthDialog;
 import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
+import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.ArrayList;
@@ -53,6 +58,12 @@ public class MyFragment extends BaseFragment {
     ConstraintLayout vCompany;
     @BindView(R.id.tvPhone)
     TextView tvPhone;
+    @BindView(R.id.ivNormalLogo)
+    ImageView ivNormalLogo;
+    @BindView(R.id.ivCompanyLogo)
+    ImageView ivCompanyLogo;
+    @BindView(R.id.vVip)
+    ImageView vVip;
 
     @Override
     protected int getLayoutId() {
@@ -111,6 +122,7 @@ public class MyFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         loadUser();
+        AppUtils.checkUserStatus();
     }
 
     private void loadUser() {
@@ -125,10 +137,16 @@ public class MyFragment extends BaseFragment {
             vLogin.setVisibility(View.GONE);
 
             tvPhone.setText(user.phone);
+
+            RequestOptions options = RequestOptions.bitmapTransform(new CircleCrop())
+                    .placeholder(R.drawable.me_head_default_loggedin)
+                    .error(R.drawable.me_head_default_loggedin);
+            GlideApp.with(InquireApplication.application).load(user.headIcon).apply(options).into(ivNormalLogo);
+            GlideApp.with(InquireApplication.application).load(user.headIcon).apply(options).into(ivCompanyLogo);
         }
     }
 
-    @OnClick({R.id.vHistory, R.id.vHelper, R.id.vVersion, R.id.vSetting})
+    @OnClick({R.id.vHistory, R.id.vHelper, R.id.vVersion, R.id.vSetting, R.id.vVip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vHistory: // 浏览历史
@@ -140,6 +158,9 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.vSetting: // 设置
                 startActivity(SettingActivity.class);
+                break;
+            case R.id.vVip: // VIP
+                startActivity(PayActivity.class);
                 break;
         }
     }

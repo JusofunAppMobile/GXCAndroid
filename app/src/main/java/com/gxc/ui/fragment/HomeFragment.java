@@ -2,13 +2,13 @@ package com.gxc.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +46,6 @@ import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -185,7 +184,12 @@ public class HomeFragment extends BaseFragment {
         loadData();
     }
 
-    private void initAutoPager(int size) {
+    private void initAutoPager() {
+        ViewGroup parent = (ViewGroup) pager.getParent();
+        parent.removeView(pager);
+
+        pager.setAdapter(new ImagePagerAdapter(activity, homeModel.adImages).setInfiniteLoop(true));
+        pager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % homeModel.adImages.size());
         pager.setInterval(5000);
         indicator.setViewPager(pager);
         indicator.setFillColor(Color.parseColor("#A8ACB0"));
@@ -195,7 +199,8 @@ public class HomeFragment extends BaseFragment {
         indicator.setStrokeWidth(0);
         indicator.setPointPadding(4);
         pager.startAutoScroll();
-//        pager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % size);
+
+        parent.addView(pager, 0);
     }
 
     private void loadData() {
@@ -223,29 +228,10 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void buildView() {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<HomeModel.AdverModel> imageIdList = new ArrayList<>();
-                imageIdList.add(new HomeModel.AdverModel());
-                imageIdList.add(new HomeModel.AdverModel());
-                imageIdList.add(new HomeModel.AdverModel());
-                pager.setAdapter(new ImagePagerAdapter(activity, imageIdList).setInfiniteLoop(true));
-                initAutoPager(AppUtils.getSize(imageIdList));
-            }
-        }, 3000);
-
-
         if (homeModel != null) {
             homeMenuAdapter.setNewData(homeModel.menu);
-
-            if (homeModel.adImages != null) {
-//                pager.setAdapter(new ImagePagerAdapter(activity, homeModel.adImages).setInfiniteLoop(true));
-//                initAutoPager(AppUtils.getSize(homeModel.adImages));
-
-
-            }
+            if (homeModel.adImages != null && !homeModel.adImages.isEmpty())
+                initAutoPager();
             homeMonitorAdapter.addData(homeModel.monitor);
             homeNewsAdapter.addData(homeModel.news);
             buildHotSearch(homeModel.keywords);
@@ -371,7 +357,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void monitorItemClick(HomeMonitorModel model, int position) {
-        startActivity(MonitorDetailActivity.class);
+        startActivity(MonitorDetailActivity.getIntent(activity, model.companyId, model.companyName));
     }
 
     private void newsItemClick(HomeNewsModel model, int position) {
