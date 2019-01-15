@@ -23,7 +23,6 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gxc.model.RiskModel;
-import com.gxc.ui.activity.*;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
@@ -235,7 +234,6 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
         title.setTitleText("企业详情");
         mCompanyMenu.setNestedScrollingEnabled(false);
-        navigation.setElevation(0);
         navigation
                 .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_baogao, "获取报告"))
                 .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_yiyi, "纠错/异议"))
@@ -863,6 +861,43 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 //        presenter.onActivityResult(requestCode, resultCode, data, currentPath);
 
     }
+
+//    private void monitorHandle(){
+//        UserModel user = AppUtils.getUser();
+//        if (user == null) {
+//            goActivity(com.gxc.ui.activity.LoginActivity.class);
+//            return;
+//        }
+//
+//        showLoading();
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("companyid", mCompanyId);
+//        map.put("companyname", mCompanyId);
+//        map.put("monitorType", 1); // TEST
+//
+//        RxManager.http(RetrofitUtils.getApi().monitorUpdate(map), new ResponseCall() {
+//
+//            @Override
+//            public void success(NetModel model) {
+//                hideLoadDialog();
+//                if (model.success()) {
+//                    showToast("登录成功");
+////                    PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
+////                    EventBus.getDefault().post(new LoginSucEvent());
+//                    finish();
+//                } else {
+//                    showToast(model.msg);
+//                }
+//            }
+//
+//            @Override
+//            public void error() {
+//                hideLoadDialog();
+//                ToastUtils.showHttpError();
+//            }
+//        });
+//    }
+
 
     private void getReroet() {
         UserInfoModel model = InquireApplication.getUserInfo();
