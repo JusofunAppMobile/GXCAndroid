@@ -1,10 +1,13 @@
 package com.gxc.ui.activity;
 
+import android.view.View;
+
 import com.gxc.base.BaseActivity;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author liuguangdan
@@ -24,5 +27,10 @@ public class PushSetActivity extends BaseActivity {
     @Override
     public void initActions() {
         titleView.setTitle("消息推送");
+    }
+
+    @OnClick(R.id.vSet)
+    public void switchClick(View view) {
+        view.setSelected(!view.isSelected());
     }
 }
