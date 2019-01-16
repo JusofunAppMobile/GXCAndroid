@@ -22,9 +22,16 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 import com.gxc.model.RiskModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.ParamsUitl;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
@@ -67,6 +74,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import netlib.util.EventUtils;
@@ -536,30 +544,54 @@ public class CompanyDetailActivity extends BaseInquireActivity {
      * 下载企业详情
      */
     private void getCompanyDetail() {
-        TimeOut timeOut = new TimeOut(mContext);
-        params = new HashMap<>();
-        params.put("companyid", mCompanyId);
-        params.put("companyname", mCompanyName == null ? "" : mCompanyName);
-        params.put("entname", mCompanyName == null ? "" : mCompanyName);
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("companyId", mCompanyId);
+        params.put("companyName", mCompanyName == null ? "" : mCompanyName);
 
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
-            params.put("userid", userInfo.getUserid());
-        else {
-            params.put("userid", "");
-        }
+//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
+//            params.put("userId", userInfo.getUserid());
+//        else {
+//            params.put("userId", "");
+//        }
 
-        params.put("t", timeOut.getParamTimeMollis() + "");
-        params.put("m", timeOut.MD5time() + "");
-        NetWorkCompanyDetails.getCompanyDetails(mContext, params, getLocalClassName(), new NetWorkCallBack() {
+
+//        TimeOut timeOut = new TimeOut(mContext);
+//        params.put("t",timeOut.getParamTimeMollis()+"");
+//
+//
+//        HashMap<String,String> hashMap = new HashMap<>();
+//        hashMap.put("data",new Gson().toJson(params));
+//        hashMap.put("m",timeOut.MD5GXCtime(params));
+//
+//        NetWorkCompanyDetails.getCompanyDetails(mContext, hashMap, getLocalClassName(), new NetWorkCallBack() {
+//            @Override
+//            public void onSuccess(Object data) {
+//                if (data instanceof CompanyDetailModel) {
+//                    updateView((CompanyDetailModel) data);
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(String error) {
+//                sceneAnimation.stop();
+//                title.setVGone(View.GONE);
+//                loadingLayout.setVisibility(View.GONE);
+//                netWorkError.setNetWorkError();
+//                netWorkError.setVisibility(View.VISIBLE);
+//            }
+//        });
+
+        RxManager.http(RetrofitUtils.getApi().GetCorporateInfo(params), new ResponseCall() {
+
             @Override
-            public void onSuccess(Object data) {
-                if (data instanceof CompanyDetailModel) {
-                    updateView((CompanyDetailModel) data);
+            public void success(NetModel model) {
+                if (model instanceof CompanyDetailModel) {
+                    updateView((CompanyDetailModel) model);
                 }
             }
 
             @Override
-            public void onFail(String error) {
+            public void error() {
                 sceneAnimation.stop();
                 title.setVGone(View.GONE);
                 loadingLayout.setVisibility(View.GONE);
@@ -567,6 +599,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 netWorkError.setVisibility(View.VISIBLE);
             }
         });
+
     }
 
     private void updateView(final CompanyDetailModel model) {

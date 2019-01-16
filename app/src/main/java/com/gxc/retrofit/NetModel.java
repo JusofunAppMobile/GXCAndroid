@@ -1,6 +1,7 @@
 package com.gxc.retrofit;
 
 import com.google.gson.Gson;
+import com.jusfoun.jusfouninquire.net.model.BaseModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,13 +18,13 @@ import java.util.List;
  * @作者 LiuGuangDan
  */
 
-public class NetModel implements Serializable {
+public class NetModel extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 5268625605268545266L;
 
-    public int result;
+//    public int result;
 
-    public String msg;
+//    public String msg;
 
     public Object data;
 
@@ -84,4 +85,5 @@ public class NetModel implements Serializable {
         }
         return null;
     }
+
 }

@@ -56,7 +56,6 @@ public interface Api {
     Observable<NetModel> upload(@Body RequestBody Body);
 
 
-    @FormUrlEncoded
     @POST("/app/CreditService/GetHomeInfo")
     Observable<NetModel> getCreditService();
 
@@ -100,6 +99,10 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/mineManager/monitorList")
     Observable<NetModel> myMonitorList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/CorporateInfo/GetCorporateInfo")
+    Observable<NetModel> GetCorporateInfo(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("/app/sys/searchWord")

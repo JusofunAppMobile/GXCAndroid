@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.platform.comapi.map.F;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -75,6 +74,11 @@ public class CreditFragment extends BaseFragment {
     View viewLine;
     @BindView(R.id.layout_fangke)
     LinearLayout layoutFangke;
+    @BindView(R.id.text_xinyong_code)
+    TextView textXinyongCode;
+    @BindView(R.id.text_compay_type)
+    TextView textCompayType;
+    Unbinder unbinder;
     private ImageView certificationImg;
 
     @BindView(R.id.img_shenhezhong)
@@ -176,7 +180,6 @@ public class CreditFragment extends BaseFragment {
         });
 
 
-        textCompany.setText("大洋科技");
         nestedScrollView = (NestedScrollView) rootView.findViewById(R.id.nestedScrollView);
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
@@ -197,6 +200,7 @@ public class CreditFragment extends BaseFragment {
         textTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
         initChart();
+        getServiceData();
         setData(6, 150);
 
     }
@@ -301,7 +305,7 @@ public class CreditFragment extends BaseFragment {
             // set data
             chart.setData(data);
         }
-        getServiceData();
+
     }
 
     private void getServiceData() {
@@ -310,23 +314,34 @@ public class CreditFragment extends BaseFragment {
 
             @Override
             public void success(NetModel data) {
+
                 if (data.success()) {
                     CreditDataModel model = data.dataToObject(CreditDataModel.class);
                     if (model.companyInfo != null) {
                         //认证状态  0：未认证 1：审核中 2：审核失败 3：审核成功
-                        if ("0".equals(model.companyInfo)) {
+                        if ("0".equals(model.companyInfo.status)) {
                             initUICredit(false);
                             certificationImg.setVisibility(View.VISIBLE);
-                        } else if ("1".equals(model.companyInfo)) {
+                            topLayout.setVisibility(View.GONE);
+                            textTitle.setTextColor(0xff333333);
+                            layoutRoot.setBackgroundColor(0xffffffff);
+                        } else if ("1".equals(model.companyInfo.status)) {
                             shImg.setVisibility(View.VISIBLE);
                             initUICredit(false);
-                        }else if ("2".equals(model.companyInfo)) {
+                            topLayout.setVisibility(View.VISIBLE);
+                        } else if ("2".equals(model.companyInfo.status)) {
                             shImg.setVisibility(View.VISIBLE);
                             initUICredit(false);
-                        }else if ("3".equals(model.companyInfo)) {
+                            topLayout.setVisibility(View.VISIBLE);
+                        } else if ("3".equals(model.companyInfo.status)) {
                             shImg.setVisibility(View.GONE);
                             initUICredit(true);
+                            topLayout.setVisibility(View.VISIBLE);
                         }
+
+                        textCompany.setText(model.companyInfo.companyName);
+                        textXinyongCode.setText(model.companyInfo.code);
+                        textCompayType.setText(model.companyInfo.type);
                     } else {
                         showToast(data.msg);
                     }
@@ -339,31 +354,46 @@ public class CreditFragment extends BaseFragment {
             }
         });
 
-        initUICredit(false);
-        certificationImg.setVisibility(View.VISIBLE);
+//        initUICredit(false);
+//        certificationImg.setVisibility(View.VISIBLE);
+
+//        shImg.setVisibility(View.GONE);
+//        initUICredit(true);
     }
 
 
+    private void initUICredit(boolean isCredit) {
 
-    private void initUICredit(boolean isCredit){
-        if(isCredit){
-            layoutService.setVisibility(View.VISIBLE);
+        textTitle.setTextColor(0xffffffff);
+        layoutRoot.setBackgroundColor(0xffe83836);
+
+        if (isCredit) {
             viewLine.setVisibility(View.VISIBLE);
             layoutFangke.setVisibility(View.VISIBLE);
             certificationImg.setVisibility(View.GONE);
             changeLayout.setVisibility(View.VISIBLE);
-            textTitle.setTextColor(0xffffffff);
-            layoutRoot.setBackgroundColor(0xffe83836);
             topLayout.setVisibility(View.VISIBLE);
-        }else{
-            topLayout.setVisibility(View.GONE);
-            textTitle.setTextColor(0xff333333);
-            layoutRoot.setBackgroundColor(0xffffffff);
+        } else {
+
             layoutService.setVisibility(View.GONE);
             viewLine.setVisibility(View.GONE);
             layoutFangke.setVisibility(View.GONE);
             certificationImg.setVisibility(View.GONE);
             changeLayout.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

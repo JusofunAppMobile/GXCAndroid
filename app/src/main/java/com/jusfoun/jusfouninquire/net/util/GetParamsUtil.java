@@ -37,4 +37,22 @@ public class GetParamsUtil {
         }
         return tempURL;
     }
+
+
+
+    public static String getParmasUrl(String url,Map<String, String> params) {
+        String tempURL = url+"?";
+        try{
+
+            if (params != null && !params.isEmpty()) {
+                for (String key : params.keySet()) {
+                    tempURL = tempURL + key + "=" + URLEncoder.encode(params.get(key),"UTF-8") + "&";
+                }
+            }
+
+        }catch (Exception e){
+
+        }
+        return tempURL;
+    }
 }

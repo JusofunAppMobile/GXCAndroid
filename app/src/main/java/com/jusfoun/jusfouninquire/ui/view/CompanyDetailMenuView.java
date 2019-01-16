@@ -303,7 +303,7 @@ public class CompanyDetailMenuView extends RelativeLayout {
                     },500);
 
                 } else {
-                    Toast.makeText(mContext, model.getMessage(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, model.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
