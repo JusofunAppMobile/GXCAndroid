@@ -256,7 +256,7 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
         <activity
-            android:name="com.gxc.ui.activity.MonitorCompanyListActivity"
+            android:name="com.gxc.ui.activity.MyMonitorListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/my_style_horizontal"
@@ -340,7 +340,19 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
         <activity
-            android:name="com.gxc.ui.activity.CompanySearchListActivity"
+            android:name="com.gxc.ui.activity.AboutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.MyCollectListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name="com.gxc.ui.activity.MyHistoryListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/my_style_horizontal"

@@ -22,15 +22,14 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
 import com.gxc.model.RiskModel;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.utils.AppUtils;
-import com.gxc.utils.ParamsUitl;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
@@ -74,7 +73,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import netlib.util.EventUtils;
@@ -127,8 +125,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private int selectType = TYPE_QIYEBAOGAO;
 
 
-    private RecyclerView shareHolderRecycle,dongshiRecycle;
-    private ShareholderAdapter shareholderAdapter,dongshiAdaper;
+    private RecyclerView shareHolderRecycle, dongshiRecycle;
+    private ShareholderAdapter shareholderAdapter, dongshiAdaper;
 
     private BottomNavigationBar navigation;
 
@@ -266,7 +264,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                         EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("company", model);
-                        bundle.putInt(CompanyAmendActivity.TYPE,CompanyAmendActivity.TYPE_ERROR);
+                        bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_ERROR);
                         goActivity(CompanyAmendActivity.class, bundle);
                     }
                 }
@@ -288,6 +286,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                         bundle.putSerializable("company", model);
                         goActivity(CompanyAmendActivity.class, bundle);
                     }
+                } else if (position == 2) {
+                    collectHandle(); //  测试
                 }
             }
         });
@@ -544,7 +544,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
      * 下载企业详情
      */
     private void getCompanyDetail() {
-        HashMap<String,Object> params = new HashMap<>();
+        HashMap<String, Object> params = new HashMap<>();
         params.put("companyId", mCompanyId);
         params.put("companyName", mCompanyName == null ? "" : mCompanyName);
 
@@ -893,6 +893,42 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         shareUtil.onActivityResult(requestCode, resultCode, data);
 //        presenter.onActivityResult(requestCode, resultCode, data, currentPath);
 
+    }
+
+    /**
+     * 收藏、取消收藏
+     */
+    private void collectHandle() {
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            goActivity(com.gxc.ui.activity.LoginActivity.class);
+            return;
+        }
+
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("companyid", mCompanyId);
+        map.put("companyname", mCompanyName);
+        map.put("monitorType", 1); // TEST
+
+        RxManager.http(RetrofitUtils.getApi().addOrCancelCollection(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    showToast("操作成功");
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
     }
 
 //    private void monitorHandle(){

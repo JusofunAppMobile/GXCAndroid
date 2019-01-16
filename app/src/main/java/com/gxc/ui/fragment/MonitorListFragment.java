@@ -11,9 +11,13 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.MonitorAdpater;
+import com.gxc.ui.dialog.VIPDialog;
+import com.gxc.ui.widgets.NavTitleView;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.HashMap;
+
+import butterknife.BindView;
 
 /**
  * @author liuguangdan
@@ -22,6 +26,9 @@ import java.util.HashMap;
  * @Description ${监控动态}
  */
 public class MonitorListFragment extends BaseListFragment {
+
+    @BindView(R.id.navTitleView)
+    NavTitleView navTitleView;
 
     @Override
     public int getLayoutId() {
@@ -35,7 +42,12 @@ public class MonitorListFragment extends BaseListFragment {
 
     @Override
     protected void initUi() {
-
+        navTitleView.setTipClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new VIPDialog(activity).show();
+            }
+        });
     }
 
     @Override

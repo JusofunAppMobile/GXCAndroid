@@ -2,6 +2,7 @@ package com.gxc.ui.adapter;
 
 import android.content.Intent;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,8 +40,8 @@ public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolde
         super(R.layout.item_monitor);
         this.activity = activity;
         options = new RequestOptions()
-                .placeholder(R.drawable.img_default_clogo)
-                .error(R.drawable.img_default_clogo);
+                .placeholder(R.drawable.home_icon_gongsi)
+                .error(R.drawable.home_icon_gongsi);
     }
 
     @Override
@@ -68,7 +69,10 @@ public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolde
         });
         tvInfo.setText(Html.fromHtml("共<font color='#E2292F'>" + model.changeCount + "</font>条动态"));
 
-        GlideApp.with(InquireApplication.application).load(model.logo).apply(options).into(ivLogo);
+        if (TextUtils.isEmpty(model.logo))
+            ivLogo.setImageResource(R.drawable.img_default_clogo);
+        else
+            GlideApp.with(InquireApplication.application).load(model.logo).apply(options).into(ivLogo);
     }
 
     private void monitorHandle(final MonitorModel model, final TextView tvStatus, final View parent) {

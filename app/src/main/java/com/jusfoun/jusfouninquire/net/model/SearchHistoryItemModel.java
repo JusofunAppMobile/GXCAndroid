@@ -19,6 +19,9 @@ public class SearchHistoryItemModel {
     public static final String SEARCH_CONTACT = "8";//企业通讯录
     public static final String SEARCH_SHAREHOLDER_RIFT = "9";//股东穿透
 
+    public static final String SEARCH_RISK = "10";//风险分析
+    public static final String SEARCH_RELATION = "11";//查关系
+
 
 
 

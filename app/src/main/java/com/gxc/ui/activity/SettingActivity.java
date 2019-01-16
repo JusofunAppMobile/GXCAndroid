@@ -86,7 +86,7 @@ public class SettingActivity extends BaseActivity {
                 startActivity(WebActivity.getIntent(this, "隐私政策", AppUtils.TEST_URL, false));
                 break;
             case R.id.vAbout:
-                startActivity(WebActivity.getIntent(this, "关于我们", AppUtils.TEST_URL, false));
+                startActivity(AboutActivity.class);
                 break;
         }
     }

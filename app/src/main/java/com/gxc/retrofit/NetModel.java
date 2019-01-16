@@ -55,7 +55,6 @@ public class NetModel extends BaseModel implements Serializable {
     }
 
 
-
     public <T> List<T> dataToList(String key, Class<T> clazz) {
         try {
             Gson gson = new Gson();
@@ -81,6 +80,15 @@ public class NetModel extends BaseModel implements Serializable {
         try {
             return new JSONObject(new Gson().toJson(this)).getJSONObject("data");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public <T> T getDataByKey(String key, Class<T> clazz) {
+        try {
+            return new Gson().fromJson(getDataJSONObject().getString(key), clazz);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;

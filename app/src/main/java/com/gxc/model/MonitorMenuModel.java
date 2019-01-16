@@ -9,5 +9,6 @@ public class MonitorMenuModel {
 
     public String monitor_condition_name;
     public String monitor_condition_id;
+    public boolean isSelect;
 
 }

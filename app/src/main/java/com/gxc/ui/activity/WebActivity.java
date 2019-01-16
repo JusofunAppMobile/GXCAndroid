@@ -2,7 +2,11 @@ package com.gxc.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.Group;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.gxc.base.BaseActivity;
@@ -12,6 +16,7 @@ import com.just.agentweb.AgentWeb;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author liuguangdan
@@ -26,6 +31,10 @@ public class WebActivity extends BaseActivity {
     TitleView titleView;
     @BindView(R.id.layout)
     LinearLayout layout;
+    @BindView(R.id.relationGroup)
+    Group relationGroup;
+
+    private boolean isRelation = false; // 是否为查关系
 
     public static Intent getIntent(Context context, String title, String url, boolean isZoomable) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -43,6 +52,20 @@ public class WebActivity extends BaseActivity {
         return intent;
     }
 
+    /**
+     * 查关系
+     *
+     * @param context
+     * @param url
+     * @return
+     */
+    public static Intent getRelationIntent(Context context, String url) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("isRelation", true);
+        return intent;
+    }
+
 
     @Override
     protected int getLayoutId() {
@@ -54,11 +77,19 @@ public class WebActivity extends BaseActivity {
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
 
+        isRelation = getIntent().getBooleanExtra("isRelation", false);
+        relationGroup.setVisibility(isRelation ? View.VISIBLE : View.GONE);
+
+        if (isRelation) { // 查关系
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//横屏
+            titleView.setVisibility(View.GONE);
+        }
+
         titleView.setTitle(title);
 
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(layout, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()
+                .useDefaultIndicator(isRelation ? Color.TRANSPARENT : -1)
                 .createAgentWeb()
                 .ready()
                 .go(url);
@@ -99,5 +130,25 @@ public class WebActivity extends BaseActivity {
             mAgentWeb.getWebCreator().getWebView().goBack();
         else
             super.onBackPressed();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.vFinish:
+                finish();
+                break;
+            case R.id.vSave:
+                break;
+            case R.id.vShare:
+                break;
+        }
     }
 }

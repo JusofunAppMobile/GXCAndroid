@@ -18,7 +18,9 @@ import com.gxc.model.UserModel;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.InforActivity;
 import com.gxc.ui.activity.LoginActivity;
-import com.gxc.ui.activity.MonitorCompanyListActivity;
+import com.gxc.ui.activity.MyCollectListActivity;
+import com.gxc.ui.activity.MyHistoryListActivity;
+import com.gxc.ui.activity.MyMonitorListActivity;
 import com.gxc.ui.activity.OrderListActivity;
 import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.activity.SettingActivity;
@@ -83,7 +85,7 @@ public class MyFragment extends BaseFragment {
         list.add(new HomeMenuModel(R.drawable.mine_icon_shoucang, "我的收藏"));
         list.add(new HomeMenuModel(R.drawable.mine_icon_renzheng, "企业认证"));
         list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权"));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_zengsong, "赠送好友VIP"));
+//        list.add(new HomeMenuModel(R.drawable.mine_icon_zengsong, "赠送好友VIP"));
         homeMenuAdapter.setNewData(list);
         menuRecycler.setAdapter(homeMenuAdapter);
         menuRecycler.setLayoutManager(new GridLayoutManager(activity, 4));
@@ -103,10 +105,10 @@ public class MyFragment extends BaseFragment {
                 startActivity(OrderListActivity.class);
                 break;
             case 1:// 我的监控
-                startActivity(MonitorCompanyListActivity.class);
+                startActivity(MyMonitorListActivity.class);
                 break;
             case 2:// 我的收藏
-                startActivity(MonitorCompanyListActivity.class);
+                startActivity(MyCollectListActivity.class);
                 break;
             case 3:// 企业认证
                 new AuthDialog(activity).show();
@@ -116,9 +118,9 @@ public class MyFragment extends BaseFragment {
                 new VIPDialog(activity).show();
                 startActivity(WebActivity.getIntent(activity, "VIP特权", AppUtils.TEST_URL));
                 break;
-            case 5:// 赠送好友VIP
-                startActivity(PayActivity.class);
-                break;
+//            case 5:// 赠送好友VIP
+//                startActivity(PayActivity.class);
+//                break;
         }
     }
 
@@ -160,6 +162,7 @@ public class MyFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vHistory: // 浏览历史
+                startActivity(MyHistoryListActivity.class);
                 break;
             case R.id.vHelper: // 使用帮助
                 startActivity(WebActivity.getIntent(activity, "使用帮助", AppUtils.TEST_URL));

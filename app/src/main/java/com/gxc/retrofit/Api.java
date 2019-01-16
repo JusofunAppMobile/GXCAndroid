@@ -108,6 +108,26 @@ public interface Api {
     @POST("/app/sys/searchWord")
     Observable<NetModel> searchWord(@FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/app/sys/insertSearchWord")
+    Observable<NetModel> insertSearchWord(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/CollectionList")
+    Observable<NetModel> collectionList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/BrowseHistoryList")
+    Observable<NetModel> myHistory(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/delBrowseHistory")
+    Observable<NetModel> delBrowseHistory(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/mineManager/AddOrCancelCollection")
+    Observable<NetModel> addOrCancelCollection(@FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("/app/Company/CompanyInfoEditor")

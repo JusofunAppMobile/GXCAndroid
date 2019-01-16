@@ -26,4 +26,12 @@ public class HotWordItemModel {
     public void setSearchkey(String searchkey) {
         this.searchkey = searchkey;
     }
+
+    public HotWordItemModel(String hotword, String searchkey) {
+        this.hotword = hotword;
+        this.searchkey = searchkey;
+    }
+
+    public HotWordItemModel() {
+    }
 }

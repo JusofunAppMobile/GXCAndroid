@@ -25,6 +25,7 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
 
     private int imageWidth;
     private RequestOptions options;
+    private RequestOptions options2;
 
     public HomeNewsAdapter(Activity activity) {
         super(R.layout.item_home_news);
@@ -35,6 +36,9 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
         options = new RequestOptions()
                 .placeholder(R.drawable.img_default_news)
                 .error(R.drawable.img_default_news);
+        options2 = new RequestOptions()
+                .placeholder(R.drawable.img_default_news2)
+                .error(R.drawable.img_default_news2);
     }
 
     @Override
@@ -71,7 +75,7 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
                 iv3.setVisibility(View.GONE);
                 iv4.setVisibility(View.GONE);
                 ivBig.setVisibility(View.VISIBLE);
-                loadImage(model.newsImage.get(0), ivBig);
+                GlideApp.with(InquireApplication.application).load(model.newsImage.get(0)).apply(options2).into(ivBig);
             } else {
                 ivBig.setVisibility(View.GONE);
                 if (size == 1) {

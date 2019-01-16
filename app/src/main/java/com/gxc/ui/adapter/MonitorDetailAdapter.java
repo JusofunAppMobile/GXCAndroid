@@ -56,7 +56,7 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
         @BindView(R.id.vDivider)
         View vDivider;
 
-        public MyViewHolder( View view) {
+        public MyViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -81,10 +81,14 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
                     tvLabel.setTextColor(Color.parseColor("#2D94EC"));
                     tvLabel.setBackgroundResource(R.drawable.shape_stroke_blue2);
                 }
+                tvNum.setText("共" + item.total + "条");
             } else {
                 vDivider.setVisibility(View.GONE);
                 vTop.setVisibility(View.GONE);
                 vBottom.setVisibility(View.VISIBLE);
+
+                tvDesc.setText(item.contont);
+                tvTime.setText(item.time);
             }
         }
 

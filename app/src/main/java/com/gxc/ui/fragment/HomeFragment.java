@@ -30,17 +30,18 @@ import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
 import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.activity.RelationActivity;
-import com.gxc.ui.activity.RiskListActivity;
 import com.gxc.ui.activity.RiskTipActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.adapter.HomeMonitorAdapter;
 import com.gxc.ui.adapter.HomeNewsAdapter;
 import com.gxc.ui.adapter.ImagePagerAdapter;
+import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
@@ -259,7 +260,10 @@ public class HomeFragment extends BaseFragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showToast(val);
+                    Intent intent = new Intent(activity, TypeSearchActivity.class);
+                    intent.putExtra(TypeSearchActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
+                    intent.putExtra("key", val);
+                    startActivity(intent);
                 }
             });
             vHot.addView(view);
@@ -309,8 +313,11 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    // 1：股东高管 2：主营产品 3：失信查询 4：查关系 5：风险分析 6：查税号 7：招聘 -1:h5跳转
+    // 1：股东高管 2：主营产品 3：地址电话 4：失信查询 5：查税号 6：招聘 7：企业通讯录 8：查关系(待定) 9：风险分析(待定) -1: h5跳转
+    // 1：股东高管 2：主营产品 3：失信查询 4：查税号 5：招聘 6：企业通讯录 7：查关系  8：风险分析 15 ：中标信息  16：裁判文书
+    //17：行政处罚  18：商标查询
     private void menuItemClick(HomeMenuModel model, int position) {
+        UserModel user = AppUtils.getUser();
         Intent intent = new Intent(activity, TypeSearchActivity.class);
         intent.putExtra("menuType", String.valueOf(model.menuType));
         String type = null;
@@ -321,21 +328,43 @@ public class HomeFragment extends BaseFragment {
             case 2:// 主营产品
                 type = SearchHistoryItemModel.SEARCH_PRODUCT;
                 break;
+//            case 3:// 地址电话
+//                type = SearchHistoryItemModel.SEARCH_ADDRESS;
+//                break;
             case 3:// 失信查询
                 type = SearchHistoryItemModel.SEARCH_DISHONEST;
                 break;
-            case 4:// 查关系
-                startActivity(RelationActivity.class);
-                return;
-            case 5:// 风险分析
-                startActivity(RiskTipActivity.class);
-                startActivity(RiskListActivity.class);
-                return;
-            case 6:// 查税号
+            case 4:// 查税号
                 type = SearchHistoryItemModel.SEARCH_TAXID;
                 break;
-            case 7:// 招聘
+            case 5:// 招聘
                 type = SearchHistoryItemModel.SEARCH_RECRUITMENT;
+                break;
+            case 6:// 企业通讯录
+                type = SearchHistoryItemModel.SEARCH_CONTACT;
+                break;
+            case 7:// 查关系
+                LogUtils.e(">>>>>>>>>>>查关系");
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                if (user.vipStatus == 0)
+                    new VIPDialog(activity).show();
+                else
+                    startActivity(RelationActivity.getIntent(activity, model));
+                return;
+            case 8:// 风险分析
+                LogUtils.e(">>>>>>>>>>>风险分析");
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                if (user.vipStatus == 0) {
+                    startActivity(RiskTipActivity.class);
+                    return;
+                } else
+                    type = SearchHistoryItemModel.SEARCH_RISK;
                 break;
             case -1:// h5跳转
                 startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
@@ -347,7 +376,7 @@ public class HomeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.tvVip, R.id.tvInput2})
+    @OnClick({R.id.tvVip})
     public void goVip() {
         UserModel user = AppUtils.getUser();
         if (user == null) {
@@ -357,7 +386,7 @@ public class HomeFragment extends BaseFragment {
         startActivity(PayActivity.class);
     }
 
-    @OnClick({R.id.vInput})
+    @OnClick({R.id.vInput, R.id.tvInput2})
     public void click() {
         Intent intent = new Intent(activity, TypeSearchActivity.class);
         intent.putExtra(TypeSearchActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);

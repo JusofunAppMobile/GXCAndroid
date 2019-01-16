@@ -726,4 +726,16 @@
         <item name="android:windowEnterAnimation">@anim/popup_menu_enter_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/popup_menu_exit_to_bottom</item>
     </style>
+
+    <style name="new1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#333</item>
+    </style>
+
+    <style name="new2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#333</item>
+    </style>
 </resources>

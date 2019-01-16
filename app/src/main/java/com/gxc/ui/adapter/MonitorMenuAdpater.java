@@ -19,5 +19,6 @@ public class MonitorMenuAdpater extends BaseQuickAdapter<MonitorMenuModel, BaseV
     @Override
     protected void convert(BaseViewHolder helper, MonitorMenuModel item) {
         helper.setText(R.id.textView, item.monitor_condition_name);
+        helper.getView(R.id.textView).setSelected(item.isSelect);
     }
 }

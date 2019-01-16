@@ -13,8 +13,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="16dp"
         android:ellipsize="end"
         android:singleLine="true"
@@ -22,7 +22,7 @@
         android:textColor="#333"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/view33"
-        app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+        app:layout_constraintEnd_toStartOf="@+id/vMonitor"
         app:layout_constraintStart_toEndOf="@+id/ivLogo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,18 +62,39 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="60dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/selector_common_red"
-        android:gravity="center"
-        android:text="取消监控"
-        android:textColor="@color/selector_tab"
-        android:textSize="12sp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/vMonitor"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/view33"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivMonitor"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:tint="@color/selector_tab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_monitor" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="取消收藏"
+            android:textColor="@color/selector_tab"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivMonitor" />
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

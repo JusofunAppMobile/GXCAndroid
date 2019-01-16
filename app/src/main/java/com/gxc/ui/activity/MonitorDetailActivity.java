@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.model.MonitorDetailModel;
 import com.gxc.model.MonitorMenuModel;
+import com.gxc.model.MonotorSouDetailModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -50,6 +51,7 @@ public class MonitorDetailActivity extends BaseListActivity {
 
     private MonitorMenuAdpater menuAdpater;
 
+
     @Override
     protected BaseQuickAdapter getAdapter() {
         return new MonitorDetailAdapter(this);
@@ -81,6 +83,13 @@ public class MonitorDetailActivity extends BaseListActivity {
         menuAdpater = new MonitorMenuAdpater();
         menuRecycler.setAdapter(menuAdpater);
         menuRecycler.setLayoutManager(new GridLayoutManager(this, 3));
+        menuAdpater.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                menuAdpater.getItem(position).isSelect = !menuAdpater.getItem(position).isSelect;
+                menuAdpater.notifyDataSetChanged();
+            }
+        });
 
         scrollView.setNestedScrollingEnabled(false);
 
@@ -113,7 +122,16 @@ public class MonitorDetailActivity extends BaseListActivity {
     }
 
     private String getFilterIds() {
-        return "";
+        StringBuffer sb = new StringBuffer();
+        if (menuAdpater.getData() != null && !menuAdpater.getData().isEmpty()) {
+            for (MonitorMenuModel model : menuAdpater.getData()) {
+                model.isSelect = false;
+                sb.append(model.monitor_condition_id + ",");
+            }
+            if (sb.toString().endsWith(","))
+                sb.deleteCharAt(sb.toString().length() - 1);
+        }
+        return sb.toString();
     }
 
     @Override
@@ -128,37 +146,35 @@ public class MonitorDetailActivity extends BaseListActivity {
 
     @Override
     protected void startLoadData() {
-        List<MonitorDetailModel> list = new ArrayList<>();
-        list.add(new MonitorDetailModel(1, 1));
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel(1, 2));
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel(1, 3));
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel());
-        list.add(new MonitorDetailModel());
-        completeLoadData(list);
-
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("companyid", getIntent().getStringExtra("companyid"));
         map.put("companyName", getIntent().getStringExtra("companyName"));
-        map.put("filterId", "107");
-//        map.put("filterId", getFilterIds());
+        map.put("filterId", getFilterIds());
         RxManager.http(RetrofitUtils.getApi().dynamicDetails(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
+                    List<MonotorSouDetailModel> list = model.dataToList("details", MonotorSouDetailModel.class);
+                    if (list != null && !list.isEmpty()) {
+                        List<MonitorDetailModel> mList = new ArrayList<>();
+                        for (MonotorSouDetailModel sModel : list) {
+                            mList.add(new MonitorDetailModel(sModel.lcon, sModel.total));
+                            if (sModel.data != null && !sModel.data.isEmpty()) {
+                                for (MonotorSouDetailModel.DataBean cModel : sModel.data) {
+                                    mList.add(new MonitorDetailModel(cModel.contont, cModel.time));
+                                }
+                            }
+                        }
+                        completeLoadData(mList);
+                    } else
+                        completeLoadData(null);
                 }
             }
 
             @Override
             public void error() {
+                completeLoadDataError();
             }
         });
     }
@@ -167,8 +183,12 @@ public class MonitorDetailActivity extends BaseListActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vReset:
-                toggleDrawer();
-                refresh();
+                if (menuAdpater.getData() != null && !menuAdpater.getData().isEmpty()) {
+                    for (MonitorMenuModel model : menuAdpater.getData()) {
+                        model.isSelect = false;
+                    }
+                    menuAdpater.notifyDataSetChanged();
+                }
                 break;
             case R.id.vSure:
                 toggleDrawer();

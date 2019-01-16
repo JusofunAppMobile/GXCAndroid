@@ -19,6 +19,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.activity.RiskListActivity;
 import com.gxc.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -103,6 +104,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
 
         mHotAdapter = new SearchHotWordsAdapter(this);
 
+
     }
 
     @Override
@@ -112,15 +114,31 @@ public class TypeSearchActivity extends BaseInquireActivity {
         loadNewHotKeys();
     }
 
+    private String getMenuType() {
+        String menuType = getIntent().getStringExtra("menuType");
+        if (TextUtils.isEmpty(menuType))
+            return "0";
+        return menuType;
+    }
+
+    /**
+     * 新版搜索热搜关键字
+     */
     private void loadNewHotKeys() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("menuType", getIntent().getStringExtra("menuType"));
+        map.put("menuType", getMenuType());
         RxManager.http(RetrofitUtils.getApi().searchWord(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
-//                    mSearchGuideView.setHotSearch(model.getHotlist(), mCurrentType);
+                    List<String> list = model.dataToList("keywords", String.class);
+                    List<HotWordItemModel> hot = new ArrayList<>();
+                    if (list != null && !list.isEmpty()) {
+                        for (String value : list)
+                            hot.add(new HotWordItemModel(value, value));
+                    }
+                    mSearchGuideView.setHotSearch(hot, mCurrentType);
                 } else {
                     showToast(model.msg);
                 }
@@ -129,6 +147,24 @@ public class TypeSearchActivity extends BaseInquireActivity {
             @Override
             public void error() {
                 ToastUtils.showHttpError();
+            }
+        });
+    }
+
+    private void insertSearchKey(String key) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("menuType", getMenuType());
+        map.put("keyWord", key);
+        RxManager.http(RetrofitUtils.getApi().insertSearchWord(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+
+            }
+
+            @Override
+            public void error() {
+
             }
         });
     }
@@ -165,6 +201,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
                 DoSearchEvent event = new DoSearchEvent();
                 event.setSearchKey(key);
                 EventBus.getDefault().post(event);
+                insertSearchKey(key);
             }
         });
 
@@ -214,6 +251,16 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     }
                     HotWordItemModel model = holder.getData();
                     if (model != null) {
+
+                        if (SearchHistoryItemModel.SEARCH_RELATION.equals(mCurrentType)) { // 查关系
+                            insertSearchKey(model.getSearchkey());
+                            Intent intent = new Intent();
+                            intent.putExtra("key", model.getSearchkey());
+                            setResult(RESULT_OK, intent);
+                            finish();
+                            return;
+                        }
+
                         DoSearchEvent event = new DoSearchEvent();
                         event.setSearchKey(model.getSearchkey());
                         EventBus.getDefault().post(event);
@@ -323,6 +370,10 @@ public class TypeSearchActivity extends BaseInquireActivity {
         initXF();
 
         initGuideView();
+
+        String key = getIntent().getStringExtra("key");
+        if (!TextUtils.isEmpty(key))
+            mTitle.setEditText(key);
     }
 
 
@@ -332,7 +383,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
     private void initGuideView() {
         mSearchGuideView.setSearchType(mCurrentType);
         initHistorySearch();
-        initHotSearch();
+//        initHotSearch();
 
     }
 
@@ -351,31 +402,31 @@ public class TypeSearchActivity extends BaseInquireActivity {
     /**
      * 初始化 热门搜索 区域 显示
      */
-    private void initHotSearch() {
-        //TODO 网络请求，调用 SearchGuideView 的 setHotSearch（）方法进行显示
-        HashMap<String, String> params = new HashMap<>();
-        params.put("type", mCurrentType);
-        GetHotSearchRoute.getHotSearch(mContext, params, getLocalClassName(), new NetWorkCallBack() {
-            @Override
-            public void onSuccess(Object data) {
-                if (data instanceof SearchHotModel) {
-                    SearchHotModel model = (SearchHotModel) data;
-                    if (model.getResult() == 0) {
-                        if (model.getHotlist() != null && model.getHotlist().size() > 0) {
-//                            mSearchGuideView.setHotSearch(model.getHotlist(), mCurrentType);
-                        }
-                    } else {
-                        //TODO 错误逻辑待定
-                    }
-                }
-            }
-
-            @Override
-            public void onFail(String error) {
-
-            }
-        });
-    }
+//    private void initHotSearch() {
+//        //TODO 网络请求，调用 SearchGuideView 的 setHotSearch（）方法进行显示
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("type", mCurrentType);
+//        GetHotSearchRoute.getHotSearch(mContext, params, getLocalClassName(), new NetWorkCallBack() {
+//            @Override
+//            public void onSuccess(Object data) {
+//                if (data instanceof SearchHotModel) {
+//                    SearchHotModel model = (SearchHotModel) data;
+//                    if (model.getResult() == 0) {
+//                        if (model.getHotlist() != null && model.getHotlist().size() > 0) {
+////                            mSearchGuideView.setHotSearch(model.getHotlist(), mCurrentType);
+//                        }
+//                    } else {
+//                        //TODO 错误逻辑待定
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(String error) {
+//
+//            }
+//        });
+//    }
 
 
     /**
@@ -637,10 +688,17 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     searchTaxidNet(doSearchEvent.getSearchKey());
                 } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_RECRUITMENT)) {
                     searchRecruitmentNet(doSearchEvent.getSearchKey());
+                } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_RISK)) { // 风险分析
+                    startActivity(RiskListActivity.getIntent(mContext, doSearchEvent.getSearchKey()));
+                } else if (SearchHistoryItemModel.SEARCH_RELATION.equals(mCurrentType)) { // 查关系
+                    Intent intent = new Intent();
+                    intent.putExtra("key", doSearchEvent.getSearchKey());
+                    setResult(RESULT_OK, intent);
+                    finish();
                 } else {
                     searchNet(doSearchEvent.getSearchKey());
                 }
-                // TODO
+                insertSearchKey(doSearchEvent.getSearchKey());
             }
         } else if (event instanceof GoTypeSearchEvent) {
             //业务逻辑：收到此事件，根据事件携带的关键字进行热词检索
