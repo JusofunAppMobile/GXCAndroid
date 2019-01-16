@@ -330,9 +330,11 @@ public class CreditFragment extends BaseFragment {
                             initUICredit(false);
                             topLayout.setVisibility(View.VISIBLE);
                         } else if ("2".equals(model.companyInfo.status)) {
-                            shImg.setVisibility(View.VISIBLE);
                             initUICredit(false);
-                            topLayout.setVisibility(View.VISIBLE);
+                            certificationImg.setVisibility(View.VISIBLE);
+                            topLayout.setVisibility(View.GONE);
+                            textTitle.setTextColor(0xff333333);
+                            layoutRoot.setBackgroundColor(0xffffffff);
                         } else if ("3".equals(model.companyInfo.status)) {
                             shImg.setVisibility(View.GONE);
                             initUICredit(true);
@@ -342,6 +344,10 @@ public class CreditFragment extends BaseFragment {
                         textCompany.setText(model.companyInfo.companyName);
                         textXinyongCode.setText(model.companyInfo.code);
                         textCompayType.setText(model.companyInfo.type);
+
+                        shImg.setVisibility(View.GONE);
+                        initUICredit(true);
+                        topLayout.setVisibility(View.VISIBLE);
                     } else {
                         showToast(data.msg);
                     }
@@ -354,11 +360,7 @@ public class CreditFragment extends BaseFragment {
             }
         });
 
-//        initUICredit(false);
-//        certificationImg.setVisibility(View.VISIBLE);
 
-//        shImg.setVisibility(View.GONE);
-//        initUICredit(true);
     }
 
 
@@ -373,6 +375,7 @@ public class CreditFragment extends BaseFragment {
             certificationImg.setVisibility(View.GONE);
             changeLayout.setVisibility(View.VISIBLE);
             topLayout.setVisibility(View.VISIBLE);
+            layoutService.setVisibility(View.VISIBLE);
         } else {
 
             layoutService.setVisibility(View.GONE);

@@ -1,7 +1,6 @@
 package com.gxc.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import com.gxc.base.BaseActivity;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
+import com.gxc.model.CertificationModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author zhaoyapeng
@@ -44,8 +43,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
     CorporateInfoItemView viewName;
     @BindView(R.id.view_code)
     CorporateInfoItemView viewCode;
-    @BindView(R.id.view_zhiwei)
-    CorporateInfoItemView viewZhiwei;
     @BindView(R.id.view_phone)
     CorporateInfoItemView viewPhone;
     @BindView(R.id.view_email)
@@ -76,7 +73,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
     public void initActions() {
         viewName.setData("企 业 名 称");
         viewCode.setData("法人身份证");
-        viewZhiwei.setData("职           位");
         viewPhone.setData("手 机 号 码");
         viewEmail.setData("邮           箱");
         imgYyzz.setData("营 业 执 照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
@@ -91,6 +87,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
                 renzhengNet();
             }
         });
+
+        getRZData();
     }
 
     @Override
@@ -162,10 +160,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
             showToast("请输入真实姓名");
             return;
         }
-        if (TextUtils.isEmpty(viewZhiwei.getEditText())) {
-            showToast("请输入职位");
-            return;
-        }
 
         if (TextUtils.isEmpty(viewPhone.getEditText())) {
             showToast("请输入手机号");
@@ -190,7 +184,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
         map.put("companyname", viewName.getEditText());
         map.put("name", viewRealName.getEditText());
         map.put("idcard", viewRealName.getEditText());
-        map.put("job", viewZhiwei.getEditText());
         map.put("phone", viewPhone.getEditText());
         map.put("email", viewEmail.getEditText());
         map.put("licenseImage", yeUrl);
@@ -219,11 +212,34 @@ public class CertifiedCompanyActivity extends BaseActivity {
         });
 
     }
+    private void getRZData() {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        showLoading();
+
+        RxManager.http(RetrofitUtils.getApi().getCompanyMsg(), new ResponseCall() {
+
+            @Override
+            public void success(NetModel data) {
+                hideLoadDialog();
+                if (data.success()) {
+                    CertificationModel model = data.dataToObject(CertificationModel.class);
+                    viewName.setContent(model.companyname);
+                    viewPhone.setContent(model.phone);
+                    viewEmail.setContent(model.email);
+                    imgYyzz.setImageSrc(model.licenseImage);
+                    imgIdfen.setImageSrc(model.idcardImage);
+
+                } else {
+                    showToast(data.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+
     }
 }

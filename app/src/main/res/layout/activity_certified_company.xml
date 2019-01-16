@@ -60,10 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.gxc.ui.view.CorporateInfoItemView
-                android:id="@+id/view_zhiwei"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <com.gxc.ui.view.CorporateInfoItemView
                 android:id="@+id/view_phone"

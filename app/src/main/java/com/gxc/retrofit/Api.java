@@ -107,4 +107,29 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/sys/searchWord")
     Observable<NetModel> searchWord(@FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("/app/Company/CompanyInfoEditor")
+    Observable<NetModel> CompanyInfoEditor(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/productEditor")
+    Observable<NetModel> productEditor(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/honorEditor")
+    Observable<NetModel> honorEditor(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/partnerEditor")
+    Observable<NetModel> partnerEditor(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/CompanyEmpEditor")
+    Observable<NetModel> CompanyEmpEditor(@FieldMap Map<String, Object> params);
+
+
+    @POST("/app/Company/getCompanyMsg")
+    Observable<NetModel> getCompanyMsg();
 }
