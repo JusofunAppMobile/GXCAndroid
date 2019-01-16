@@ -64,6 +64,10 @@ public class MyFragment extends BaseFragment {
     ImageView ivCompanyLogo;
     @BindView(R.id.vVip)
     ImageView vVip;
+    @BindView(R.id.tvNormalTip1)
+    TextView tvNormalTip1;
+    @BindView(R.id.ivNormalVip)
+    ImageView ivNormalVip;
 
     @Override
     protected int getLayoutId() {
@@ -143,6 +147,12 @@ public class MyFragment extends BaseFragment {
                     .error(R.drawable.me_head_default_loggedin);
             GlideApp.with(InquireApplication.application).load(user.headIcon).apply(options).into(ivNormalLogo);
             GlideApp.with(InquireApplication.application).load(user.headIcon).apply(options).into(ivCompanyLogo);
+
+            // 用户vip状态 0：普通用户 1：vip用户
+            ivNormalVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
+            vVip.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+            tvNormalTip1.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+
         }
     }
 

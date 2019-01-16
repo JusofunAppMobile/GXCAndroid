@@ -22,7 +22,7 @@ public class OrderAdapter extends BaseQuickAdapter<OrderModel, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, OrderModel orderModel) {
+    protected void convert(BaseViewHolder holder, OrderModel model) {
         TextView tvTitle = holder.getView(R.id.tvTitle);
         TextView tvStatus = holder.getView(R.id.tvStatus);
         TextView tvLabel1 = holder.getView(R.id.tvLabel1);
@@ -36,23 +36,38 @@ public class OrderAdapter extends BaseQuickAdapter<OrderModel, BaseViewHolder> {
         TextView tvMoney = holder.getView(R.id.tvMoney);
         TextView tvSend = holder.getView(R.id.tvSend);
         TextView tvCheck = holder.getView(R.id.tvCheck);
+        TextView tvCompany = holder.getView(R.id.tvCompany);
         Group group = holder.getView(R.id.group);
 
-        if (holder.getLayoutPosition() % 2 == 0) {
-            tvTitle.setText("企业信用服务报告-专业版");
-            tvStatus.setText("已生成");
+        tvTitle.setText(model.title);
+
+        tvCompany.setText(model.name);
+
+        tvValue1.setText(model.no);
+        tvValue2.setText(model.time);
+        tvMoney.setText("¥" + model.money);
+
+        if (model.type == 0) { // 企业报告
 
             tvLabel3.setText("接收邮箱：");
             tvLabel4.setText("报告格式：");
 
+            // 企业报告生成状态 0：未生成 1：已生成
+            tvStatus.setText(model.status ==  1 ? "已生成":"未生成");
+
+            tvLabel3.setText(model.email);
+            tvLabel3.setText(model.format);
+
             group.setVisibility(View.VISIBLE);
-        }else{
-            tvTitle.setText("VIP会员服务");
-            tvStatus.setText("已支付");
+            tvCompany.setVisibility(View.VISIBLE);
+        } else { // 会员服务
 
             tvLabel3.setText("服务时长：");
+            tvValue3.setText(model.duration);
 
             group.setVisibility(View.GONE);
+            tvCompany.setVisibility(View.GONE);
+            tvStatus.setText(model.orderState);
         }
     }
 

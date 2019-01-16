@@ -19,11 +19,13 @@ import com.gxc.model.HomeMenuModel;
 import com.gxc.model.HomeModel;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.model.HomeNewsModel;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.HomeActivity;
+import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
 import com.gxc.ui.activity.PayActivity;
@@ -310,6 +312,7 @@ public class HomeFragment extends BaseFragment {
     // 1：股东高管 2：主营产品 3：失信查询 4：查关系 5：风险分析 6：查税号 7：招聘 -1:h5跳转
     private void menuItemClick(HomeMenuModel model, int position) {
         Intent intent = new Intent(activity, TypeSearchActivity.class);
+        intent.putExtra("menuType", String.valueOf(model.menuType));
         String type = null;
         switch (model.menuType) {
             case 1:// 股东高管
@@ -346,6 +349,11 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick({R.id.tvVip, R.id.tvInput2})
     public void goVip() {
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            startActivity(LoginActivity.class);
+            return;
+        }
         startActivity(PayActivity.class);
     }
 

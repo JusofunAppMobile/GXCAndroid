@@ -15,6 +15,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
+import com.gxc.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -104,6 +109,28 @@ public class TypeSearchActivity extends BaseInquireActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarRed();
+        loadNewHotKeys();
+    }
+
+    private void loadNewHotKeys() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("menuType", getIntent().getStringExtra("menuType"));
+        RxManager.http(RetrofitUtils.getApi().searchWord(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+//                    mSearchGuideView.setHotSearch(model.getHotlist(), mCurrentType);
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                ToastUtils.showHttpError();
+            }
+        });
     }
 
     @Override
@@ -335,7 +362,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     SearchHotModel model = (SearchHotModel) data;
                     if (model.getResult() == 0) {
                         if (model.getHotlist() != null && model.getHotlist().size() > 0) {
-                            mSearchGuideView.setHotSearch(model.getHotlist(), mCurrentType);
+//                            mSearchGuideView.setHotSearch(model.getHotlist(), mCurrentType);
                         }
                     } else {
                         //TODO 错误逻辑待定
