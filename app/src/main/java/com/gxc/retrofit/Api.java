@@ -126,4 +126,9 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/Company/CompanyEmpEditor")
     Observable<NetModel> CompanyEmpEditor(@FieldMap Map<String, Object> params);
+
+
+    @POST("/app/Company/getCompanyMsg")
+    Observable<NetModel> getCompanyMsg();
+
 }

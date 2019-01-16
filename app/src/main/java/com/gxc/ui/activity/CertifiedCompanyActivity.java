@@ -1,7 +1,6 @@
 package com.gxc.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import com.gxc.base.BaseActivity;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
+import com.gxc.model.CertificationModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author zhaoyapeng
@@ -88,6 +87,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
                 renzhengNet();
             }
         });
+
+        getRZData();
     }
 
     @Override
@@ -211,11 +212,34 @@ public class CertifiedCompanyActivity extends BaseActivity {
         });
 
     }
+    private void getRZData() {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        showLoading();
+
+        RxManager.http(RetrofitUtils.getApi().getCompanyMsg(), new ResponseCall() {
+
+            @Override
+            public void success(NetModel data) {
+                hideLoadDialog();
+                if (data.success()) {
+                    CertificationModel model = data.dataToObject(CertificationModel.class);
+                    viewName.setContent(model.companyname);
+                    viewPhone.setContent(model.phone);
+                    viewEmail.setContent(model.email);
+                    imgYyzz.setImageSrc(model.licenseImage);
+                    imgIdfen.setImageSrc(model.idcardImage);
+
+                } else {
+                    showToast(data.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+
     }
 }

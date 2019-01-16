@@ -68,4 +68,10 @@ public class CorporateInfoItemView extends BaseView {
     public String getEditText() {
         return editText2.getText().toString();
     }
+
+
+    public void setContent(String content){
+        editText2.setText(content);
+    }
 }
+
