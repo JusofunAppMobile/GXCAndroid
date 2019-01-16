@@ -100,4 +100,8 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/mineManager/monitorList")
     Observable<NetModel> myMonitorList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/sys/searchWord")
+    Observable<NetModel> searchWord(@FieldMap Map<String, Object> params);
 }

@@ -682,7 +682,6 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
 
-
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -745,6 +744,16 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.jusfoun.gxt.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wxd930ea5d5a258f4f" />
+            </intent-filter>
+        </activity>
 
         <!-- TODO 给吴国哨用的输入url，输出爬取内容页面 -->
         <activity
