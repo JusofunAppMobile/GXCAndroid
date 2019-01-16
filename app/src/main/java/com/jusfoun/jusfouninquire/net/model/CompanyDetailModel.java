@@ -1,5 +1,7 @@
 package com.jusfoun.jusfouninquire.net.model;
 
+import com.gxc.retrofit.NetModel;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.util.List;
  * CreateDate 2015/11/10.
  * Description
  */
-public class CompanyDetailModel extends BaseModel implements Cloneable {
+public class CompanyDetailModel extends NetModel implements Cloneable {
 
 
     private String companyname;
