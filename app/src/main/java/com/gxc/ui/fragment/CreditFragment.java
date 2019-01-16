@@ -342,6 +342,10 @@ public class CreditFragment extends BaseFragment {
                         textCompany.setText(model.companyInfo.companyName);
                         textXinyongCode.setText(model.companyInfo.code);
                         textCompayType.setText(model.companyInfo.type);
+
+                        shImg.setVisibility(View.GONE);
+                        initUICredit(true);
+                        topLayout.setVisibility(View.VISIBLE);
                     } else {
                         showToast(data.msg);
                     }
@@ -354,11 +358,7 @@ public class CreditFragment extends BaseFragment {
             }
         });
 
-//        initUICredit(false);
-//        certificationImg.setVisibility(View.VISIBLE);
 
-//        shImg.setVisibility(View.GONE);
-//        initUICredit(true);
     }
 
 
@@ -373,6 +373,7 @@ public class CreditFragment extends BaseFragment {
             certificationImg.setVisibility(View.GONE);
             changeLayout.setVisibility(View.VISIBLE);
             topLayout.setVisibility(View.VISIBLE);
+            layoutService.setVisibility(View.VISIBLE);
         } else {
 
             layoutService.setVisibility(View.GONE);

@@ -44,8 +44,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
     CorporateInfoItemView viewName;
     @BindView(R.id.view_code)
     CorporateInfoItemView viewCode;
-    @BindView(R.id.view_zhiwei)
-    CorporateInfoItemView viewZhiwei;
     @BindView(R.id.view_phone)
     CorporateInfoItemView viewPhone;
     @BindView(R.id.view_email)
@@ -76,7 +74,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
     public void initActions() {
         viewName.setData("企 业 名 称");
         viewCode.setData("法人身份证");
-        viewZhiwei.setData("职           位");
         viewPhone.setData("手 机 号 码");
         viewEmail.setData("邮           箱");
         imgYyzz.setData("营 业 执 照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
@@ -162,10 +159,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
             showToast("请输入真实姓名");
             return;
         }
-        if (TextUtils.isEmpty(viewZhiwei.getEditText())) {
-            showToast("请输入职位");
-            return;
-        }
 
         if (TextUtils.isEmpty(viewPhone.getEditText())) {
             showToast("请输入手机号");
@@ -190,7 +183,6 @@ public class CertifiedCompanyActivity extends BaseActivity {
         map.put("companyname", viewName.getEditText());
         map.put("name", viewRealName.getEditText());
         map.put("idcard", viewRealName.getEditText());
-        map.put("job", viewZhiwei.getEditText());
         map.put("phone", viewPhone.getEditText());
         map.put("email", viewEmail.getEditText());
         map.put("licenseImage", yeUrl);
