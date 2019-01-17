@@ -158,4 +158,9 @@ public interface Api {
     Observable<NetModel> CorporateInfoChange(@FieldMap Map<String, Object> params);
 
 
+    @FormUrlEncoded
+    @POST("/app/CorporateInfo/createCreditWord")
+    Observable<NetModel> createCreditWord(@FieldMap Map<String, Object> params);
+
+
 }

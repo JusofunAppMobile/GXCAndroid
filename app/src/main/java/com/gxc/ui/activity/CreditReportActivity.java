@@ -46,7 +46,7 @@ public class CreditReportActivity extends BaseListActivity {
     TitleView titleView;
     @BindView(R.id.text_title)
     TextView textTitle;
-
+    private String companyName="",companyId="";
     @Override
     protected BaseQuickAdapter getAdapter() {
         return new CreditReportAdapter();
@@ -55,7 +55,11 @@ public class CreditReportActivity extends BaseListActivity {
     @Override
     protected void initUi() {
         titleView.setTitle("信用报告");
+        companyName = getIntent().getStringExtra("companyName");
+        companyId = getIntent().getStringExtra("companyId");
         textTitle.setText(Html.fromHtml("国信查支持<font  color=\"#df282d\">发票开取</font>，你可以在购买报告后开取发票"));
+
+
     }
 
     @Override
@@ -73,9 +77,8 @@ public class CreditReportActivity extends BaseListActivity {
 
 //        showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId","1");
-        map.put("companyid", "1");
-        map.put("companyname", "小米科技有限责任公司");
+        map.put("companyid", companyId);
+        map.put("companyname", companyName);
 
         RxManager.http(RetrofitUtils.getApi().getCreditReport(map), new ResponseCall() {
 
@@ -85,9 +88,11 @@ public class CreditReportActivity extends BaseListActivity {
                 if (model.success()) {
                     CreditReportModel.CreditReportItemModel creditReportCountModel = model.dataToObject(CreditReportModel.CreditReportItemModel.class);
                     List<CreditReportModel.CreditReportItemModel>list = new ArrayList<>();
-                    list.add(creditReportCountModel);
-                    list.add(creditReportCountModel);
+                    creditReportCountModel.companyName = companyName;
+                    creditReportCountModel.companyId = companyId;
 
+                    list.add(creditReportCountModel);
+                    list.add(creditReportCountModel);
                     completeLoadData(list);
                 } else {
                     completeLoadDataError();

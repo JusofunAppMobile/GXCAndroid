@@ -2,13 +2,15 @@ package com.gxc.model;
 
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 
+import java.io.Serializable;
+
 /**
  * @author zhaoyapeng
  * @version create time:2019/1/808:52
  * @Email zyp@jusfoun.com
  * @Description ${信用报告model}
  */
-public class CreditReportModel extends BaseModel {
+public class CreditReportModel extends BaseModel implements Serializable{
 
 
     public CreditReportItemModel data;
@@ -30,7 +32,7 @@ public class CreditReportModel extends BaseModel {
 //    }
 
 
-    public static class CreditReportItemModel extends BaseModel {
+    public static class CreditReportItemModel extends BaseModel implements Serializable{
         public String isVIP;
         public String basicVersionDownloadNum;
         public String basicVersionDownloadAmount;
@@ -38,6 +40,11 @@ public class CreditReportModel extends BaseModel {
         public String professionVersionDownloadAmount;
         public String professionVersionSamplePreview;
         public String professionVersionGetReport;
+
+        public String companyName;
+        public String companyId;
+
+
     }
 
 
