@@ -2,6 +2,7 @@ package com.gxc.ui.activity;
 
 import android.graphics.Color;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +15,9 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.util.AppUtil;
+import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
+import com.jusfoun.jusfouninquire.ui.util.RegularUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.ArrayList;
@@ -90,11 +94,23 @@ public class ConfirmOrderActivity extends BaseActivity {
                 textPdf.setTextColor(Color.parseColor("#333333"));
                 break;
             case R.id.text_finish:
-                startActivity(ReportSubmitActivity.class);
+                send();
                 break;
         }
     }
     private void send() {
+
+        if(TextUtils.isEmpty(editEmail.getText().toString())){
+            ToastUtils.show("请输入邮箱");
+            return;
+        }
+
+
+        if (!RegularUtils.checkEmail(editEmail.getText().toString())) {
+            ToastUtils.show("请输入正确的邮箱");
+            return;
+        }
+
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
@@ -114,7 +130,9 @@ public class ConfirmOrderActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
+                    startActivity(ReportSubmitActivity.class);
                 } else {
+                    ToastUtils.show(model.msg);
                 }
             }
 
