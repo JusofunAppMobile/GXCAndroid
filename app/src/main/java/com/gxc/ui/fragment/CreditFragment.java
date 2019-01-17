@@ -41,7 +41,9 @@ import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.VisitorListActivity;
+import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
+import com.gxc.ui.dialog.AuthDialog;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
 
@@ -126,61 +128,69 @@ public class CreditFragment extends BaseFragment {
         recycleviewInquire.setAdapter(inquireAdapter);
 
 
-        List<HomeMenuModel> list = new ArrayList<>();
+//        List<HomeMenuModel> list = new ArrayList<>();
 
-        //0网页，1信用报告，2信用评价，3信用异议，4信用修复5，信用承诺，6访客，7自主填报
-        list.add(new HomeMenuModel("信用报告", 1));
-        list.add(new HomeMenuModel("信用评价", 2));
-        list.add(new HomeMenuModel("信用异议", 3));
-        list.add(new HomeMenuModel("信用修复", 4));
-        list.add(new HomeMenuModel("信用承诺", 5));
-        list.add(new HomeMenuModel("访客", 6));
-        list.add(new HomeMenuModel("自主填报", 7));
+//        //0网页，1信用报告，2信用评价，3信用异议，4信用修复5，信用承诺，6访客，7自主填报
+//        list.add(new HomeMenuModel("信用报告", 1));
+//        list.add(new HomeMenuModel("信用评价", 2));
+//        list.add(new HomeMenuModel("信用异议", 3));
+//        list.add(new HomeMenuModel("信用修复", 4));
+//        list.add(new HomeMenuModel("信用承诺", 5));
+//        list.add(new HomeMenuModel("访客", 6));
+//        list.add(new HomeMenuModel("自主填报", 7));
+//
+//        serviceAdapter.addData(list);
 
-        serviceAdapter.addData(list);
+//        List<HomeMenuModel> inquirelist = new ArrayList<>();
 
-        List<HomeMenuModel> inquirelist = new ArrayList<>();
+//        ////0网页，1税务案件查询，2裁判文书查询，3黑名单查询，4招投标查询，5商标查询，6著作权查询，7专利查询，8 企业备案信息查询
+//        inquirelist.add(new HomeMenuModel("税务案件", 1));
+//        inquirelist.add(new HomeMenuModel("裁判文书", 2));
+//        inquirelist.add(new HomeMenuModel("黑名单", 3));
+//        inquirelist.add(new HomeMenuModel("招投标", 4));
+//        inquirelist.add(new HomeMenuModel("商标查询", 5));
+//        inquirelist.add(new HomeMenuModel("著作权查询", 6));
+//        inquirelist.add(new HomeMenuModel("专利查询", 7));
+//        inquirelist.add(new HomeMenuModel("备案信息", 8));
 
-        ////0网页，1税务案件查询，2裁判文书查询，3黑名单查询，4招投标查询，5商标查询，6著作权查询，7专利查询，8 企业备案信息查询
-        inquirelist.add(new HomeMenuModel("税务案件", 1));
-        inquirelist.add(new HomeMenuModel("裁判文书", 2));
-        inquirelist.add(new HomeMenuModel("黑名单", 3));
-        inquirelist.add(new HomeMenuModel("招投标", 4));
-        inquirelist.add(new HomeMenuModel("商标查询", 5));
-        inquirelist.add(new HomeMenuModel("著作权查询", 6));
-        inquirelist.add(new HomeMenuModel("专利查询", 7));
-        inquirelist.add(new HomeMenuModel("备案信息", 8));
-
-        inquireAdapter.addData(inquirelist);
+//        inquireAdapter.addData(inquirelist);
         serviceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 
                 HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
-                if (model.menuType == 1) {
+                if (model.menuType == 9) {
                     Intent intent = new Intent(activity, CreditReportActivity.class);
                     startActivity(intent);
-                } else if (model.menuType == 3) {
+                } else if (model.menuType == 10) {
                     Intent intent = new Intent(activity, CompanyAmendActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("company", null);
                     bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                } else if (model.menuType == 7) {
-                    Intent intent = new Intent(activity, ReportInfoActivity.class);
-                    startActivity(intent);
-                } else if (model.menuType == 6) { // 访客
-                    startActivity(VisitorListActivity.class);
-                } else if (model.menuType == 5) { // 访客
+                } else if (model.menuType == 12) { // 访客
                     startActivity(CreditCommitmentActivity.class);
+                } else if (model.menuType == 13) { // 访客
+                    startActivity(VisitorListActivity.class);
+                } else if (model.menuType == 14) {
+                    Intent intent = new Intent(activity, ReportInfoActivity.class);
+                    if (companyInfo != null) {
+                        intent.putExtra("companyName", companyInfo.companyName);
+                        intent.putExtra("companyId", companyInfo.companyId);
+                    }
+                    startActivity(intent);
+                } else if (model.menuType == -1) {// h5跳转
+                    startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
                 }
 
 
             }
         });
 
-        inquireAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        inquireAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener()
+
+        {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
             }
@@ -191,9 +201,12 @@ public class CreditFragment extends BaseFragment {
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
 
-        certificationImg.setOnClickListener(new View.OnClickListener() {
+        certificationImg.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
+                new AuthDialog(activity).show();
                 Intent intent = new Intent(activity, CertifiedCompanyActivity.class);
                 startActivity(intent);
             }
@@ -202,7 +215,9 @@ public class CreditFragment extends BaseFragment {
         textTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
 
-        changeLayout.setOnClickListener(new View.OnClickListener() {
+        changeLayout.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 if (companyInfo != null) {
@@ -210,7 +225,9 @@ public class CreditFragment extends BaseFragment {
                 }
             }
         });
+
         initChart();
+
         getServiceData();
 //        setData(6, 150);
 
@@ -293,7 +310,7 @@ public class CreditFragment extends BaseFragment {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
-                Log.e("tag","value=="+value);
+                Log.e("tag", "value==" + value);
                 if (value < 0 || value > (list.size() - 1))
                     return "";
                 return list.get((int) value % list.size()).date;
@@ -374,12 +391,9 @@ public class CreditFragment extends BaseFragment {
                         textXinyongCode.setText(model.companyInfo.code);
                         textCompayType.setText(model.companyInfo.type);
 
-                        shImg.setVisibility(View.GONE);
-                        initUICredit(true);
-                        topLayout.setVisibility(View.VISIBLE);
                         setData(model.VisitorList);
-//                        serviceAdapter.setNewData(model.serviceList);
-//                        inquireAdapter.setNewData(model.inquiryList);
+                        serviceAdapter.setNewData(model.serviceList);
+                        inquireAdapter.setNewData(model.inquiryList);
                     } else {
                         showToast(data.msg);
                     }

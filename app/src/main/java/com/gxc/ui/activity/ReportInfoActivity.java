@@ -52,6 +52,7 @@ public class ReportInfoActivity extends BaseActivity {
     @BindView(R.id.view_chengyuan)
     EditReportInfoItemView viewChengyuan;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_report_info;
@@ -60,6 +61,9 @@ public class ReportInfoActivity extends BaseActivity {
     @Override
     public void initActions() {
         setStatusBarEnable(ContextCompat.getColor(this, R.color.white));
+
+
+
         titlebar.setTitle("自主填报信息");
         textCompany.setText("大洋科技");
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
@@ -82,7 +86,6 @@ public class ReportInfoActivity extends BaseActivity {
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
-
 
 
         if (event instanceof UpdateReoprtInfoEvent) {
