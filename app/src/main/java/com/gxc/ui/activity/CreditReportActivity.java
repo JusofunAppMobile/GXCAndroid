@@ -71,7 +71,7 @@ public class CreditReportActivity extends BaseListActivity {
 
     private void getData() {
 
-        showLoading();
+//        showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId","1");
         map.put("companyid", "1");
@@ -81,7 +81,7 @@ public class CreditReportActivity extends BaseListActivity {
 
             @Override
             public void success(NetModel model) {
-                hideLoadDialog();
+//                hideLoadDialog();
                 if (model.success()) {
                     CreditReportModel.CreditReportItemModel creditReportCountModel = model.dataToObject(CreditReportModel.CreditReportItemModel.class);
                     List<CreditReportModel.CreditReportItemModel>list = new ArrayList<>();
@@ -90,15 +90,16 @@ public class CreditReportActivity extends BaseListActivity {
 
                     completeLoadData(list);
                 } else {
-                    completeLoadData(null);
-                    showToast(model.msg);
+                    completeLoadDataError();
+//                    showToast(model.msg);
                 }
             }
 
             @Override
             public void error() {
-                hideLoadDialog();
-                ToastUtils.showHttpError();
+                completeLoadDataError();
+//                hideLoadDialog();
+//                ToastUtils.showHttpError();
             }
         });
 

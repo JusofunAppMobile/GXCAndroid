@@ -74,7 +74,6 @@ public class EditReportInfoActivity extends BaseActivity {
         type = getIntent().getIntExtra(TYPE, TYPE_INFO);
 
 
-        Log.e("tag", "typetypetypetype1=" + type);
         if (type == TYPE_INFO) {
             corporateInfoView.setData(TYPE_INFO, null);
             layoutView.addView(corporateInfoView);
@@ -228,6 +227,7 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("url", model.url);
         map.put("image", model.image);
         map.put("introduce", model.introduce);
+        map.put("productId", "");
 
         RxManager.http(RetrofitUtils.getApi().CompanyInfoEditor(map), new ResponseCall() {
 
@@ -264,7 +264,7 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("honor", model.honor);
         map.put("image", model.image);
         map.put("introduce", model.introduce);
-
+        map.put("honorId", "");
         RxManager.http(RetrofitUtils.getApi().honorEditor(map), new ResponseCall() {
 
             @Override
@@ -300,6 +300,8 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("partner", model.partner);
         map.put("image", model.image);
         map.put("introduce", model.introduce);
+        map.put("partnerId", "");
+
 
         RxManager.http(RetrofitUtils.getApi().partnerEditor(map), new ResponseCall() {
 
