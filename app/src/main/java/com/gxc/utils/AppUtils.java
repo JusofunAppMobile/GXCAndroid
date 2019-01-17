@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.gxc.constants.Constants;
+import com.gxc.inter.OnCallListener;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
 import com.gxc.model.UserModel;
@@ -50,7 +51,7 @@ import static com.gxc.utils.ToastUtils.showHttpError;
  */
 public class AppUtils {
 
-    public final static String TEST_URL = "https://mp.weixin.qq.com/s?__biz=MzUxMDcwMDcyNQ==&mid=2247484087&idx=1&sn=533ba1192a8263b2c19146d546467e5c&chksm=f97fbf6dce08367bedc8cdfbea9da1222e265b6447a1584fbf7e78b5475b76297e05c8b2ceea&scene=0#rd";
+    public final static String TEST_URL = "https://www.jianshu.com/p/2694f9a64502";
     public final static String TEST_IMAGE = "http://t2.hddhhn.com/uploads/tu/201707/6/71.jpg";
 
     public static List getTestList(Class<?> clazz, int size) {
@@ -295,7 +296,9 @@ public class AppUtils {
     /**
      * 检查用户VIP状态、企业认证状态
      */
-    public static void checkUserStatus() {
+    public static void checkUserStatus(final OnCallListener listener) {
+        final UserModel user = getUser();
+        if (user == null) return;
         HashMap<String, Object> map = new HashMap<>();
 
         RxManager.http(RetrofitUtils.getApi().getIdentVip(map), new ResponseCall() {
@@ -303,23 +306,29 @@ public class AppUtils {
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
-
+                    UserModel tmp = model.dataToObject(UserModel.class);
+                    user.authStatus = tmp.authStatus;
+                    user.authCompany = tmp.authCompany;
+                    user.vipStatus = tmp.vipStatus;
+                    PreferenceUtils.setString(InquireApplication.application, Constants.USER, new Gson().toJson(user));
                 }
+                if (listener != null)
+                    listener.call();
             }
 
             @Override
             public void error() {
+                if (listener != null)
+                    listener.call();
             }
         });
     }
 
     public static Spanned getNumFont(Context context, int num) {
-        LogUtils.e(context.getResources().getString(R.string.font_color));
-        return Html.fromHtml("共"+context.getResources().getString(R.string.font_color) + num + "</font>条动态");
+        return Html.fromHtml("共" + context.getResources().getString(R.string.font_color) + num + "</font>条动态");
     }
 
     public static Spanned getNumFont2(Context context, int num) {
-        LogUtils.e(context.getResources().getString(R.string.font_color));
-        return Html.fromHtml("数量："+context.getResources().getString(R.string.font_color) + num + "</font>条");
+        return Html.fromHtml("数量：" + context.getResources().getString(R.string.font_color) + num + "</font>条");
     }
 }

@@ -1,13 +1,9 @@
 package com.gxc.ui.adapter;
 
-import android.support.annotation.Nullable;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.VisitorModel;
 import com.jusfoun.jusfouninquire.R;
-
-import java.util.List;
 
 /**
  * @author liuguangdan
@@ -22,6 +18,7 @@ public class VisitorAdapter extends BaseQuickAdapter<VisitorModel,BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, VisitorModel item) {
-
+        helper.setText(R.id.tvName, item.name);
+        helper.setText(R.id.tvTime, item.date);
     }
 }

@@ -62,9 +62,10 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tvNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30"
+            android:text="0"
             android:textColor="#F7D43C"
             android:textSize="24sp" />
 
@@ -109,7 +110,11 @@
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
-            <include layout="@layout/view_empty" />
+            <include
+                layout="@layout/view_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp" />
 
         </RelativeLayout>
     </LinearLayout>

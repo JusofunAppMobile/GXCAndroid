@@ -157,6 +157,10 @@ public interface Api {
     @POST("/app/CreditService/CorporateInfoChange")
     Observable<NetModel> CorporateInfoChange(@FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/app/CreditService/visitorRecord")
+    Observable<NetModel> visitorRecord(@FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("/app/CorporateInfo/createCreditWord")

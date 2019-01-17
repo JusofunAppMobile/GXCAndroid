@@ -8,7 +8,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -309,8 +308,6 @@ public class CreditFragment extends BaseFragment {
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-
-                Log.e("tag", "value==" + value);
                 if (value < 0 || value > (list.size() - 1))
                     return "";
                 return list.get((int) value % list.size()).date;

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.gxc.model.UserModel;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
@@ -931,8 +933,14 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             return;
         }
         UserInfoModel model = InquireApplication.getUserInfo();
-        if (model == null) {
-            goActivity(LoginActivity.class);
+//        if (model == null) {
+//            goActivity(LoginActivity.class);
+//            return;
+//        }
+
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            goActivity(com.gxc.ui.activity.LoginActivity.class);
             return;
         }
 

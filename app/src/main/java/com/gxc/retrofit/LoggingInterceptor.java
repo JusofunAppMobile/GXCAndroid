@@ -79,7 +79,7 @@ public class LoggingInterceptor implements Interceptor {
         } catch (Exception e) {
 //            e.printStackTrace();
         }
-        return value;
+        return "图片上传，body隐藏不显示输出"; // 图片decode会失败，长度太大，不显示
     }
 }
 

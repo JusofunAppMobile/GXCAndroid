@@ -17,6 +17,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.HashMap;
@@ -119,6 +120,14 @@ public class InforEditActivity extends BaseActivity {
             showToast("请" + getHint());
             return;
         }
+
+        if (type == Constants.INFOR_TYPE_EMAIL) {
+            if (!RegexUtils.checkEmail(getValue(etInput))) {
+                showToast("邮箱格式不正确");
+                return;
+            }
+        }
+
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put(getKey(), getValue(etInput));

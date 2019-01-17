@@ -4,18 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.Group;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -134,9 +136,10 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            WebView.enableSlowWholeDocumentDraw();
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare})
@@ -146,9 +149,11 @@ public class WebActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.vSave:
+                PictureUtils.saveImage(activity, mAgentWeb.getWebCreator().getWebView());
                 break;
             case R.id.vShare:
                 break;
         }
     }
+
 }

@@ -89,7 +89,7 @@ public class InforActivity extends BaseActivity {
                 vHeadIcon.loadImage(user.headIcon);
 
             // 认证成功后的公司名称不能修改
-            if(user.authStatus == 3)
+            if (user.authStatus == 3)
                 vCompany.setEnabled(false);
         }
     }
@@ -137,7 +137,12 @@ public class InforActivity extends BaseActivity {
         AppUtils.uploadPicture(imagePath, "Icon", new OnUploadListener() {
             @Override
             public void complete(String url, String simple) {
-                updateHeadIcon(url, simple);
+                if (!TextUtils.isEmpty(url) && !TextUtils.isEmpty(simple))
+                    updateHeadIcon(url, simple);
+                else {
+                    hideLoadDialog();
+                    ToastUtils.showHttpError();
+                }
             }
         });
     }
@@ -193,6 +198,7 @@ public class InforActivity extends BaseActivity {
                                 @Override
                                 public void complete(String path) {
                                     if (!TextUtils.isEmpty(path)) {
+                                        imagePath = path;
                                         upload();
                                     } else {
                                         hideLoadDialog();

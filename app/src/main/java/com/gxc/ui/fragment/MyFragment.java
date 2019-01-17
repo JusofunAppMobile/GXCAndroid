@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseFragment;
+import com.gxc.inter.OnCallListener;
 import com.gxc.model.GlideApp;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
@@ -151,7 +152,12 @@ public class MyFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         loadUser();
-        AppUtils.checkUserStatus();
+        AppUtils.checkUserStatus(new OnCallListener() {
+            @Override
+            public void call() {
+                loadUser();
+            }
+        });
     }
 
     private void loadUser() {

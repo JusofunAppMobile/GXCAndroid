@@ -36,12 +36,13 @@ public class HomeMenuAdapter extends BaseQuickAdapter<HomeMenuModel, BaseViewHol
         ImageView image = holder.getView(R.id.image);
         textView.setText(homeMenuModel.menuName);
         if (!TextUtils.isEmpty(homeMenuModel.menuImage)) {
-            if (homeMenuModel.menuImage.startsWith("http")) {
-                GlideApp.with(InquireApplication.application).load(homeMenuModel.menuImage).apply(options).into(image);
-            } else {
-                image.setImageResource(Integer.parseInt(homeMenuModel.menuImage));
-            }
-        } else
-            image.setImageResource(R.drawable.img_default_icon);
+            GlideApp.with(InquireApplication.application).load(homeMenuModel.menuImage).apply(options).into(image);
+        } else {
+            if (homeMenuModel.menuImageId != 0)
+                image.setImageResource(homeMenuModel.menuImageId);
+            else
+                image.setImageResource(R.drawable.img_default_icon);
+        }
+
     }
 }

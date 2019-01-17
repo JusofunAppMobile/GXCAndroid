@@ -33,6 +33,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="right"
+        android:visibility="gone"
         android:textColor="@color/item_option_text"
         android:text="导出通讯录" />
 

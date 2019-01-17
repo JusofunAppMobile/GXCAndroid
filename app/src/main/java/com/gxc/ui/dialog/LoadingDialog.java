@@ -56,7 +56,6 @@ public class LoadingDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("tag", "LoadingDialog");
     }
 
     private void initViews() {
