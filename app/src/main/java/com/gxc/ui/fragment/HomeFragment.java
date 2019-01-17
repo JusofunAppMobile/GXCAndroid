@@ -1,6 +1,5 @@
 package com.gxc.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
@@ -41,10 +40,8 @@ import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
-import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
@@ -260,10 +257,7 @@ public class HomeFragment extends BaseFragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(activity, TypeSearchActivity.class);
-                    intent.putExtra(TypeSearchActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
-                    intent.putExtra("key", val);
-                    startActivity(intent);
+                    startActivity(TypeSearchActivity.getIntent(activity, 0));
                 }
             });
             vHot.addView(view);
@@ -318,62 +312,30 @@ public class HomeFragment extends BaseFragment {
     //17：行政处罚  18：商标查询
     private void menuItemClick(HomeMenuModel model, int position) {
         UserModel user = AppUtils.getUser();
-        Intent intent = new Intent(activity, TypeSearchActivity.class);
-        intent.putExtra("menuType", String.valueOf(model.menuType));
-        String type = null;
-        switch (model.menuType) {
-            case 1:// 股东高管
-                type = SearchHistoryItemModel.SEARCH_SHAREHOLDER;
-                break;
-            case 2:// 主营产品
-                type = SearchHistoryItemModel.SEARCH_PRODUCT;
-                break;
-//            case 3:// 地址电话
-//                type = SearchHistoryItemModel.SEARCH_ADDRESS;
-//                break;
-            case 3:// 失信查询
-                type = SearchHistoryItemModel.SEARCH_DISHONEST;
-                break;
-            case 4:// 查税号
-                type = SearchHistoryItemModel.SEARCH_TAXID;
-                break;
-            case 5:// 招聘
-                type = SearchHistoryItemModel.SEARCH_RECRUITMENT;
-                break;
-            case 6:// 企业通讯录
-                type = SearchHistoryItemModel.SEARCH_CONTACT;
-                break;
-            case 7:// 查关系
-                LogUtils.e(">>>>>>>>>>>查关系");
-                if (user == null) {
-                    startActivity(LoginActivity.class);
-                    return;
-                }
-                if (user.vipStatus == 0)
-                    new VIPDialog(activity).show();
-                else
-                    startActivity(RelationActivity.getIntent(activity, model));
+        if (model.menuType == 7) { // 查关系
+            if (user == null) {
+                startActivity(LoginActivity.class);
                 return;
-            case 8:// 风险分析
-                LogUtils.e(">>>>>>>>>>>风险分析");
-                if (user == null) {
-                    startActivity(LoginActivity.class);
-                    return;
-                }
-                if (user.vipStatus == 0) {
-                    startActivity(RiskTipActivity.class);
-                    return;
-                } else
-                    type = SearchHistoryItemModel.SEARCH_RISK;
-                break;
-            case -1:// h5跳转
-                startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
+            }
+            if (user.vipStatus == 0)
+                new VIPDialog(activity).show();
+            else
+                startActivity(RelationActivity.getIntent(activity, model));
+        } else if (model.menuType == 8) { // 风险分析
+            if (user == null) {
+                startActivity(LoginActivity.class);
                 return;
-            case 0:// 全部
+            }
+            if (user.vipStatus == 0) {
+                startActivity(RiskTipActivity.class);
                 return;
+            } else
+                startActivity(TypeSearchActivity.getIntent(activity, model.menuType));
+        } else if (model.menuType == -1) {// h5跳转
+            startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
+        } else {
+            startActivity(TypeSearchActivity.getIntent(activity, model.menuType));
         }
-        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, type);
-        startActivity(intent);
     }
 
     @OnClick({R.id.tvVip})
@@ -388,9 +350,7 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick({R.id.vInput, R.id.tvInput2})
     public void click() {
-        Intent intent = new Intent(activity, TypeSearchActivity.class);
-        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
-        startActivity(intent);
+        startActivity(TypeSearchActivity.getIntent(activity, 0));
     }
 
     private void monitorItemClick(HomeMonitorModel model, int position) {

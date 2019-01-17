@@ -105,7 +105,7 @@ public interface Api {
     Observable<NetModel> GetCorporateInfo(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
-    @POST("/app/sys/searchWord")
+    @POST("/app/sys/hotSearchWord")
     Observable<NetModel> searchWord(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded

@@ -14,7 +14,6 @@ import com.gxc.base.BaseActivity;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
@@ -92,15 +91,12 @@ public class RelationActivity extends BaseActivity {
 
     @OnClick({R.id.tvFirst, R.id.tvSecond, R.id.bt, R.id.vBig})
     public void onViewClicked(View view) {
-        Intent intent = new Intent(activity, TypeSearchActivity.class);
-        intent.putExtra("menuType", String.valueOf(menuModel.menuType));
-        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_RELATION);
         switch (view.getId()) {
             case R.id.tvFirst:
-                startActivityForResult(intent, REQUEST_FIRST);
+                startActivityForResult(TypeSearchActivity.getIntent(activity, menuModel.menuType), REQUEST_FIRST);
                 break;
             case R.id.tvSecond:
-                startActivityForResult(intent, REQUEST_SECOND);
+                startActivityForResult(TypeSearchActivity.getIntent(activity, menuModel.menuType), REQUEST_SECOND);
                 break;
             case R.id.bt:
                 if (!TextUtils.isEmpty(getValue(tvFirst)) && !TextUtils.isEmpty(getValue(tvSecond))) {

@@ -2,6 +2,7 @@ package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -106,6 +107,53 @@ public class TypeSearchActivity extends BaseInquireActivity {
 
 
     }
+
+    /**
+     *
+     * @param context
+     * @param menuType 0 : 模糊查询类型；首页
+     * @return
+     */
+    public static Intent getIntent(Context context, int menuType) {
+        Intent intent = new Intent(context, TypeSearchActivity.class);
+        String type = "";
+        switch (menuType) {
+            case 1:// 股东高管
+                type = SearchHistoryItemModel.SEARCH_SHAREHOLDER;
+                break;
+            case 2:// 主营产品
+                type = SearchHistoryItemModel.SEARCH_PRODUCT;
+                break;
+//            case 3:// 地址电话
+//                type = SearchHistoryItemModel.SEARCH_ADDRESS;
+//                break;
+            case 3:// 失信查询
+                type = SearchHistoryItemModel.SEARCH_DISHONEST;
+                break;
+            case 4:// 查税号
+                type = SearchHistoryItemModel.SEARCH_TAXID;
+                break;
+            case 5:// 招聘
+                type = SearchHistoryItemModel.SEARCH_RECRUITMENT;
+                break;
+            case 6:// 企业通讯录
+                type = SearchHistoryItemModel.SEARCH_CONTACT;
+                break;
+            case 7:// 查关系
+                type = SearchHistoryItemModel.SEARCH_RELATION;
+                break;
+            case 8:// 风险分析
+                type = SearchHistoryItemModel.SEARCH_RISK;
+                break;
+            case 0: //
+                type = SearchHistoryItemModel.SEARCH_COMMON;
+                break;
+        }
+        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, type);
+        return intent;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
