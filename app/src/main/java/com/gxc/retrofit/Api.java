@@ -152,4 +152,10 @@ public interface Api {
 
     @POST("/app/Company/getCompanyMsg")
     Observable<NetModel> getCompanyMsg();
+
+    @FormUrlEncoded
+    @POST("/app/CreditService/CorporateInfoChange")
+    Observable<NetModel> CorporateInfoChange(@FieldMap Map<String, Object> params);
+
+
 }

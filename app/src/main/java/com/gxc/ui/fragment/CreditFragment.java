@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,14 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.gxc.base.BaseFragment;
 import com.gxc.model.CreditDataModel;
@@ -35,6 +38,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.CreditCommitmentActivity;
 import com.gxc.ui.activity.CreditReportActivity;
+import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
@@ -79,6 +83,8 @@ public class CreditFragment extends BaseFragment {
     @BindView(R.id.text_compay_type)
     TextView textCompayType;
     Unbinder unbinder;
+    @BindView(R.id.text_num)
+    TextView textNum;
     private ImageView certificationImg;
 
     @BindView(R.id.img_shenhezhong)
@@ -90,6 +96,7 @@ public class CreditFragment extends BaseFragment {
 
     private RelativeLayout topLayout;
 
+    public CreditDataModel.CompanyInfo companyInfo;
 
     @Override
     protected int getLayoutId() {
@@ -194,9 +201,18 @@ public class CreditFragment extends BaseFragment {
 
         textTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
+
+        changeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (companyInfo != null) {
+                    startActivity(MonitorDetailActivity.getIntent(activity, companyInfo.companyId, companyInfo.companyName));
+                }
+            }
+        });
         initChart();
         getServiceData();
-        setData(6, 150);
+//        setData(6, 150);
 
     }
 
@@ -233,8 +249,6 @@ public class CreditFragment extends BaseFragment {
         Legend l = chart.getLegend();
         l.setEnabled(false);
 //
-
-
         XAxis xAxis = chart.getXAxis();
 //        xAxis.setTypeface(tfLight);
         xAxis.setTextSize(11f);
@@ -244,6 +258,7 @@ public class CreditFragment extends BaseFragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(0xff333333);
         xAxis.setCenterAxisLabels(true);
+        xAxis.setGranularity(0.5f);
 
 
         YAxis leftAxis = chart.getAxisLeft();
@@ -260,16 +275,31 @@ public class CreditFragment extends BaseFragment {
     }
 
 
-    private void setData(int count, float range) {
+    private void setData(final List<CreditDataModel.VisitorItem> list) {
 
+        if (list == null) {
+            return;
+        }
         ArrayList<Entry> values1 = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * (range / 2f)) + 50;
-            values1.add(new Entry(i, val));
+        for (int i = 0; i < list.size(); i++) {
+            values1.add(new Entry(i, list.get(i).count));
         }
 
         LineDataSet set1;
+
+        chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                Log.e("tag","value=="+value);
+                if (value < 0 || value > (list.size() - 1))
+                    return "";
+                return list.get((int) value % list.size()).date;
+            }
+        });
+
 
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
@@ -300,6 +330,7 @@ public class CreditFragment extends BaseFragment {
             // set data
             chart.setData(data);
         }
+//        chart.moveViewToX(5);
 
     }
 
@@ -313,6 +344,7 @@ public class CreditFragment extends BaseFragment {
                 if (data.success()) {
                     CreditDataModel model = data.dataToObject(CreditDataModel.class);
                     if (model.companyInfo != null) {
+                        companyInfo = model.companyInfo;
                         //认证状态  0：未认证 1：审核中 2：审核失败 3：审核成功
                         if ("0".equals(model.companyInfo.status)) {
                             initUICredit(false);
@@ -336,6 +368,8 @@ public class CreditFragment extends BaseFragment {
                             topLayout.setVisibility(View.VISIBLE);
                         }
 
+                        textNum.setText(model.companyInfo.changeNum);
+
                         textCompany.setText(model.companyInfo.companyName);
                         textXinyongCode.setText(model.companyInfo.code);
                         textCompayType.setText(model.companyInfo.type);
@@ -343,7 +377,7 @@ public class CreditFragment extends BaseFragment {
                         shImg.setVisibility(View.GONE);
                         initUICredit(true);
                         topLayout.setVisibility(View.VISIBLE);
-
+                        setData(model.VisitorList);
 //                        serviceAdapter.setNewData(model.serviceList);
 //                        inquireAdapter.setNewData(model.inquiryList);
                     } else {

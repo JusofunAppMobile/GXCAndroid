@@ -19,6 +19,7 @@ public class RecentChangeItemModel extends BaseModel {
 
     public int totalCount;
     public List<DataResultBean> dataResult;
+    public List<DataResultBean> changeList;
 
     public static class DataResultBean {
         /**

@@ -177,7 +177,7 @@
                         app:srcCompat="@drawable/me_listicon_more" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/text_num"
                         android:layout_width="21dp"
                         android:layout_height="21dp"
                         android:layout_marginBottom="8dp"

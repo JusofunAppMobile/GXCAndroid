@@ -56,7 +56,7 @@
         app:layout_constraintTop_toTopOf="@+id/text_title" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/text_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -79,7 +79,7 @@
         android:paddingBottom="2dp"
         android:text="7414条"
         android:textColor="#EE5F5A"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintBottom_toBottomOf="@+id/text_num"
+        app:layout_constraintStart_toEndOf="@+id/text_num"
+        app:layout_constraintTop_toTopOf="@+id/text_num" />
 </android.support.constraint.ConstraintLayout>

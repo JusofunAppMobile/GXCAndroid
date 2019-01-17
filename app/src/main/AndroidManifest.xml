@@ -693,6 +693,14 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
+        <!--企业变更-->
+        <activity
+            android:name="com.gxc.ui.activity.RecentChangeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
 
         <activity
             android:name=".WBShareActivity"

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gxc.model.RiskModel;
 import com.gxc.model.UserModel;
@@ -29,6 +30,7 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.ShareholderAdapter;
+import com.gxc.ui.view.BottomBarView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
@@ -128,8 +130,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private RecyclerView shareHolderRecycle, dongshiRecycle;
     private ShareholderAdapter shareholderAdapter, dongshiAdaper;
 
-    private BottomNavigationBar navigation;
-
+    private BottomBarView navigation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarEnable(Color.TRANSPARENT);
@@ -201,7 +202,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         shareHolderRecycle = (RecyclerView) findViewById(R.id.recyclerview_shareholder);
         dongshiRecycle = (RecyclerView) findViewById(R.id.recyclerview_dongshi);
 
-        navigation = (BottomNavigationBar) findViewById(R.id.navigation);
+        navigation = (BottomBarView) findViewById(R.id.navigation);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
             vBarEmpty2.setVisibility(View.VISIBLE);
@@ -237,46 +238,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     @Override
     protected void initWidgetActions() {
-
         title.setTitleText("企业详情");
         mCompanyMenu.setNestedScrollingEnabled(false);
-        navigation
-                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_baogao, "获取报告"))
-                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_yiyi, "纠错/异议"))
-                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_jiankong, "监控"))
-                .addItem(new BottomNavigationItem(R.drawable.info_bot_icon_renzheng, "认证"))
-                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
-                .setMode(BottomNavigationBar.MODE_FIXED)
-                .setInActiveColor("#ffffff") // 默认颜色
-                .setActiveColor("#ffffff") // 选中颜色
-                .setBarBackgroundColor("#ea3e3a") // 导航栏整个背景颜色
-                .setFirstSelectedPosition(0) // 默认选中第几个选项卡
-                .initialise();
 
 
-        navigation.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
+        navigation.setTabSelectedListener(new BottomBarView.TabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
-                if (position == 0) {
-                    getReroet();
-                } else if (position == 1) {
-                    if (model != null) {
-                        EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("company", model);
-                        bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_ERROR);
-                        goActivity(CompanyAmendActivity.class, bundle);
-                    }
-                }
-            }
-
-            @Override
-            public void onTabUnselected(int position) {
-
-            }
-
-            @Override
-            public void onTabReselected(int position) {
                 if (position == 0) {
                     getReroet();
                 } else if (position == 1) {
@@ -585,6 +553,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
             @Override
             public void success(NetModel model) {
+                loadingLayout.setVisibility(View.GONE);
                 if (model instanceof CompanyDetailModel) {
                     updateView((CompanyDetailModel) model);
                 }

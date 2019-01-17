@@ -183,7 +183,7 @@ public class CertifiedCompanyActivity extends BaseActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("companyname", viewName.getEditText());
         map.put("name", viewRealName.getEditText());
-        map.put("idcard", viewRealName.getEditText());
+        map.put("idcard", viewCode.getEditText());
         map.put("phone", viewPhone.getEditText());
         map.put("email", viewEmail.getEditText());
         map.put("licenseImage", yeUrl);

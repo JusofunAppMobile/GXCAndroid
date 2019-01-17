@@ -240,12 +240,13 @@
         </LinearLayout>
     </com.jusfoun.jusfouninquire.ui.view.ObserveScrollView>
 
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+    <com.gxc.ui.view.BottomBarView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-       />
+        />
+
 
     <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
         android:id="@+id/net_work_error"
@@ -300,4 +301,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+
 </RelativeLayout>
