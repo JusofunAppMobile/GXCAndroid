@@ -15,8 +15,8 @@
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:padding="15dp"
-        android:src="@mipmap/img_back_black"
+        android:padding="10dp"
+        android:src="@drawable/img_back_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

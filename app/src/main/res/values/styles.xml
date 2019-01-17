@@ -728,7 +728,7 @@
     </style>
 
     <style name="new1">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#333</item>
     </style>

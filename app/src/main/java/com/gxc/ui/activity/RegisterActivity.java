@@ -109,6 +109,7 @@ public class RegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vLogin:
+                finish();
                 break;
             case R.id.vRegister:
                 register();

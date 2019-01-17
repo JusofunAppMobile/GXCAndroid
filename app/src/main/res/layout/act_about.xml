@@ -27,7 +27,7 @@
         app:srcCompat="@drawable/img_xin" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tvVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -45,7 +45,7 @@
         android:background="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10">
+        app:layout_constraintTop_toBottomOf="@+id/tvVersion">
 
         <TextView
             android:id="@+id/textView40"
@@ -60,9 +60,7 @@
         <TextView
             android:id="@+id/tvWechat"
             style="@style/new2"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="http://www.xxxx.com"
+            android:text="iqixin007"
             app:layout_constraintBottom_toBottomOf="@+id/textView40"
             app:layout_constraintStart_toEndOf="@+id/textView40"
             app:layout_constraintTop_toTopOf="@+id/textView40" />
@@ -80,9 +78,7 @@
         <TextView
             android:id="@+id/tvQQ"
             style="@style/new2"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="http://www.xxxx.com"
+            android:text="800809886"
             app:layout_constraintBottom_toBottomOf="@+id/textView39"
             app:layout_constraintStart_toEndOf="@+id/textView39"
             app:layout_constraintTop_toTopOf="@+id/textView39" />
@@ -100,9 +96,7 @@
         <TextView
             android:id="@+id/tvWebsite"
             style="@style/new2"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="http://www.xxxx.com"
+            android:text="http://www.qixin.com"
             app:layout_constraintBottom_toBottomOf="@+id/textView30"
             app:layout_constraintStart_toEndOf="@+id/textView30"
             app:layout_constraintTop_toTopOf="@+id/textView30" />
@@ -122,9 +116,7 @@
         <TextView
             android:id="@+id/tvEmail"
             style="@style/new2"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="http://www.xxxx.com"
+            android:text="bd@qixin.com"
             app:layout_constraintBottom_toBottomOf="@+id/textView27"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toTopOf="@+id/textView27" />

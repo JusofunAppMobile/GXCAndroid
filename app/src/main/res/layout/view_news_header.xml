@@ -62,6 +62,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:singleLine="true"
                 android:textColor="#FFF"
                 app:layout_constraintBottom_toTopOf="@+id/indicator"

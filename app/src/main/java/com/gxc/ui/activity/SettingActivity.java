@@ -1,5 +1,6 @@
 package com.gxc.ui.activity;
 
+import android.os.Environment;
 import android.view.View;
 
 import com.gxc.base.BaseActivity;
@@ -9,7 +10,9 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.widgets.ItemView;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.DataCleanManager;
 import com.gxc.utils.ToastUtils;
+import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -42,6 +45,38 @@ public class SettingActivity extends BaseActivity {
     public void initActions() {
         titleView.setTitle("设置");
         vLogout.setVisibility(AppUtils.getUser() != null ? View.VISIBLE : View.GONE);
+
+        loadCache();
+    }
+
+    private void loadCache() {
+        try {
+            //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
+            long cacheSize = DataCleanManager.getFolderSize(getCacheDir());
+            //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
+//            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+//                cacheSize += DataCleanManager.getFolderSize(getExternalCacheDir());
+            vCache.setValue(DataCleanManager.getFormatSize(cacheSize));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteCache() {
+        //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
+        DataCleanManager.cleanInternalCache(activity);
+        //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
+        DataCleanManager.cleanFiles(activity);
+
+        DataCleanManager.deleteFilesByDirectory(getCacheDir());
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            DataCleanManager.deleteFilesByDirectory(getExternalCacheDir());
+            //下面两句清理webview网页缓存.但是每次执行都报false,我用的是魅蓝5.1的系统，后来发现且/data/data/应用package目录下找不到database文///件夹 不知道是不是个别手机的问题，
+            deleteDatabase("webview.db");
+            deleteDatabase("webviewCache.db");
+        }
+
+        DataCleanManager.cleanApplicationData(InquireApplication.application);
     }
 
     @OnClick(R.id.vLogout)
@@ -78,6 +113,9 @@ public class SettingActivity extends BaseActivity {
                 startActivity(PushSetActivity.class);
                 break;
             case R.id.vCache:
+                deleteCache();
+                showToast("缓存数据已清除");
+                loadCache();
                 break;
             case R.id.vService:
                 startActivity(WebActivity.getIntent(this, "服务协议", AppUtils.TEST_URL, false));

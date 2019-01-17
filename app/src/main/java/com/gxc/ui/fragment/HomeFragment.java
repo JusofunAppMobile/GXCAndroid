@@ -394,6 +394,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void newsItemClick(HomeNewsModel model, int position) {
-        startActivity(WebActivity.getIntent(activity, "行业资讯", AppUtils.TEST_URL));
+        startActivity(WebActivity.getIntent(activity, "行业资讯", homeNewsAdapter.getItem(position).newsURL));
     }
 }

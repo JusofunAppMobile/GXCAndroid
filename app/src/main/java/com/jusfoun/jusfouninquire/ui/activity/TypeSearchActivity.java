@@ -122,6 +122,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.putExtra(TypeSearchActivity.SEARCH_TYPE, type);
+        intent.putExtra("menuType", String.valueOf(menuType));
         return intent;
     }
 
@@ -152,12 +153,12 @@ public class TypeSearchActivity extends BaseInquireActivity {
             public void success(NetModel model) {
                 if (model.success()) {
                     List<String> list = model.dataToList("keywords", String.class);
-                    List<HotWordItemModel> hot = new ArrayList<>();
                     if (list != null && !list.isEmpty()) {
+                        List<HotWordItemModel> hot = new ArrayList<>();
                         for (String value : list)
                             hot.add(new HotWordItemModel(value, value));
+                        mSearchGuideView.setHotSearch(hot, mCurrentType);
                     }
-                    mSearchGuideView.setHotSearch(hot, mCurrentType);
                 } else {
                     showToast(model.msg);
                 }

@@ -16,8 +16,7 @@ import com.gxc.ui.widgets.NavTitleView;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.HashMap;
-
-import butterknife.BindView;
+import java.util.List;
 
 /**
  * @author liuguangdan
@@ -27,8 +26,7 @@ import butterknife.BindView;
  */
 public class MonitorListFragment extends BaseListFragment {
 
-    @BindView(R.id.navTitleView)
-    NavTitleView navTitleView;
+    private NavTitleView headView;
 
     @Override
     public int getLayoutId() {
@@ -42,7 +40,11 @@ public class MonitorListFragment extends BaseListFragment {
 
     @Override
     protected void initUi() {
-        navTitleView.setTipClickListener(new View.OnClickListener() {
+        headView = new NavTitleView(activity);
+        headView.setLabel("企业动态");
+        headView.setTip("成为VIP掌握企业风险动态");
+        headView.hideImageView();
+        headView.setTipClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new VIPDialog(activity).show();
@@ -67,14 +69,23 @@ public class MonitorListFragment extends BaseListFragment {
 
             @Override
             public void success(NetModel model) {
-                if (model.success())
-                    completeLoadData(model.dataToList("monitor", MonitorModel.class));
-                else
+                if (model.success()){
+                    List<MonitorModel> list = model.dataToList("monitor", MonitorModel.class);
+                    if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null)
+                        adapter.addHeaderView(headView);
+                    if( pageIndex == 1 && (list == null || list.isEmpty()))
+                        adapter.removeHeaderView(headView);
+                    completeLoadData(list);
+                }
+                else {
+                    adapter.removeHeaderView(headView);
                     completeLoadDataError();
+                }
             }
 
             @Override
             public void error() {
+                adapter.removeHeaderView(headView);
                 completeLoadDataError();
             }
         });

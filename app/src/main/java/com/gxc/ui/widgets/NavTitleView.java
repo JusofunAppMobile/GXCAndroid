@@ -79,7 +79,7 @@ public class NavTitleView extends LinearLayout {
         tvLabel.setText(tip);
     }
 
-    public void setTipClickListener(OnClickListener listener){
+    public void setTipClickListener(OnClickListener listener) {
         tvLabel.setOnClickListener(listener);
     }
 
@@ -89,6 +89,10 @@ public class NavTitleView extends LinearLayout {
 
     public void setImageResource(int id) {
         image.setImageResource(id);
+    }
+
+    public void hideImageView() {
+        image.setVisibility(View.GONE);
     }
 
     public void setImageClickListener(OnClickListener listener) {

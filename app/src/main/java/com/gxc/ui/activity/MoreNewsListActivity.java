@@ -19,7 +19,6 @@ import com.gxc.ui.adapter.HomeNewsAdapter;
 import com.gxc.ui.adapter.ImagePagerAdapter;
 import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -63,15 +62,6 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
         titleView.setBackgroudRed();
         titleView.hideLineView();
         setStatusBarRed();
-
-        HomeModel.AdverModel model = new HomeModel.AdverModel();
-        model.imageURL = AppUtils.TEST_IMAGE;
-        model.webURL = AppUtils.TEST_URL;
-
-        List<HomeModel.AdverModel> list = new ArrayList<>();
-        list.add(model);
-        list.add(model);
-        list.add(model);
 
         headView = View.inflate(activity, R.layout.view_news_header, null);
         pager = headView.findViewById(R.id.pager);
@@ -126,9 +116,7 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         super.onItemClick(adapter, view, position);
-        startActivity(WebActivity.getIntent(activity, "行业资讯", AppUtils.TEST_URL));
-
-
+        startActivity(WebActivity.getIntent(activity, "行业资讯", ((HomeNewsModel)adapter.getItem(position)).newsURL));
     }
 
     @Override

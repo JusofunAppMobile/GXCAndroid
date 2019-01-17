@@ -1,6 +1,9 @@
 package com.gxc.ui.activity;
 
+import android.widget.TextView;
+
 import com.gxc.base.BaseActivity;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -15,6 +18,8 @@ public class AboutActivity extends BaseActivity {
 
     @BindView(R.id.titleView)
     TitleView titleView;
+    @BindView(R.id.tvVersion)
+    TextView tvVersion;
 
     @Override
     protected int getLayoutId() {
@@ -24,5 +29,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void initActions() {
         titleView.setTitle("关于我们");
+        tvVersion.setText("版本号：" + AppUtils.getVersionName(this));
     }
 }
