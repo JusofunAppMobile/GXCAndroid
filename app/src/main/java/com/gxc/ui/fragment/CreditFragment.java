@@ -189,11 +189,6 @@ public class CreditFragment extends BaseFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(activity, CertifiedCompanyActivity.class);
                 startActivity(intent);
-//                topLayout.setVisibility(View.VISIBLE);
-//                certificationImg.setVisibility(View.GONE);
-
-//                textTitle.setTextColor(0xffffffff);
-//                layoutRoot.setBackgroundColor(0xffe83836);
             }
         });
 
@@ -348,6 +343,9 @@ public class CreditFragment extends BaseFragment {
                         shImg.setVisibility(View.GONE);
                         initUICredit(true);
                         topLayout.setVisibility(View.VISIBLE);
+
+//                        serviceAdapter.setNewData(model.serviceList);
+//                        inquireAdapter.setNewData(model.inquiryList);
                     } else {
                         showToast(data.msg);
                     }

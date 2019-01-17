@@ -58,8 +58,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
     @BindView(R.id.view_real_name)
     CorporateInfoItemView viewRealName;
 
-    private final int PHOTO_YINGYE = 10001;//营业执照
-    private final int PHOTO_IDENTITY = 10002;//身份证
+    public static final int PHOTO_YINGYE = 10001;//营业执照
+    public static final int PHOTO_IDENTITY = 10002;//身份证
 
 
     private String yeUrl = "", cardUrl = "";

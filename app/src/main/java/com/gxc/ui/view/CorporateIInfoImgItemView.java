@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.R;
@@ -70,6 +71,12 @@ public class CorporateIInfoImgItemView extends BaseView {
         this.type = type;
         titleImgText.setText(title);
         desText.setText(des);
+
+        if(type== CertifiedCompanyActivity.PHOTO_IDENTITY){
+            photoImg.setImageResource(R.drawable.id_zhengmian);
+        }else{
+            photoImg.setImageResource(R.drawable.id_fanmian);
+        }
     }
 
     public void setImageSrc(String imageUrl){
