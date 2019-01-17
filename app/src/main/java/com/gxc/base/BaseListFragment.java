@@ -172,7 +172,7 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
     }
 
 
-    private void showEmptyView(boolean isError) {
+    protected void showEmptyView(boolean isError) {
         String text = isError ? getHttpErrorTip() : getEmptyTipText();
         adapter.setNewData(new ArrayList());
         if (vEmpty != null) {

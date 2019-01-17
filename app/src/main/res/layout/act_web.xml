@@ -56,7 +56,7 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:src="@drawable/img_big" />
+            android:src="@drawable/img_tuichu" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:src="@drawable/img_big" />
+            android:src="@drawable/img_baocun" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:src="@drawable/img_big" />
+            android:src="@drawable/img_fenxiang" />
 
         <TextView
             android:layout_width="wrap_content"

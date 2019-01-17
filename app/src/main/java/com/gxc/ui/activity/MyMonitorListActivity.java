@@ -1,6 +1,5 @@
 package com.gxc.ui.activity;
 
-import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,6 +11,7 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyMonitorAdapter;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -44,11 +44,11 @@ public class MyMonitorListActivity extends BaseListActivity {
         titleView.setTitle("我的监控");
         headView = View.inflate(this, R.layout.view_num_header, null);
         tvNum = headView.findViewById(R.id.textView);
-        tvNum.setText(Html.fromHtml("数量： <font color='#E2292F'>0</font>条"));
+        tvNum.setText(AppUtils.getNumFont2(activity, 0));
     }
 
     private void setCount(int count) {
-        tvNum.setText(Html.fromHtml("数量： <font color='#E2292F'>" + count + "</font>条"));
+        tvNum.setText(AppUtils.getNumFont2(activity, count));
     }
 
     @Override

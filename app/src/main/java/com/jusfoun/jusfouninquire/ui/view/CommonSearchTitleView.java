@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.util.TouchUtil;
 
@@ -76,6 +78,16 @@ public class CommonSearchTitleView extends RelativeLayout {
         mLeft = (ImageView) findViewById(R.id.common_left_text);
         mSearchEdit = (EditText) findViewById(R.id.common_search_edittext);
         commonSearchTextview = (TextView) findViewById(R.id.common_search_textview);
+    }
+
+    public void autoFocus(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSearchEdit.requestFocus();
+                AppUtils.showSoftInput((Activity) mContext);
+            }
+        }, 100);
     }
 
     private void initWidgetAction() {

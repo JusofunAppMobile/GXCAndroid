@@ -98,14 +98,18 @@ public class TitleView extends LinearLayout {
             TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.title_view);
             boolean isRed= array.getBoolean(R.styleable.title_view_title_is_red, false);
             if (isRed) {
-                titleBackGroud.setBackgroundColor(Color.parseColor("#E2292F"));
-                leftText.setColorFilter(Color.WHITE);
-                rightText.setTextColor(Color.WHITE);
-                titleText.setTextColor(Color.WHITE);
-                rightImage.setColorFilter(Color.WHITE);
+                setBackgroudRed();
             }
         }
 
+    }
+
+    public void setBackgroudRed() {
+        titleBackGroud.setBackgroundColor(getResources().getColor(R.color.common_red));
+        leftText.setColorFilter(Color.WHITE);
+        rightText.setTextColor(Color.WHITE);
+        titleText.setTextColor(Color.WHITE);
+        rightImage.setColorFilter(Color.WHITE);
     }
 
     public void setTitleBackGroud(int id) {
@@ -196,6 +200,10 @@ public class TitleView extends LinearLayout {
 
     public void setBackgroundTranlate() {
         findViewById(R.id.titleBackgroud).setBackgroundColor(Color.TRANSPARENT);
+        findViewById(R.id.vLine).setVisibility(View.GONE);
+    }
+
+    public void hideLineView() {
         findViewById(R.id.vLine).setVisibility(View.GONE);
     }
 

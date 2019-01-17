@@ -87,6 +87,10 @@ public class InforActivity extends BaseActivity {
             vPhone.setValue(user.phone);
             if (TextUtils.isEmpty(imagePath))
                 vHeadIcon.loadImage(user.headIcon);
+
+            // 认证成功后的公司名称不能修改
+            if(user.authStatus == 3)
+                vCompany.setEnabled(false);
         }
     }
 

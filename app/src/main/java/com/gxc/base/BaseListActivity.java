@@ -161,7 +161,7 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
         return true;
     }
 
-    private void showEmptyView(boolean isError) {
+    protected void showEmptyView(boolean isError) {
         String text = isError ? getHttpErrorTip() : getEmptyTipText();
         adapter.setNewData(new ArrayList());
         if (vEmpty != null) {

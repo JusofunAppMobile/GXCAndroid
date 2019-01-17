@@ -3,6 +3,8 @@ package com.gxc.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 
@@ -16,6 +18,7 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.jusfoun.jusfouninquire.InquireApplication;
+import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
@@ -48,7 +51,7 @@ import static com.gxc.utils.ToastUtils.showHttpError;
 public class AppUtils {
 
     public final static String TEST_URL = "https://mp.weixin.qq.com/s?__biz=MzUxMDcwMDcyNQ==&mid=2247484087&idx=1&sn=533ba1192a8263b2c19146d546467e5c&chksm=f97fbf6dce08367bedc8cdfbea9da1222e265b6447a1584fbf7e78b5475b76297e05c8b2ceea&scene=0#rd";
-    public final static String TEST_IMAGE = "http://img18.3lian.com/d/file/201709/21/a05161a4469dc5ef8be88ee217d53d92.jpg";
+    public final static String TEST_IMAGE = "http://t2.hddhhn.com/uploads/tu/201707/6/71.jpg";
 
     public static List getTestList(Class<?> clazz, int size) {
         try {
@@ -246,6 +249,7 @@ public class AppUtils {
 
     /**
      * 图片上传
+     *
      * @param path
      * @param type
      * @param listener
@@ -269,7 +273,7 @@ public class AppUtils {
             public void success(NetModel model) {
                 if (listener != null) {
                     try {
-                        listener.complete(model.getDataJSONObject().getString("filehttp"),model.getDataJSONObject().getString("filepath"));
+                        listener.complete(model.getDataJSONObject().getString("filehttp"), model.getDataJSONObject().getString("filepath"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -291,7 +295,7 @@ public class AppUtils {
     /**
      * 检查用户VIP状态、企业认证状态
      */
-    public static void checkUserStatus(){
+    public static void checkUserStatus() {
         HashMap<String, Object> map = new HashMap<>();
 
         RxManager.http(RetrofitUtils.getApi().getIdentVip(map), new ResponseCall() {
@@ -307,5 +311,15 @@ public class AppUtils {
             public void error() {
             }
         });
+    }
+
+    public static Spanned getNumFont(Context context, int num) {
+        LogUtils.e(context.getResources().getString(R.string.font_color));
+        return Html.fromHtml("共"+context.getResources().getString(R.string.font_color) + num + "</font>条动态");
+    }
+
+    public static Spanned getNumFont2(Context context, int num) {
+        LogUtils.e(context.getResources().getString(R.string.font_color));
+        return Html.fromHtml("数量："+context.getResources().getString(R.string.font_color) + num + "</font>条");
     }
 }

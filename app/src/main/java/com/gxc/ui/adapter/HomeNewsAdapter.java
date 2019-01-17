@@ -37,8 +37,8 @@ public class HomeNewsAdapter extends BaseQuickAdapter<HomeNewsModel, BaseViewHol
                 .placeholder(R.drawable.img_default_news)
                 .error(R.drawable.img_default_news);
         options2 = new RequestOptions()
-                .placeholder(R.drawable.img_default_news2)
-                .error(R.drawable.img_default_news2);
+                .placeholder(R.drawable.img_default_ad)
+                .error(R.drawable.img_default_ad);
     }
 
     @Override

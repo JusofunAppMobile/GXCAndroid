@@ -76,13 +76,13 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        GlideApp.with(InquireApplication.application).load(imageIdList.get(getPosition(position)).imageURL).apply(options).into(holder.imageView);
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebActivity.getIntent(context, "", imageIdList.get(getPosition(position)).webURL);
+                context.startActivity(WebActivity.getIntent(context, "", imageIdList.get(getPosition(position)).webURL));
             }
         });
+        GlideApp.with(InquireApplication.application).load(imageIdList.get(getPosition(position)).imageURL).apply(options).into(holder.imageView);
         return view;
     }
 

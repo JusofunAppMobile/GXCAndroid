@@ -74,7 +74,7 @@ public class HomeActivity extends BaseActivity {
 
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
-//        setDoubleClickExitApp(true);
+        setDoubleClickExitApp(true);
 
         PreferenceUtils.setString(this, Constants.REGID, "TEST");
     }

@@ -199,18 +199,17 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
     @Override
     protected void initWeightActions() {
-        searchResultCountView.setVisibility(View.VISIBLE);
         mResult.setAdapter(mAdapter);
 //        mAdapter.setSearchType(mCurrentType);
         if (mData != null) {
             refresh();
         }
 
-        if (isDataEmpty()) {
-            mLooanywhere.setVisibility(View.VISIBLE);
-        } else {
-            mLooanywhere.setVisibility(View.GONE);
-        }
+//        if (isDataEmpty()) {
+//            mLooanywhere.setVisibility(View.VISIBLE);
+//        } else {
+//            mLooanywhere.setVisibility(View.GONE);
+//        }
 
         mResult.setXListViewListener(this);
         if (mData != null)
@@ -386,7 +385,8 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
         if (mData == null) {
             doSearch();
-        }
+        }else
+            searchResultCountView.setVisibility(View.VISIBLE);
 
 
         searchResultCountView.setCallBack(new SearchResultCountView.Callback() {
@@ -614,6 +614,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             @Override
             public void onSuccess(Object data) {
                 hideLoadDialog();
+                searchResultCountView.setVisibility(View.VISIBLE);
                 mResult.stopRefresh();
                 if (!isContacts()) {
                     SearchListModel model = (SearchListModel) data;

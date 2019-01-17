@@ -26,7 +26,6 @@ import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.activity.SettingActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
-import com.gxc.ui.dialog.AuthDialog;
 import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
@@ -68,8 +67,16 @@ public class MyFragment extends BaseFragment {
     ImageView vVip;
     @BindView(R.id.tvNormalTip1)
     TextView tvNormalTip1;
+    @BindView(R.id.tvNormalTip2)
+    TextView tvNormalTip2;
+    @BindView(R.id.tvCompany)
+    TextView tvCompany;
+    @BindView(R.id.tvStatus)
+    TextView tvStatus;
     @BindView(R.id.ivNormalVip)
     ImageView ivNormalVip;
+    @BindView(R.id.ivCompanyVip)
+    ImageView ivCompanyVip;
 
     @Override
     protected int getLayoutId() {
@@ -100,18 +107,34 @@ public class MyFragment extends BaseFragment {
     }
 
     private void menuItemClick(int position) {
+        UserModel user = AppUtils.getUser();
         switch (position) {
             case 0:// 我的订单
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
                 startActivity(OrderListActivity.class);
                 break;
             case 1:// 我的监控
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
                 startActivity(MyMonitorListActivity.class);
                 break;
             case 2:// 我的收藏
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
                 startActivity(MyCollectListActivity.class);
                 break;
             case 3:// 企业认证
-                new AuthDialog(activity).show();
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
                 startActivity(CertifiedCompanyActivity.class);
                 break;
             case 4:// VIP特权
@@ -133,6 +156,7 @@ public class MyFragment extends BaseFragment {
 
     private void loadUser() {
         UserModel user = AppUtils.getUser();
+
         if (user == null) {
             vCompany.setVisibility(View.GONE);
             vNormal.setVisibility(View.GONE);
@@ -152,10 +176,35 @@ public class MyFragment extends BaseFragment {
 
             // 用户vip状态 0：普通用户 1：vip用户
             ivNormalVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
+            ivCompanyVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
             vVip.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvNormalTip1.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+            tvNormalTip2.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+            tvStatus.setText(getStatus(user.authStatus));
 
+            if (user.authStatus == 3 || user.authStatus == 1)
+                tvCompany.setText(user.authCompany);
+            else
+                tvCompany.setText(user.phone);
+
+            // 0：未认证1：审核中 2：审核失败 3：审核成功
+            if (user.authStatus == 0) {
+                vCompany.setVisibility(View.GONE);
+            } else {
+                vNormal.setVisibility(View.GONE);
+            }
         }
+    }
+
+    private String getStatus(int status) {
+        // 0：未认证1：审核中 2：审核失败 3：审核成功
+        if (status == 1)
+            return "审核中";
+        if (status == 2)
+            return "认证失败";
+        if (status == 3)
+            return "已认证";
+        return "未认证";
     }
 
     @OnClick({R.id.vHistory, R.id.vHelper, R.id.vVersion, R.id.vSetting, R.id.vVip})
@@ -183,7 +232,7 @@ public class MyFragment extends BaseFragment {
         startActivity(LoginActivity.class);
     }
 
-    @OnClick(R.id.vNormal)
+    @OnClick({R.id.vNormal, R.id.vCompany})
     public void vNormal() {
         startActivity(InforActivity.class);
     }

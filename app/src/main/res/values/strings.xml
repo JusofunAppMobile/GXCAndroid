@@ -192,6 +192,6 @@
     <string name="relation_tip">请分别添加2个公司或个人\n再点击“查关系”发现关系</string>
     <string name="risk_tip">对企业及关联企业全方位风险监控\n可实时或定时推送至邮箱、手机</string>
 
-
+    <string name="font_color">&#060;font color=#E93A38&#062;</string>
 
 </resources>

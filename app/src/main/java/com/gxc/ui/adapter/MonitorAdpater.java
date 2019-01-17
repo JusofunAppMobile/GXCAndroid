@@ -67,7 +67,7 @@ public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolde
                 monitorHandle(model, tvStatus, vMonitor);
             }
         });
-        tvInfo.setText(Html.fromHtml("共<font color='#E2292F'>" + model.changeCount + "</font>条动态"));
+        tvInfo.setText(AppUtils.getNumFont(mContext, model.changeCount));
 
         if (TextUtils.isEmpty(model.logo))
             ivLogo.setImageResource(R.drawable.img_default_clogo);

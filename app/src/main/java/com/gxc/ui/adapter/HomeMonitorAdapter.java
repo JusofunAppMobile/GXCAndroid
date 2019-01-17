@@ -1,6 +1,5 @@
 package com.gxc.ui.adapter;
 
-import android.text.Html;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.GlideApp;
 import com.gxc.model.HomeMonitorModel;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
@@ -45,6 +45,6 @@ public class HomeMonitorAdapter extends BaseQuickAdapter<HomeMonitorModel, BaseV
         else
             GlideApp.with(InquireApplication.application).load(model.logo).apply(options).into(ivLogo);
 
-        tvInfo.setText(Html.fromHtml("共<font color='#E2292F'>" + model.changeCount + "</font>条动态"));
+        tvInfo.setText(AppUtils.getNumFont(mContext, model.changeCount));
     }
 }

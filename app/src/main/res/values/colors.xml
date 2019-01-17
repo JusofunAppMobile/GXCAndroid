@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="common_red">#E2292F</color>
-    <color name="common_deeper">#E2292F</color><!--透明状态栏的颜色，不能包含透明度-->
+    <color name="common_red">#E93A38</color>
+    <color name="common_deeper">#E93A38</color><!--透明状态栏的颜色，不能包含透明度-->
 
     <color name="title_bar_background">#303F9F</color>
     <color name="search_table_background">#FF6008</color>

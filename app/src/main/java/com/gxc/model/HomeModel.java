@@ -18,6 +18,14 @@ public class HomeModel {
     public static  class AdverModel{
         public String imageURL;
         public String webURL;
+
+        public AdverModel(String imageURL, String webURL) {
+            this.imageURL = imageURL;
+            this.webURL = webURL;
+        }
+
+        public AdverModel() {
+        }
     }
 
 }

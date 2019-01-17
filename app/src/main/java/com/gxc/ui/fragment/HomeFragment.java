@@ -1,5 +1,6 @@
 package com.gxc.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,6 +43,8 @@ import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
+import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
@@ -192,8 +195,8 @@ public class HomeFragment extends BaseFragment {
         pager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % homeModel.adImages.size());
         pager.setInterval(5000);
         indicator.setViewPager(pager);
-        indicator.setFillColor(Color.parseColor("#A8ACB0"));
-        indicator.setPageColor(Color.WHITE);
+        indicator.setFillColor(Color.parseColor("#A3A3A3"));
+        indicator.setPageColor(Color.parseColor("#464646"));
         indicator.setSnap(true);
         indicator.setRadius(8);
         indicator.setStrokeWidth(0);
@@ -257,7 +260,13 @@ public class HomeFragment extends BaseFragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(TypeSearchActivity.getIntent(activity, 0));
+//                    startActivity(TypeSearchActivity.getIntent(activity, 0));
+
+                    Intent intent = new Intent(activity, SearchResultActivity.class);
+//                    intent.putExtra(SearchResultActivity.SEARCH_RESULT, model);
+                    intent.putExtra(SearchResultActivity.SEARCH_KEY, val);
+                    intent.putExtra(SearchResultActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
+                    startActivity(intent);
                 }
             });
             vHot.addView(view);
