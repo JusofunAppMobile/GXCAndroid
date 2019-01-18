@@ -205,7 +205,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         shareHolderRecycle = (RecyclerView) findViewById(R.id.recyclerview_shareholder);
         dongshiRecycle = (RecyclerView) findViewById(R.id.recyclerview_dongshi);
         navigation = (BottomBarView) findViewById(R.id.navigation);
-        companyMapView = (CompanyMapView)findViewById(R.id.view_company_map);
+        companyMapView = (CompanyMapView) findViewById(R.id.view_company_map);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
             vBarEmpty2.setVisibility(View.VISIBLE);
@@ -561,6 +561,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                     shareholderAdapter.setNewData(model.companyInfo.shareholder);
                     dongshiAdaper.setNewData(model.companyInfo.mainStaff);
                     companyMapView.setData(model.companyInfo);
+                    headerView.setGxcData(model.companyInfo);
                 }
 //                    updateView((CompanyDetailModel) model);
             }

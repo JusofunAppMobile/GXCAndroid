@@ -35,16 +35,11 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
-import com.gxc.ui.activity.CreditCommitmentActivity;
-import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
-import com.gxc.ui.activity.ReportInfoActivity;
-import com.gxc.ui.activity.VisitorListActivity;
-import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.dialog.AuthDialog;
+import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,17 +153,17 @@ public class CreditFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 
                 HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
-
+                GoActivityUtil.goActivityByType(activity, model);
 
 
             }
         });
 
-        inquireAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener()
-
-        {
+        inquireAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
+                GoActivityUtil.goActivityByType(activity, model);
             }
         });
 

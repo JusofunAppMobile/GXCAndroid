@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.gxc.ui.activity.CompanyMoreActivity;
+import com.gxc.model.CorporateInfoModel;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
@@ -50,7 +50,9 @@ import netlib.util.EventUtils;
  * Description 企业详情
  */
 public class CompanyDetailHeaderView extends LinearLayout {
-    private TextView company_name, company_nature, scan_count, update, legal, scale, create_date, industry_content, capacity_content, address_content, phone_content, website_content, legalName, tvTaxid;
+    private TextView company_name, company_nature, scan_count, update,
+            legal, scale, create_date, industry_content, capacity_content,
+            address_content, phone_content, website_content, legalName, tvTaxid;
 
     private RelativeLayout address_layout, phone_layout, website_layout, refreshLayout;
 
@@ -59,11 +61,13 @@ public class CompanyDetailHeaderView extends LinearLayout {
     private CompanyDetailModel model;
     private Context context;
 
-    private TextView mCompanyState,xinyongfenText;
+    private TextView mCompanyState, xinyongfenText;
     private LinearLayout locationWebLayout;
     private ImageView jtImg, refreshImg;
     private RefreshAnimUtil refreshAnimUtil;
     private View vExport;
+    private TextView moreText;
+    private CorporateInfoModel.CompanyInfo companyInfo;
 
     public CompanyDetailHeaderView(Context context) {
         super(context);
@@ -116,8 +120,8 @@ public class CompanyDetailHeaderView extends LinearLayout {
         jtImg = (ImageView) findViewById(R.id.img_jiantou);
         refreshImg = (ImageView) findViewById(R.id.img_update);
         refreshLayout = (RelativeLayout) findViewById(R.id.layout_refresh);
-        xinyongfenText = (TextView)findViewById(R.id.text_fen);
-
+        xinyongfenText = (TextView) findViewById(R.id.text_fen);
+        moreText = (TextView) findViewById(R.id.text_more);
         refreshAnimUtil = new RefreshAnimUtil(refreshImg);
     }
 
@@ -248,6 +252,15 @@ public class CompanyDetailHeaderView extends LinearLayout {
                     context.startActivity(intent);
                 }
 
+            }
+        });
+
+        moreText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (companyInfo != null && !TextUtils.isEmpty(companyInfo.InfoH5Address)) {
+                    context.startActivity(com.gxc.ui.activity.WebActivity.getIntent(context, "企业信息", companyInfo.InfoH5Address));
+                }
             }
         });
 
@@ -437,5 +450,10 @@ public class CompanyDetailHeaderView extends LinearLayout {
 
     public void setUpdateText(String text) {
         update.setText(text);
+    }
+
+
+    public void setGxcData(CorporateInfoModel.CompanyInfo companyInfo) {
+        this.companyInfo = companyInfo;
     }
 }
