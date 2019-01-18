@@ -22,7 +22,7 @@ public class BaseDialog extends Dialog implements View.OnClickListener {
 
     public BaseDialog(Activity activity, int style) {
         super(activity, style);
-        setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(false);
         setCancelable(true);
         this.activity = activity;
         setOwnerActivity(activity);

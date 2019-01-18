@@ -20,7 +20,7 @@ public class HeaderWeather implements Interceptor {
                 .addHeader("Version", AppUtils.getVersionName(InquireApplication.application))
                 .addHeader("VersionCode", String.valueOf(AppUtils.getVersionCode(InquireApplication.application)))
                 .addHeader("AppType", String.valueOf(0))
-                .addHeader("Channel", "test")
+                .addHeader("Channel", AppUtils.getChannel())
                 .addHeader("Deviceid", "test");
 
         UserModel model = AppUtils.getUser();

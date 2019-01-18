@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -51,6 +52,8 @@ public class NetModel extends BaseModel implements Serializable {
 
     public <T> T dataToObject(Class<T> clazz) {
         if (data == null) return null;
+        if (data instanceof LinkedHashMap)
+            if (((LinkedHashMap) data).size() == 0) return null;
         return new Gson().fromJson(new Gson().toJson(data), clazz);
     }
 
