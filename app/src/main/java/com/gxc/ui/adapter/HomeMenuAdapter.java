@@ -1,5 +1,6 @@
 package com.gxc.ui.adapter;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,9 @@ import com.gxc.model.GlideApp;
 import com.gxc.model.HomeMenuModel;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author liuguangdan
@@ -45,4 +49,36 @@ public class HomeMenuAdapter extends BaseQuickAdapter<HomeMenuModel, BaseViewHol
         }
 
     }
+
+    @Override
+    public void setNewData(@Nullable List<HomeMenuModel> data) {
+        super.setNewData(verifyMenuList(data));
+    }
+
+    private List<HomeMenuModel> verifyMenuList(List<HomeMenuModel> data) {
+        if (data == null) return null;
+        Iterator<HomeMenuModel> iterator = data.iterator();
+        while (iterator.hasNext()) {
+            HomeMenuModel menu = iterator.next();
+            if (!isMenuTypeValid(menu))
+                iterator.remove();
+        }
+        return data;
+    }
+
+    /**
+     * 验证menuType 是否有效
+     * // 1：股东高管 2：主营产品 3：失信查询 4：查税号 5：招聘 6：企业通讯录 7：查关系  8：风险分析   11 ：地址电话 15 ：中标信息  16：裁判文书
+     * 2019年1月17日16:36:35
+     *
+     * @param model
+     * @return
+     */
+    private boolean isMenuTypeValid(HomeMenuModel model) {
+        int[] types = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 11, -1};
+        for (int type : types)
+            if (type == model.menuType) return true;
+        return false;
+    }
+
 }

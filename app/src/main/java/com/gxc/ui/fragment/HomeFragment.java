@@ -41,6 +41,7 @@ import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.GoActivityUtil;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
@@ -113,7 +114,7 @@ public class HomeFragment extends BaseFragment {
         homeMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                menuItemClick(homeMenuAdapter.getItem(i), i);
+                GoActivityUtil.goActivityByType(activity,homeMenuAdapter.getItem(i));
             }
         });
 
@@ -207,30 +208,6 @@ public class HomeFragment extends BaseFragment {
         parent.addView(pager, 0);
     }
 
-    private void verifyMenuList() {
-        if (homeModel == null || homeModel.menu == null || homeModel.menu.isEmpty()) return;
-        Iterator<HomeMenuModel> iterator = homeModel.menu.iterator();
-        while (iterator.hasNext()) {
-            HomeMenuModel menu = iterator.next();
-            if (!isMenuTypeValid(menu))
-                iterator.remove();
-        }
-    }
-
-    /**
-     * 验证menuType 是否有效
-     * // 1：股东高管 2：主营产品 3：失信查询 4：查税号 5：招聘 6：企业通讯录 7：查关系  8：风险分析   11 ：地址电话 15 ：中标信息  16：裁判文书
-     * 2019年1月17日16:36:35
-     *
-     * @param model
-     * @return
-     */
-    private boolean isMenuTypeValid(HomeMenuModel model) {
-        int[] types = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 11, -1};
-        for (int type : types)
-            if (type == model.menuType) return true;
-        return false;
-    }
 
     private void loadData() {
         showLoading();
@@ -242,7 +219,6 @@ public class HomeFragment extends BaseFragment {
                 hideLoadDialog();
                 if (model.success()) {
                     homeModel = model.dataToObject(HomeModel.class);
-                    verifyMenuList();
                     buildView();
                 } else {
                     showToast(model.msg);
@@ -343,36 +319,6 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    // 1：股东高管 2：主营产品 3：地址电话 4：失信查询 5：查税号 6：招聘 7：企业通讯录 8：查关系(待定) 9：风险分析(待定) -1: h5跳转
-    // 1：股东高管 2：主营产品 3：失信查询 4：查税号 5：招聘 6：企业通讯录 7：查关系  8：风险分析 15 ：中标信息  16：裁判文书
-    //17：行政处罚  18：商标查询
-    private void menuItemClick(HomeMenuModel model, int position) {
-        UserModel user = AppUtils.getUser();
-        if (model.menuType == 7) { // 查关系
-            if (user == null) {
-                startActivity(LoginActivity.class);
-                return;
-            }
-            if (user.vipStatus == 0)
-                new VIPDialog(activity).show();
-            else
-                startActivity(RelationActivity.getIntent(activity, model));
-        } else if (model.menuType == 8) { // 风险分析
-            if (user == null) {
-                startActivity(LoginActivity.class);
-                return;
-            }
-            if (user.vipStatus == 0) {
-                startActivity(RiskTipActivity.class);
-                return;
-            } else
-                startActivity(TypeSearchActivity.getIntent(activity, model.menuType));
-        } else if (model.menuType == -1) {// h5跳转
-            startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
-        } else {
-            startActivity(TypeSearchActivity.getIntent(activity, model.menuType));
-        }
-    }
 
     @OnClick({R.id.tvVip})
     public void goVip() {
