@@ -158,30 +158,7 @@ public class CreditFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 
                 HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
-                if (model.menuType == 9) {
-                    Intent intent = new Intent(activity, CreditReportActivity.class);
-                    startActivity(intent);
-                } else if (model.menuType == 10) {
-                    Intent intent = new Intent(activity, CompanyAmendActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("company", null);
-                    bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else if (model.menuType == 12) { // 访客
-                    startActivity(CreditCommitmentActivity.class);
-                } else if (model.menuType == 13) { // 访客
-                    startActivity(VisitorListActivity.class);
-                } else if (model.menuType == 14) {
-                    Intent intent = new Intent(activity, ReportInfoActivity.class);
-                    if (companyInfo != null) {
-                        intent.putExtra("companyName", companyInfo.companyName);
-                        intent.putExtra("companyId", companyInfo.companyId);
-                    }
-                    startActivity(intent);
-                } else if (model.menuType == -1) {// h5跳转
-                    startActivity(WebActivity.getIntent(activity, model.menuName, model.menuUrl));
-                }
+
 
 
             }
