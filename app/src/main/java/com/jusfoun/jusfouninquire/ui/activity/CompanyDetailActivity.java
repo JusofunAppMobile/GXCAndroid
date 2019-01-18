@@ -37,20 +37,16 @@ import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
-import com.jusfoun.jusfouninquire.net.constant.LoginConstant;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.net.model.ContactinFormationModel;
-import com.jusfoun.jusfouninquire.net.model.FollowModel;
 import com.jusfoun.jusfouninquire.net.model.ReportModel;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.net.model.ShareModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
-import com.jusfoun.jusfouninquire.net.route.NetCompanyFollow;
 import com.jusfoun.jusfouninquire.net.route.NetWorkCompanyDetails;
 import com.jusfoun.jusfouninquire.service.event.AnimationEndEvent;
 import com.jusfoun.jusfouninquire.service.event.CompleteLoginEvent;
-import com.jusfoun.jusfouninquire.service.event.FollowSucceedEvent;
 import com.jusfoun.jusfouninquire.service.event.HideUpdateEvent;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.service.event.UpdateAttentionEvent;
@@ -99,7 +95,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private SimpleDraweeView map_image;
     private BackAndImageTitleView title, loadingBack;
     private String mCompanyId = "", mCompanyName;
-    private UserInfoModel userInfo;
+    //    private UserInfoModel userInfo;
     private boolean isHasLatLng;
     private ContactWayDialog contactWayDialog;
     private ShareDialog shareDialog;
@@ -109,7 +105,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private RelativeLayout loadingLayout;
     private ImageView imageView;
 
-    private String followStatue;
+    //    private String followStatue;
     private SceneAnimation sceneAnimation;
     private List<ContactinFormationModel> contactinList;
     private ObserveScrollView scrollView;
@@ -133,6 +129,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     private BottomBarView navigation;
     private CompanyMapView companyMapView;
+    private CorporateInfoModel corporateInfoModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +149,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             mCompanyName = bundle.getString(COMPANY_NAME);
         }
         adapter = new CompanyMenuAdapter(mContext);
-        userInfo = InquireApplication.getUserInfo();
+//        userInfo = InquireApplication.getUserInfo();
         shareUtil = new ShareUtil(mContext);
 
         shareDialog = new ShareDialog(mContext, R.style.tool_dialog);
@@ -205,7 +202,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         shareHolderRecycle = (RecyclerView) findViewById(R.id.recyclerview_shareholder);
         dongshiRecycle = (RecyclerView) findViewById(R.id.recyclerview_dongshi);
         navigation = (BottomBarView) findViewById(R.id.navigation);
-        companyMapView = (CompanyMapView)findViewById(R.id.view_company_map);
+        companyMapView = (CompanyMapView) findViewById(R.id.view_company_map);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
             vBarEmpty2.setVisibility(View.VISIBLE);
@@ -258,7 +255,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                         goActivity(CompanyAmendActivity.class, bundle);
                     }
                 } else if (position == 2) {
-                    collectHandle(); //  测试
+                    monitorHandle();
                 } else if (position == 3) {
                     goActivity(CertifiedCompanyActivity.class);
                 }
@@ -325,7 +322,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 if (model == null)
                     return;
                 EventUtils.event(mContext, EventUtils.DETAIL57);
-                putFollowState(model.getIsattention());
+//                putFollowState(model.getIsattention());
+                collectHandle();
             }
         });
 
@@ -520,11 +518,11 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         params.put("companyname", mCompanyName == null ? "" : mCompanyName);
         params.put("entname", mCompanyName == null ? "" : mCompanyName);
 
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
-            params.put("userid", userInfo.getUserid());
-        else {
-            params.put("userid", "");
-        }
+//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
+//            params.put("userid", userInfo.getUserid());
+//        else {
+        params.put("userid", "");
+//        }
 
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
@@ -556,13 +554,14 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
             @Override
             public void success(NetModel data) {
-                CorporateInfoModel model = data.dataToObject(CorporateInfoModel.class);
-                if (model.companyInfo != null) {
-                    shareholderAdapter.setNewData(model.companyInfo.shareholder);
-                    dongshiAdaper.setNewData(model.companyInfo.mainStaff);
-                    companyMapView.setData(model.companyInfo);
+                corporateInfoModel = data.dataToObject(CorporateInfoModel.class);
+                if (corporateInfoModel.companyInfo != null) {
+                    shareholderAdapter.setNewData(corporateInfoModel.companyInfo.shareholder);
+                    dongshiAdaper.setNewData(corporateInfoModel.companyInfo.mainStaff);
+                    companyMapView.setData(corporateInfoModel.companyInfo);
                 }
 //                    updateView((CompanyDetailModel) model);
+                updateView();
             }
 
             @Override
@@ -574,6 +573,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 netWorkError.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void updateView() {
+        if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
+            title.setFollow(corporateInfoModel.companyInfo.isCollect == 1);
+            navigation.setMonitorText(corporateInfoModel.companyInfo.monitorType == 1);
+        }
     }
 
     private void updateView(final CompanyDetailModel model) {
@@ -677,46 +683,46 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     }
 
-    /**
-     * 关注 or 已关注
-     *
-     * @param followState 现在关注状态
-     */
-    public void putFollowState(final String followState) {
-        followStatue = followState;
-        HashMap<String, String> params = new HashMap<>();
-        if (TextUtils.isEmpty(followState))
-            return;
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
-            params.put("userid", userInfo.getUserid());
-        } else {
-            startActivity(new Intent(mContext, com.gxc.ui.activity.LoginActivity.class));
-            return;
-        }
-        if ("true".equals(followState)) {
-            params.put("type", "2");
-        } else {
-            params.put("type", "1");
-        }
-        showLoading();
-        params.put("companyid", model.getCompanyid());
-        NetCompanyFollow.putCompanyFollow(mContext, params, getLocalClassName(), new NetWorkCallBack() {
-            @Override
-            public void onSuccess(Object data) {
-                if (data instanceof FollowModel) {
-                    FollowModel followModel = (FollowModel) data;
-                    updateView(followModel, followState);
-                }
-
-            }
-
-            @Override
-            public void onFail(String error) {
-                hideLoadDialog();
-                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    /**
+//     * 关注 or 已关注
+//     *
+//     * @param followState 现在关注状态
+//     */
+//    public void putFollowState(final String followState) {
+//        followStatue = followState;
+//        HashMap<String, String> params = new HashMap<>();
+//        if (TextUtils.isEmpty(followState))
+//            return;
+//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
+//            params.put("userid", userInfo.getUserid());
+//        } else {
+//            startActivity(new Intent(mContext, com.gxc.ui.activity.LoginActivity.class));
+//            return;
+//        }
+//        if ("true".equals(followState)) {
+//            params.put("type", "2");
+//        } else {
+//            params.put("type", "1");
+//        }
+//        showLoading();
+//        params.put("companyid", model.getCompanyid());
+//        NetCompanyFollow.putCompanyFollow(mContext, params, getLocalClassName(), new NetWorkCallBack() {
+//            @Override
+//            public void onSuccess(Object data) {
+//                if (data instanceof FollowModel) {
+//                    FollowModel followModel = (FollowModel) data;
+//                    updateView(followModel, followState);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFail(String error) {
+//                hideLoadDialog();
+//                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     protected void onDestroy() {
@@ -733,50 +739,50 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     public void onEvent(IEvent event) {
         super.onEvent(event);
         if (event instanceof CompleteLoginEvent) {
-            if (((CompleteLoginEvent) event).getIsLogin() == LoginConstant.REGISTER) {
-                userInfo = InquireApplication.getUserInfo();
-                putFollowState(followStatue);
-            }
+//            if (((CompleteLoginEvent) event).getIsLogin() == LoginConstant.REGISTER) {
+//                userInfo = InquireApplication.getUserInfo();
+//                putFollowState(followStatue);
+//            }
         } else if (event instanceof AnimationEndEvent) {
             AnimationEndEvent endEvent = (AnimationEndEvent) event;
             adapter.doAnimate(endEvent.getIndex());
         }
     }
 
-    public void updateView(FollowModel model, String followState) {
-        hideLoadDialog();
-        if (model.getResult() == 0) {
-            try {
-                FollowSucceedEvent event = new FollowSucceedEvent();
-                int count = 0;
-                if (followState.equals("true")) {
-                    Toast.makeText(mContext, "取消关注成功", Toast.LENGTH_SHORT).show();
-                    title.setFollow(false);
-                    this.model.setIsattention("false");
-                    count = -1;
-                } else {
-                    Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
-                    title.setFollow(true);
-                    this.model.setIsattention("true");
-                    count = 1;
-                }
-                if (userInfo != null) {
-                    int focuscount = Integer.parseInt(userInfo.getMyfocuscount());
-                    focuscount += count;
-                    userInfo.setMyfocuscount(focuscount + "");
-                    event.setCount(focuscount);
-                }
-                EventBus.getDefault().post(event);
-                headerView.setFollow_count(model.getAttentioncount());
-                if (this.model != null)
-                    this.model.setAttentioncount(model.getAttentioncount());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
-        }
-    }
+//    public void updateView(FollowModel model, String followState) {
+//        hideLoadDialog();
+//        if (model.getResult() == 0) {
+//            try {
+//                FollowSucceedEvent event = new FollowSucceedEvent();
+//                int count = 0;
+//                if (followState.equals("true")) {
+//                    Toast.makeText(mContext, "取消关注成功", Toast.LENGTH_SHORT).show();
+//                    title.setFollow(false);
+//                    this.model.setIsattention("false");
+//                    count = -1;
+//                } else {
+//                    Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
+//                    title.setFollow(true);
+//                    this.model.setIsattention("true");
+//                    count = 1;
+//                }
+//                if (userInfo != null) {
+//                    int focuscount = Integer.parseInt(userInfo.getMyfocuscount());
+//                    focuscount += count;
+//                    userInfo.setMyfocuscount(focuscount + "");
+//                    event.setCount(focuscount);
+//                }
+//                EventBus.getDefault().post(event);
+//                headerView.setFollow_count(model.getAttentioncount());
+//                if (this.model != null)
+//                    this.model.setAttentioncount(model.getAttentioncount());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public void updateCompanyInfo() {
         if (model == null)
@@ -789,12 +795,12 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
         myHeaderView.setTxt(getString(R.string.refreshing));
         headerView.setUpdateText(getString(R.string.refreshing));
-        HashMap<String, String> params = new HashMap<>();
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
-            params.put("userId", userInfo.getUserid());
-        } else {
-            params.put("userId", "");
-        }
+//        HashMap<String, String> params = new HashMap<>();
+//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
+//            params.put("userId", userInfo.getUserid());
+//        } else {
+        params.put("userId", "");
+//        }
 
         params.put("entid", model.getCompanyid());
         params.put("companyname", mCompanyName == null ? "" : mCompanyName);
@@ -827,11 +833,11 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         TimeOut timeOut = new TimeOut(mContext);
 
         HashMap<String, String> params = new HashMap<>();
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
-            params.put("userId", userInfo.getUserid());
-        } else {
-            params.put("userId", "");
-        }
+//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
+//            params.put("userId", userInfo.getUserid());
+//        } else {
+        params.put("userId", "");
+//        }
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
         params.put("entId", model.getCompanyid());
@@ -879,11 +885,16 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             return;
         }
 
+        if (corporateInfoModel == null || corporateInfoModel.companyInfo == null)
+            return;
+
+        final int type = corporateInfoModel.companyInfo.isCollect == 1 ? 0 : 1;
+
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("companyid", mCompanyId);
         map.put("companyname", mCompanyName);
-        map.put("monitorType", 1); // TEST
+        map.put("monitorType", type);
 
         RxManager.http(RetrofitUtils.getApi().addOrCancelCollection(map), new ResponseCall() {
 
@@ -891,7 +902,9 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    showToast("操作成功");
+                    corporateInfoModel.companyInfo.isCollect = type;
+                    showToast(type == 1 ? "收藏成功" : "已取消收藏");
+                    title.setFollow(type == 1);
                 } else {
                     showToast(model.msg);
                 }
@@ -905,41 +918,48 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         });
     }
 
-//    private void monitorHandle(){
-//        UserModel user = AppUtils.getUser();
-//        if (user == null) {
-//            goActivity(com.gxc.ui.activity.LoginActivity.class);
-//            return;
-//        }
-//
-//        showLoading();
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("companyid", mCompanyId);
-//        map.put("companyname", mCompanyId);
-//        map.put("monitorType", 1); // TEST
-//
-//        RxManager.http(RetrofitUtils.getApi().monitorUpdate(map), new ResponseCall() {
-//
-//            @Override
-//            public void success(NetModel model) {
-//                hideLoadDialog();
-//                if (model.success()) {
-//                    showToast("登录成功");
-////                    PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
-////                    EventBus.getDefault().post(new LoginSucEvent());
-//                    finish();
-//                } else {
-//                    showToast(model.msg);
-//                }
-//            }
-//
-//            @Override
-//            public void error() {
-//                hideLoadDialog();
-//                ToastUtils.showHttpError();
-//            }
-//        });
-//    }
+    /**
+     * 监控处理
+     */
+    private void monitorHandle() {
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            goActivity(com.gxc.ui.activity.LoginActivity.class);
+            return;
+        }
+
+        if (corporateInfoModel == null || corporateInfoModel.companyInfo == null)
+            return;
+
+        final int type = corporateInfoModel.companyInfo.monitorType == 1 ? 0 : 1;
+
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("companyid", mCompanyId);
+        map.put("companyname", mCompanyName);
+        map.put("monitorType", type); // TEST
+
+        RxManager.http(RetrofitUtils.getApi().monitorUpdate(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    corporateInfoModel.companyInfo.monitorType = type;
+                    showToast(type == 1 ? "监控成功" : "已取消监控");
+                    navigation.setMonitorText(type == 1);
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+    }
 
 
     private void getReroet() {
@@ -956,11 +976,11 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
         params.put("entName", mCompanyName == null ? "" : mCompanyName);
 
-        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
-            params.put("userid", userInfo.getUserid());
-        else {
-            params.put("userid", "");
-        }
+//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
+//            params.put("userid", userInfo.getUserid());
+//        else {
+        params.put("userid", "");
+//        }
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
         NetWorkCompanyDetails.getReportUrl(CompanyDetailActivity.this, params, getLocalClassName(), new NetWorkCallBack() {

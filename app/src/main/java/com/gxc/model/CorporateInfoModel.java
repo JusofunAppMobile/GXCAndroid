@@ -18,9 +18,9 @@ public class CorporateInfoModel extends NetModel implements Serializable {
 
     public static class CompanyInfo {
 
-        public String monitorType;//是否监控 0未监控 1已监控
+        public int monitorType;//是否监控 0未监控 1已监控
         public String creditScore;// 信用分
-        public String isCollect;//是否收藏 0未收藏 1收藏
+        public int isCollect;//是否收藏 0未收藏 1收藏
         public String ownRisk;//自身风险
         public String relateRisk;//相关风险
         public String AtlasH5Address; //企业图谱跳转地址
