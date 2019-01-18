@@ -225,8 +225,6 @@ public class CompanyDetailHeaderView extends LinearLayout {
 //                } else {
 //                    startClose();
 //                }
-                Intent intent = new Intent(context, CompanyMoreActivity.class);
-                context.startActivity(intent);
             }
         });
 

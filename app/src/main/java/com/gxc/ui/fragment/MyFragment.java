@@ -88,11 +88,11 @@ public class MyFragment extends BaseFragment {
     protected void initView() {
         homeMenuAdapter = new HomeMenuAdapter();
         List<HomeMenuModel> list = new ArrayList<>();
-        list.add(new HomeMenuModel(R.drawable.mine_icon_dingdan, "我的订单"));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_jiankong, "我的监控"));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_shoucang, "我的收藏"));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_renzheng, "企业认证"));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权"));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_dingdan, "我的订单",-1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_jiankong, "我的监控",-1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_shoucang, "我的收藏",-1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_renzheng, "企业认证",-1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权",-1001));
 //        list.add(new HomeMenuModel(R.drawable.mine_icon_zengsong, "赠送好友VIP"));
         homeMenuAdapter.setNewData(list);
         menuRecycler.setAdapter(homeMenuAdapter);

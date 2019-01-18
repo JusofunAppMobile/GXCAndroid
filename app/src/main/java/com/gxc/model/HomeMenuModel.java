@@ -32,6 +32,13 @@ public class HomeMenuModel {
         this.menuImageId = id;
     }
 
+    public HomeMenuModel(int id, String menuName, int menuType) {
+        this.menuName = menuName;
+        this.menuImageId = id;
+        this.menuType = menuType;
+    }
+
+
     public HomeMenuModel() {
     }
 }

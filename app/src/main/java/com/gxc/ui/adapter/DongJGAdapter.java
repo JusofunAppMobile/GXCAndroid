@@ -16,14 +16,14 @@ import com.jusfoun.jusfouninquire.R;
  * @Email zyp@jusfoun.com
  * @Description ${企业详情 股东列表adapter}
  */
-public class ShareholderAdapter extends BaseQuickAdapter<CorporateInfoModel.ShareholderItemModel, BaseViewHolder> {
+public class DongJGAdapter extends BaseQuickAdapter<CorporateInfoModel.MainStaffItemModel, BaseViewHolder> {
 
-    public ShareholderAdapter() {
+    public DongJGAdapter() {
         super(R.layout.item_shareholder);
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, CorporateInfoModel.ShareholderItemModel riskModel) {
+    protected void convert(BaseViewHolder holder, CorporateInfoModel.MainStaffItemModel riskModel) {
         TextView imgText = holder.getView(R.id.text_img);
         TextView nameText = holder.getView(R.id.text_name);
         TextView biliText = holder.getView(R.id.text_libi);
@@ -40,18 +40,9 @@ public class ShareholderAdapter extends BaseQuickAdapter<CorporateInfoModel.Shar
             nameText.setText("");
         }
 
+        biliText.setVisibility(View.INVISIBLE);
 
-        if (!TextUtils.isEmpty(riskModel.holdRatio)) {
-            biliText.setText(Html.fromHtml("持股比例-<font  color=\"#fca249\">" + riskModel.holdRatio + "</font>"));
-        } else {
-            biliText.setText("");
-        }
-
-        if (!TextUtils.equals("1", riskModel.strongHolder)) {
-            statusText.setVisibility(View.VISIBLE);
-        } else {
-            statusText.setVisibility(View.GONE);
-        }
+        statusText.setText(riskModel.job);
     }
 
 }

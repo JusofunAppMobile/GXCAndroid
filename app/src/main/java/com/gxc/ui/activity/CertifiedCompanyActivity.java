@@ -228,6 +228,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
                     viewEmail.setContent(model.email);
                     imgYyzz.setImageSrc(model.licenseImage);
                     imgIdfen.setImageSrc(model.idcardImage);
+                    viewCode.setContent(model.idcard);
+                    viewRealName.setContent(model.name);
 
                 } else {
                     showToast(data.msg);

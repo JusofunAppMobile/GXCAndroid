@@ -19,19 +19,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.gxc.model.RiskModel;
+import com.gxc.model.CorporateInfoModel;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
+import com.gxc.ui.adapter.DongJGAdapter;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.ui.view.BottomBarView;
+import com.gxc.ui.view.CompanyMapView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
@@ -129,9 +128,12 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
 
     private RecyclerView shareHolderRecycle, dongshiRecycle;
-    private ShareholderAdapter shareholderAdapter, dongshiAdaper;
+    private ShareholderAdapter shareholderAdapter;
+    private DongJGAdapter dongshiAdaper;
 
     private BottomBarView navigation;
+    private CompanyMapView companyMapView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarEnable(Color.TRANSPARENT);
@@ -165,7 +167,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         contactWayDialogWindow.setGravity(Gravity.BOTTOM); // 此处可以设置dialog显示的位置
         contactWayDialogWindow.setWindowAnimations(R.style.share_dialog_style); // 添加动画
         shareholderAdapter = new ShareholderAdapter();
-        dongshiAdaper = new ShareholderAdapter();
+        dongshiAdaper = new DongJGAdapter();
 //        mSwipeBackLayout.setEnableGesture(true);
 
     }
@@ -202,8 +204,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         vTitleParent = findViewById(R.id.vTitleParent);
         shareHolderRecycle = (RecyclerView) findViewById(R.id.recyclerview_shareholder);
         dongshiRecycle = (RecyclerView) findViewById(R.id.recyclerview_dongshi);
-
         navigation = (BottomBarView) findViewById(R.id.navigation);
+        companyMapView = (CompanyMapView)findViewById(R.id.view_company_map);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
             vBarEmpty2.setVisibility(View.VISIBLE);
@@ -257,7 +259,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                     }
                 } else if (position == 2) {
                     collectHandle(); //  测试
-                }else if (position == 3) {
+                } else if (position == 3) {
                     goActivity(CertifiedCompanyActivity.class);
                 }
             }
@@ -480,14 +482,11 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         shareHolderRecycle.setLayoutManager(linearLayoutManager);
         shareHolderRecycle.setAdapter(shareholderAdapter);
 
-        shareholderAdapter.addData(AppUtils.getTestList(RiskModel.class, 5));
-
 
         LinearLayoutManager dongshiManager = new LinearLayoutManager(mContext);
         dongshiManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         dongshiRecycle.setLayoutManager(dongshiManager);
         dongshiRecycle.setAdapter(dongshiAdaper);
-        dongshiAdaper.addData(AppUtils.getTestList(RiskModel.class, 5));
 
 
     }
@@ -515,51 +514,55 @@ public class CompanyDetailActivity extends BaseInquireActivity {
      * 下载企业详情
      */
     private void getCompanyDetail() {
+        TimeOut timeOut = new TimeOut(mContext);
+        params = new HashMap<>();
+        params.put("companyid", mCompanyId);
+        params.put("companyname", mCompanyName == null ? "" : mCompanyName);
+        params.put("entname", mCompanyName == null ? "" : mCompanyName);
+
+        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
+            params.put("userid", userInfo.getUserid());
+        else {
+            params.put("userid", "");
+        }
+
+        params.put("t", timeOut.getParamTimeMollis() + "");
+        params.put("m", timeOut.MD5time() + "");
+        NetWorkCompanyDetails.getCompanyDetails(mContext, params, getLocalClassName(), new NetWorkCallBack() {
+            @Override
+            public void onSuccess(Object data) {
+                if (data instanceof CompanyDetailModel) {
+                    getGxcDetailData();
+                    updateView((CompanyDetailModel) data);
+                }
+            }
+
+            @Override
+            public void onFail(String error) {
+                sceneAnimation.stop();
+                title.setVGone(View.GONE);
+                loadingLayout.setVisibility(View.GONE);
+                netWorkError.setNetWorkError();
+                netWorkError.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void getGxcDetailData() {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("companyId", mCompanyId);
+        params.put("companyid", mCompanyId);
         params.put("companyName", mCompanyName == null ? "" : mCompanyName);
-
-//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
-//            params.put("userId", userInfo.getUserid());
-//        else {
-//            params.put("userId", "");
-//        }
-
-
-//        TimeOut timeOut = new TimeOut(mContext);
-//        params.put("t",timeOut.getParamTimeMollis()+"");
-//
-//
-//        HashMap<String,String> hashMap = new HashMap<>();
-//        hashMap.put("data",new Gson().toJson(params));
-//        hashMap.put("m",timeOut.MD5GXCtime(params));
-//
-//        NetWorkCompanyDetails.getCompanyDetails(mContext, hashMap, getLocalClassName(), new NetWorkCallBack() {
-//            @Override
-//            public void onSuccess(Object data) {
-//                if (data instanceof CompanyDetailModel) {
-//                    updateView((CompanyDetailModel) data);
-//                }
-//            }
-//
-//            @Override
-//            public void onFail(String error) {
-//                sceneAnimation.stop();
-//                title.setVGone(View.GONE);
-//                loadingLayout.setVisibility(View.GONE);
-//                netWorkError.setNetWorkError();
-//                netWorkError.setVisibility(View.VISIBLE);
-//            }
-//        });
-
         RxManager.http(RetrofitUtils.getApi().GetCorporateInfo(params), new ResponseCall() {
 
             @Override
-            public void success(NetModel model) {
-                loadingLayout.setVisibility(View.GONE);
-                if (model instanceof CompanyDetailModel) {
-                    updateView((CompanyDetailModel) model);
+            public void success(NetModel data) {
+                CorporateInfoModel model = data.dataToObject(CorporateInfoModel.class);
+                if (model.companyInfo != null) {
+                    shareholderAdapter.setNewData(model.companyInfo.shareholder);
+                    dongshiAdaper.setNewData(model.companyInfo.mainStaff);
+                    companyMapView.setData(model.companyInfo);
                 }
+//                    updateView((CompanyDetailModel) model);
             }
 
             @Override
@@ -571,7 +574,6 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 netWorkError.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
     private void updateView(final CompanyDetailModel model) {
