@@ -26,7 +26,8 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
-import com.gxc.ui.activity.*;
+import com.gxc.ui.activity.CertifiedCompanyActivity;
+import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.adapter.DongJGAdapter;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.ui.view.BottomBarView;
@@ -130,6 +131,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private BottomBarView navigation;
     private CompanyMapView companyMapView;
     private CorporateInfoModel corporateInfoModel;
+    private ImageView fengxianImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +205,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         dongshiRecycle = (RecyclerView) findViewById(R.id.recyclerview_dongshi);
         navigation = (BottomBarView) findViewById(R.id.navigation);
         companyMapView = (CompanyMapView) findViewById(R.id.view_company_map);
+        fengxianImg = findViewById(R.id.img_fengxian);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
             vBarEmpty2.setVisibility(View.VISIBLE);
@@ -246,13 +249,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             @Override
             public void onTabSelected(int position) {
                 if (position == 0) {
-                    if(AppUtils.getUser()==null){
+                    if (AppUtils.getUser() == null) {
                         goActivity(com.gxc.ui.activity.LoginActivity.class);
                         return;
                     }
                     Intent intent = new Intent(CompanyDetailActivity.this, CreditReportActivity.class);
-                    intent.putExtra("companyId",mCompanyId);
-                    intent.putExtra("companyName",mCompanyName);
+                    intent.putExtra("companyId", mCompanyId);
+                    intent.putExtra("companyName", mCompanyName);
                     startActivity(intent);
                 } else if (position == 1) {
                     if (model != null) {
@@ -493,6 +496,17 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         dongshiRecycle.setLayoutManager(dongshiManager);
         dongshiRecycle.setAdapter(dongshiAdaper);
 
+
+        fengxianImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
+                    if (model != null && !TextUtils.isEmpty(corporateInfoModel.companyInfo.RiskH5Address)) {
+                        mContext.startActivity(com.gxc.ui.activity.WebActivity.getIntent(mContext, "风险分析", corporateInfoModel.companyInfo.RiskH5Address));
+                    }
+                }
+            }
+        });
 
     }
 

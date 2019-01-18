@@ -56,6 +56,11 @@ public class GoActivityUtil {
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
         } else if (model.menuType == 9) {
             Intent intent = new Intent(mContext, CreditReportActivity.class);
+            UserModel userModel = AppUtils.getUser();
+            if(userModel!=null) {
+                intent.putExtra("companyId", userModel.companyId);
+                intent.putExtra("companyName", userModel.authCompany);
+            }
             mContext.startActivity(intent);
         } else if (model.menuType == 10) {
             Intent intent = new Intent(mContext, CompanyAmendActivity.class);

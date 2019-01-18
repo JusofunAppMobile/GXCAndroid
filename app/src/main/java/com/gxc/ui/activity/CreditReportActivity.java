@@ -1,28 +1,17 @@
 package com.gxc.ui.activity;
 
-import android.graphics.Color;
-import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
-import com.gxc.constants.Constants;
-import com.gxc.event.LoginSucEvent;
-import com.gxc.model.CreditReportCountModel;
 import com.gxc.model.CreditReportModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.CreditReportAdapter;
-import com.gxc.utils.AppUtils;
-import com.gxc.utils.DESUtils;
-import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.TimeOut;
-import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.ArrayList;
@@ -30,9 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
-import netlib.util.PreferenceUtils;
 
 /**
  * @author zhaoyapeng
@@ -46,7 +32,8 @@ public class CreditReportActivity extends BaseListActivity {
     TitleView titleView;
     @BindView(R.id.text_title)
     TextView textTitle;
-    private String companyName="",companyId="";
+    private String companyName = "", companyId = "";
+
     @Override
     protected BaseQuickAdapter getAdapter() {
         return new CreditReportAdapter();
@@ -77,8 +64,8 @@ public class CreditReportActivity extends BaseListActivity {
 
 //        showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("companyid", companyId);
-        map.put("companyname", companyName);
+        map.put("companyid", companyId == null ? "" : companyId);
+        map.put("companyname", companyName == null ? "" : companyName);
 
         RxManager.http(RetrofitUtils.getApi().getCreditReport(map), new ResponseCall() {
 
@@ -87,7 +74,7 @@ public class CreditReportActivity extends BaseListActivity {
 //                hideLoadDialog();
                 if (model.success()) {
                     CreditReportModel.CreditReportItemModel creditReportCountModel = model.dataToObject(CreditReportModel.CreditReportItemModel.class);
-                    List<CreditReportModel.CreditReportItemModel>list = new ArrayList<>();
+                    List<CreditReportModel.CreditReportItemModel> list = new ArrayList<>();
                     creditReportCountModel.companyName = companyName;
                     creditReportCountModel.companyId = companyId;
 
