@@ -1,16 +1,13 @@
 package com.gxc.ui.adapter;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.gxc.base.BaseActivity;
-import com.gxc.model.GlideApp;
+import com.gxc.base.BaseListActivity;
+import com.gxc.event.MonitorStatusEvent;
 import com.gxc.model.MonitorModel;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
@@ -19,10 +16,11 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.HashMap;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * @author liuguangdan
@@ -31,21 +29,16 @@ import java.util.HashMap;
  * @Description ${}
  */
 public class MyMonitorAdapter extends BaseQuickAdapter<MonitorModel, BaseViewHolder> {
-    private BaseActivity activity;
-    private RequestOptions options;
+    private BaseListActivity activity;
 
-    public MyMonitorAdapter(BaseActivity activity) {
+    public MyMonitorAdapter(BaseListActivity activity) {
         super(R.layout.item_monitor_company);
         this.activity = activity;
-        options = new RequestOptions()
-                .placeholder(R.drawable.home_icon_gongsi)
-                .error(R.drawable.home_icon_gongsi);
     }
 
     @Override
     protected void convert(BaseViewHolder holder, final MonitorModel model) {
         final TextView tvStatus = holder.getView(R.id.tvStatus);
-        ImageView ivLogo = holder.getView(R.id.ivLogo);
         TextView tvName = holder.getView(R.id.tvName);
         final View vMonitor = holder.getView(R.id.vMonitor);
         if (model.isUserMonitor == 0) {
@@ -63,11 +56,6 @@ public class MyMonitorAdapter extends BaseQuickAdapter<MonitorModel, BaseViewHol
                 monitorHandle(model, tvStatus, vMonitor);
             }
         });
-
-        if (TextUtils.isEmpty(model.logo))
-            ivLogo.setImageResource(R.drawable.img_default_clogo);
-        else
-            GlideApp.with(InquireApplication.application).load(model.logo).apply(options).into(ivLogo);
     }
 
     private void monitorHandle(final MonitorModel model, final TextView tvStatus, final View parent) {
@@ -89,14 +77,8 @@ public class MyMonitorAdapter extends BaseQuickAdapter<MonitorModel, BaseViewHol
             public void success(NetModel net) {
                 activity.hideLoadDialog();
                 if (net.success()) {
-                    model.isUserMonitor = (model.isUserMonitor == 0 ? 1 : 0);
-                    if (model.isUserMonitor == 0) {
-                        parent.setSelected(true);
-                        tvStatus.setText("监控");
-                    } else {
-                        parent.setSelected(false);
-                        tvStatus.setText("取消监控");
-                    }
+                    EventBus.getDefault().post(new MonitorStatusEvent());
+                    activity.refresh();
                 } else {
                     ToastUtils.show(net.msg);
                 }

@@ -217,6 +217,11 @@ public class MyFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vHistory: // 浏览历史
+                UserModel user = AppUtils.getUser();
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
                 startActivity(MyHistoryListActivity.class);
                 break;
             case R.id.vHelper: // 使用帮助

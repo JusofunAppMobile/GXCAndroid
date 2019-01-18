@@ -4,7 +4,9 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListFragment;
+import com.gxc.event.MonitorStatusEvent;
 import com.gxc.model.MonitorModel;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -13,7 +15,9 @@ import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.MonitorAdpater;
 import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.widgets.NavTitleView;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +46,6 @@ public class MonitorListFragment extends BaseListFragment {
     protected void initUi() {
         headView = new NavTitleView(activity);
         headView.setLabel("企业动态");
-        headView.setTip("成为VIP掌握企业风险动态");
         headView.hideImageView();
         headView.setTipClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +53,14 @@ public class MonitorListFragment extends BaseListFragment {
                 new VIPDialog(activity).show();
             }
         });
+    }
+
+    private void refreshHeadViewTip() {
+        UserModel user = AppUtils.getUser();
+        if (user == null)
+            headView.setTip("成为VIP掌握企业风险动态");
+        else
+            headView.setTip("");
     }
 
     @Override
@@ -69,15 +80,16 @@ public class MonitorListFragment extends BaseListFragment {
 
             @Override
             public void success(NetModel model) {
-                if (model.success()){
+                if (model.success()) {
                     List<MonitorModel> list = model.dataToList("monitor", MonitorModel.class);
-                    if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null)
+                    if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {
+                        refreshHeadViewTip();
                         adapter.addHeaderView(headView);
-                    if( pageIndex == 1 && (list == null || list.isEmpty()))
+                    }
+                    if (pageIndex == 1 && (list == null || list.isEmpty()))
                         adapter.removeHeaderView(headView);
                     completeLoadData(list);
-                }
-                else {
+                } else {
                     adapter.removeHeaderView(headView);
                     completeLoadDataError();
                 }
@@ -91,4 +103,10 @@ public class MonitorListFragment extends BaseListFragment {
         });
     }
 
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof MonitorStatusEvent)
+            refresh();
+    }
 }

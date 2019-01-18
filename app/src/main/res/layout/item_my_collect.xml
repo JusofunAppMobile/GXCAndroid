@@ -48,6 +48,7 @@
         android:adjustViewBounds="true"
         android:background="@drawable/shape_image_bg"
         android:scaleType="centerCrop"
+        android:src="@drawable/home_icon_gongsi"
         app:layout_constraintBottom_toTopOf="@+id/view33"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
