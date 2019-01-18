@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
@@ -16,6 +17,7 @@ import com.jusfoun.jusfouninquire.ui.view.BaseView;
  * @Description ${TODO}
  */
 public class BottomBarView extends BaseView {
+    private ImageView rzImg;
     public BottomBarView(Context context) {
         super(context);
     }
@@ -37,6 +39,7 @@ public class BottomBarView extends BaseView {
     protected void initViews() {
 
         LayoutInflater.from(mContext).inflate(R.layout.view_bottom_bar, this, true);
+        rzImg = findViewById(R.id.img_monitor);
     }
 
     @Override
@@ -91,6 +94,11 @@ public class BottomBarView extends BaseView {
 
     public void setMonitorText(boolean isMonitor) {
         ((TextView) findViewById(R.id.tvMonitor)).setText(isMonitor ? "取消监控" : "监控");
+        if(isMonitor){
+            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong_sel);
+        }else{
+            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong);
+        }
     }
 
 }

@@ -9,6 +9,8 @@ import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gxc.model.UserModel;
+import com.gxc.utils.AppUtils;
 import com.iflytek.cloud.SpeechUtility;
 import com.jusfoun.jusfouninquire.net.model.AreaModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
@@ -91,7 +93,14 @@ public class InquireApplication extends MultiDexApplication {
 
     public static UserInfoModel getUserInfo() {
         if (mUserInfo == null) {
-            mUserInfo = LoginSharePreference.getUserInfo(application);
+            UserModel userModel =  AppUtils.getUser();
+            if(userModel!=null){
+                // 兼容企信宝userId
+                mUserInfo = new UserInfoModel();
+                mUserInfo.setUserid(userModel.userId);
+                mUserInfo.setCompany(userModel.company);
+                return mUserInfo;
+            }
         } else {
 //            Log.d("TAG", "全局userInfo" + mUserInfo.toString());
         }

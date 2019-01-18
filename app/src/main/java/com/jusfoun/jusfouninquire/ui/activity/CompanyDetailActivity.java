@@ -26,7 +26,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
-import com.gxc.ui.activity.CertifiedCompanyActivity;
+import com.gxc.ui.activity.*;
 import com.gxc.ui.adapter.DongJGAdapter;
 import com.gxc.ui.adapter.ShareholderAdapter;
 import com.gxc.ui.view.BottomBarView;
@@ -246,7 +246,14 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             @Override
             public void onTabSelected(int position) {
                 if (position == 0) {
-                    getReroet();
+                    if(AppUtils.getUser()==null){
+                        goActivity(com.gxc.ui.activity.LoginActivity.class);
+                        return;
+                    }
+                    Intent intent = new Intent(CompanyDetailActivity.this, CreditReportActivity.class);
+                    intent.putExtra("companyId",mCompanyId);
+                    intent.putExtra("companyName",mCompanyName);
+                    startActivity(intent);
                 } else if (position == 1) {
                     if (model != null) {
                         EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
@@ -977,11 +984,11 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
         params.put("entName", mCompanyName == null ? "" : mCompanyName);
 
-//        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid()))
-//            params.put("userid", userInfo.getUserid());
-//        else {
-        params.put("userid", "");
-//        }
+        if (!TextUtils.isEmpty(model.getUserid()))
+            params.put("userid", model.getUserid());
+        else {
+            params.put("userid", "");
+        }
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
         NetWorkCompanyDetails.getReportUrl(CompanyDetailActivity.this, params, getLocalClassName(), new NetWorkCallBack() {

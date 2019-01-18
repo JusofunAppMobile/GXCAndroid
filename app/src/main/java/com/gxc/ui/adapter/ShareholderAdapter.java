@@ -42,7 +42,7 @@ public class ShareholderAdapter extends BaseQuickAdapter<CorporateInfoModel.Shar
 
 
         if (!TextUtils.isEmpty(riskModel.holdRatio)) {
-            biliText.setText(Html.fromHtml("持股比例-<font  color=\"#fca249\">" + riskModel.holdRatio + "</font>"));
+            biliText.setText(Html.fromHtml("持股比例-<font  color=\"#fca249\">" + riskModel.holdRatio + "%</font>"));
         } else {
             biliText.setText("");
         }
