@@ -19,7 +19,6 @@
         android:layout_height="35dp"
         android:background="@drawable/bg_shareholder_name"
         android:gravity="center"
-        android:text="赵"
         android:textColor="@color/white"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="赵亚鹏"
         android:textColor="#333"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/text_img"
@@ -58,14 +56,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_img" />
 
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="公司"
-        android:textColor="#999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_libi" />
 </android.support.constraint.ConstraintLayout>

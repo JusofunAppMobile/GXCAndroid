@@ -70,14 +70,14 @@ public class HomeMenuAdapter extends BaseQuickAdapter<HomeMenuModel, BaseViewHol
      * 验证menuType 是否有效
      *   1：股东高管 2：主营产品 3：失信查询 4：查税号 5：招聘 6：企业通讯录 7：查关系
      *   8：风险分析  9:信用报告，10 信用异议，11 ：地址电话 12，信用承诺，13访客，14自主填报
-     *   15 ：中标信息  16：裁判文书 17：行政处罚  18：商标查询  -1:H5
+     *   15 ：中标信息  16：裁判文书 17：行政处罚  18：商标查询  -1:H5   -1001 个人中心
      * 2019年1月17日16:36:35
      *
      * @param model
      * @return
      */
     private boolean isMenuTypeValid(HomeMenuModel model) {
-        int[] types = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18 -1};
+        int[] types = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18 -1,-1001};
         for (int type : types)
             if (type == model.menuType) return true;
         return false;

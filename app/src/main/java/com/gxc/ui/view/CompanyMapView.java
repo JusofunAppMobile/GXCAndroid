@@ -1,17 +1,16 @@
 package com.gxc.ui.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.gxc.model.CorporateInfoModel;
+import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
@@ -30,6 +29,7 @@ public class CompanyMapView extends BaseView {
     protected LinearLayout layoutGuanxi;
     protected LinearLayout layoutJiegou;
     private RequestOptions requestOptions;
+    private CorporateInfoModel.CompanyInfo model;
 
     public CompanyMapView(Context context) {
         super(context);
@@ -50,7 +50,7 @@ public class CompanyMapView extends BaseView {
                 .circleCrop()//设置圆形
                 .placeholder(R.color.white)
                 .error(R.color.white)
-                .transform(new GlideRoundTransform(mContext,5));
+                .transform(new GlideRoundTransform(mContext, 5));
     }
 
     @Override
@@ -64,6 +64,33 @@ public class CompanyMapView extends BaseView {
 //        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgTupu);
 //        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgGuanxi);
 //        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgJiegou);
+
+        layoutTupu.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (model != null&&! TextUtils.isEmpty(model.AtlasH5Address)){
+                    mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.AtlasH5Address));
+                }
+            }
+        });
+
+        layoutGuanxi.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (model != null&&! TextUtils.isEmpty(model.CorrelationH5Address)){
+                    mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.CorrelationH5Address));
+                }
+            }
+        });
+
+        layoutJiegou.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (model != null&&! TextUtils.isEmpty(model.OwnershipStructureH5Address)){
+                    mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.OwnershipStructureH5Address));
+                }
+            }
+        });
     }
 
     private void initView(View rootView) {
@@ -73,5 +100,10 @@ public class CompanyMapView extends BaseView {
         layoutGuanxi = (LinearLayout) rootView.findViewById(R.id.layout_guanxi);
         imgJiegou = (ImageView) rootView.findViewById(R.id.img_jiegou);
         layoutJiegou = (LinearLayout) rootView.findViewById(R.id.layout_jiegou);
+    }
+
+
+    public void setData(CorporateInfoModel.CompanyInfo companyInfo) {
+        model = companyInfo;
     }
 }

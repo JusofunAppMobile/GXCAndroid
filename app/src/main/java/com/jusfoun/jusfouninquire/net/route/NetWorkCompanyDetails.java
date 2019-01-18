@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class NetWorkCompanyDetails {
 
-    private final static String getUrl="/app/CorporateInfo/GetCorporateInfo";
+    private final static String getUrl="/api/entdetail/GetCompanyDetails_beta";
     private final static String updateUrl="/api/EntAll/RefreshEntInfo";
     private final static String riskInformationUrl="/api/entdetail/GetRiskInformation_beta";//风险信息九宫格
     private final static String businessinformationUrl="/api/entdetail/GetBusinessInformation_beta";// 经营状况 九宫格
@@ -37,23 +37,23 @@ public class NetWorkCompanyDetails {
     private final static String getCompanyUpdateState="/api/EntAll/GetRefreshEntInfo";//获取企业更新 状态
     private final static String reporturl="/api/User/GetReportLink";//企业报告 查看
     public static void getCompanyDetails(Context context, final HashMap<String,String> params, String tag, final NetWorkCallBack netWorkCallBack){
-//        VolleyPostRequest<CompanyDetailModel> getRequest=new VolleyPostRequest<CompanyDetailModel>(GetParamsUtil.getParmasUrl(context.getString(R.string.http_host)+getUrl,params), CompanyDetailModel.class
-//                , new Response.Listener<CompanyDetailModel>() {
-//            @Override
-//            public void onResponse(CompanyDetailModel response) {
-//                netWorkCallBack.onSuccess(response);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                netWorkCallBack.onFail(VolleyErrorUtil.disposeError(error));
-//            }
-//        },context);
-//
-//        getRequest.setShouldCache(false);
-//        getRequest.setRetryPolicy(new DefaultRetryPolicy(NetConstant.TIMEOUT_COMPANY, 1, 1.0f));
-//        getRequest.setTag(tag);
-//        VolleyUtil.getQueue(context).add(getRequest);
+        VolleyGetRequest<CompanyDetailModel> getRequest=new VolleyGetRequest<>(GetParamsUtil.getParmas(context.getString(R.string.req_url)+getUrl, params), CompanyDetailModel.class
+                , new Response.Listener<CompanyDetailModel>() {
+            @Override
+            public void onResponse(CompanyDetailModel response) {
+                netWorkCallBack.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                netWorkCallBack.onFail(VolleyErrorUtil.disposeError(error));
+            }
+        },context);
+
+        getRequest.setShouldCache(false);
+        getRequest.setRetryPolicy(new DefaultRetryPolicy(NetConstant.TIMEOUT_COMPANY, 1, 1.0f));
+        getRequest.setTag(tag);
+        VolleyUtil.getQueue(context).add(getRequest);
     }
 
     public static void updateCompanyDetails(Context context,HashMap<String,String> params,String tag,final NetWorkCallBack netWorkCallBack){
