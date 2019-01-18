@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
@@ -83,9 +84,13 @@ public class BottomBarView extends BaseView {
     }
 
     public interface TabSelectedListener {
-         void onTabSelected(int position);
+        void onTabSelected(int position);
     }
 
     private TabSelectedListener tabSelectedListener;
+
+    public void setMonitorText(boolean isMonitor) {
+        ((TextView) findViewById(R.id.tvMonitor)).setText(isMonitor ? "取消监控" : "监控");
+    }
 
 }

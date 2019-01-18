@@ -96,11 +96,7 @@ public class BackAndImageTitleView extends RelativeLayout {
     }
 
     public void setFollow(boolean follow) {
-        if (follow) {
-            mHeart.setImageResource(R.drawable.selector_love2);
-        } else {
-            mHeart.setImageResource(R.drawable.selector_love1);
-        }
+        mHeart.setSelected(follow);
     }
 
     public void setTitleAlpha(int alpha) {
@@ -142,8 +138,9 @@ public class BackAndImageTitleView extends RelativeLayout {
     }
 
     public void setVGone(int state) {
-        mShare.setVisibility(state);
+//        mShare.setVisibility(state);
         mHeart.setVisibility(state);
+
 //        errorReportImg.setVisibility(state);
     }
 }
