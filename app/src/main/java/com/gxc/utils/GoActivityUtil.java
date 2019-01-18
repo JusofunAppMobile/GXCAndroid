@@ -3,14 +3,20 @@ package com.gxc.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
+import com.gxc.ui.activity.CreditCommitmentActivity;
+import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.RelationActivity;
+import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.RiskTipActivity;
+import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.dialog.VIPDialog;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 
 /**
@@ -48,6 +54,27 @@ public class GoActivityUtil {
             }
         } else if (model.menuType == -1) {// h5跳转
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
+        } else if (model.menuType == 9) {
+            Intent intent = new Intent(mContext, CreditReportActivity.class);
+            mContext.startActivity(intent);
+        } else if (model.menuType == 10) {
+            Intent intent = new Intent(mContext, CompanyAmendActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("company", null);
+            bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        } else if (model.menuType == 12) { // 信用承诺
+            mContext.startActivity(new Intent(mContext, CreditCommitmentActivity.class));
+        } else if (model.menuType == 13) { // 访客
+            mContext.startActivity(new Intent(mContext, VisitorListActivity.class));
+        } else if (model.menuType == 14) {
+            Intent intent = new Intent(mContext, ReportInfoActivity.class);
+//            if (companyInfo != null) {
+//                intent.putExtra("companyName", companyInfo.companyName);
+//                intent.putExtra("companyId", companyInfo.companyId);
+//            }
+            mContext.startActivity(intent);
         } else {
             mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType));
         }
