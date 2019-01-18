@@ -166,5 +166,12 @@ public interface Api {
     @POST("/app/CorporateInfo/createCreditWord")
     Observable<NetModel> createCreditWord(@FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/app/CreditService/uploadLetter")
+    Observable<NetModel> uploadLetter(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/CreditService/getTemplateByEmail")
+    Observable<NetModel> getTemplateByEmail(@FieldMap Map<String, Object> params);
 
 }
