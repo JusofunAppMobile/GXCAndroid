@@ -23,6 +23,7 @@ android {
 //            ldLibs.add("log")
         }
         multiDexEnabled true
+        flavorDimensions "default"
     }
 
 
@@ -35,15 +36,18 @@ android {
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "false"
             resValue "string", "req_url", "https://api.jusfoun.com/api_qixinbao"
-            resValue "string", "http_host", "http://39.106.181.46:9080"
+//            resValue "string", "http_host", "http://39.106.181.46:9080"
+            resValue "string", "http_host", "http://202.106.10.250:48088"
 //            resValue "string", "req_url", "http://api.jusfoun.com/api_qixinbao"
+            manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
         }
         debug {
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "true"
             resValue "string", "req_url", "http://192.168.1.6:9981"
+//            resValue "string", "http_host", "http://39.106.181.46:9080"
             resValue "string", "http_host", "http://202.106.10.250:48088"
-//            resValue "string", "req_url", "https://qixinbaointranettest.jusfoun.com"
+            manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
 
         }
     }
@@ -74,107 +78,26 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     productFlavors {
-//        jusfoun {
-//        }
-//        '360_channel' {
-//
-//        }
-//        baidu {
-//        }
-//        '91zhushou' {
-//        }
-//        anzhuoshichang {
-//        }
-//        gfan {
-//
-//        }
-//        anzhi {
-//
-//        }
-//        xiaomi {
-//
-//        }
-//        myapp {
-//
-//        }
-//        wandoujia {
-//
-//        }
-//        appchina {
-//
-//        }
-//        huawei {
-//
-//        }
-//        samsung {
-//
-//        }
-//        meizu {
-//
-//        }
-//
-//        mumayi {
-//
-//        }
-//
-//        woshangdian {
-//
-//        }
-//        tianyikongjian {
-//
-//        }
-//        leshangdian {
-//
-//        }
-//        sougou {
-//
-//        }
-//        jinli {
-//
-//        }
-////
-//        vivo {
-//
-//        }
-//        oppo {
-//
-//        }
-//        kaiqi {
-//
-//        }
-//        liqu {
-//
-//        }
-//        aiqiyi {
-//
-//        }
-//
-//        haixin {
-//
-//        }
-//        'pc6' {
-//
-//        }
-//        anfeng {
-//
-//        }
-//        zol {
-//
-//        }
-//        tiankong {
-//
-//        }
+        yingyongbao {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyongbao"]
+        }
+        xiaomi {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        huawei {
+            dimension "default"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+        }
     }
 
-//    android.applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            output.processManifest.doLast {
-//                def manifestFile = output.processManifest.manifestOutputFile
-//                def updatedContent = manifestFile.getText('UTF-8').replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}")
-//                manifestFile.write(updatedContent, 'UTF-8')
-//            }
-//        }
-//    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "gxc_v${variant.mergedFlavor.versionName}_${variant.productFlavors[0].name}.apk".toLowerCase()
+        }
+    }
+
     repositories {
         mavenCentral()
         flatDir {

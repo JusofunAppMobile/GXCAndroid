@@ -2,6 +2,7 @@ package com.gxc.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.Html;
 import android.text.Spanned;
@@ -53,6 +54,7 @@ public class AppUtils {
 
     public final static String TEST_URL = "https://www.jianshu.com/p/2694f9a64502";
     public final static String TEST_IMAGE = "http://t2.hddhhn.com/uploads/tu/201707/6/71.jpg";
+    public final static String TEST_APK = "https://download.sj.qq.com/upload/connAssitantDownload/upload/MobileAssistant_1.apk";
 
     public static List getTestList(Class<?> clazz, int size) {
         try {
@@ -93,6 +95,55 @@ public class AppUtils {
             e.printStackTrace();
         }
         return verName;
+    }
+
+
+    public static String getMetaData(String key) {
+        try {
+            ApplicationInfo appInfo = InquireApplication.application.getPackageManager()
+                    .getApplicationInfo(getPackageName(InquireApplication.application),
+                            PackageManager.GET_META_DATA);
+            return appInfo.metaData.getString(key);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获取应用包名
+     */
+    public static String getPackageName(Context context) {
+        String packageName = "";
+        try {
+            packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageName;
+    }
+
+    /**
+     * 获取应用名称
+     *
+     * @param context
+     * @return
+     */
+    public static String getApplicationName(Context context) {
+        PackageManager packageManager = null;
+        ApplicationInfo applicationInfo = null;
+        try {
+            packageManager = context.getApplicationContext().getPackageManager();
+            applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        return (String) packageManager.getApplicationLabel(applicationInfo);
+    }
+
+    public static String getChannel() {
+        return getMetaData("UMENG_CHANNEL");
     }
 
     /**
@@ -331,4 +382,6 @@ public class AppUtils {
     public static Spanned getNumFont2(Context context, int num) {
         return Html.fromHtml("数量：" + context.getResources().getString(R.string.font_color) + num + "</font>条");
     }
+
+
 }

@@ -31,7 +31,7 @@
             app:srcCompat="@drawable/tanchuang_pic_vip" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView14" />
 
         <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/tvInfor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -55,7 +55,7 @@
             android:textColor="#333"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <TextView
             android:id="@+id/textView34"
@@ -70,7 +70,7 @@
             android:textColor="#333"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintTop_toBottomOf="@+id/tvInfor" />
 
         <TextView
             android:id="@+id/textView35"
@@ -112,9 +112,9 @@
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:background="@drawable/shape_point"
-            app:layout_constraintBottom_toBottomOf="@+id/textView33"
+            app:layout_constraintBottom_toBottomOf="@+id/tvInfor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView33" />
+            app:layout_constraintTop_toTopOf="@+id/tvInfor" />
 
         <ImageView
             android:id="@+id/imageView17"

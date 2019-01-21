@@ -16,6 +16,11 @@ import com.gxc.inter.OnCallListener;
 import com.gxc.model.GlideApp;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
+import com.gxc.model.VersionModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.InforActivity;
 import com.gxc.ui.activity.LoginActivity;
@@ -28,11 +33,14 @@ import com.gxc.ui.activity.SettingActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.dialog.VIPDialog;
+import com.gxc.ui.dialog.VersionDialog;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -88,11 +96,11 @@ public class MyFragment extends BaseFragment {
     protected void initView() {
         homeMenuAdapter = new HomeMenuAdapter();
         List<HomeMenuModel> list = new ArrayList<>();
-        list.add(new HomeMenuModel(R.drawable.mine_icon_dingdan, "我的订单",-1001));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_jiankong, "我的监控",-1001));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_shoucang, "我的收藏",-1001));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_renzheng, "企业认证",-1001));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权",-1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_dingdan, "我的订单", -1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_jiankong, "我的监控", -1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_shoucang, "我的收藏", -1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_renzheng, "企业认证", -1001));
+        list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权", -1001));
 //        list.add(new HomeMenuModel(R.drawable.mine_icon_zengsong, "赠送好友VIP"));
         homeMenuAdapter.setNewData(list);
         menuRecycler.setAdapter(homeMenuAdapter);
@@ -228,6 +236,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(WebActivity.getIntent(activity, "使用帮助", AppUtils.TEST_URL));
                 break;
             case R.id.vVersion: // 检测更新
+                checkUpdate();
                 break;
             case R.id.vSetting: // 设置
                 startActivity(SettingActivity.class);
@@ -236,6 +245,37 @@ public class MyFragment extends BaseFragment {
                 startActivity(PayActivity.class);
                 break;
         }
+    }
+
+
+    private void checkUpdate() {
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("versionname", AppUtils.getVersionName(activity));
+        map.put("versioncode", AppUtils.getVersionCode(activity));
+        map.put("channel", AppUtils.getChannel());
+        map.put("from", "Android");
+        RxManager.http(RetrofitUtils.getApi().checkUpdate(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    VersionModel versionModel = model.dataToObject(VersionModel.class);
+                    if (versionModel != null) {
+                        new VersionDialog(activity, versionModel).show();
+                        return;
+                    }
+                }
+                showToast("当前已是最新版本");
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
     }
 
     @OnClick(R.id.vLogin)

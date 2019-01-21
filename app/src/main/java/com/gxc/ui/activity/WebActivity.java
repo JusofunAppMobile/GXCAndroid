@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
@@ -79,6 +80,9 @@ public class WebActivity extends BaseActivity {
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
 
+        LogUtils.e("URL=" + url);
+        LogUtils.e("TITLE=" + title);
+
         isRelation = getIntent().getBooleanExtra("isRelation", false);
         relationGroup.setVisibility(isRelation ? View.VISIBLE : View.GONE);
 
@@ -116,8 +120,8 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mAgentWeb.getWebLifeCycle().onDestroy();
+        super.onDestroy();
     }
 
     @Override

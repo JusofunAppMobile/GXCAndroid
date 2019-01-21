@@ -52,6 +52,9 @@
     <!--<uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />-->
     <!--<uses-permission android:name="android.permission.BLUETOOTH" />-->
 
+    <!--版本升级自动安装需要这个权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:name=".InquireApplication"
         android:allowBackup="true"
@@ -900,7 +903,7 @@
             android:value="@string/umeng_key" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="UMENG_CHANNEL_VALUE"></meta-data>
+            android:value="${UMENG_CHANNEL_VALUE}"></meta-data>
 
 
         <!-- 下载更新队列 -->
@@ -967,6 +970,11 @@
             android:name="android.max_aspect"
             android:value="2.1" />
 
+        <receiver android:name="com.gxc.receiver.ApkInstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
