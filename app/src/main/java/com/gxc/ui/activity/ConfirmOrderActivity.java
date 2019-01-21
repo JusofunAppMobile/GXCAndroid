@@ -47,8 +47,8 @@ public class ConfirmOrderActivity extends BaseActivity {
     TextView textPdf;
     @BindView(R.id.text_word)
     TextView textWord;
-    @BindView(R.id.text_money)
-    TextView textMoney;
+//    @BindView(R.id.text_money)
+//    TextView textMoney;
     @BindView(R.id.text_finish)
     TextView textSend;
 
@@ -66,7 +66,6 @@ public class ConfirmOrderActivity extends BaseActivity {
         titlebar.setTitle("确认订单");
         creditReportItemModel =(CreditReportModel.CreditReportItemModel)getIntent().getSerializableExtra("model");
 
-        Log.e("tag","creditReportItemModel="+creditReportItemModel.companyName+" "+creditReportItemModel.companyId);
         type = getIntent().getIntExtra("type",0);
         if (type == 0) {
             textTitle.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">标准版</font>"));
@@ -74,7 +73,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             textTitle.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">专业版</font>"));
         }
 
-
+        textCompany.setText(creditReportItemModel.companyName);
 
     }
 
@@ -117,15 +116,15 @@ public class ConfirmOrderActivity extends BaseActivity {
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("companyId  ", creditReportItemModel.companyId);
+        map.put("companyId", creditReportItemModel.companyId);
         map.put("companyName", creditReportItemModel.companyName);
         if (type == 0) {
-            map.put("Type", "1");
+            map.put("type", "1");
         }else{
-            map.put("Type", "2");
+            map.put("type", "2");
         }
         map.put("url", editEmail.getText().toString());
-//        map.put("OStype", "1");
+        map.put("OStype", "1");
 
         RxManager.http(RetrofitUtils.getApi().createCreditWord(map), new ResponseCall() {
 
