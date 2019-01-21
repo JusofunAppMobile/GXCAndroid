@@ -175,7 +175,7 @@
             android:id="@+id/text_finish"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_item_credi_report_get"
+            android:background="@drawable/bg_look_order"
             android:gravity="center"
             android:text="发送"
             android:textColor="#fff"

@@ -56,10 +56,10 @@
         android:layout_marginBottom="109dp"
         android:layout_marginEnd="68dp"
         android:layout_marginStart="68dp"
-        android:background="@drawable/bg_look_order_finish"
+        android:background="@drawable/bg_look_order"
         android:gravity="center"
         android:text="完成"
-        android:textColor="#999"
+        android:textColor="#fff"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +79,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/text_finish"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
