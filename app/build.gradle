@@ -42,7 +42,7 @@ android {
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "true"
             resValue "string", "req_url", "http://192.168.1.6:9981"
-            resValue "string", "http_host", "http://39.106.181.46:9080"
+            resValue "string", "http_host", "http://202.106.10.250:48088"
 //            resValue "string", "req_url", "https://qixinbaointranettest.jusfoun.com"
 
         }

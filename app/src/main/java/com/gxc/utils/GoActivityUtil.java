@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
@@ -57,6 +58,7 @@ public class GoActivityUtil {
         } else if (model.menuType == 9) {
             Intent intent = new Intent(mContext, CreditReportActivity.class);
             UserModel userModel = AppUtils.getUser();
+
             if(userModel!=null) {
                 intent.putExtra("companyId", userModel.companyId);
                 intent.putExtra("companyName", userModel.authCompany);
