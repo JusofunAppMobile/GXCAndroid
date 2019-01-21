@@ -27,9 +27,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.gson.Gson;
 import com.gxc.base.BaseFragment;
+import com.gxc.constants.Constants;
 import com.gxc.model.CreditDataModel;
 import com.gxc.model.HomeMenuModel;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -38,6 +41,7 @@ import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.dialog.AuthDialog;
+import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
 
@@ -47,6 +51,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import netlib.util.PreferenceUtils;
 import netlib.util.ToastUtils;
 
 /**
@@ -360,6 +365,13 @@ public class CreditFragment extends BaseFragment {
                         textXinyongCode.setText(model.companyInfo.code);
                         textCompayType.setText(model.companyInfo.type);
 
+
+                        UserModel userModel =  AppUtils.getUser();
+                        if(userModel!=null) {
+                            userModel.taxid = model.companyInfo.code;
+                            userModel.states = model.companyInfo.type;
+                            PreferenceUtils.setString(activity, Constants.USER, new Gson().toJson(userModel));
+                        }
                         setData(model.VisitorList);
                         serviceAdapter.setNewData(model.serviceList);
                         inquireAdapter.setNewData(model.inquiryList);

@@ -177,4 +177,16 @@ public interface Api {
     @POST("/app/CreditService/getTemplateByEmail")
     Observable<NetModel> getTemplateByEmail(@FieldMap Map<String, Object> params);
 
+    @POST("/app/errorTypeService/getErrorTypeList")
+    Observable<NetModel> getErrorTypeList();
+
+    @FormUrlEncoded
+    @POST("/app/CorporateInfo/ObjectionError")
+    Observable<NetModel> ObjectionError(@FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("/app/CreditService/creditError")
+    Observable<NetModel> creditError(@FieldMap Map<String, Object> params);
+
 }

@@ -18,6 +18,7 @@ import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.dialog.VIPDialog;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 
 /**
@@ -66,10 +67,11 @@ public class GoActivityUtil {
             mContext.startActivity(intent);
         } else if (model.menuType == 10) {
             Intent intent = new Intent(mContext, CompanyAmendActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("company", null);
-            bundle.putInt(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
-            intent.putExtras(bundle);
+            intent.putExtra("companyId", user.companyId);
+            intent.putExtra("companyName", user.authCompany);
+            intent.putExtra("taxid", user.taxid);
+            intent.putExtra("states", user.states);
+            intent.putExtra(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
             mContext.startActivity(intent);
         } else if (model.menuType == 12) { // 信用承诺
             mContext.startActivity(new Intent(mContext, CreditCommitmentActivity.class));
