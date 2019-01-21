@@ -1,6 +1,7 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -123,10 +124,14 @@ public class CompanyDetailsActivity extends BaseInquireActivity implements OnWeb
             @Override
             public void onClick(View v) {
                 if (model != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("company", model);
-                    bundle.putInt(CompanyAmendActivity.POSITION, position);
-                    goActivity(CompanyAmendActivity.class, bundle);
+
+                    Intent intent = new Intent(CompanyDetailsActivity.this, CompanyAmendActivity.class);
+                    intent.putExtra("companyId",model.getCompanyid() );
+                    intent.putExtra("companyName", model.getCompanyname());
+                    intent.putExtra("taxid", model.taxid);
+                    intent.putExtra("states", model.getStates());
+                    intent.putExtra(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_ERROR);
+                    startActivity(intent);
                 }
             }
         });

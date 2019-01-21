@@ -22,6 +22,8 @@ public class CompanyDetailMenuModel extends BaseModel {
     private String ItemUrls;
     private String count;
 
+    public String menuName;
+
     public String getCount() {
         return count;
     }

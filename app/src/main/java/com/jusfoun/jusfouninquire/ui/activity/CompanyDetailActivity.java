@@ -260,9 +260,14 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 } else if (position == 1) {
                     if (model != null) {
                         EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("company", model);
-                        goActivity(CompanyAmendActivity.class, bundle);
+
+                        Intent intent = new Intent(CompanyDetailActivity.this, CompanyAmendActivity.class);
+                        intent.putExtra("companyId", mCompanyId);
+                        intent.putExtra("companyName", mCompanyName);
+                        intent.putExtra("taxid", model.taxid);
+                        intent.putExtra("states", model.getStates());
+                        intent.putExtra(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_ERROR);
+                        startActivity(intent);
                     }
                 } else if (position == 2) {
                     monitorHandle();
@@ -466,9 +471,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             public void onClick(View view) {
                 if (model != null) {
                     EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("company", model);
-                    goActivity(CompanyAmendActivity.class, bundle);
+                    Intent intent = new Intent(CompanyDetailActivity.this, CompanyAmendActivity.class);
+                    intent.putExtra("companyId", mCompanyId);
+                    intent.putExtra("companyName", mCompanyName);
+                    intent.putExtra("taxid", model.taxid);
+                    intent.putExtra("states", model.getStates());
+                    intent.putExtra(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_ERROR);
+                    startActivity(intent);
                 }
             }
         });

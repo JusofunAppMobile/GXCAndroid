@@ -2,7 +2,6 @@ package com.jusfoun.jusfouninquire.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author  JUSFOUN
@@ -23,11 +23,14 @@ import java.util.List;
 public class CompanyAmendAdapter extends RecyclerView.Adapter<CompanyAmendAdapter.CompanyAmendHodler> {
 
     private Context context;
-    private List<HashMap<String, Object>> list;
+    private List<CompanyDetailMenuModel> list;
+
+    private Map<String, CompanyDetailMenuModel> selectMap;
 
     public CompanyAmendAdapter(Context context) {
         this.context = context;
         list = new ArrayList<>();
+        selectMap = new HashMap<>();
     }
 
     @Override
@@ -45,15 +48,18 @@ public class CompanyAmendAdapter extends RecyclerView.Adapter<CompanyAmendAdapte
         return list.size();
     }
 
-    public void refresh(List<HashMap<String, Object>> list) {
-
+    public void refresh(List<CompanyDetailMenuModel> list) {
         this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
     }
 
-    public List<HashMap<String, Object>> getList() {
+    public List<CompanyDetailMenuModel> getList() {
         return list;
+    }
+
+    public Map<String, CompanyDetailMenuModel> getSelectMap() {
+        return selectMap;
     }
 
     class CompanyAmendHodler extends RecyclerView.ViewHolder {
@@ -68,32 +74,34 @@ public class CompanyAmendAdapter extends RecyclerView.Adapter<CompanyAmendAdapte
             img = (TextView) itemView.findViewById(R.id.image);
         }
 
-        public void update(HashMap<String, Object> map, final int position) {
+        public void update(final CompanyDetailMenuModel model, final int position) {
 
-            txt.setSelected("true".equals(map.get("check").toString()));
+            if (selectMap.containsKey(model.getMenuid())) {
+                txt.setSelected(true);
+            } else {
+                txt.setSelected(false);
+            }
 
-//            if ("true".equals(map.get("check").toString())) {
-//                img.setText("选中图片");
-//                txt.setBackgroundResource(R.drawable.shape_table_button);
-//                txt.setTextColor(context.getResources().getColor(R.color.edit_text_colors));
-//            } else {
-//                img.setText("未选中图片");
-//                txt.setBackgroundResource(R.drawable.shape_table_button_normer);
-//                txt.setTextColor(context.getResources().getColor(R.color.edit_text_colors));
-//            }
-            CompanyDetailMenuModel model = (CompanyDetailMenuModel) map.get("company");
-            if (!TextUtils.isEmpty(model.getItems()))
-                txt.setText(model.getItems());
-            else
-                txt.setText(model.getMenuname());
+            txt.setText(model.menuName);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null) {
                         onClickListener.onClick(position);
+                    }else {
+
+
+                        if (selectMap.containsKey(model.getMenuid())) {
+                            txt.setSelected(false);
+                            selectMap.remove(model.getMenuid());
+                        } else {
+                            txt.setSelected(true);
+                            selectMap.put(model.getMenuid(), model);
+                        }
                     }
                 }
             });
+
         }
     }
 
@@ -106,4 +114,13 @@ public class CompanyAmendAdapter extends RecyclerView.Adapter<CompanyAmendAdapte
     public static interface OnAmendAdapterOnClickListener {
         public void onClick(int position);
     }
+
+
+    public void setSelectItem(int position){
+        selectMap.clear();
+        selectMap.put(list.get(position).getMenuid(),list.get(position));
+        notifyDataSetChanged();
+    }
+
+
 }
