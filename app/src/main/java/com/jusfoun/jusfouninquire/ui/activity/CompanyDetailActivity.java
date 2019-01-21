@@ -615,6 +615,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     }
 
     private void updateView() {
+        loadingLayout.setVisibility(View.GONE);
         if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
             title.setFollow(corporateInfoModel.companyInfo.isCollect == 1);
             navigation.setMonitorText(corporateInfoModel.companyInfo.monitorType == 1);
@@ -635,7 +636,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 return;
             }
         }
-        loadingLayout.setVisibility(View.GONE);
+
         sceneAnimation.stop();
 
         if (model.getResult() == 0) {

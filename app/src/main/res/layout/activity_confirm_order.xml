@@ -136,13 +136,14 @@
             android:layout_width="80dp"
             android:layout_height="33dp"
             android:layout_marginTop="18dp"
-            android:background="@drawable/bg_xinyongbaogao_normal"
+            android:background="@drawable/bg_xinyongbaogao_selecter"
             android:gravity="center"
-            android:text="PDF"
-            android:textColor="#333"
+            android:text="word"
+            android:textColor="#df282d"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            />
 
         <TextView
             android:id="@+id/text_word"
@@ -156,7 +157,8 @@
             android:textColor="#df282d"
             android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@+id/text_pdf"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            android:visibility="gone"/>
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

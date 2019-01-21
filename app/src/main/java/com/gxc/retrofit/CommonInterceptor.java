@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
+import com.jusfoun.jusfouninquire.Md5Util;
 import com.jusfoun.jusfouninquire.TimeOut;
 
 import java.io.IOException;
@@ -34,8 +35,12 @@ public class CommonInterceptor implements Interceptor {
         TimeOut timeOut = new TimeOut(InquireApplication.application);
         UserModel model = AppUtils.getUser();
 
-        if (model != null)
+        if (model != null) {
             map.put("userId", model.userId);
+        }else{
+            map.put("userId", "");
+        }
+
 
         map.put("t", timeOut.getParamTimeMollis() + "");
         if (request.body() instanceof FormBody) {
