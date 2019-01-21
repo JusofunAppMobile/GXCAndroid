@@ -1,5 +1,6 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -137,6 +138,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarEnable(Color.TRANSPARENT);
         super.onCreate(savedInstanceState);
+    }
+
+    public static Intent getIntent(Context context, String id, String name){
+        Intent intent = new Intent(context, CompanyDetailActivity.class);
+        intent.putExtra(CompanyDetailActivity.COMPANY_ID, id);
+        intent.putExtra(CompanyDetailActivity.COMPANY_NAME, name);
+        return intent;
     }
 
 

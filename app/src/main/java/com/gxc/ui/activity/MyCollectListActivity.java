@@ -13,6 +13,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyCollectAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.HashMap;
@@ -37,6 +38,14 @@ public class MyCollectListActivity extends BaseListActivity {
     @Override
     protected BaseQuickAdapter getAdapter() {
         return new MyCollectAdapter(this);
+    }
+
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClick(adapter, view, position);
+        CollectModel model = (CollectModel) adapter.getItem(position);
+        startActivity(CompanyDetailActivity.getIntent(this, model.companyid, model.companyname));
     }
 
     @Override

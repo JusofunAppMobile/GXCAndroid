@@ -13,6 +13,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyMonitorAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.HashMap;
@@ -45,6 +46,13 @@ public class MyMonitorListActivity extends BaseListActivity {
         headView = View.inflate(this, R.layout.view_num_header, null);
         tvNum = headView.findViewById(R.id.textView);
         tvNum.setText(AppUtils.getNumFont2(activity, 0));
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClick(adapter, view, position);
+        MonitorModel model = (MonitorModel) adapter.getItem(position);
+        startActivity(CompanyDetailActivity.getIntent(this, model.companyId, model.companyName));
     }
 
     private void setCount(int count) {
