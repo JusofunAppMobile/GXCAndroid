@@ -36,7 +36,8 @@ android {
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "false"
             resValue "string", "req_url", "https://api.jusfoun.com/api_qixinbao"
-            resValue "string", "http_host", "http://39.106.181.46:9080"
+//            resValue "string", "http_host", "http://39.106.181.46:9080"
+            resValue "string", "http_host", "http://202.106.10.250:48088"
 //            resValue "string", "req_url", "http://api.jusfoun.com/api_qixinbao"
             manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
         }
@@ -44,7 +45,8 @@ android {
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "true"
             resValue "string", "req_url", "http://192.168.1.6:9981"
-            resValue "string", "http_host", "http://39.106.181.46:9080"
+//            resValue "string", "http_host", "http://39.106.181.46:9080"
+            resValue "string", "http_host", "http://202.106.10.250:48088"
 //            resValue "string", "req_url", "https://qixinbaointranettest.jusfoun.com"
             manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
 
