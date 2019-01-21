@@ -2,6 +2,7 @@ package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 import com.baidu.mobstat.StatService;
@@ -72,5 +73,14 @@ public abstract class BaseActivity extends FragmentActivity {
         if (channel.equals("baidu")||channel.equals("91zhushou")||channel.equals("anzhuoshichang")) {
             StatService.onPause(this);
         }
+    }
+
+    public void finishDelay() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 400);
     }
 }

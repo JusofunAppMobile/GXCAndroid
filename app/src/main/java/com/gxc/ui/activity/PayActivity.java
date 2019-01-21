@@ -177,6 +177,9 @@ public class PayActivity extends BaseActivity {
                         priceView2.setData(priceModel, 2);
                         priceView3.setData(priceModel, 3);
                         tvMoney.setText("¥" + priceModel.oneCurPrice);
+                        UserModel user = AppUtils.getUser();
+                        if (user != null && user.vipStatus == 1)
+                            tvLast.setText("VIP剩余天数：" + priceModel.vipLastDay + "天");
                     }
                 } else {
                     showToast(model.msg);
