@@ -46,10 +46,13 @@ android {
             resValue "bool", "debug", "true"
             resValue "string", "req_url", "http://192.168.1.6:9981"
 //            resValue "string", "http_host", "http://39.106.181.46:9080"
+//            resValue "string", "http_host", "http://202.106.10.250:48088"
             resValue "string", "http_host", "http://202.106.10.250:48088"
+//            172.16.105.110:8088
             manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
-
         }
+
+
     }
     sourceSets {
         main {

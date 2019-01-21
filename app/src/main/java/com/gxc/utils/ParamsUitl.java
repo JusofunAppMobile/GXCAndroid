@@ -19,7 +19,7 @@ public class ParamsUitl {
         map.put("t",timeOut.getParamTimeMollis()+"");
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("data",new Gson().toJson(map));
-        hashMap.put("m",timeOut.MD5GXCtime(map));
+        hashMap.put("m",timeOut.MD5GXCtime(new Gson().toJson(map)));
         return hashMap;
     }
 }

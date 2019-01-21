@@ -315,7 +315,7 @@ public class AppUtils {
         map.put("type", type);
 
         builder.addFormDataPart("data", new Gson().toJson(map));
-        builder.addFormDataPart("m", timeOut.MD5GXCtime(map));
+        builder.addFormDataPart("m", timeOut.MD5GXCtime(new Gson().toJson(map)));
 
         File file = new File(path);
         builder.addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
