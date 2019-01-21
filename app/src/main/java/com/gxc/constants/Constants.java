@@ -20,4 +20,6 @@ public class Constants {
     // 微信支付 APP_ID 替换为你的应用从官方网站申请到的合法appId
     public static final String APP_ID = "wxd930ea5d5a258f4f";
 
+    public static String IS_FIRST_RUN = "is_first_run";
+
 }

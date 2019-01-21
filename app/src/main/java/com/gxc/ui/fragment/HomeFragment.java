@@ -2,6 +2,7 @@ package com.gxc.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.constraint.Group;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseFragment;
-import com.gxc.model.HomeMenuModel;
 import com.gxc.model.HomeModel;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.model.HomeNewsModel;
@@ -29,14 +29,11 @@ import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
 import com.gxc.ui.activity.PayActivity;
-import com.gxc.ui.activity.RelationActivity;
-import com.gxc.ui.activity.RiskTipActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.adapter.HomeMonitorAdapter;
 import com.gxc.ui.adapter.HomeNewsAdapter;
 import com.gxc.ui.adapter.ImagePagerAdapter;
-import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
@@ -51,7 +48,6 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -83,6 +79,8 @@ public class HomeFragment extends BaseFragment {
     View vTop2;
     @BindView(R.id.tvInput2)
     View tvInput2;
+    @BindView(R.id.groupAd)
+    Group groupAd;
 
     HomeMenuAdapter homeMenuAdapter;
     HomeMonitorAdapter homeMonitorAdapter;
@@ -190,6 +188,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initAutoPager() {
+        groupAd.setVisibility(View.VISIBLE);
         ViewGroup parent = (ViewGroup) pager.getParent();
         parent.removeView(pager);
 
@@ -238,6 +237,8 @@ public class HomeFragment extends BaseFragment {
             homeMenuAdapter.setNewData(homeModel.menu);
             if (homeModel.adImages != null && !homeModel.adImages.isEmpty())
                 initAutoPager();
+            else
+                groupAd.setVisibility(View.GONE);
             homeMonitorAdapter.addData(homeModel.monitor);
             homeNewsAdapter.addData(homeModel.news);
             buildHotSearch(homeModel.keywords);

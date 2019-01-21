@@ -20,7 +20,6 @@ public class UserModel {
     public String job;
     public int vipStatus; // 用户vip状态 0：普通用户 1：vip用户
     public String email;
-    public int vipLastDay;
     // 个人中心在企业认证中、和成功后显示企业名称，其他情况未认证、认证失败、显示手机号，个人资料中的公司只有在认证成功后不能修改，其他情况都能修改
     public String authCompany;
     public String companyId;

@@ -250,6 +250,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newsRecycler" />
 
+            <android.support.constraint.Group
+                android:id="@+id/groupAd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="view5,vPageParent" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
 

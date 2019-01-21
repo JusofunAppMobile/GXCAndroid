@@ -301,6 +301,12 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
         <activity
+            android:name="com.gxc.ui.activity.WelcomeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/my_style_horizontal"
+            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <activity
             android:name="com.gxc.ui.activity.RelationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
