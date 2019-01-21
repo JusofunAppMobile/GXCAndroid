@@ -1,6 +1,7 @@
 package com.gxc.ui.activity;
 
 import android.text.Html;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -77,6 +78,8 @@ public class CreditReportActivity extends BaseListActivity {
                     List<CreditReportModel.CreditReportItemModel> list = new ArrayList<>();
                     creditReportCountModel.companyName = companyName;
                     creditReportCountModel.companyId = companyId;
+
+                    Log.e("tag","companyName="+companyName+" "+companyId);
 
                     list.add(creditReportCountModel);
                     list.add(creditReportCountModel);

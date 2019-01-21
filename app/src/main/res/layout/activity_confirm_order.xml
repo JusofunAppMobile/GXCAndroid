@@ -169,37 +169,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView38"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="8dp"
-            android:text="待支付:"
-            android:textColor="#333"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:text="￥0"
-            android:textColor="#e32730"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView38"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/text_finish"
-            android:layout_width="125dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="#df282d"
             android:gravity="center"
             android:text="发送"
