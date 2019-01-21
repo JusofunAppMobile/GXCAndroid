@@ -3,6 +3,7 @@ package com.gxc.ui.activity;
 import android.graphics.Color;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,8 +47,8 @@ public class ConfirmOrderActivity extends BaseActivity {
     TextView textPdf;
     @BindView(R.id.text_word)
     TextView textWord;
-    @BindView(R.id.text_money)
-    TextView textMoney;
+//    @BindView(R.id.text_money)
+//    TextView textMoney;
     @BindView(R.id.text_finish)
     TextView textSend;
 
@@ -64,6 +65,7 @@ public class ConfirmOrderActivity extends BaseActivity {
     public void initActions() {
         titlebar.setTitle("确认订单");
         creditReportItemModel =(CreditReportModel.CreditReportItemModel)getIntent().getSerializableExtra("model");
+
         type = getIntent().getIntExtra("type",0);
         if (type == 0) {
             textTitle.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">标准版</font>"));
@@ -71,7 +73,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             textTitle.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">专业版</font>"));
         }
 
-
+        textCompany.setText(creditReportItemModel.companyName);
 
     }
 
@@ -114,12 +116,12 @@ public class ConfirmOrderActivity extends BaseActivity {
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("companyid", creditReportItemModel.companyId);
-        map.put("companyname", creditReportItemModel.companyId);
+        map.put("companyId", creditReportItemModel.companyId);
+        map.put("companyName", creditReportItemModel.companyName);
         if (type == 0) {
-            map.put("Type", "1");
+            map.put("type", "1");
         }else{
-            map.put("Type", "2");
+            map.put("type", "2");
         }
         map.put("url", editEmail.getText().toString());
         map.put("OStype", "1");
