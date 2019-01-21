@@ -16,8 +16,8 @@ android {
         applicationId "com.jusfoun.gxt"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 129
-        versionName "2.1.7"
+        versionCode 1
+        versionName '1.0.0'
         ndk {
             moduleName "jso" // 生成的so名字
 //            ldLibs.add("log")
@@ -125,24 +125,37 @@ dependencies {
     implementation project(':library')
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
     implementation 'com.umeng.analytics:analytics:latest.integration'
+
     //    compile files('libs/SocialSDK_Sina.jar')
+
     //    compile files('libs/SocialSDK_WeiXin_1.jar')
+
     //    compile files('libs/SocialSDK_WeiXin_2.jar')
     implementation files('libs/httpmime-4.1.3.jar')
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    //    compile files('libs/time.jar')
-    //    compile files('libs/Baidu_Mtj_3.7.4.5.jar')
-    //    compile files('libs/libammsdk.jar')
-    //            {
-    //        exclude group: 'com.tencent.mm.sdk.openapi'
-    //    }
-    //    compile (files('libs/wechat-sdk-android-with-mta-1.0.2.jar')) {
-    //            exclude group: 'com.tencent'
-    //        }
 
+    //    compile files('libs/time.jar')
+
+    //    compile files('libs/Baidu_Mtj_3.7.4.5.jar')
+
+    //    compile files('libs/libammsdk.jar')
+
+    //            {
+
+    //        exclude group: 'com.tencent.mm.sdk.openapi'
+
+    //    }
+
+    //    compile (files('libs/wechat-sdk-android-with-mta-1.0.2.jar')) {
+
+    //            exclude group: 'com.tencent'
+
+    //        }
     implementation files('libs/alipaySdk-20170922.jar')
     implementation files('libs/BaiduLBS_Android.jar')
+
     //    compile files('libs/baidumapapi_base_v3_6_1.jar')
+
     //    compile files('libs/baidumapapi_map_v3_6_1.jar')
     implementation files('libs/Baidu_Mtj_3.8.1.1.jar')
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
@@ -151,10 +164,12 @@ dependencies {
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
-//    compile(name: 'mylibrary-release', ext: 'aar')
+
+    //    compile(name: 'mylibrary-release', ext: 'aar')
     implementation files('libs/mySdk.jar')
 
     ///////////////////////////////////////////////
+
     //   retrofit
     implementation 'io.reactivex:rxjava:1.1.6'
     implementation 'io.reactivex:rxandroid:1.2.1'
@@ -165,31 +180,38 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-jackson:2.1.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+
     //   logger
     implementation 'com.orhanobut:logger:2.1.1'
+
     //   BottomNavigation
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.5'
+
     //   butterknife
     implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
     //   BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
+
     // constraint
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
     implementation 'com.android.support:multidex:1.0.3'
+
     //   glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
     //  AgentWeb
     implementation 'com.just.agentweb:agentweb:4.0.2'
+
     // PictureSelector，包含 ucrop
     implementation 'top.zibin:Luban:1.1.8'
     implementation('com.github.LuckSiege.PictureSelector:picture_library:v2.2.3') {
         exclude group: 'com.github.bumptech.glide'
     }
+
     // ViewPagerIndicator
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
-
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
