@@ -40,41 +40,14 @@ public class WebActivity extends BaseActivity {
     LinearLayout layout;
     @BindView(R.id.relationGroup)
     Group relationGroup;
+    @BindView(R.id.ivBack2)
+    View ivBack2;
 
     private boolean isRelation = false; // 是否为查关系
 
+    private boolean isFullScreen = false;// 网页是否全屏
+
     private View errorView;
-
-    public static Intent getIntent(Context context, String title, String url, boolean isZoomable) {
-        Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("url", url);
-        intent.putExtra("isZoomable", isZoomable);
-        return intent;
-    }
-
-    public static Intent getIntent(Context context, String title, String url) {
-        Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("url", url);
-        intent.putExtra("isZoomable", false);
-        return intent;
-    }
-
-    /**
-     * 查关系
-     *
-     * @param context
-     * @param url
-     * @return
-     */
-    public static Intent getRelationIntent(Context context, String url) {
-        Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra("url", url);
-        intent.putExtra("isRelation", true);
-        return intent;
-    }
-
 
     @Override
     protected int getLayoutId() {
@@ -83,6 +56,9 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void initActions() {
+        ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
+        titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
+
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
 
@@ -115,17 +91,6 @@ public class WebActivity extends BaseActivity {
                 .createAgentWeb()
                 .ready()
                 .go(url);
-
-
-        if (getIntent().getBooleanExtra("isZoomable", false)) {
-            mAgentWeb.getWebCreator().getWebView().getSettings().setUseWideViewPort(true);
-            mAgentWeb.getWebCreator().getWebView().setInitialScale(25);//为25%，最小缩放等级
-            mAgentWeb.getWebCreator().getWebView().getSettings().setJavaScriptEnabled(true);
-            mAgentWeb.getWebCreator().getWebView().getSettings().setSupportZoom(true);
-            mAgentWeb.getWebCreator().getWebView().getSettings().setBuiltInZoomControls(true);
-            mAgentWeb.getWebCreator().getWebView().getSettings().setDisplayZoomControls(false);
-        }
-
     }
 
     private WebViewClient mWebViewClient = new WebViewClient() {
@@ -165,18 +130,53 @@ public class WebActivity extends BaseActivity {
             super.onBackPressed();
     }
 
+
+    public static Intent getIntent(Context context, String title, String url) {
+        return getIntent(context, title, url, false);
+    }
+
+
+    public static Intent getIntent(Context context, String title, String url, boolean isFullScreen) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("title", title);
+        intent.putExtra("url", url);
+        intent.putExtra("isZoomable", false);
+        intent.putExtra("isFullScreen", isFullScreen);
+        return intent;
+    }
+
+    /**
+     * 查关系
+     *
+     * @param context
+     * @param url
+     * @return
+     */
+    public static Intent getRelationIntent(Context context, String url) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("isRelation", true);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             WebView.enableSlowWholeDocumentDraw();
+        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
+        if (!isFullScreen)
+            setTheme(R.style.MyTheme_Layout_Root);
+        else
+            setTheme(R.style.MyTheme_Layout_Root2);
         super.onCreate(savedInstanceState);
     }
 
-    @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare})
+    @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare, R.id.ivBack2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vFinish:
+            case R.id.ivBack2:
                 finish();
                 break;
             case R.id.vSave:
@@ -187,4 +187,17 @@ public class WebActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean isSetStatusBar() {
+        if (isFullScreen)
+            return false;
+        return super.isSetStatusBar();
+    }
+
+    @Override
+    public boolean isBarDark() {
+        if (isFullScreen)
+            return false;
+        return super.isBarDark();
+    }
 }

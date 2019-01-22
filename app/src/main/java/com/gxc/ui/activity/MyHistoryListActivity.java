@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.HistoryModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
@@ -68,29 +69,27 @@ public class MyHistoryListActivity extends BaseListActivity implements TitleView
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageSize", pageSize);
         map.put("pageIndex", pageIndex);
-        RxManager.http(RetrofitUtils.getApi().myHistory(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().myHistory(map), new ListResponseCall(this) {
+
+            @Override
+            public List getList(NetModel model) {
+                return model.dataToList("list", HistoryModel.class);
+            }
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
-                    List<HistoryModel> list = model.dataToList("list", HistoryModel.class);
+                    List<HistoryModel> list = getList(model);
                     if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {
                         adapter.addHeaderView(headView);
                     }
                     if( pageIndex == 1 && (list == null || list.isEmpty()))
                         adapter.removeHeaderView(headView);
                     setCount(model.getDataByKey("totalCount", Integer.class));
-                    completeLoadData(list);
                 } else {
                     adapter.removeHeaderView(headView);
-                    completeLoadDataError();
                 }
-            }
-
-            @Override
-            public void error() {
-                adapter.removeHeaderView(headView);
-                completeLoadDataError();
+                super.success(model);
             }
         });
     }

@@ -79,7 +79,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(WebActivity.getIntent(context, "", imageIdList.get(getPosition(position)).webURL));
+                context.startActivity(WebActivity.getIntent(context, "", imageIdList.get(getPosition(position)).webURL, imageIdList.get(getPosition(position)).webType == 1));
             }
         });
         GlideApp.with(InquireApplication.application).load(imageIdList.get(getPosition(position)).imageURL).apply(options).into(holder.imageView);

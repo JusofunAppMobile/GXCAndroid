@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.ui.adapter.HomeMonitorAdapter;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -35,7 +34,7 @@ public class MoreMonitorListActivity extends BaseListActivity {
 
     @Override
     protected void startLoadData() {
-        completeLoadData(AppUtils.getTestList(HomeMonitorModel.class, 20));
+//        completeLoadData(AppUtils.getTestList(HomeMonitorModel.class, 20));
     }
 
     @Override

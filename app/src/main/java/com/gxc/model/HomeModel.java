@@ -18,6 +18,7 @@ public class HomeModel {
     public static  class AdverModel{
         public String imageURL;
         public String webURL;
+        public int webType ;
 
         public AdverModel(String imageURL, String webURL) {
             this.imageURL = imageURL;

@@ -4,11 +4,12 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListFragment;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.event.MonitorStatusEvent;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.MonitorModel;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
-import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.MonitorDetailActivity;
@@ -39,7 +40,11 @@ public class MonitorListFragment extends BaseListFragment {
 
     @Override
     protected BaseQuickAdapter getAdapter() {
-        pageSize = 10;
+        UserModel user = AppUtils.getUser();
+        if (user != null)
+            pageSize = 10;
+        else
+            pageSize = Integer.MAX_VALUE;
         return new MonitorAdpater(activity);
     }
 
@@ -77,29 +82,27 @@ public class MonitorListFragment extends BaseListFragment {
         map.put("pageSize", pageSize);
         map.put("pageIndex", pageIndex);
 
-        RxManager.http(RetrofitUtils.getApi().monitorList(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().monitorList(map), new ListResponseCall(this) {
+
+            @Override
+            public List getList(NetModel model) {
+                return model.dataToList("monitor", MonitorModel.class);
+            }
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
-                    List<MonitorModel> list = model.dataToList("monitor", MonitorModel.class);
+                    List<MonitorModel> list = getList(model);
                     if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {
                         refreshHeadViewTip();
                         adapter.addHeaderView(headView);
                     }
                     if (pageIndex == 1 && (list == null || list.isEmpty()))
                         adapter.removeHeaderView(headView);
-                    completeLoadData(list);
                 } else {
                     adapter.removeHeaderView(headView);
-                    completeLoadDataError();
                 }
-            }
-
-            @Override
-            public void error() {
-                adapter.removeHeaderView(headView);
-                completeLoadDataError();
+                super.success(model);
             }
         });
     }
@@ -108,6 +111,8 @@ public class MonitorListFragment extends BaseListFragment {
     public void onEvent(IEvent event) {
         super.onEvent(event);
         if (event instanceof MonitorStatusEvent)
+            refresh();
+        else if (event instanceof LoginChangeEvent)
             refresh();
     }
 }

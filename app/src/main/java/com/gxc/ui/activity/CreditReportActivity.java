@@ -1,14 +1,13 @@
 package com.gxc.ui.activity;
 
 import android.text.Html;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.CreditReportModel;
 import com.gxc.retrofit.NetModel;
-import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.CreditReportAdapter;
@@ -68,33 +67,16 @@ public class CreditReportActivity extends BaseListActivity {
 //        map.put("companyid", companyId == null ? "" : companyId);
         map.put("companyname", companyName == null ? "" : companyName);
 
-        RxManager.http(RetrofitUtils.getApi().getCreditReport(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().getCreditReport(map), new ListResponseCall(this) {
 
             @Override
-            public void success(NetModel model) {
-//                hideLoadDialog();
-                if (model.success()) {
-                    CreditReportModel.CreditReportItemModel creditReportCountModel = model.dataToObject(CreditReportModel.CreditReportItemModel.class);
-                    List<CreditReportModel.CreditReportItemModel> list = new ArrayList<>();
-                    creditReportCountModel.companyName = companyName;
-//                    creditReportCountModel.companyId = companyId;
-
-                    Log.e("tag","companyName="+companyName+" "+companyId);
-
-                    list.add(creditReportCountModel);
-                    list.add(creditReportCountModel);
-                    completeLoadData(list);
-                } else {
-                    completeLoadDataError();
-//                    showToast(model.msg);
-                }
-            }
-
-            @Override
-            public void error() {
-                completeLoadDataError();
-//                hideLoadDialog();
-//                ToastUtils.showHttpError();
+            public List getList(NetModel model) {
+                CreditReportModel.CreditReportItemModel creditReportCountModel = model.dataToObject(CreditReportModel.CreditReportItemModel.class);
+                List<CreditReportModel.CreditReportItemModel> list = new ArrayList<>();
+                creditReportCountModel.companyName = companyName;
+                list.add(creditReportCountModel);
+                list.add(creditReportCountModel);
+                return list;
             }
         });
 

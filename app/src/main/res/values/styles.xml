@@ -11,8 +11,12 @@
         <item name="android:windowAnimationStyle">@style/horizontal_slide</item>
     </style>
 
-    <style name="MyTheme.Layout.Root" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+    <style name="MyTheme.Layout.Root" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="MyTheme.Layout.Root2" parent="MyTheme.Layout.Root">
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -4,9 +4,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListFragment;
-import com.gxc.model.RiskTabModel;
 import com.gxc.ui.adapter.RiskTabAdapter;
-import com.gxc.utils.AppUtils;
 
 /**
  * @author liuguangdan
@@ -33,6 +31,6 @@ public class RiskListFragment extends BaseListFragment {
 
     @Override
     protected void startLoadData() {
-        completeLoadData(AppUtils.getTestList(RiskTabModel.class, 20));
+//        completeLoadData(AppUtils.getTestList(RiskTabModel.class, 20));
     }
 }

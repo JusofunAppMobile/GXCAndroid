@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseFragment;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.model.HomeModel;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.model.HomeNewsModel;
@@ -41,6 +42,7 @@ import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
@@ -244,8 +246,8 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
             initAutoPager();
         else
             groupAd.setVisibility(View.GONE);
-        homeMonitorAdapter.addData(homeModel.monitor);
-        homeNewsAdapter.addData(homeModel.news);
+        homeMonitorAdapter.setNewData(homeModel.monitor);
+        homeNewsAdapter.setNewData(homeModel.news);
         buildHotSearch(homeModel.keywords);
     }
 
@@ -253,32 +255,32 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
      * 热搜，需要延时操作
      */
     private void buildHotSearch(List<String> list) {
-        int maxWidth = vHot.getWidth();
-        int curWidth = 0;
-        for (final String val : list) {
-            View view = View.inflate(activity, R.layout.view_hot_search, null);
-            TextView text = view.findViewById(R.id.text);
-            text.setText(val);
-            int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            view.measure(w, h);
-            int width = view.getMeasuredWidth();
-            if (curWidth + width > maxWidth)
-                break;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    startActivity(TypeSearchActivity.getIntent(activity, 0));
-
-                    Intent intent = new Intent(activity, SearchResultActivity.class);
-//                    intent.putExtra(SearchResultActivity.SEARCH_RESULT, model);
-                    intent.putExtra(SearchResultActivity.SEARCH_KEY, val);
-                    intent.putExtra(SearchResultActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
-                    startActivity(intent);
-                }
-            });
-            vHot.addView(view);
-            curWidth += width;
+        vHot.removeAllViews();
+        if (list != null && !list.isEmpty()) {
+            int maxWidth = vHot.getWidth();
+            int curWidth = 0;
+            for (final String val : list) {
+                View view = View.inflate(activity, R.layout.view_hot_search, null);
+                TextView text = view.findViewById(R.id.text);
+                text.setText(val);
+                int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                view.measure(w, h);
+                int width = view.getMeasuredWidth();
+                if (curWidth + width > maxWidth)
+                    break;
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(activity, SearchResultActivity.class);
+                        intent.putExtra(SearchResultActivity.SEARCH_KEY, val);
+                        intent.putExtra(SearchResultActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
+                        startActivity(intent);
+                    }
+                });
+                vHot.addView(view);
+                curWidth += width;
+            }
         }
     }
 
@@ -296,6 +298,12 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
             pager.stopAutoScroll();
     }
 
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof LoginChangeEvent)
+            loadData();
+    }
 
     private void doAnim(boolean show) {
         doAnim(show, 200);

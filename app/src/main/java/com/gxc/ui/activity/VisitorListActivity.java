@@ -4,15 +4,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.VisitorModel;
 import com.gxc.retrofit.NetModel;
-import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.VisitorAdapter;
 import com.jusfoun.jusfouninquire.R;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,7 +69,12 @@ public class VisitorListActivity extends BaseListActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", pageIndex);
         map.put("pageSize", pageSize);
-        RxManager.http(RetrofitUtils.getApi().visitorRecord(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().visitorRecord(map), new ListResponseCall(this) {
+
+            @Override
+            public List getList(NetModel model) {
+                return model.dataToList("list", VisitorModel.class);
+            }
 
             @Override
             public void success(NetModel model) {
@@ -77,15 +83,8 @@ public class VisitorListActivity extends BaseListActivity {
                         int count = model.dataToObject("count", Integer.class);
                         tvNum.setText(String.valueOf(count));
                     }
-
-                    completeLoadData(model.dataToList("list", VisitorModel.class));
-                } else
-                    completeLoadDataError();
-            }
-
-            @Override
-            public void error() {
-                completeLoadDataError();
+                }
+                super.success(model);
             }
         });
     }

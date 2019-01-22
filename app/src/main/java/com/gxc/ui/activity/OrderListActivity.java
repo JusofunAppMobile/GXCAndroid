@@ -2,9 +2,9 @@ package com.gxc.ui.activity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.OrderModel;
 import com.gxc.retrofit.NetModel;
-import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.OrderAdapter;
@@ -12,6 +12,7 @@ import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -42,20 +43,11 @@ public class OrderListActivity extends BaseListActivity {
         map.put("type", 1);
         map.put("pageSize", pageSize);
         map.put("pageIndex", pageIndex);
-        RxManager.http(RetrofitUtils.getApi().orderList(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().orderList(map), new ListResponseCall(this) {
 
             @Override
-            public void success(NetModel model) {
-                if (model.success()) {
-                    completeLoadData(model.dataToList("list", OrderModel.class));
-                } else {
-                    completeLoadDataError();
-                }
-            }
-
-            @Override
-            public void error() {
-                completeLoadDataError();
+            public List getList(NetModel model) {
+                return model.dataToList("list", OrderModel.class);
             }
         });
     }

@@ -340,12 +340,6 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
         <activity
-            android:name="com.gxc.ui.activity.MonitorSubListActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/my_style_horizontal"
-            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
-        <activity
             android:name="com.gxc.ui.activity.PushSetActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"

@@ -111,10 +111,10 @@ public class TypeSearchActivity extends BaseInquireActivity {
                 type = SearchHistoryItemModel.SEARCH_CONTACT;
                 break;
             case 7:// 查关系
-                type = SearchHistoryItemModel.SEARCH_RELATION;
+                type = SearchHistoryItemModel.SEARCH_COMMON;
                 break;
             case 8:// 风险分析
-                type = SearchHistoryItemModel.SEARCH_RISK;
+                type = SearchHistoryItemModel.SEARCH_COMMON;
                 break;
             case 0: //
                 type = SearchHistoryItemModel.SEARCH_COMMON;

@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.HomeModel;
 import com.gxc.model.HomeNewsModel;
 import com.gxc.model.NewsAdModel;
 import com.gxc.retrofit.NetModel;
-import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.HomeNewsAdapter;
@@ -135,13 +135,18 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageSize", pageSize);
         map.put("pageIndex", pageIndex);
-        RxManager.http(RetrofitUtils.getApi().moreNews(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().moreNews(map), new ListResponseCall(this) {
+
+            @Override
+            public List getList(NetModel model) {
+                return model.dataToList("rollNews", NewsAdModel.class);
+            }
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
                     if (pageIndex == 1) {
-                        newsAdList = model.dataToList("rollNews", NewsAdModel.class);
+                        newsAdList = getList(model);
                         if (newsAdList != null && !newsAdList.isEmpty() && pageIndex == 1 && headView.getParent() == null)
                             adapter.addHeaderView(headView);
                         if (pageIndex == 1 && (newsAdList == null || newsAdList.isEmpty()))
@@ -149,17 +154,10 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
                         if (newsAdList != null && !newsAdList.isEmpty() && pageIndex == 1)
                             buildViewPager();
                     }
-                    completeLoadData(model.dataToList("news", HomeNewsModel.class));
                 } else {
                     adapter.removeHeaderView(headView);
-                    completeLoadDataError();
                 }
-            }
-
-            @Override
-            public void error() {
-                adapter.removeHeaderView(headView);
-                completeLoadDataError();
+                super.success(model);
             }
         });
     }

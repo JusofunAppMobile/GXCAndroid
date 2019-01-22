@@ -5,9 +5,9 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.MonitorModel;
 import com.gxc.retrofit.NetModel;
-import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyMonitorAdapter;
@@ -64,29 +64,27 @@ public class MyMonitorListActivity extends BaseListActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageSize", pageSize);
         map.put("pageIndex", pageIndex);
-        RxManager.http(RetrofitUtils.getApi().myMonitorList(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().myMonitorList(map), new ListResponseCall(this) {
+
+            @Override
+            public List getList(NetModel model) {
+                return model.dataToList("list", MonitorModel.class);
+            }
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
-                    List<MonitorModel> list = model.dataToList("list", MonitorModel.class);
+                    List<MonitorModel> list = getList(model);
                     if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {
                         adapter.addHeaderView(headView);
                     }
                     if( pageIndex == 1 && (list == null || list.isEmpty()))
                         adapter.removeHeaderView(headView);
                     setCount(model.getDataByKey("totalCount", Integer.class));
-                    completeLoadData(list);
                 } else {
                     adapter.removeHeaderView(headView);
-                    completeLoadDataError();
                 }
-            }
-
-            @Override
-            public void error() {
-                adapter.removeHeaderView(headView);
-                completeLoadDataError();
+                super.success(model);
             }
         });
     }

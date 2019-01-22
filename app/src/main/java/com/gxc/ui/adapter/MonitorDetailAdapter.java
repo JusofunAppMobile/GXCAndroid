@@ -1,7 +1,6 @@
 package com.gxc.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.MonitorDetailModel;
-import com.gxc.ui.activity.MonitorSubListActivity;
 import com.jusfoun.jusfouninquire.R;
 
 import butterknife.BindView;
@@ -63,7 +61,6 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
 
         @OnClick(R.id.tvNum)
         public void onViewClicked() {
-            context.startActivity(new Intent(context, MonitorSubListActivity.class));
         }
 
         public void update(MyViewHolder helper, MonitorDetailModel item) {

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gxc.inter.OnCompleteListener;
 import com.gxc.utils.LogUtils;
 import com.jusfoun.jusfouninquire.R;
 
@@ -24,7 +25,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 
-public abstract class BaseListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+public abstract class BaseListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, OnCompleteListener {
 
     protected RecyclerView recyclerView;
 
@@ -148,15 +149,17 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
         return new LinearLayoutManager(context);
     }
 
-    protected void completeLoadData(List list) {
-        completeLoadData(list, false);
+    @Override
+    public void completeLoadData(List list, int totalCount) {
+        completeLoadData(list, false, totalCount);
     }
 
     /**
      * 网络错误时调用
      */
-    protected void completeLoadDataError() {
-        completeLoadData(null, true);
+    @Override
+    public void completeLoadDataError() {
+        completeLoadData(null, true, 0);
     }
 
     protected String getEmptyTipText() {
@@ -183,14 +186,14 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
             if (isError) {
                 tvError.setVisibility(View.VISIBLE);
                 tvReload.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 tvError.setVisibility(View.GONE);
                 tvReload.setVisibility(View.GONE);
             }
         }
     }
 
-    private void completeLoadData(List list, boolean isHttpError) {
+    private void completeLoadData(List list, boolean isHttpError, int count) {
         refreshLayout.setRefreshing(false);
         if (isHttpError) {
             if (isLoadMoreData)
@@ -209,7 +212,7 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
                 else
                     adapter.setNewData(list);
 
-                if (list.size() < pageSize)
+                if ((count != 0 && adapter.getItemCount() >= count) || (count == 0 && list.size() < pageSize))
                     adapter.loadMoreEnd(true);
                 else
                     adapter.loadMoreComplete();

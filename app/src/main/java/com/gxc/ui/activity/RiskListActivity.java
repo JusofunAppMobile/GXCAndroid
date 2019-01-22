@@ -6,9 +6,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
-import com.gxc.model.RiskModel;
 import com.gxc.ui.adapter.RiskAdapter;
-import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.CommonSearchTitleView;
 
@@ -64,6 +62,6 @@ public class RiskListActivity extends BaseListActivity {
 
     @Override
     protected void startLoadData() {
-        completeLoadData(AppUtils.getTestList(RiskModel.class, 20));
+//        completeLoadData(AppUtils.getTestList(RiskModel.class, 20));
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.impl.ListResponseCall;
 import com.gxc.model.MonitorDetailModel;
 import com.gxc.model.MonitorMenuModel;
 import com.gxc.model.MonotorSouDetailModel;
@@ -150,31 +151,23 @@ public class MonitorDetailActivity extends BaseListActivity {
         map.put("companyid", getIntent().getStringExtra("companyid"));
         map.put("companyName", getIntent().getStringExtra("companyName"));
         map.put("filterId", getFilterIds());
-        RxManager.http(RetrofitUtils.getApi().dynamicDetails(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().dynamicDetails(map), new ListResponseCall(this) {
 
             @Override
-            public void success(NetModel model) {
-                if (model.success()) {
-                    List<MonotorSouDetailModel> list = model.dataToList("details", MonotorSouDetailModel.class);
-                    if (list != null && !list.isEmpty()) {
-                        List<MonitorDetailModel> mList = new ArrayList<>();
-                        for (MonotorSouDetailModel sModel : list) {
-                            mList.add(new MonitorDetailModel(sModel.lcon, sModel.total));
-                            if (sModel.data != null && !sModel.data.isEmpty()) {
-                                for (MonotorSouDetailModel.DataBean cModel : sModel.data) {
-                                    mList.add(new MonitorDetailModel(cModel.contont, cModel.time));
-                                }
+            public List getList(NetModel model) {
+                List<MonotorSouDetailModel> list = model.dataToList("details", MonotorSouDetailModel.class);
+                if (list != null && !list.isEmpty()) {
+                    List<MonitorDetailModel> mList = new ArrayList<>();
+                    for (MonotorSouDetailModel sModel : list) {
+                        mList.add(new MonitorDetailModel(sModel.lcon, sModel.total));
+                        if (sModel.data != null && !sModel.data.isEmpty()) {
+                            for (MonotorSouDetailModel.DataBean cModel : sModel.data) {
+                                mList.add(new MonitorDetailModel(cModel.contont, cModel.time));
                             }
                         }
-                        completeLoadData(mList);
-                    } else
-                        completeLoadData(null);
+                    }
                 }
-            }
-
-            @Override
-            public void error() {
-                completeLoadDataError();
+                return list;
             }
         });
     }
