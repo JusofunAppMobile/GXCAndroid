@@ -29,10 +29,24 @@ public class AuthDialog extends BaseDialog {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt:
+                if (callBack != null) {
+                    callBack.onConfirmClick();
+                }
                 break;
             case R.id.ivClose:
                 dismiss();
                 break;
         }
+    }
+
+    public interface CallBack {
+        void onConfirmClick();
+    }
+
+
+    public CallBack callBack;
+
+    public void setCallBack(CallBack callBack) {
+        this.callBack = callBack;
     }
 }

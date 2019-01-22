@@ -39,6 +39,7 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
+import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.dialog.AuthDialog;
@@ -103,6 +104,7 @@ public class CreditFragment extends BaseFragment {
 
     public CreditDataModel.CompanyInfo companyInfo;
 
+    private AuthDialog authDialog;
 
     @Override
     protected int getLayoutId() {
@@ -111,6 +113,7 @@ public class CreditFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        authDialog= new AuthDialog(activity);
         textCompany = (TextView) findViewById(R.id.text_company);
         recycleviewService = (RecyclerView) findViewById(R.id.recycleview_service);
         recycleviewInquire = (RecyclerView) findViewById(R.id.recycleview_inquire);
@@ -135,11 +138,8 @@ public class CreditFragment extends BaseFragment {
         serviceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-
                 HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
                 GoActivityUtil.goActivityByType(activity, model);
-
-
             }
         });
 
@@ -155,24 +155,32 @@ public class CreditFragment extends BaseFragment {
         nestedScrollView = (NestedScrollView) rootView.findViewById(R.id.nestedScrollView);
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
-
-        certificationImg.setOnClickListener(new View.OnClickListener()
-
-        {
+        authDialog.setCallBack(new AuthDialog.CallBack() {
             @Override
-            public void onClick(View v) {
-                new AuthDialog(activity).show();
+            public void onConfirmClick() {
                 Intent intent = new Intent(activity, CertifiedCompanyActivity.class);
                 startActivity(intent);
+                authDialog.dismiss();
+            }
+        });
+
+        certificationImg.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                if (AppUtils.getUser() == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                authDialog.show();
+
             }
         });
 
         textTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
 
-        changeLayout.setOnClickListener(new View.OnClickListener()
-
-        {
+        changeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (companyInfo != null) {
@@ -367,7 +375,7 @@ public class CreditFragment extends BaseFragment {
                     } else {
                         showToast(data.msg);
                     }
-                }else{
+                } else {
                     netWorkError.error();
                 }
             }
