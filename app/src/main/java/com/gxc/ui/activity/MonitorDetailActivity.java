@@ -166,8 +166,9 @@ public class MonitorDetailActivity extends BaseListActivity {
                             }
                         }
                     }
+                    return mList;
                 }
-                return list;
+                return null;
             }
         });
     }

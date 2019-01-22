@@ -35,6 +35,7 @@ import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.dialog.VersionDialog;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.HtmlUrlUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
@@ -233,7 +234,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(MyHistoryListActivity.class);
                 break;
             case R.id.vHelper: // 使用帮助
-                startActivity(WebActivity.getIntent(activity, "使用帮助", AppUtils.TEST_URL));
+                startActivity(WebActivity.getIntent(activity, "使用帮助", HtmlUrlUtils.getHelpUrl()));
                 break;
             case R.id.vVersion: // 检测更新
                 checkUpdate();

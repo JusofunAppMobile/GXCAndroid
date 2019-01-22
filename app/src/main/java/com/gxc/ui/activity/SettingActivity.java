@@ -10,6 +10,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.widgets.ItemView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.DataCleanManager;
+import com.gxc.utils.HtmlUrlUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
@@ -94,13 +95,14 @@ public class SettingActivity extends BaseActivity {
                 loadCache();
                 break;
             case R.id.vService:
-                startActivity(WebActivity.getIntent(this, "服务协议", AppUtils.TEST_URL, false));
+                startActivity(WebActivity.getIntent(this, "服务协议", HtmlUrlUtils.getAgreeUrl(), false));
                 break;
             case R.id.vSecret:
-                startActivity(WebActivity.getIntent(this, "隐私政策", AppUtils.TEST_URL, false));
+                startActivity(WebActivity.getIntent(this, "隐私政策", HtmlUrlUtils.getSecretUrl(), false));
                 break;
             case R.id.vAbout:
-                startActivity(AboutActivity.class);
+//                startActivity(AboutActivity.class);
+                startActivity(WebActivity.getIntent(this, "服务协议", HtmlUrlUtils.getAboutUrl(), false));
                 break;
         }
     }

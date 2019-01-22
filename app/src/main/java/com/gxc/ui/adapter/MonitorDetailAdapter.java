@@ -13,7 +13,6 @@ import com.jusfoun.jusfouninquire.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author liuguangdan
@@ -57,10 +56,6 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
         public MyViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-        }
-
-        @OnClick(R.id.tvNum)
-        public void onViewClicked() {
         }
 
         public void update(MyViewHolder helper, MonitorDetailModel item) {

@@ -98,6 +98,7 @@ public class WebActivity extends BaseActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
+//            http://202.106.10.250:4808/dist/#/vip?data=9iFQlbMLJeuq9ONpaG%2FVDkFlePca9Rf%2F9v6UTySLWiET1dgisCQG6A%3D%3D
             return super.shouldOverrideUrlLoading(view, request);
         }
     };
