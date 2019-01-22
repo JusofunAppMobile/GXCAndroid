@@ -19,7 +19,6 @@ import com.jusfoun.jusfouninquire.JniGXCUtil;
 import com.jusfoun.jusfouninquire.ui.util.AppUtil;
 import com.umeng.analytics.MobclickAgent;
 
-import cn.jpush.android.api.JPushInterface;
 import netlib.util.PreferenceUtils;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -158,13 +157,13 @@ public class SplashActivity extends BaseInquireActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        JPushInterface.onResume(this);
+//        JPushInterface.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        JPushInterface.onPause(this);
+//        JPushInterface.onPause(this);
     }
 
 }

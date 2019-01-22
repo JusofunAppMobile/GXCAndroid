@@ -39,6 +39,7 @@ public class MonitorListFragment extends BaseListFragment {
 
     @Override
     protected BaseQuickAdapter getAdapter() {
+        pageSize = 10;
         return new MonitorAdpater(activity);
     }
 

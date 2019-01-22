@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 这种处理方式避免启动页使用点9图片刚开始无效的情况-->
+<?xml version="1.0" encoding="utf-8"?><!-- 这种处理方式避免启动页使用点9图片刚开始无效的情况-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
@@ -7,6 +6,24 @@
     </item>
     <item>
         <bitmap android:src="@drawable/img_splash" />
+    </item>
+
+    <item android:bottom="190dp">
+        <bitmap
+            android:gravity="bottom|center_horizontal"
+            android:src="@drawable/slogan" />
+    </item>
+
+    <item android:bottom="40dp">
+        <bitmap
+            android:gravity="bottom|center_horizontal"
+            android:src="@drawable/copyright" />
+    </item>
+
+    <item android:top="150dp">
+        <bitmap
+            android:gravity="top|center_horizontal"
+            android:src="@drawable/logo" />
     </item>
 
 </layer-list>

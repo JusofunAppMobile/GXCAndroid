@@ -13,6 +13,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyHistoryAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.HashMap;
@@ -37,6 +38,14 @@ public class MyHistoryListActivity extends BaseListActivity implements TitleView
     @Override
     protected BaseQuickAdapter getAdapter() {
         return new MyHistoryAdapter();
+    }
+
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClick(adapter, view, position);
+        HistoryModel model = (HistoryModel) adapter.getItem(position);
+        startActivity(CompanyDetailActivity.getIntent(this, model.companyid, model.companyname));
     }
 
     @Override

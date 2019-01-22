@@ -14,7 +14,6 @@ import com.gxc.utils.AppUtils;
 import com.iflytek.cloud.SpeechUtility;
 import com.jusfoun.jusfouninquire.net.model.AreaModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
-import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.util.LibIOUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
@@ -29,8 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author zhaoyapeng
@@ -58,9 +55,9 @@ public class InquireApplication extends MultiDexApplication {
 
         SDKInitializer.initialize(this);
         MobclickAgent.openActivityDurationTrack(false);
-        JPushInterface.init(this);
-        if (JPushInterface.isPushStopped(this))
-            JPushInterface.resumePush(this);
+//        JPushInterface.init(this);
+//        if (JPushInterface.isPushStopped(this))
+//            JPushInterface.resumePush(this);
         Config.DEBUG = true;
         PlatformConfig.setWeixin(getString(R.string.wx_appid),
                 getString(R.string.wx_appSecret));

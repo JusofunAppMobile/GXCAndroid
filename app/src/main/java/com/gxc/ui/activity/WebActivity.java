@@ -8,8 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.Group;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.utils.LogUtils;
@@ -17,6 +20,7 @@ import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
+import com.just.agentweb.AgentWebConfig;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,6 +42,8 @@ public class WebActivity extends BaseActivity {
     Group relationGroup;
 
     private boolean isRelation = false; // 是否为查关系
+
+    private View errorView;
 
     public static Intent getIntent(Context context, String title, String url, boolean isZoomable) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -93,9 +99,19 @@ public class WebActivity extends BaseActivity {
 
         titleView.setTitle(title);
 
+        errorView = View.inflate(this, R.layout.view_empty, null);
+        errorView.setVisibility(View.VISIBLE);
+        TextView textView = errorView.findViewById(R.id.tvEmpty);
+        textView.setText("刷新试试吧~");
+        errorView.findViewById(R.id.tvError).setVisibility(View.VISIBLE);
+        errorView.findViewById(R.id.tvReload).setVisibility(View.VISIBLE);
+
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(layout, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator(isRelation ? Color.TRANSPARENT : -1)
+                .setWebViewClient(mWebViewClient)
+                .setMainFrameErrorView(errorView)
+                .interceptUnkownUrl()
                 .createAgentWeb()
                 .ready()
                 .go(url);
@@ -109,17 +125,28 @@ public class WebActivity extends BaseActivity {
             mAgentWeb.getWebCreator().getWebView().getSettings().setBuiltInZoomControls(true);
             mAgentWeb.getWebCreator().getWebView().getSettings().setDisplayZoomControls(false);
         }
+
     }
+
+    private WebViewClient mWebViewClient = new WebViewClient() {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
+            return super.shouldOverrideUrlLoading(view, request);
+        }
+    };
 
     @Override
     public void onPause() {
         mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
-
     }
 
     @Override
     public void onDestroy() {
+        // 清空缓存
+        AgentWebConfig.clearDiskCache(this);
         mAgentWeb.getWebLifeCycle().onDestroy();
         super.onDestroy();
     }

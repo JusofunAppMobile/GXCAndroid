@@ -2,32 +2,21 @@ package com.gxc.ui.activity;
 
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
-import com.gxc.constants.Constants;
-import com.gxc.event.LoginSucEvent;
 import com.gxc.event.UpdateReoprtInfoEvent;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.view.EditReportInfoItemView;
-import com.gxc.utils.DESUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
-import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
-import java.util.HashMap;
-
 import butterknife.BindView;
-import de.greenrobot.event.EventBus;
-import netlib.util.PreferenceUtils;
 
 /**
  * @author zhaoyapeng
