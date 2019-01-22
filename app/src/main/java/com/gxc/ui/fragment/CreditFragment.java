@@ -31,6 +31,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.gxc.base.BaseFragment;
 import com.gxc.constants.Constants;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.model.CreditDataModel;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
@@ -46,6 +47,7 @@ import com.gxc.ui.dialog.AuthDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 
 import java.util.ArrayList;
@@ -312,6 +314,7 @@ public class CreditFragment extends BaseFragment {
 
             // set data
             chart.setData(data);
+            chart.invalidate();
         }
 //        chart.moveViewToX(5);
 
@@ -426,4 +429,12 @@ public class CreditFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof LoginChangeEvent){
+            getServiceData();
+        }
+    }
+
 }
