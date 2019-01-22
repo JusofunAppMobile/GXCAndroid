@@ -119,6 +119,18 @@ public class TypeSearchActivity extends BaseInquireActivity {
             case 0: //
                 type = SearchHistoryItemModel.SEARCH_COMMON;
                 break;
+            case 15: //中标信息
+                type = SearchHistoryItemModel.SEARCH_WINNING_BID;
+                break;
+            case 16: //裁判文书
+                type = SearchHistoryItemModel.SEARCH_REFEREE;
+                break;
+            case 17: //行政处罚
+                type = SearchHistoryItemModel.SEARCH_ADMINISTRATIVE;
+                break;
+            case 18: //商标查询
+                type = SearchHistoryItemModel.SEARCH_TRADEMARK;
+                break;
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.putExtra(TypeSearchActivity.SEARCH_TYPE, type);
@@ -515,8 +527,11 @@ public class TypeSearchActivity extends BaseInquireActivity {
         params.put("searchkey", key);
         if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT))
             params.put("type", "6");
-        else
+        else if (isBlurrySearch(mCurrentType)) {
+            params.put("type",  SearchHistoryItemModel.SEARCH_COMMON);
+        }else{
             params.put("type", mCurrentType);
+        }
         params.put("pageSize", "20");
         params.put("pageIndex", "1");
         if (SearchHistoryItemModel.SEARCH_CONTACT.equals(params.get("type"))) {
@@ -991,5 +1006,20 @@ public class TypeSearchActivity extends BaseInquireActivity {
     public void finish() {
         super.finish();
         overridePendingTransition(0, 0);
+    }
+
+
+    /**
+     *  是否为模糊搜索，国信查大多业务使用模糊搜索
+     * */
+    public static boolean isBlurrySearch(String mSearchType) {
+        if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
+                mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
+                mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
+                mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
+            return true;
+
+        }
+        return false;
     }
 }

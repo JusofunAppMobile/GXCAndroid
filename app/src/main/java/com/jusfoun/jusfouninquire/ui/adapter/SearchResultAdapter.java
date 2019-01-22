@@ -2,6 +2,7 @@ package com.jusfoun.jusfouninquire.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,12 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gxc.model.HomeNewsModel;
+import com.gxc.ui.activity.WebActivity;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
+import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.net.model.HomeDataItemModel;
 import com.jusfoun.jusfouninquire.net.model.SearchContactListModel;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.net.util.TouchUtil;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
+import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailsActivity;
 import com.jusfoun.jusfouninquire.ui.activity.ShareHolderActivity;
 import com.jusfoun.jusfouninquire.ui.view.ContactsOpenView;
 
@@ -281,10 +287,50 @@ public class SearchResultAdapter extends BaseAdapter {
                                 }
                             }
                         } else {
-                            Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-                            intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.getCompanyid());
-                            intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.getCompanyname());
-                            mContext.startActivity(intent);
+                            // 国信查逻辑
+                            if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
+
+                                CompanyDetailModel companyDetailModel = new CompanyDetailModel();
+                                companyDetailModel.setCompanyname(model.getCompanyname());
+                                companyDetailModel.setCompanyid(model.getCompanyid());
+                                List<CompanyDetailMenuModel> subclassMenu = new ArrayList<>();
+                                CompanyDetailMenuModel companyDetailMenuModel = new CompanyDetailMenuModel();
+                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID)) {
+                                    companyDetailMenuModel.setMenuname("中标信息查询");
+                                    companyDetailMenuModel.setType(CompanyDetailsActivity.TYPE_BIDDING);
+                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE)) {
+                                    companyDetailMenuModel.setMenuname("行政处罚查询");
+                                    companyDetailMenuModel.setType(CompanyDetailsActivity.TYPE_PUBLISH);
+                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
+                                    companyDetailMenuModel.setMenuname("商标查询");
+                                    companyDetailMenuModel.setType(CompanyDetailsActivity.TYPE_BRAND);
+                                }
+                                subclassMenu.add(companyDetailMenuModel);
+                                companyDetailModel.setSubclassMenu(subclassMenu);
+
+                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE)) {
+                                    String url = mContext.getString(R.string.req_url)+"/Html/courtInfo_cpws.html?entname="+model.getCompanyname()+"&version=1.0.0&apptype=0";
+                                    mContext.startActivity(WebActivity.getIntent(mContext, "裁判文书",url));
+                                }else{
+                                    Bundle argument = new Bundle();
+                                    argument.putSerializable(CompanyDetailsActivity.COMPANY, companyDetailModel);
+                                    argument.putInt(CompanyDetailsActivity.POSITION, 0);
+                                    argument.putBoolean(CompanyDetailsActivity.IS_GXC,true);
+                                    Intent intent = new Intent(mContext, CompanyDetailsActivity.class);
+                                    intent.putExtras(argument);
+                                    mContext.startActivity(intent);
+                                }
+
+                            } else {
+                                Intent intent = new Intent(mContext, CompanyDetailActivity.class);
+                                intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.getCompanyid());
+                                intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.getCompanyname());
+                                mContext.startActivity(intent);
+                            }
+
                         }
                     }
                 });
@@ -466,6 +512,7 @@ public class SearchResultAdapter extends BaseAdapter {
                                 callBack.select();
                             }
                         }
+
                     } else {
                         Intent intent = new Intent(mContext, CompanyDetailActivity.class);
                         intent.putExtra(CompanyDetailActivity.COMPANY_ID, data.id);

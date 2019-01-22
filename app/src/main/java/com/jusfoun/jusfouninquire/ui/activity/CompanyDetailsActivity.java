@@ -35,6 +35,7 @@ public class CompanyDetailsActivity extends BaseInquireActivity implements OnWeb
 
     public static final String COMPANY = "company";
     public static final String POSITION = "position";
+    public static final String IS_GXC = "is_gxc";
 
 
     private CompanyDetailsViewPager pager;
@@ -51,11 +52,14 @@ public class CompanyDetailsActivity extends BaseInquireActivity implements OnWeb
 
     private boolean isCanOpenMenu = true;
 
+    private boolean isGxc = false;//是否来源是国信查
+
     @Override
     protected void initData() {
         super.initData();
         argument = getIntent().getExtras() == null ? new Bundle() : getIntent().getExtras();
         model = (CompanyDetailModel) argument.getSerializable(COMPANY);
+        isGxc = argument.getBoolean(IS_GXC,false);
         position = argument.getInt(POSITION);
         adapter = new CompanyDetailAdapter(getSupportFragmentManager(), argument);
 
@@ -78,12 +82,18 @@ public class CompanyDetailsActivity extends BaseInquireActivity implements OnWeb
         if (model == null)
             return;
         title.setTitle(model.getSubclassMenu().get(position).getMenuname());
-//        title.setRightImg(R.mipmap.company_amend);
-//        title.setRightTxt("纠错");
+
+        if(isGxc){
+            title.setTitleRightDrawable(-1);
+            title.setRightHite();
+        }
+
         title.setTitleClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
+                if(isGxc)
+                    return;
                 if (isShowMenuOut) {
                     isShowMenuOut = false;
                     return;
@@ -124,7 +134,6 @@ public class CompanyDetailsActivity extends BaseInquireActivity implements OnWeb
             @Override
             public void onClick(View v) {
                 if (model != null) {
-
                     Intent intent = new Intent(CompanyDetailsActivity.this, CompanyAmendActivity.class);
                     intent.putExtra("companyId",model.getCompanyid() );
                     intent.putExtra("companyName", model.getCompanyname());

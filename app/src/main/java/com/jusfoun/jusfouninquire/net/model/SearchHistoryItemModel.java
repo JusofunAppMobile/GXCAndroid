@@ -21,7 +21,10 @@ public class SearchHistoryItemModel {
 
     public static final String SEARCH_RISK = "10";//风险分析
     public static final String SEARCH_RELATION = "11";//查关系
-
+    public static final String SEARCH_WINNING_BID = "15";//中标
+    public static final String SEARCH_REFEREE = "16";//裁判文书
+    public static final String SEARCH_ADMINISTRATIVE = "17";//行政处罚
+    public static final String SEARCH_TRADEMARK = "18";//商标查询
 
 
 
