@@ -1,10 +1,12 @@
 package com.gxc.ui.dialog;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gxc.ui.activity.PayActivity;
 import com.jusfoun.jusfouninquire.R;
 
 import butterknife.ButterKnife;
@@ -29,6 +31,8 @@ public class VIPDialog extends BaseDialog {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt:
+                activity.startActivity(new Intent(activity,PayActivity.class));
+                dismiss();
                 break;
             case R.id.ivClose:
                 dismiss();

@@ -74,7 +74,6 @@ public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel.Cred
                     mContext.startActivity(intent);
                 }else{
                     new VIPDialog((Activity)mContext).show();
-                    mContext.startActivity(new Intent(mContext,PayActivity.class));
                 }
 
             }
