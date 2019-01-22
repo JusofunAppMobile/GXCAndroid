@@ -365,9 +365,10 @@ public class CreditFragment extends BaseFragment {
                         serviceAdapter.setNewData(model.serviceList);
                         inquireAdapter.setNewData(model.inquiryList);
                     } else {
-                        netWorkError.error();
                         showToast(data.msg);
                     }
+                }else{
+                    netWorkError.error();
                 }
             }
 

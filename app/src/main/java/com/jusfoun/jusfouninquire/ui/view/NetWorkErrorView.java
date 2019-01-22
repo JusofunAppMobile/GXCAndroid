@@ -72,7 +72,7 @@ public class NetWorkErrorView extends RelativeLayout {
         tvEmpty = (TextView) findViewById(R.id.tvEmpty);
         tvError = (TextView) findViewById(R.id.tvError);
         tvReload = (TextView) findViewById(R.id.tvReload);
-        imageView = findViewById(R.id.loading_img);
+        imageView = findViewById(R.id.loading_img_net);
     }
 
     private void initWidgetAction() {
@@ -90,8 +90,6 @@ public class NetWorkErrorView extends RelativeLayout {
                 }
             }
         });
-
-
 
     }
 

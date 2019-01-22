@@ -6,10 +6,11 @@
     >
 
     <ImageView
-        android:id="@+id/loading_img"
+        android:id="@+id/loading_img_net"
         android:layout_width="@dimen/loading_width"
         android:layout_height="@dimen/loading_height"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+       />
     <include layout="@layout/view_empty" />
 
 

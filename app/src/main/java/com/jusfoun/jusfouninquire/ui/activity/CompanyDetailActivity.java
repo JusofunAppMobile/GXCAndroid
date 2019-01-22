@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -133,6 +134,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private CompanyMapView companyMapView;
     private CorporateInfoModel corporateInfoModel;
     private ImageView fengxianImg;
+    private LinearLayout gxcLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public static Intent getIntent(Context context, String id, String name){
+    public static Intent getIntent(Context context, String id, String name) {
         Intent intent = new Intent(context, CompanyDetailActivity.class);
         intent.putExtra(CompanyDetailActivity.COMPANY_ID, id);
         intent.putExtra(CompanyDetailActivity.COMPANY_NAME, name);
@@ -214,38 +216,14 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         navigation = (BottomBarView) findViewById(R.id.navigation);
         companyMapView = (CompanyMapView) findViewById(R.id.view_company_map);
         fengxianImg = findViewById(R.id.img_fengxian);
+        gxcLayout = findViewById(R.id.layout_gxc);
         if (scrollView.getTop() == 0) {
             vBarEmpty1.setVisibility(View.VISIBLE);
             vBarEmpty2.setVisibility(View.VISIBLE);
         }
 
-//        scrollView.setOnScrollChange(new ObserveScrollView.OnScrollChange() {
-//            @Override
-//            public void onChange(int l, int t, int oldl, int oldt) {
-//
-//                if (SCROLLHEIGHT == 0)
-//                    SCROLLHEIGHT = vTitleParent.getHeight();
-//
-//                vTitleParent.setSelected(t > 0);
-//                setStatusBarFontDark(vTitleParent.isSelected());
-//
-////                LogUtil.e("alpha", "t=" + t);
-//
-//                float alpha = (SCROLLHEIGHT - t) / (float) SCROLLHEIGHT;
-////                LogUtil.e("alpha", "alpha=" + alpha);
-//                if (alpha < 0)
-//                    alpha = 0;
-//                vTitleParent.setAlpha(1 - alpha);
-//
-//                if (t == 0)
-//                    vTitleParent.setAlpha(1);
-//            }
-//        });
-
-
     }
 
-    private int SCROLLHEIGHT = 0;
 
     @Override
     protected void initWidgetActions() {
@@ -268,7 +246,6 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 } else if (position == 1) {
                     if (model != null) {
                         EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
-
                         Intent intent = new Intent(CompanyDetailActivity.this, CompanyAmendActivity.class);
                         intent.putExtra("companyId", mCompanyId);
                         intent.putExtra("companyName", mCompanyName);
@@ -280,6 +257,10 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 } else if (position == 2) {
                     monitorHandle();
                 } else if (position == 3) {
+                    if (AppUtils.getUser() == null) {
+                        goActivity(com.gxc.ui.activity.LoginActivity.class);
+                        return;
+                    }
                     goActivity(CertifiedCompanyActivity.class);
                 }
             }
@@ -568,8 +549,16 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             @Override
             public void onSuccess(Object data) {
                 if (data instanceof CompanyDetailModel) {
-                    getGxcDetailData();
-                    updateView((CompanyDetailModel) data);
+                    UserModel userModel = AppUtils.getUser();
+                    if (userModel != null && userModel.vipStatus == 1) {
+                        getGxcDetailData();
+                        updateView((CompanyDetailModel) data);
+                    }else{
+                        updateView((CompanyDetailModel) data);
+                        loadingLayout.setVisibility(View.GONE);
+                        sceneAnimation.stop();
+                    }
+
                 }
             }
 
@@ -593,13 +582,12 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             @Override
             public void success(NetModel data) {
                 corporateInfoModel = data.dataToObject(CorporateInfoModel.class);
-                if (corporateInfoModel.companyInfo != null) {
+                if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
                     shareholderAdapter.setNewData(corporateInfoModel.companyInfo.shareholder);
                     dongshiAdaper.setNewData(corporateInfoModel.companyInfo.mainStaff);
                     companyMapView.setData(corporateInfoModel.companyInfo);
                     headerView.setGxcData(corporateInfoModel.companyInfo);
                 }
-//                    updateView((CompanyDetailModel) model);
                 updateView();
             }
 
@@ -615,6 +603,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     }
 
     private void updateView() {
+        gxcLayout.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         sceneAnimation.stop();
         if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
@@ -625,6 +614,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     private void updateView(final CompanyDetailModel model) {
         this.model = model;
+
 
         //企业信息无数据时处理
         if (model.getResult() == 0) {
@@ -637,7 +627,6 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 return;
             }
         }
-
 
 
         if (model.getResult() == 0) {

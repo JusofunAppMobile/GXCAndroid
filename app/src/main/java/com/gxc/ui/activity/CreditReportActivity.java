@@ -65,7 +65,7 @@ public class CreditReportActivity extends BaseListActivity {
 
 //        showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("companyid", companyId == null ? "" : companyId);
+//        map.put("companyid", companyId == null ? "" : companyId);
         map.put("companyname", companyName == null ? "" : companyName);
 
         RxManager.http(RetrofitUtils.getApi().getCreditReport(map), new ResponseCall() {
@@ -77,7 +77,7 @@ public class CreditReportActivity extends BaseListActivity {
                     CreditReportModel.CreditReportItemModel creditReportCountModel = model.dataToObject(CreditReportModel.CreditReportItemModel.class);
                     List<CreditReportModel.CreditReportItemModel> list = new ArrayList<>();
                     creditReportCountModel.companyName = companyName;
-                    creditReportCountModel.companyId = companyId;
+//                    creditReportCountModel.companyId = companyId;
 
                     Log.e("tag","companyName="+companyName+" "+companyId);
 

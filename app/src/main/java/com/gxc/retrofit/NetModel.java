@@ -1,5 +1,7 @@
 package com.gxc.retrofit;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 
@@ -52,8 +54,9 @@ public class NetModel extends BaseModel implements Serializable {
 
     public <T> T dataToObject(Class<T> clazz) {
         if (data == null) return null;
-        if (data instanceof LinkedHashMap)
+        if (data instanceof LinkedHashMap) {
             if (((LinkedHashMap) data).size() == 0) return null;
+        }
         return new Gson().fromJson(new Gson().toJson(data), clazz);
     }
 

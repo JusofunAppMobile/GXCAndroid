@@ -116,7 +116,7 @@ public class ConfirmOrderActivity extends BaseActivity {
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("companyId", creditReportItemModel.companyId);
+//        map.put("companyId", creditReportItemModel.companyId);
         map.put("companyName", creditReportItemModel.companyName);
         if (type == 0) {
             map.put("type", "1");
@@ -124,7 +124,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             map.put("type", "2");
         }
         map.put("url", editEmail.getText().toString());
-        map.put("OStype", "1");
+//        map.put("OStype", "1");
 
         RxManager.http(RetrofitUtils.getApi().createCreditWord(map), new ResponseCall() {
 
