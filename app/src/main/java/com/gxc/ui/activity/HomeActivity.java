@@ -74,10 +74,6 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onTabSelected(int position) {
                 pager.setCurrentItem(position, false);
-                UserModel userModel = AppUtils.getUser();
-                if (userModel == null || (userModel.authStatus == 0 || userModel.authStatus == 2)) {
-                    setStatusBarFontDark(true);
-                }
             }
 
             @Override

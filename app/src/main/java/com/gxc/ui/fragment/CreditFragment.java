@@ -338,8 +338,8 @@ public class CreditFragment extends BaseFragment {
                             initUICredit(false);
                             certificationImg.setVisibility(View.VISIBLE);
                             topLayout.setVisibility(View.GONE);
-                            textTitle.setTextColor(0xff333333);
-                            layoutRoot.setBackgroundColor(0xffffffff);
+//                            textTitle.setTextColor(0xff333333);
+//                            layoutRoot.setBackgroundColor(0xffffffff);
                         } else if ("1".equals(model.companyInfo.status)) {
                             shImg.setVisibility(View.VISIBLE);
                             initUICredit(false);
@@ -348,8 +348,8 @@ public class CreditFragment extends BaseFragment {
                             initUICredit(false);
                             certificationImg.setVisibility(View.VISIBLE);
                             topLayout.setVisibility(View.GONE);
-                            textTitle.setTextColor(0xff333333);
-                            layoutRoot.setBackgroundColor(0xffffffff);
+//                            textTitle.setTextColor(0xff333333);
+//                            layoutRoot.setBackgroundColor(0xffffffff);
                         } else if ("3".equals(model.companyInfo.status)) {
                             shImg.setVisibility(View.GONE);
                             initUICredit(true);
@@ -396,8 +396,8 @@ public class CreditFragment extends BaseFragment {
 
     private void initUICredit(boolean isCredit) {
 
-        textTitle.setTextColor(0xffffffff);
-        layoutRoot.setBackgroundColor(0xffe83836);
+//        textTitle.setTextColor(0xffffffff);
+//        layoutRoot.setBackgroundColor(0xffe83836);
 
         if (isCredit) {
             viewLine.setVisibility(View.VISIBLE);
