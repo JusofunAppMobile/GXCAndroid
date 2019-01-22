@@ -39,11 +39,11 @@ import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
-import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
+import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 
@@ -59,7 +59,7 @@ import butterknife.OnClick;
  * @Email lgd@jusfoun.com
  * @Description ${}
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXCRefreshListener {
 
     @BindView(R.id.scrollView)
     NestedScrollView scrollView;
@@ -91,6 +91,8 @@ public class HomeFragment extends BaseFragment {
     NavTitleView newsNav;
     @BindView(R.id.vHot)
     LinearLayout vHot;
+    @BindView(R.id.errorView)
+    NetWorkErrorView errorView;
 
     private int crisisY;
 
@@ -105,6 +107,9 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        errorView.setVisibility(View.VISIBLE);
+        errorView.setListener(this);
+        errorView.showLoading();
         homeActivity = (HomeActivity) getActivity();
         homeMenuAdapter = new HomeMenuAdapter();
         menuRecycler.setAdapter(homeMenuAdapter);
@@ -112,7 +117,7 @@ public class HomeFragment extends BaseFragment {
         homeMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                GoActivityUtil.goActivityByType(activity,homeMenuAdapter.getItem(i));
+                GoActivityUtil.goActivityByType(activity, homeMenuAdapter.getItem(i));
             }
         });
 
@@ -209,40 +214,39 @@ public class HomeFragment extends BaseFragment {
 
 
     private void loadData() {
-        showLoading();
         HashMap<String, Object> map = new HashMap<>();
         RxManager.http(RetrofitUtils.getApi().getHomeData(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
-                hideLoadDialog();
                 if (model.success()) {
                     homeModel = model.dataToObject(HomeModel.class);
-                    buildView();
+                    if (homeModel != null) {
+                        errorView.success();
+                        buildView();
+                    } else
+                        errorView.error();
                 } else {
-                    showToast(model.msg);
+                    errorView.error();
                 }
             }
 
             @Override
             public void error() {
-                hideLoadDialog();
-                ToastUtils.showHttpError();
+                errorView.error();
             }
         });
     }
 
     private void buildView() {
-        if (homeModel != null) {
-            homeMenuAdapter.setNewData(homeModel.menu);
-            if (homeModel.adImages != null && !homeModel.adImages.isEmpty())
-                initAutoPager();
-            else
-                groupAd.setVisibility(View.GONE);
-            homeMonitorAdapter.addData(homeModel.monitor);
-            homeNewsAdapter.addData(homeModel.news);
-            buildHotSearch(homeModel.keywords);
-        }
+        homeMenuAdapter.setNewData(homeModel.menu);
+        if (homeModel.adImages != null && !homeModel.adImages.isEmpty())
+            initAutoPager();
+        else
+            groupAd.setVisibility(View.GONE);
+        homeMonitorAdapter.addData(homeModel.monitor);
+        homeNewsAdapter.addData(homeModel.news);
+        buildHotSearch(homeModel.keywords);
     }
 
     /**
@@ -342,5 +346,10 @@ public class HomeFragment extends BaseFragment {
 
     private void newsItemClick(HomeNewsModel model, int position) {
         startActivity(WebActivity.getIntent(activity, "行业资讯", homeNewsAdapter.getItem(position).newsURL));
+    }
+
+    @Override
+    public void OnNetRefresh() {
+        loadData();
     }
 }

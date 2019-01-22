@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
-import com.gxc.event.LoginSucEvent;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -89,7 +89,7 @@ public class RegisterActivity extends BaseActivity {
                 if (model.success()) {
                     showToast("注册成功");
                     PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
-                    EventBus.getDefault().post(new LoginSucEvent());
+                    EventBus.getDefault().post(new LoginChangeEvent());
                     finish();
                 } else {
                     showToast(model.msg);

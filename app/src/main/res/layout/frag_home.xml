@@ -159,7 +159,7 @@
             <RelativeLayout
                 android:id="@+id/vPageParent"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="90dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view4">
@@ -304,5 +304,16 @@
 
 
     </android.support.constraint.ConstraintLayout>
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/errorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

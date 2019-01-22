@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.gxc.constants.Constants;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.inter.OnCallListener;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import netlib.util.PreferenceUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -341,6 +343,7 @@ public class AppUtils {
     }
 
     public static void logout() {
+        EventBus.getDefault().post(new LoginChangeEvent());
         PreferenceUtils.setString(InquireApplication.application, Constants.USER, null);
     }
 

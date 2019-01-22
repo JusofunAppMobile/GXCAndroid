@@ -151,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="版权有中投国信（北京）科技发展有限公司提供"
+        android:text="版权由中投国信（北京）科技发展有限公司提供"
         android:textColor="#6D6D6D"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

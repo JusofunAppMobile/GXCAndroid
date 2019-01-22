@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
-import com.gxc.event.LoginSucEvent;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -80,7 +80,7 @@ public class LoginActivity extends BaseActivity {
                 if (model.success()) {
                     showToast("登录成功");
                     PreferenceUtils.setString(activity, Constants.USER, gson.toJson(model.data));
-                    EventBus.getDefault().post(new LoginSucEvent());
+                    EventBus.getDefault().post(new LoginChangeEvent());
                     finish();
                 } else {
                     showToast(model.msg);
@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
-        if (event instanceof LoginSucEvent)
+        if (event instanceof LoginChangeEvent)
             finish();
     }
 
