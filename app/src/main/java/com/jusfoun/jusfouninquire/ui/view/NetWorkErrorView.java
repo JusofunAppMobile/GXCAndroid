@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.animation.SceneAnimation;
 
 /**
  * Created by Albert on 2015/11/27.
@@ -20,10 +21,11 @@ import com.jusfoun.jusfouninquire.R;
  */
 public class NetWorkErrorView extends RelativeLayout {
     private Context mContext;
-    private ImageView mErrorImage;
-    private RelativeLayout mRefreshLayout;
-    private TextView mErrorText;
 
+    private TextView tvEmpty, tvError, tvReload;
+    private View vEmpty;
+    private SceneAnimation sceneAnimation;
+    private ImageView imageView;
     public NetWorkErrorView(Context context) {
         super(context);
         mContext = context;
@@ -57,36 +59,86 @@ public class NetWorkErrorView extends RelativeLayout {
         initWidgetAction();
     }
 
-    private void initData(){
+    private void initData() {
 
     }
 
-    private void initView(){
-        LayoutInflater.from(mContext).inflate(R.layout.network_error_layout, this, true);
-        mErrorImage = (ImageView) findViewById(R.id.error_image);
-        mErrorText = (TextView)findViewById(R.id.error_text);
-        mRefreshLayout = (RelativeLayout) findViewById(R.id.net_refresh_layout);
+    private void initView() {
+        LayoutInflater.from(mContext).inflate(R.layout.view_net_error, this, true);
+//        mErrorImage = (ImageView) findViewById(R.id.error_image);
+//        mErrorText = (TextView)findViewById(R.id.error_text);
+//        mRefreshLayout = (RelativeLayout) findViewById(R.id.net_refresh_layout);
+        vEmpty = findViewById(R.id.vEmpty);
+        tvEmpty = (TextView) findViewById(R.id.tvEmpty);
+        tvError = (TextView) findViewById(R.id.tvError);
+        tvReload = (TextView) findViewById(R.id.tvReload);
+        imageView = findViewById(R.id.loading_img);
     }
 
-    private void initWidgetAction(){
-        mRefreshLayout.setOnClickListener(new OnClickListener() {
+    private void initWidgetAction() {
+        sceneAnimation = new SceneAnimation(imageView, 75);
+        this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null){
+                if (listener != null) {
                     listener.OnNetRefresh();
+                }
+                if(gxcListener!=null){
+                    gxcListener.OnNetRefresh();
+                    vEmpty.setVisibility(GONE);
+                    sceneAnimation.start();
                 }
             }
         });
+
+
+
     }
 
-    public void setNetWorkError(){
-//        mErrorImage.setImageResource(R.mipmap.net_error_icon);
-//        mErrorText.setText("网络异常");
+    /**国信查start**/
+    public void showLoading(){
+        setVisibility(VISIBLE);
+        vEmpty.setVisibility(View.GONE);
+        sceneAnimation.start();
     }
 
-    public void setServerError(){
-//        mErrorImage.setImageResource(R.mipmap.server_error);
-//        mErrorText.setText("数据服务器异常");
+    public void success() {
+        sceneAnimation.stop();
+        setVisibility(GONE);
+    }
+
+
+    public void error() {
+        sceneAnimation.stop();
+        showEmptyView(true);
+    }
+
+    private OnGXCRefreshListener gxcListener;
+
+    public interface OnGXCRefreshListener {
+        public void OnNetRefresh();
+    }
+
+    public void setListener(OnGXCRefreshListener listener) {
+        this.gxcListener = listener;
+    }
+
+    /**国信查end**/
+
+
+    /**
+     *   原企信宝 错误逻辑
+     * */
+    public void setNetWorkError() {
+        sceneAnimation.stop();
+        showEmptyView(true);
+    }
+    /**
+     *   原企信宝 错误逻辑
+     * */
+    public void setServerError() {
+        sceneAnimation.stop();
+        showEmptyView(true);
     }
 
     private OnRefreshListener listener;
@@ -95,7 +147,31 @@ public class NetWorkErrorView extends RelativeLayout {
         this.listener = listener;
     }
 
-    public interface OnRefreshListener{
+    public interface OnRefreshListener {
         public void OnNetRefresh();
     }
+
+    protected void showEmptyView(boolean isError) {
+        String text = isError ? getHttpErrorTip() : getEmptyTipText();
+        vEmpty.setVisibility(View.VISIBLE);
+        if (tvEmpty != null) {
+            tvEmpty.setText(text);
+        }
+        if (isError) {
+            tvError.setVisibility(View.VISIBLE);
+            tvReload.setVisibility(View.VISIBLE);
+        } else {
+            tvError.setVisibility(View.GONE);
+            tvReload.setVisibility(View.GONE);
+        }
+    }
+
+    protected String getEmptyTipText() {
+        return "没有相关数据";
+    }
+
+    protected String getHttpErrorTip() {
+        return "刷新试试吧~";
+    }
+
 }

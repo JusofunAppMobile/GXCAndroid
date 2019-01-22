@@ -616,6 +616,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     private void updateView() {
         loadingLayout.setVisibility(View.GONE);
+        sceneAnimation.stop();
         if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
             title.setFollow(corporateInfoModel.companyInfo.isCollect == 1);
             navigation.setMonitorText(corporateInfoModel.companyInfo.monitorType == 1);
@@ -637,7 +638,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             }
         }
 
-        sceneAnimation.stop();
+
 
         if (model.getResult() == 0) {
 //            title.setTitleAlpha(0);
@@ -715,6 +716,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             operatingConditionsView.startLoad();
             intangibleAssetsView.startLoad();
         } else {
+            sceneAnimation.stop();
             netWorkError.setServerError();
             netWorkError.setVisibility(View.VISIBLE);
             title.setVGone(View.GONE);

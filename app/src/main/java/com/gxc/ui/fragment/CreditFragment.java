@@ -45,6 +45,7 @@ import com.gxc.ui.dialog.AuthDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class CreditFragment extends BaseFragment {
     @BindView(R.id.text_title)
     TextView textTitle;
     @BindView(R.id.layout_root)
-    ConstraintLayout layoutRoot;
+    RelativeLayout layoutRoot;
     @BindView(R.id.line_chart)
     LineChart chart;
     @BindView(R.id.layout_service)
@@ -87,6 +88,8 @@ public class CreditFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.text_num)
     TextView textNum;
+    @BindView(R.id.net_work_error)
+    NetWorkErrorView netWorkError;
     private ImageView certificationImg;
 
     @BindView(R.id.img_shenhezhong)
@@ -99,6 +102,7 @@ public class CreditFragment extends BaseFragment {
     private RelativeLayout topLayout;
 
     public CreditDataModel.CompanyInfo companyInfo;
+
 
     @Override
     protected int getLayoutId() {
@@ -114,6 +118,7 @@ public class CreditFragment extends BaseFragment {
         certificationImg = (ImageView) findViewById(R.id.img_no_certification);
         topLayout = (RelativeLayout) findViewById(R.id.layout_top);
 
+
         nestedScrollView.setNestedScrollingEnabled(false);
 
 
@@ -127,33 +132,6 @@ public class CreditFragment extends BaseFragment {
         recycleviewService.setAdapter(serviceAdapter);
         recycleviewInquire.setAdapter(inquireAdapter);
 
-
-//        List<HomeMenuModel> list = new ArrayList<>();
-
-//        //0网页，1信用报告，2信用评价，3信用异议，4信用修复5，信用承诺，6访客，7自主填报
-//        list.add(new HomeMenuModel("信用报告", 1));
-//        list.add(new HomeMenuModel("信用评价", 2));
-//        list.add(new HomeMenuModel("信用异议", 3));
-//        list.add(new HomeMenuModel("信用修复", 4));
-//        list.add(new HomeMenuModel("信用承诺", 5));
-//        list.add(new HomeMenuModel("访客", 6));
-//        list.add(new HomeMenuModel("自主填报", 7));
-//
-//        serviceAdapter.addData(list);
-
-//        List<HomeMenuModel> inquirelist = new ArrayList<>();
-
-//        ////0网页，1税务案件查询，2裁判文书查询，3黑名单查询，4招投标查询，5商标查询，6著作权查询，7专利查询，8 企业备案信息查询
-//        inquirelist.add(new HomeMenuModel("税务案件", 1));
-//        inquirelist.add(new HomeMenuModel("裁判文书", 2));
-//        inquirelist.add(new HomeMenuModel("黑名单", 3));
-//        inquirelist.add(new HomeMenuModel("招投标", 4));
-//        inquirelist.add(new HomeMenuModel("商标查询", 5));
-//        inquirelist.add(new HomeMenuModel("著作权查询", 6));
-//        inquirelist.add(new HomeMenuModel("专利查询", 7));
-//        inquirelist.add(new HomeMenuModel("备案信息", 8));
-
-//        inquireAdapter.addData(inquirelist);
         serviceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
@@ -203,10 +181,15 @@ public class CreditFragment extends BaseFragment {
             }
         });
 
-        initChart();
 
+        netWorkError.setListener(new NetWorkErrorView.OnGXCRefreshListener() {
+            @Override
+            public void OnNetRefresh() {
+                getServiceData();
+            }
+        });
+        initChart();
         getServiceData();
-//        setData(6, 150);
 
     }
 
@@ -327,6 +310,7 @@ public class CreditFragment extends BaseFragment {
     }
 
     private void getServiceData() {
+        netWorkError.showLoading();
 
         RxManager.http(RetrofitUtils.getApi().getCreditService(), new ResponseCall() {
 
@@ -334,6 +318,7 @@ public class CreditFragment extends BaseFragment {
             public void success(NetModel data) {
 
                 if (data.success()) {
+                    netWorkError.success();
                     CreditDataModel model = data.dataToObject(CreditDataModel.class);
                     if (model.companyInfo != null) {
                         companyInfo = model.companyInfo;
@@ -367,11 +352,11 @@ public class CreditFragment extends BaseFragment {
                         textCompayType.setText(model.companyInfo.type);
 
 
-                        UserModel userModel =  AppUtils.getUser();
-                        if(userModel!=null) {
+                        UserModel userModel = AppUtils.getUser();
+                        if (userModel != null) {
                             userModel.taxid = model.companyInfo.code;
                             userModel.states = model.companyInfo.type;
-                            if(!TextUtils.isEmpty( model.companyInfo.companyId)) {
+                            if (!TextUtils.isEmpty(model.companyInfo.companyId)) {
                                 userModel.companyId = model.companyInfo.companyId;
                             }
                             PreferenceUtils.setString(activity, Constants.USER, new Gson().toJson(userModel));
@@ -380,6 +365,7 @@ public class CreditFragment extends BaseFragment {
                         serviceAdapter.setNewData(model.serviceList);
                         inquireAdapter.setNewData(model.inquiryList);
                     } else {
+                        netWorkError.error();
                         showToast(data.msg);
                     }
                 }
@@ -387,6 +373,7 @@ public class CreditFragment extends BaseFragment {
 
             @Override
             public void error() {
+                netWorkError.error();
                 ToastUtils.showHttpError();
             }
         });
