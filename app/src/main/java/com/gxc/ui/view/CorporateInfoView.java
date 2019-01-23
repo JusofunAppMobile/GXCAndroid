@@ -137,7 +137,7 @@ public class CorporateInfoView extends BaseView {
                 viewPhone.setEditText(model.industry);
                 viewEmail.setEditText(model.tag);
                 viewHttp.setEditText(model.url);
-                editContent.setText(model.introduce);
+//                editContent.setText(model.introduce);
                 imgUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(imgIcon);
 

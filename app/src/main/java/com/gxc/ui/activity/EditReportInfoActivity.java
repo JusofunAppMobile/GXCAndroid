@@ -296,7 +296,7 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("honor", model.honor);
         map.put("image", model.image);
         map.put("introduce", model.introduce);
-        map.put("honorId", "");
+        map.put("honorId", id);
         RxManager.http(RetrofitUtils.getApi().honorEditor(map), new ResponseCall() {
 
             @Override
@@ -332,7 +332,7 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("partner", model.partner);
         map.put("image", model.image);
         map.put("introduce", model.introduce);
-        map.put("partnerId", "");
+        map.put("partnerId", id);
 
 
         RxManager.http(RetrofitUtils.getApi().partnerEditor(map), new ResponseCall() {

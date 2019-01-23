@@ -33,4 +33,7 @@ public class CertificationModel extends NetModel {
     public String idcardImage;
     public String status;
     public String idcard;
+    public String licenseimgpath;
+    public String idcardImgpath;
+
 }

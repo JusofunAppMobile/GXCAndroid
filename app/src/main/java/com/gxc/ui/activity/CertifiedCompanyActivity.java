@@ -73,13 +73,13 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
     @Override
     public void initActions() {
-        viewName.setData("企业名称",NUM_MAX);
-        viewCode.setData("法人身份证",NUM_MAX);
-        viewPhone.setData("手机号码",NUM_MAX);
-        viewEmail.setData("邮箱",NUM_MAX);
+        viewName.setData("企业名称", NUM_MAX);
+        viewCode.setData("法人身份证", NUM_MAX);
+        viewPhone.setData("手机号码", NUM_MAX);
+        viewEmail.setData("邮箱", NUM_MAX);
         imgYyzz.setData("营业执照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
         imgIdfen.setData("本人身份证", getString(R.string.text_img_carme_top_identity), PHOTO_IDENTITY);
-        viewRealName.setData("真实姓名",NUM_MAX);
+        viewRealName.setData("真实姓名", NUM_MAX);
 
         titleBar.setTitle("认证企业");
 
@@ -210,7 +210,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
                     imgIdfen.setImageSrc(model.idcardImage);
                     viewCode.setContent(model.idcard);
                     viewRealName.setContent(model.name);
-
+                    yeUrl = model.licenseimgpath;
+                    cardUrl = model.licenseimgpath;
                 } else {
                     showToast(data.msg);
                 }
