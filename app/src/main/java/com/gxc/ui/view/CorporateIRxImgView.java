@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -14,12 +13,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gxc.model.EditReportInfoImgModel;
-import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.ui.activity.EditReportInfoActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
+
+import static com.gxc.constants.Constants.NUM_MAX2;
+import static com.gxc.constants.Constants.NUM_MAX3;
 
 /**
  * @author zhaoyapeng
@@ -88,7 +89,7 @@ public class CorporateIRxImgView extends BaseView {
     public void setData(int type, EditReportInfoImgModel model) {
         this.type=type;
         if (type == EditReportInfoActivity.TYPE_RY) {
-            textTitle.setData("企业荣誉");
+            textTitle.setData("企业荣誉",NUM_MAX2);
             titleImgText.setText("荣誉图片");
             textDes.setText("荣誉简介");
             editCotent.setHint("请输入荣誉简介");
@@ -101,7 +102,7 @@ public class CorporateIRxImgView extends BaseView {
             }
 
         }else if(type == EditReportInfoActivity.TYPE_HB){
-            textTitle.setData("企业伙伴名称");
+            textTitle.setData("企业伙伴名称",NUM_MAX3);
             titleImgText.setText("合作伙伴图片");
             textDes.setText("简介");
             editCotent.setHint("请输入简介");
@@ -114,12 +115,12 @@ public class CorporateIRxImgView extends BaseView {
 
             }
         }else if(type == EditReportInfoActivity.TYPE_CY){
-            textTitle.setData("企业姓名");
+            textTitle.setData("企业姓名",NUM_MAX2);
             titleImgText.setText("企业成员图片");
             textDes.setText("简介");
             editCotent.setHint("请输入简介");
             zhiwuText.setVisibility(VISIBLE);
-            zhiwuText.setData("成员职务");
+            zhiwuText.setData("成员职务",NUM_MAX2);
 
             if(model!=null){
                 textTitle.setEditText(model.name);

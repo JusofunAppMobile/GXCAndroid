@@ -1,6 +1,5 @@
 package com.gxc.ui.activity;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +16,6 @@ import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
-import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 
 import java.util.HashMap;
 
@@ -53,19 +51,10 @@ public class LoginActivity extends BaseActivity {
 
     private void login() {
 
-        String phone = etPhone.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showToast("请输入手机号");
-            return;
-        }
-        if (!RegexUtils.checkMobile(phone)) {
-            showToast("请输入正确的手机号码");
-            return;
-        }
-        if (TextUtils.isEmpty(getValue(etPassword))) {
-            showToast("请输入手机号");
-            return;
-        }
+        if (isEmptyAndToast(etPhone, "请输入手机号")) return;
+        if (isPhoneValidAndToast(etPhone)) return;
+        if (isEmptyAndToast(etPassword, "请输入密码")) return;
+
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", getValue(etPhone));

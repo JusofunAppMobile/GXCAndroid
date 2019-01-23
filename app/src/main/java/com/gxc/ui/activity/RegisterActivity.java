@@ -65,19 +65,13 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void register() {
+
+        if (isEmptyAndToast(etPhone, "请输入手机号")) return;
+        if (isPhoneValidAndToast(etPhone)) return;
+        if (isEmptyAndToast(etCode, "请输入验证码")) return;
+        if (isEmptyAndToast(etPassword, "请输入密码")) return;
+
         String phone = etPhone.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showToast("请输入手机号");
-            return;
-        }
-        if (TextUtils.isEmpty(getValue(etCode))) {
-            showToast("请输入验证码");
-            return;
-        }
-        if (TextUtils.isEmpty(getValue(etPassword))) {
-            showToast("请输入密码");
-            return;
-        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("code", getValue(etCode));

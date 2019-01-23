@@ -12,6 +12,8 @@ import com.jusfoun.jusfouninquire.ui.view.BaseView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.gxc.constants.Constants.NUM_MAX2;
+
 /**
  * @author zhaoyapeng
  * @version create time:2019/1/714:45
@@ -69,20 +71,20 @@ public class CorporateRxView extends BaseView {
     public void setData(int type) {
 
         if (type == EditReportInfoActivity.TYPE_INFO) {
-            viewName.setData("企业名称");
-            viewHangye.setData("行        业");
-            viewPhone.setData("联系电话");
-            viewEmail.setData("邮        箱");
-            viewHttp.setData("网        址");
+            viewName.setData("企业名称",NUM_MAX2);
+            viewHangye.setData("行业",NUM_MAX2);
+            viewPhone.setData("联系电话",NUM_MAX2);
+            viewEmail.setData("邮箱",NUM_MAX2);
+            viewHttp.setData("网址",NUM_MAX2);
             textIcon.setText("LOGO");
             textDes.setText("公司介绍");
 
         } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
-            viewName.setData("所属公司");
-            viewHangye.setData("产品名称");
-            viewPhone.setData("所属领域");
-            viewEmail.setData("标        签");
-            viewHttp.setData("链接地址");
+            viewName.setData("所属公司",NUM_MAX2);
+            viewHangye.setData("产品名称",NUM_MAX2);
+            viewPhone.setData("所属领域",NUM_MAX2);
+            viewEmail.setData("标签",NUM_MAX2);
+            viewHttp.setData("链接地址",NUM_MAX2);
             textIcon.setText("产品图片");
             textDes.setText("简介");
         }

@@ -33,7 +33,7 @@ import netlib.util.SendMessage;
  * @author liuguangdan
  * @version create at 2019/1/7/007 17:18
  * @Email lgd@jusfoun.com
- * @Description ${绑定手机号}
+ * @Description ${忘记密码、修改密码、绑定手机号}
  */
 public class BindPhoneActivity extends BaseActivity {
 
@@ -96,15 +96,11 @@ public class BindPhoneActivity extends BaseActivity {
 
     @OnClick(R.id.vSendCode)
     public void sendCode() {
+
+        if (isEmptyAndToast(etPhone, "请输入手机号")) return;
+        if (isPhoneValidAndToast(etPhone)) return;
+
         String phone = etPhone.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showToast("请输入手机号");
-            return;
-        }
-        if (!RegexUtils.checkMobile(phone)) {
-            showToast("请输入正确的手机号码");
-            return;
-        }
         sendMessage.start();
 
         HashMap<String, Object> map = new HashMap<>();

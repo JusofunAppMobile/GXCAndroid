@@ -30,6 +30,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.gxc.constants.Constants.NUM_MAX;
+
 /**
  * @author zhaoyapeng
  * @version create time:2019/1/717:43
@@ -71,13 +73,13 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
     @Override
     public void initActions() {
-        viewName.setData("企 业 名 称");
-        viewCode.setData("法人身份证");
-        viewPhone.setData("手 机 号 码");
-        viewEmail.setData("邮           箱");
-        imgYyzz.setData("营 业 执 照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
+        viewName.setData("企业名称",NUM_MAX);
+        viewCode.setData("法人身份证",NUM_MAX);
+        viewPhone.setData("手机号码",NUM_MAX);
+        viewEmail.setData("邮箱",NUM_MAX);
+        imgYyzz.setData("营业执照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
         imgIdfen.setData("本人身份证", getString(R.string.text_img_carme_top_identity), PHOTO_IDENTITY);
-        viewRealName.setData("真 实 姓 名");
+        viewRealName.setData("真实姓名",NUM_MAX);
 
         titleBar.setTitle("认证企业");
 
@@ -147,37 +149,14 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
     private void renzhengNet() {
 
-        if (TextUtils.isEmpty(viewName.getEditText())) {
-            showToast("请输入企业名称");
-            return;
-        }
-        if (TextUtils.isEmpty(viewCode.getEditText())) {
-            showToast("请输入法人身份证");
-            return;
-        }
+        if (isEmptyAndToast(viewName.getEditText(), "请输入企业名称")) return;
+        if (isEmptyAndToast(viewCode.getEditText(), "请输入法人身份证")) return;
+        if (isEmptyAndToast(viewRealName.getEditText(), "请输入真实姓名")) return;
+        if (isEmptyAndToast(viewPhone.getEditText(), "请输入手机号")) return;
+        if (isEmptyAndToast(viewEmail.getEditText(), "请输入邮箱")) return;
+        if (isEmptyAndToast(yeUrl, "请上传营业执照")) return;
+        if (isEmptyAndToast(cardUrl, "请上传身份证")) return;
 
-        if (TextUtils.isEmpty(viewCode.getEditText())) {
-            showToast("请输入真实姓名");
-            return;
-        }
-
-        if (TextUtils.isEmpty(viewPhone.getEditText())) {
-            showToast("请输入手机号");
-            return;
-        }
-
-        if (TextUtils.isEmpty(viewEmail.getEditText())) {
-            showToast("请输入邮箱");
-            return;
-        }
-        if (TextUtils.isEmpty(yeUrl)) {
-            showToast("请上传营业执照");
-            return;
-        }
-        if (TextUtils.isEmpty(cardUrl)) {
-            showToast("请上传身份证");
-            return;
-        }
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
@@ -212,6 +191,7 @@ public class CertifiedCompanyActivity extends BaseActivity {
         });
 
     }
+
     private void getRZData() {
 
         showLoading();
