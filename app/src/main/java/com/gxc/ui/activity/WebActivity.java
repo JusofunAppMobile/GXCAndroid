@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.Group;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -18,9 +21,12 @@ import com.gxc.base.BaseActivity;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
+
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -99,6 +105,29 @@ public class WebActivity extends BaseActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
 //            http://202.106.10.250:4808/dist/#/vip?data=9iFQlbMLJeuq9ONpaG%2FVDkFlePca9Rf%2F9v6UTySLWiET1dgisCQG6A%3D%3D
+
+
+            if (view.getUrl().startsWith("gxc://edit")) {
+
+                Uri uri ;
+                try {
+                    uri = Uri.parse(view.getUrl());
+                    String type ;
+                    Set<String> parameter = uri.getQueryParameterNames();
+
+                    if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
+                        if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
+                            type = uri.getQueryParameter("type");
+
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.d("TAG", e.toString());
+                }
+                return true;
+            }
+
+
             return super.shouldOverrideUrlLoading(view, request);
         }
     };

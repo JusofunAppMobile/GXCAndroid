@@ -68,7 +68,7 @@ public interface Api {
     @POST("/app/Company/subCompanyMsg")
     Observable<NetModel> subCompanyMsg(@FieldMap Map<String, Object> params);
 
-    @POST("/app/CreditService/CompanyInfoReporting")
+    @POST("/app/CreditService/CompanyInfoReportingH5")
     Observable<NetModel> companyInfoReporting();
 
 
@@ -188,5 +188,27 @@ public interface Api {
     @FormUrlEncoded
     @POST("/app/CreditService/creditError")
     Observable<NetModel> creditError(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/getCompanyInfo")
+    Observable<NetModel> getCompanyInfo(@FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("/app/Company/getProductList")
+    Observable<NetModel> getProductList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/getHonorList")
+    Observable<NetModel> getHonorList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/getpartnerList")
+    Observable<NetModel> getpartnerList(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("/app/Company/getEmployerList")
+    Observable<NetModel> getEmployerList(@FieldMap Map<String, Object> params);
+
 
 }
