@@ -3,15 +3,12 @@ package com.gxc.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,8 +51,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import netlib.util.PreferenceUtils;
 import netlib.util.ToastUtils;
 
@@ -88,7 +83,6 @@ public class CreditFragment extends BaseFragment {
     TextView textXinyongCode;
     @BindView(R.id.text_compay_type)
     TextView textCompayType;
-    Unbinder unbinder;
     @BindView(R.id.text_num)
     TextView textNum;
     @BindView(R.id.net_work_error)
@@ -416,19 +410,6 @@ public class CreditFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);

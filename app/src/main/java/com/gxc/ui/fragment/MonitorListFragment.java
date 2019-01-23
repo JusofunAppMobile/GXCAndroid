@@ -5,6 +5,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListFragment;
 import com.gxc.event.LoginChangeEvent;
+import com.gxc.event.MonitorChangeEvent;
 import com.gxc.event.MonitorStatusEvent;
 import com.gxc.impl.ListResponseCall;
 import com.gxc.model.MonitorModel;
@@ -110,9 +111,7 @@ public class MonitorListFragment extends BaseListFragment {
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
-        if (event instanceof MonitorStatusEvent)
-            refresh();
-        else if (event instanceof LoginChangeEvent)
+        if (event instanceof LoginChangeEvent || event instanceof MonitorChangeEvent || event instanceof MonitorStatusEvent)
             refresh();
     }
 }

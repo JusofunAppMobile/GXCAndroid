@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gxc.ui.dialog.LoadingDialog;
+import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
@@ -63,8 +64,9 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 接收event 重写此方法
-     * */
-    public void onEvent(IEvent event){
+     */
+    public void onEvent(IEvent event) {
+        LogUtils.e("onEvent++++>>"+event.getClass().getSimpleName()+"<<" + getClass().getSimpleName());
     }
 
     /**
@@ -131,7 +133,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showLoading() {
-        if (isDetached()){
+        if (isDetached()) {
             return;
         }
 

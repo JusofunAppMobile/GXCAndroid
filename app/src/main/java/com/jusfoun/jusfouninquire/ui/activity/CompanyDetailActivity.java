@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.gxc.event.CollectChangeEvent;
+import com.gxc.event.MonitorChangeEvent;
 import com.gxc.model.CorporateInfoModel;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
@@ -936,6 +938,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                     corporateInfoModel.companyInfo.isCollect = type;
                     showToast(type == 1 ? "收藏成功" : "已取消收藏");
                     title.setFollow(type == 1);
+                    EventBus.getDefault().post(new CollectChangeEvent());
                 } else {
                     showToast(model.msg);
                 }
@@ -979,6 +982,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                     corporateInfoModel.companyInfo.monitorType = type;
                     showToast(type == 1 ? "监控成功" : "已取消监控");
                     navigation.setMonitorText(type == 1);
+                    EventBus.getDefault().post(new MonitorChangeEvent());
                 } else {
                     showToast(model.msg);
                 }

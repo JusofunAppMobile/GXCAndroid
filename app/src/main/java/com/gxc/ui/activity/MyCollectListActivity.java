@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.event.CollectChangeEvent;
 import com.gxc.impl.ListResponseCall;
 import com.gxc.model.CollectModel;
 import com.gxc.retrofit.NetModel;
@@ -13,6 +14,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyCollectAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -93,5 +95,12 @@ public class MyCollectListActivity extends BaseListActivity {
                 adapter.removeHeaderView(headView);
             }
         });
+    }
+
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if(event instanceof CollectChangeEvent)
+            refresh();
     }
 }

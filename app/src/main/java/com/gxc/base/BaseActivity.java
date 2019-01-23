@@ -22,12 +22,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.gxc.event.FinishEvent;
 import com.gxc.ui.dialog.LoadingDialog;
+import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -35,7 +35,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import de.greenrobot.event.ThreadMode;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -134,6 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 接收event 重写此方法
      * */
     public void onEvent(IEvent event){
+        LogUtils.e("onEvent++++>>"+event.getClass().getSimpleName()+"<<" + getClass().getSimpleName());
         if(event instanceof FinishEvent)
             finish();
     }

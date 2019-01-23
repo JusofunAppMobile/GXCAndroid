@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.event.MonitorChangeEvent;
 import com.gxc.impl.ListResponseCall;
 import com.gxc.model.MonitorModel;
 import com.gxc.retrofit.NetModel;
@@ -13,6 +14,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.MyMonitorAdapter;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
@@ -87,5 +89,12 @@ public class MyMonitorListActivity extends BaseListActivity {
                 super.success(model);
             }
         });
+    }
+
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if(event instanceof MonitorChangeEvent)
+            refresh();
     }
 }
