@@ -3,13 +3,13 @@ package com.gxc.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.Group;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -18,14 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.constants.Constants;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -102,6 +104,23 @@ public class WebActivity extends BaseActivity {
     private WebViewClient mWebViewClient = new WebViewClient() {
 
         @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            LogUtils.e("shouldOverrideUrlLoading1111:URL=" + url);
+            if (url.startsWith(Constants.URL_PREFIX)) {
+                try {
+                    String deurl = URLDecoder.decode(url, "UTF-8");
+                    LogUtils.e("》》》" + deurl);
+                    Uri uri = Uri.parse(deurl);
+
+                    return true;
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+            return super.shouldOverrideUrlLoading(view, url);
+        }
+
+        @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
 //            http://202.106.10.250:4808/dist/#/vip?data=9iFQlbMLJeuq9ONpaG%2FVDkFlePca9Rf%2F9v6UTySLWiET1dgisCQG6A%3D%3D
@@ -122,13 +141,19 @@ public class WebActivity extends BaseActivity {
                         }
                     }
                 } catch (Exception e) {
-                    Log.d("TAG", e.toString());
+                    e.printStackTrace();
                 }
                 return true;
             }
 
 
             return super.shouldOverrideUrlLoading(view, request);
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            LogUtils.e("onPageStarted=" + url);
         }
     };
 

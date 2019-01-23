@@ -37,9 +37,10 @@ public class RiskListActivity extends BaseListActivity {
         startActivity(RiskTabActivity.class);
     }
 
-    public static Intent getIntent(Context context, String key) {
+    public static Intent getIntent(Context context, String name, String id) {
         Intent intent = new Intent(context, RiskListActivity.class);
-        intent.putExtra("key", key);
+        intent.putExtra("name", name);
+        intent.putExtra("id", id);
         return intent;
     }
 

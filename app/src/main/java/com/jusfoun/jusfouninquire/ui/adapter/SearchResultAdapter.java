@@ -1,11 +1,11 @@
 package com.jusfoun.jusfouninquire.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gxc.model.HomeNewsModel;
+import com.gxc.event.CompanySelectEvent;
 import com.gxc.ui.activity.WebActivity;
+import com.gxc.utils.LogUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
@@ -35,6 +36,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 import static com.jusfoun.jusfouninquire.R.id.company_info;
 
@@ -291,7 +294,19 @@ public class SearchResultAdapter extends BaseAdapter {
                             if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
                                     mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
                                     mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
-                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
+
+                                // 查关系
+                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
+                                    EventBus.getDefault().post(new CompanySelectEvent(model.getCompanyname(), model.getCompanyid()));
+                                    ((Activity) mContext).finish();
+                                    return;
+                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK)) {// 风险分析
+                                    LogUtils.e(">>>风险分析");
+                                    return;
+                                }
 
                                 CompanyDetailModel companyDetailModel = new CompanyDetailModel();
                                 companyDetailModel.setCompanyname(model.getCompanyname());
@@ -312,13 +327,13 @@ public class SearchResultAdapter extends BaseAdapter {
                                 companyDetailModel.setSubclassMenu(subclassMenu);
 
                                 if (mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE)) {
-                                    String url = mContext.getString(R.string.req_url)+"/Html/courtInfo_cpws.html?entname="+model.getCompanyname()+"&version=1.0.0&apptype=0";
-                                    mContext.startActivity(WebActivity.getIntent(mContext, "裁判文书",url));
-                                }else{
+                                    String url = mContext.getString(R.string.req_url) + "/Html/courtInfo_cpws.html?entname=" + model.getCompanyname() + "&version=1.0.0&apptype=0";
+                                    mContext.startActivity(WebActivity.getIntent(mContext, "裁判文书", url));
+                                } else {
                                     Bundle argument = new Bundle();
                                     argument.putSerializable(CompanyDetailsActivity.COMPANY, companyDetailModel);
                                     argument.putInt(CompanyDetailsActivity.POSITION, 0);
-                                    argument.putBoolean(CompanyDetailsActivity.IS_GXC,true);
+                                    argument.putBoolean(CompanyDetailsActivity.IS_GXC, true);
                                     Intent intent = new Intent(mContext, CompanyDetailsActivity.class);
                                     intent.putExtras(argument);
                                     mContext.startActivity(intent);
