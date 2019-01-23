@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initActions() {
-
+        setTouchHideSoftKeyboard(etPhone, etPassword);
     }
 
     private void login() {

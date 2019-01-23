@@ -2,6 +2,7 @@ package com.gxc.base;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,10 +12,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -51,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activity = this;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-       if (getLayoutId() != 0){
+        if (getLayoutId() != 0) {
             setContentView(getLayoutId());
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
@@ -70,6 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract int getLayoutId();
+
     public abstract void initActions();
 
     public boolean isSetStatusBar() {
@@ -102,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void setStatusBarRed(){
+    public void setStatusBarRed() {
         setStatusBarEnable(ContextCompat.getColor(this, R.color.common_red));
     }
 
@@ -131,10 +136,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 接收event 重写此方法
-     * */
-    public void onEvent(IEvent event){
-        LogUtils.e("onEvent++++>>"+event.getClass().getSimpleName()+"<<" + getClass().getSimpleName());
-        if(event instanceof FinishEvent)
+     */
+    public void onEvent(IEvent event) {
+        LogUtils.e("onEvent++++>>" + event.getClass().getSimpleName() + "<<" + getClass().getSimpleName());
+        if (event instanceof FinishEvent)
             finish();
     }
 
@@ -390,9 +395,69 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    /**
+     * 点击输入框以外的位置是否能隐藏软键盘
+     */
+    private boolean isTouchHideSoftkeyboard = false;
+    private List<EditText> touchList;
+
+    /**
+     * 设置点击输入框以外的位置是否能隐藏软键盘,
+     * @param editTexts 页面中的所有 EditText，需要检测所有的 EditText 的位置，避免点击其他EditText 软键盘跳动现象
+     */
+    public void setTouchHideSoftKeyboard(EditText... editTexts) {
+        if (editTexts != null && editTexts.length > 0) {
+            touchList = new ArrayList<>();
+            for (EditText et : editTexts)
+                touchList.add(et);
+            isTouchHideSoftkeyboard = true;
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (!isTouchHideSoftkeyboard) return super.dispatchTouchEvent(ev);
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return onTouchEvent(ev);
+    }
+
+    private boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            for (EditText et : touchList) {
+                int[] leftTop = {0, 0};
+                //获取输入框当前的location位置
+                et.getLocationInWindow(leftTop);
+                int left = leftTop[0];
+                int top = leftTop[1];
+                int bottom = top + et.getHeight();
+                int right = left + et.getWidth();
+                if (event.getX() > left && event.getX() < right
+                        && event.getY() > top && event.getY() < bottom) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

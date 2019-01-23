@@ -1,16 +1,11 @@
 package com.gxc.base;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +17,6 @@ import com.jusfoun.jusfouninquire.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 
 public abstract class BaseListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, OnCompleteListener {
 
@@ -32,10 +25,6 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
     protected BaseQuickAdapter adapter;
 
     protected SwipeRefreshLayout refreshLayout;
-
-    protected ViewGroup rootView;
-
-    private Context context;
 
     private View vEmpty;
     private TextView tvEmpty, tvError, tvReload;
@@ -64,81 +53,65 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
      */
     protected abstract void startLoadData();
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     protected boolean isAutoLoad() {
         return true;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = (ViewGroup) View.inflate(context, getLayoutId(), null);
-            ButterKnife.bind(this, rootView);
-            recyclerView = (RecyclerView) rootView.findViewById(R.id.recycle);
-            refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refreshLayout);
-            vEmpty = rootView.findViewById(R.id.vEmpty);
-            tvEmpty = (TextView) rootView.findViewById(R.id.tvEmpty);
-            tvEmpty = (TextView) rootView.findViewById(R.id.tvEmpty);
-            tvError = (TextView) rootView.findViewById(R.id.tvError);
-            tvReload = (TextView) rootView.findViewById(R.id.tvReload);
-            ivEmpty = rootView.findViewById(R.id.ivEmpty);
-            adapter = getAdapter();
-
-            if (recyclerView == null)
-                throw new RuntimeException("not found R.id.recycle.");
-
-            if (adapter == null)
-                throw new RuntimeException("adapter can not be null.");
-
-            adapter.setEnableLoadMore(isLoadMoreEnable());
-            if (isLoadMoreEnable())
-                adapter.setOnLoadMoreListener(this, recyclerView);
-
-            if (!isLoadMoreEnable())
-                pageSize = Integer.MAX_VALUE;
-
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    if (!isLoadingData)
-                        BaseListFragment.this.onItemClick(adapter, view, position);
-                }
-            });
-
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(getLayoutManager());
-
-            if (refreshLayout != null) {
-                refreshLayout.setColorSchemeColors(getResources().getColor(R.color.common));
-                refreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
-                refreshLayout.setOnRefreshListener(this);
-                refreshLayout.setRefreshing(true);
-            }
-
-            if (vEmpty != null) {
-                vEmpty.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        refresh();
-                    }
-                });
-            }
-            initUi();
-            if (isAutoLoad())
-                onRefresh();
-        }
-        return rootView;
-    }
-
     @Override
     protected void initView() {
+        recyclerView = rootView.findViewById(R.id.recycle);
+        refreshLayout = rootView.findViewById(R.id.refreshLayout);
+        vEmpty = rootView.findViewById(R.id.vEmpty);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
+        tvError = rootView.findViewById(R.id.tvError);
+        tvReload = rootView.findViewById(R.id.tvReload);
+        ivEmpty = rootView.findViewById(R.id.ivEmpty);
+        adapter = getAdapter();
 
+        if (recyclerView == null)
+            throw new RuntimeException("not found R.id.recycle.");
+
+        if (adapter == null)
+            throw new RuntimeException("adapter can not be null.");
+
+        adapter.setEnableLoadMore(isLoadMoreEnable());
+        if (isLoadMoreEnable())
+            adapter.setOnLoadMoreListener(this, recyclerView);
+
+        if (!isLoadMoreEnable())
+            pageSize = Integer.MAX_VALUE;
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!isLoadingData)
+                    BaseListFragment.this.onItemClick(adapter, view, position);
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(getLayoutManager());
+
+        if (refreshLayout != null) {
+            refreshLayout.setColorSchemeColors(getResources().getColor(R.color.common));
+            refreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+            refreshLayout.setOnRefreshListener(this);
+            refreshLayout.setRefreshing(true);
+        }
+
+        if (vEmpty != null) {
+            vEmpty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refresh();
+                }
+            });
+        }
+        initUi();
+        if (isAutoLoad())
+            onRefresh();
     }
 
     public int getLayoutId() {
@@ -146,7 +119,7 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
     }
 
     protected RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(context);
+        return new LinearLayoutManager(activity);
     }
 
     @Override

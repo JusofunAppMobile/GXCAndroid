@@ -60,6 +60,8 @@ public class RegisterActivity extends BaseActivity {
                 .setInputView(etPhone)
                 .setTipText("获取验证码")
                 .setTime(60);
+
+        setTouchHideSoftKeyboard(etPhone, etPassword, etCode);
     }
 
     private void register() {
