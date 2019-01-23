@@ -53,6 +53,7 @@ public class EditReportInfoActivity extends BaseActivity {
     NetWorkErrorView netWorkError;
 
     private int type = 1;
+    private String id = "";
     private String imagePath;
 
     private CorporateInfoView corporateInfoView;
@@ -67,6 +68,7 @@ public class EditReportInfoActivity extends BaseActivity {
     public static final int TYPE_CY = 5;//企业成员
 
     public static String TYPE = "type";
+    public static String ID = "id";
 
     @Override
     protected int getLayoutId() {
@@ -79,22 +81,34 @@ public class EditReportInfoActivity extends BaseActivity {
         corporateIRxImgView = new CorporateIRxImgView(this);
         titlebar.setRightText("编辑");
         type = getIntent().getIntExtra(TYPE, TYPE_INFO);
+        id = getIntent().getStringExtra(ID);
+
 
         if (type == TYPE_INFO) {
             titlebar.setTitle("企业信息");
-            getCompanyDetail();
+            if(!TextUtils.isEmpty(id)) {
+                getCompanyDetail();
+            }
         } else if (type == TYPE_PRODUCE) {
             titlebar.setTitle("企业产品");
-            getProductDetail();
+            if(!TextUtils.isEmpty(id)) {
+                getProductDetail();
+            }
         } else if (type == TYPE_RY) {
             titlebar.setTitle("企业荣誉");
-            getRy();
+            if(!TextUtils.isEmpty(id)) {
+                getRy();
+            }
         } else if (type == TYPE_HB) {
             titlebar.setTitle("企业伙伴");
-            getHB();
+            if(!TextUtils.isEmpty(id)) {
+                getHB();
+            }
         } else if (type == TYPE_CY) {
             titlebar.setTitle("企业成员");
-            getCy();
+            if(!TextUtils.isEmpty(id)) {
+                getCy();
+            }
         }
 
         titlebar.setRightClickListener(new TitleView.OnRightClickListener() {
@@ -230,7 +244,7 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("introduce", model.introduce);
         map.put("productId", "");
 
-        RxManager.http(RetrofitUtils.getApi().CompanyInfoEditor(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().getProductList(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
@@ -378,9 +392,7 @@ public class EditReportInfoActivity extends BaseActivity {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
         UserModel userModel = AppUtils.getUser();
-        if (userModel != null) {
-            map.put("companyId", userModel.companyId);
-        }
+        map.put("companyId", id);
         RxManager.http(RetrofitUtils.getApi().getCompanyInfo(map), new ResponseCall() {
 
             @Override
@@ -412,7 +424,7 @@ public class EditReportInfoActivity extends BaseActivity {
         HashMap<String, Object> map = new HashMap<>();
         UserModel userModel = AppUtils.getUser();
         if (userModel != null) {
-            map.put("productId", "1");
+            map.put("productId", id);
         }
         RxManager.http(RetrofitUtils.getApi().getProductList(map), new ResponseCall() {
 
@@ -444,7 +456,7 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getRy() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("honorId", "1");
+        map.put("honorId", id);
         RxManager.http(RetrofitUtils.getApi().getHonorList(map), new ResponseCall() {
 
             @Override
@@ -474,7 +486,7 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getHB() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("partnerId", "1");
+        map.put("partnerId", id);
         RxManager.http(RetrofitUtils.getApi().getpartnerList(map), new ResponseCall() {
 
             @Override
@@ -504,7 +516,7 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getCy() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("empId", "1");
+        map.put("empId", id);
         RxManager.http(RetrofitUtils.getApi().getEmployerList(map), new ResponseCall() {
 
             @Override
@@ -527,7 +539,6 @@ public class EditReportInfoActivity extends BaseActivity {
             }
         });
     }
-
 
 
     @Override

@@ -38,5 +38,7 @@
     <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
         android:id="@+id/net_work_error"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titlebar"
+        android:visibility="gone"/>
 </RelativeLayout>

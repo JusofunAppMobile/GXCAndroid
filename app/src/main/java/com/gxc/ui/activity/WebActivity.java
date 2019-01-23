@@ -84,13 +84,12 @@ public class WebActivity extends BaseActivity {
         isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
         isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
 
-        if (!isHttpGetUrl){
+        if (!isHttpGetUrl) {
             if (!isFullScreen)
                 setTheme(R.style.MyTheme_Layout_Root);
             else
                 setTheme(R.style.MyTheme_Layout_Root2);
-        }
-        else
+        } else
             setTheme(R.style.MyTheme_Layout_Root2);
         super.onCreate(savedInstanceState);
     }
@@ -192,15 +191,51 @@ public class WebActivity extends BaseActivity {
             LogUtils.e("shouldOverrideUrlLoading1111:URL=" + url);
             if (url.startsWith(Constants.URL_PREFIX)) {
                 try {
-                    String deurl = URLDecoder.decode(url, "UTF-8");
-                    LogUtils.e("》》》" + deurl);
-                    Uri uri = Uri.parse(deurl);
+                    if (url.startsWith("gxc://edit")) {
+                        Uri uri;
+                        uri = Uri.parse(url);
+                        int type;
+                        Set<String> parameter = uri.getQueryParameterNames();
+                        if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
+                            if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
+                                type = Integer.parseInt(uri.getQueryParameter("type"));
+                                Intent intent = new Intent(WebActivity.this, EditReportInfoActivity.class);
+                                intent.putExtra(EditReportInfoActivity.TYPE, type);
+                                if (type == EditReportInfoActivity.TYPE_INFO) {
+                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("companyId"));
+                                } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
+                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("productId"));
+                                } else if (type == EditReportInfoActivity.TYPE_RY) {
+                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("honorId"));
+                                } else if (type == EditReportInfoActivity.TYPE_HB) {
+                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("partnerId"));
+                                } else if (type == EditReportInfoActivity.TYPE_CY) {
+                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("empId"));
+                                }
 
-                    return true;
-                } catch (UnsupportedEncodingException e) {
+                                startActivity(intent);
+                            }
+                        }
+
+                        return true;
+                    } else {
+
+                        try {
+                            String deurl = URLDecoder.decode(url, "UTF-8");
+                            LogUtils.e("》》》" + deurl);
+                            Uri uri = Uri.parse(deurl);
+
+                            return true;
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
+
             return super.shouldOverrideUrlLoading(view, url);
         }
 
@@ -209,30 +244,9 @@ public class WebActivity extends BaseActivity {
             LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
 //            http://202.106.10.250:4808/dist/#/vip?data=9iFQlbMLJeuq9ONpaG%2FVDkFlePca9Rf%2F9v6UTySLWiET1dgisCQG6A%3D%3D
 
-
-            if (view.getUrl().startsWith("gxc://edit")) {
-
-                Uri uri;
-                try {
-                    uri = Uri.parse(view.getUrl());
-                    String type;
-                    Set<String> parameter = uri.getQueryParameterNames();
-
-                    if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
-                        if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
-                            type = uri.getQueryParameter("type");
-
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return true;
-            }
-
-
             return super.shouldOverrideUrlLoading(view, request);
         }
+
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
