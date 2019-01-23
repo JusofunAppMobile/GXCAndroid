@@ -55,6 +55,7 @@ public class GoActivityUtil {
                 mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType));
             }
         } else if (model.menuType == -1) {// h5跳转
+
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
         } else if (model.menuType == 9) {
             Intent intent = new Intent(mContext, CreditReportActivity.class);
@@ -78,12 +79,14 @@ public class GoActivityUtil {
         } else if (model.menuType == 13) { // 访客
             mContext.startActivity(new Intent(mContext, VisitorListActivity.class));
         } else if (model.menuType == 14) {
-            Intent intent = new Intent(mContext, ReportInfoActivity.class);
-//            if (companyInfo != null) {
-//                intent.putExtra("companyName", companyInfo.companyName);
-//                intent.putExtra("companyId", companyInfo.companyId);
-//            }
-            mContext.startActivity(intent);
+//            Intent intent = new Intent(mContext, ReportInfoActivity.class);
+////            if (companyInfo != null) {
+////                intent.putExtra("companyName", companyInfo.companyName);
+////                intent.putExtra("companyId", companyInfo.companyId);
+////            }
+//            mContext.startActivity(intent);
+
+            mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
         } else {
             mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType));
         }

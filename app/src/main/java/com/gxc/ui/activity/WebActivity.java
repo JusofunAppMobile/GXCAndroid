@@ -21,7 +21,6 @@ import com.gxc.base.BaseActivity;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
@@ -105,20 +104,18 @@ public class WebActivity extends BaseActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
 //            http://202.106.10.250:4808/dist/#/vip?data=9iFQlbMLJeuq9ONpaG%2FVDkFlePca9Rf%2F9v6UTySLWiET1dgisCQG6A%3D%3D
-
-
             if (view.getUrl().startsWith("gxc://edit")) {
-
-                Uri uri ;
+                Uri uri;
                 try {
                     uri = Uri.parse(view.getUrl());
-                    String type ;
+                    String type;
                     Set<String> parameter = uri.getQueryParameterNames();
-
+                    Intent intent = new Intent(WebActivity.this, EditReportInfoActivity.class);
                     if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
                         if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
                             type = uri.getQueryParameter("type");
-
+                            intent.putExtra(EditReportInfoActivity.TYPE, type);
+                            startActivity(intent);
                         }
                     }
                 } catch (Exception e) {

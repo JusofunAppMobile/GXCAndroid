@@ -2,6 +2,7 @@ package com.gxc.ui.adapter;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ public class HomeMenuAdapter extends BaseQuickAdapter<HomeMenuModel, BaseViewHol
 
     private RequestOptions options;
 
-    Integer type[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 - 1, -1001};
+    Integer type[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ,-1, -1001};
     List<Integer> types = Arrays.asList(type);
 
     public HomeMenuAdapter() {

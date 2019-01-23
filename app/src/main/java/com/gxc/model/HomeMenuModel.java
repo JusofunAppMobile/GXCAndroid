@@ -20,6 +20,7 @@ public class HomeMenuModel {
     public int menuImageId;
     public int menuType; // 1：股东高管 2：主营产品 3：失信查询 4：查关系 5：风险分析 6：查税号 7：招聘
     public String menuUrl;
+    public String webUrl;
 
     public HomeMenuModel(String menuName, int menuType) {
         this.menuName = menuName;
