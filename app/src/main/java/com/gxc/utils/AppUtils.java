@@ -113,6 +113,15 @@ public class AppUtils {
         return "";
     }
 
+    public static int getStatusHeight() {
+        int height = 0;
+        int resourceId = InquireApplication.application.getApplicationContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            height = InquireApplication.application.getApplicationContext().getResources().getDimensionPixelSize(resourceId);
+        }
+        return height;
+    }
+
     /**
      * 获取应用包名
      */
@@ -300,7 +309,6 @@ public class AppUtils {
             return new Gson().fromJson(user, UserModel.class);
         return null;
     }
-
 
 
     /**

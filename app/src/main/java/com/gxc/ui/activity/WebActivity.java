@@ -24,6 +24,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
 import com.gxc.utils.ToastUtils;
@@ -58,6 +59,8 @@ public class WebActivity extends BaseActivity {
     Group relationGroup;
     @BindView(R.id.ivBack2)
     View ivBack2;
+    @BindView(R.id.vStatus)
+    View vStatus;
 
     private boolean isRelation = false; // 是否为查关系
 
@@ -72,9 +75,30 @@ public class WebActivity extends BaseActivity {
         return R.layout.act_web;
     }
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            WebView.enableSlowWholeDocumentDraw();
+        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
+        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
+
+        if (!isHttpGetUrl){
+            if (!isFullScreen)
+                setTheme(R.style.MyTheme_Layout_Root);
+            else
+                setTheme(R.style.MyTheme_Layout_Root2);
+        }
+        else
+            setTheme(R.style.MyTheme_Layout_Root2);
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public void initActions() {
-
+        ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
+        titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
 
@@ -137,7 +161,15 @@ public class WebActivity extends BaseActivity {
                     WebModel webModel = model.dataToObject(WebModel.class);
                     if (webModel != null) {
                         isFullScreen = (webModel.webType == 1);
-                        setCusTheme(null);
+                        if (!isFullScreen) {
+                            setStatusBarFontDark(true);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                vStatus.setVisibility(View.VISIBLE);
+                                vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
+                            }
+                        }
+                        ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
+                        titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
                         mAgentWeb = preAgentWeb.go(webModel.H5Address);
                     }
                 } else {
@@ -292,29 +324,6 @@ public class WebActivity extends BaseActivity {
         return intent;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            WebView.enableSlowWholeDocumentDraw();
-        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
-        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
-
-        if (!isHttpGetUrl)
-            setCusTheme(savedInstanceState);
-        else
-            setTheme(R.style.MyTheme_Layout_Root2);
-        super.onCreate(savedInstanceState);
-    }
-
-    private void setCusTheme(Bundle savedInstanceState) {
-        ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
-        titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
-        if (!isFullScreen)
-            setTheme(R.style.MyTheme_Layout_Root);
-        else
-            setTheme(R.style.MyTheme_Layout_Root2);
-    }
 
     @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare, R.id.ivBack2})
     public void onViewClicked(View view) {

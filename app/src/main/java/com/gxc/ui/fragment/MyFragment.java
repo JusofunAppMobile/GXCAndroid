@@ -32,7 +32,6 @@ import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.activity.SettingActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
-import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.dialog.VersionDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.HtmlUrlUtils;
@@ -148,8 +147,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(CertifiedCompanyActivity.class);
                 break;
             case 4:// VIP特权
-                new VIPDialog(activity).show();
-                startActivity(WebActivity.getIntent(activity, "VIP特权", AppUtils.TEST_URL));
+                startActivity(WebActivity.getIntent(activity, 0));
                 break;
 //            case 5:// 赠送好友VIP
 //                startActivity(PayActivity.class);
