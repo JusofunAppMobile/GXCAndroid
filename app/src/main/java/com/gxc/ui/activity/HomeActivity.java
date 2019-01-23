@@ -8,7 +8,6 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
-import com.gxc.model.UserModel;
 import com.gxc.model.VersionModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;

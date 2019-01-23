@@ -139,14 +139,14 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
 
             @Override
             public List getList(NetModel model) {
-                return model.dataToList("rollNews", NewsAdModel.class);
+                return model.dataToList("news", HomeNewsModel.class);
             }
 
             @Override
             public void success(NetModel model) {
                 if (model.success()) {
                     if (pageIndex == 1) {
-                        newsAdList = getList(model);
+                        newsAdList = model.dataToList("rollNews", NewsAdModel.class);
                         if (newsAdList != null && !newsAdList.isEmpty() && pageIndex == 1 && headView.getParent() == null)
                             adapter.addHeaderView(headView);
                         if (pageIndex == 1 && (newsAdList == null || newsAdList.isEmpty()))

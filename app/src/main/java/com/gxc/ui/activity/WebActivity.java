@@ -19,8 +19,14 @@ import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
+import com.gxc.model.WebModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
@@ -28,6 +34,7 @@ import com.just.agentweb.AgentWebConfig;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -42,6 +49,7 @@ import butterknife.OnClick;
 public class WebActivity extends BaseActivity {
 
     AgentWeb mAgentWeb;
+    AgentWeb.PreAgentWeb preAgentWeb;
     @BindView(R.id.titleView)
     TitleView titleView;
     @BindView(R.id.layout)
@@ -55,6 +63,8 @@ public class WebActivity extends BaseActivity {
 
     private boolean isFullScreen = false;// 网页是否全屏
 
+    private boolean isHttpGetUrl = false;// 是否需要通过请求接口获取链接
+
     private View errorView;
 
     @Override
@@ -64,8 +74,6 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void initActions() {
-        ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
-        titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
 
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
@@ -90,15 +98,59 @@ public class WebActivity extends BaseActivity {
         errorView.findViewById(R.id.tvError).setVisibility(View.VISIBLE);
         errorView.findViewById(R.id.tvReload).setVisibility(View.VISIBLE);
 
-        mAgentWeb = AgentWeb.with(this)
+        preAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(layout, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator(isRelation ? Color.TRANSPARENT : -1)
                 .setWebViewClient(mWebViewClient)
                 .setMainFrameErrorView(errorView)
                 .interceptUnkownUrl()
                 .createAgentWeb()
-                .ready()
-                .go(url);
+                .ready();
+
+        if (isHttpGetUrl)
+            getUrl();
+        else
+            mAgentWeb = preAgentWeb.go(url);
+    }
+
+
+    private void getUrl() {
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("type", getIntent().getIntExtra("menuType", 0));
+        String param1 = getIntent().getStringExtra("name_one");
+        String param2 = getIntent().getStringExtra("name_two");
+        String param3 = getIntent().getStringExtra("route_num");
+        if (!TextUtils.isEmpty(param1))
+            map.put("name_one", param1);
+        if (!TextUtils.isEmpty(param2))
+            map.put("name_two", param2);
+        if (!TextUtils.isEmpty(param3))
+            map.put("route_num", param3);
+
+        RxManager.http(RetrofitUtils.getApi().getH5Address(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    WebModel webModel = model.dataToObject(WebModel.class);
+                    if (webModel != null) {
+                        isFullScreen = (webModel.webType == 1);
+                        setCusTheme(null);
+                        mAgentWeb = preAgentWeb.go(webModel.H5Address);
+                    }
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
     }
 
     private WebViewClient mWebViewClient = new WebViewClient() {
@@ -128,10 +180,10 @@ public class WebActivity extends BaseActivity {
 
             if (view.getUrl().startsWith("gxc://edit")) {
 
-                Uri uri ;
+                Uri uri;
                 try {
                     uri = Uri.parse(view.getUrl());
-                    String type ;
+                    String type;
                     Set<String> parameter = uri.getQueryParameterNames();
 
                     if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
@@ -159,7 +211,8 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void onPause() {
-        mAgentWeb.getWebLifeCycle().onPause();
+        if (mAgentWeb != null)
+            mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
     }
 
@@ -167,13 +220,15 @@ public class WebActivity extends BaseActivity {
     public void onDestroy() {
         // 清空缓存
         AgentWebConfig.clearDiskCache(this);
-        mAgentWeb.getWebLifeCycle().onDestroy();
+        if (mAgentWeb != null)
+            mAgentWeb.getWebLifeCycle().onDestroy();
         super.onDestroy();
     }
 
     @Override
     public void onResume() {
-        mAgentWeb.getWebLifeCycle().onResume();
+        if (mAgentWeb != null)
+            mAgentWeb.getWebLifeCycle().onResume();
         super.onResume();
     }
 
@@ -214,17 +269,51 @@ public class WebActivity extends BaseActivity {
         return intent;
     }
 
+    /**
+     * @param context
+     * @param menuType
+     * @param extras   7:查关系  8: 风险分析 16：裁判文书15：中标信息 17：行政处罚 18：商标信息  参数一必填
+     *                 参数二  查关系必填
+     *                 参数三 路径数  查关系必填
+     * @return
+     */
+    public static Intent getIntent(Context context, int menuType, String... extras) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("menuType", menuType);
+        if (extras != null && extras.length > 0) {
+            intent.putExtra("name_one", extras[0]);
+            if (extras.length > 1)
+                intent.putExtra("name_two", extras[1]);
+            if (extras.length > 2)
+                intent.putExtra("route_num", extras[2]);
+        }
+        intent.putExtra("isHttpGetUrl", true);
+        intent.putExtra("isFullScreen", true);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             WebView.enableSlowWholeDocumentDraw();
+        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
         isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
+
+        if (!isHttpGetUrl)
+            setCusTheme(savedInstanceState);
+        else
+            setTheme(R.style.MyTheme_Layout_Root2);
+        super.onCreate(savedInstanceState);
+    }
+
+    private void setCusTheme(Bundle savedInstanceState) {
+        ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
+        titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
         if (!isFullScreen)
             setTheme(R.style.MyTheme_Layout_Root);
         else
             setTheme(R.style.MyTheme_Layout_Root2);
-        super.onCreate(savedInstanceState);
     }
 
     @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare, R.id.ivBack2})
