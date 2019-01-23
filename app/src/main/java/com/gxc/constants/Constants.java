@@ -22,4 +22,10 @@ public class Constants {
 
     public static String IS_FIRST_RUN = "is_first_run";
 
+    public static int NUM_MAX = 5;
+    public static int NUM_MAX2 = 4;
+    public static int NUM_MAX3 = 6;
+
+
+
 }

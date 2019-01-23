@@ -29,6 +29,7 @@ import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
+import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -383,6 +384,26 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    public boolean isEmptyAndToast(EditText editText, String value) {
+        return isEmptyAndToast(getValue(editText), value);
+    }
+
+    public boolean isEmptyAndToast(String text, String value) {
+        if (TextUtils.isEmpty(text)) {
+            showToast(value);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPhoneValidAndToast(EditText editText) {
+        if (!RegexUtils.checkMobile(getValue(editText))) {
+            showToast("请输入正确的手机号码");
+            return true;
+        }
+        return false;
+    }
+
     // 隐藏加载对话框
     public void hideLoadDialog() {
         if (loadingDialog != null && loadingDialog.isShowing()) {
@@ -410,6 +431,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置点击输入框以外的位置是否能隐藏软键盘,
+     *
      * @param editTexts 页面中的所有 EditText，需要检测所有的 EditText 的位置，避免点击其他EditText 软键盘跳动现象
      */
     public void setTouchHideSoftKeyboard(EditText... editTexts) {
