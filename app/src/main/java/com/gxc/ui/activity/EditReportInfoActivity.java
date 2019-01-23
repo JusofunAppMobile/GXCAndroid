@@ -242,9 +242,9 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("url", model.url);
         map.put("image", model.image);
         map.put("introduce", model.introduce);
-        map.put("productId", "");
+        map.put("productId", id);
 
-        RxManager.http(RetrofitUtils.getApi().getProductList(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().productEditor(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
