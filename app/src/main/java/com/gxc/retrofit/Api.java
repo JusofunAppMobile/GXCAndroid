@@ -210,5 +210,9 @@ public interface Api {
     @POST("/app/Company/getEmployerList")
     Observable<NetModel> getEmployerList(@FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/app/Home/GetH5Address")
+    Observable<NetModel> getH5Address(@FieldMap Map<String, Object> params);
+
 
 }

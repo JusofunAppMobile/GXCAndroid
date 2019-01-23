@@ -3,7 +3,6 @@ package com.gxc.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,9 +10,11 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.gxc.base.BaseActivity;
+import com.gxc.event.CompanySelectEvent;
 import com.gxc.model.HomeMenuModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
@@ -42,11 +43,10 @@ public class RelationActivity extends BaseActivity {
 
     private HomeMenuModel menuModel;
 
-    private final static int REQUEST_FIRST = 1;
-    private final static int REQUEST_SECOND = 12;
-
     private AgentWeb mAgentWeb;
     private AgentWeb.PreAgentWeb preAgentWeb;
+
+    private TextView curTextView;
 
     @Override
     protected int getLayoutId() {
@@ -93,10 +93,12 @@ public class RelationActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvFirst:
-                startActivityForResult(TypeSearchActivity.getIntent(activity, menuModel.menuType), REQUEST_FIRST);
+                curTextView = tvFirst;
+                startActivity(TypeSearchActivity.getIntent(activity, menuModel.menuType));
                 break;
             case R.id.tvSecond:
-                startActivityForResult(TypeSearchActivity.getIntent(activity, menuModel.menuType), REQUEST_SECOND);
+                curTextView = tvSecond;
+                startActivity(TypeSearchActivity.getIntent(activity, menuModel.menuType));
                 break;
             case R.id.bt:
                 if (!TextUtils.isEmpty(getValue(tvFirst)) && !TextUtils.isEmpty(getValue(tvSecond))) {
@@ -112,17 +114,16 @@ public class RelationActivity extends BaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_FIRST) {
-                tvFirst.setText(data.getStringExtra("key"));
-            } else if (requestCode == REQUEST_SECOND) {
-                tvSecond.setText(data.getStringExtra("key"));
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof CompanySelectEvent) {
+            CompanySelectEvent comEvent = (CompanySelectEvent) event;
+            if (curTextView != null) {
+                curTextView.setText(comEvent.name);
+                curTextView.setTag(comEvent.id);
             }
         }
     }
-
 
     @Override
     public void onPause() {

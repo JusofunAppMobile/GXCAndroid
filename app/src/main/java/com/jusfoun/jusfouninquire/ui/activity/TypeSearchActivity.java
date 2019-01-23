@@ -12,11 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.gxc.event.CompanySelectEvent;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
-import com.gxc.ui.activity.RiskListActivity;
 import com.gxc.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -111,10 +111,10 @@ public class TypeSearchActivity extends BaseInquireActivity {
                 type = SearchHistoryItemModel.SEARCH_CONTACT;
                 break;
             case 7:// 查关系
-                type = SearchHistoryItemModel.SEARCH_COMMON;
+                type = SearchHistoryItemModel.SEARCH_RELATION;
                 break;
             case 8:// 风险分析
-                type = SearchHistoryItemModel.SEARCH_COMMON;
+                type = SearchHistoryItemModel.SEARCH_RISK;
                 break;
             case 0: //
                 type = SearchHistoryItemModel.SEARCH_COMMON;
@@ -280,16 +280,6 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     }
                     HotWordItemModel model = holder.getData();
                     if (model != null) {
-
-                        if (SearchHistoryItemModel.SEARCH_RELATION.equals(mCurrentType)) { // 查关系
-                            insertSearchKey(model.getSearchkey());
-                            Intent intent = new Intent();
-                            intent.putExtra("key", model.getSearchkey());
-                            setResult(RESULT_OK, intent);
-                            finish();
-                            return;
-                        }
-
                         DoSearchEvent event = new DoSearchEvent();
                         event.setSearchKey(model.getSearchkey());
                         EventBus.getDefault().post(event);
@@ -528,8 +518,8 @@ public class TypeSearchActivity extends BaseInquireActivity {
         if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT))
             params.put("type", "6");
         else if (isBlurrySearch(mCurrentType)) {
-            params.put("type",  SearchHistoryItemModel.SEARCH_COMMON);
-        }else{
+            params.put("type", SearchHistoryItemModel.SEARCH_COMMON);
+        } else {
             params.put("type", mCurrentType);
         }
         params.put("pageSize", "20");
@@ -720,13 +710,6 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     searchTaxidNet(doSearchEvent.getSearchKey());
                 } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_RECRUITMENT)) {
                     searchRecruitmentNet(doSearchEvent.getSearchKey());
-                } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_RISK)) { // 风险分析
-                    startActivity(RiskListActivity.getIntent(mContext, doSearchEvent.getSearchKey()));
-                } else if (SearchHistoryItemModel.SEARCH_RELATION.equals(mCurrentType)) { // 查关系
-                    Intent intent = new Intent();
-                    intent.putExtra("key", doSearchEvent.getSearchKey());
-                    setResult(RESULT_OK, intent);
-                    finish();
                 } else {
                     searchNet(doSearchEvent.getSearchKey());
                 }
@@ -742,7 +725,8 @@ public class TypeSearchActivity extends BaseInquireActivity {
             mTitle.setEditText("");
             mSearchGuideView.setVisibility(View.VISIBLE);
             mHotWordsList.setVisibility(View.GONE);
-        }
+        } else if (event instanceof CompanySelectEvent)
+            finish();
     }
 
     @Override
@@ -1010,13 +994,15 @@ public class TypeSearchActivity extends BaseInquireActivity {
 
 
     /**
-     *  是否为模糊搜索，国信查大多业务使用模糊搜索
-     * */
+     * 是否为模糊搜索，国信查大多业务使用模糊搜索
+     */
     public static boolean isBlurrySearch(String mSearchType) {
         if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
                 mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
                 mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
-                mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
+                mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK) ||
+                mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK) ||
+                mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
             return true;
 
         }
