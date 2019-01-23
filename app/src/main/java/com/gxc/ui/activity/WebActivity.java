@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
-import com.gxc.constants.Constants;
 import com.gxc.model.WebModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
@@ -27,14 +26,13 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
-import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
+import com.jusfoun.jusfouninquire.ui.view.SearchTitleView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -61,12 +59,17 @@ public class WebActivity extends BaseActivity {
     View ivBack2;
     @BindView(R.id.vStatus)
     View vStatus;
+    @BindView(R.id.errorView)
+    NetWorkErrorView emptyView;
+    @BindView(R.id.searchTitleView)
+    SearchTitleView searchTitleView;
 
     private boolean isRelation = false; // 是否为查关系
 
     private boolean isFullScreen = false;// 网页是否全屏
 
     private boolean isHttpGetUrl = false;// 是否需要通过请求接口获取链接
+    private boolean isUserRedSearchTitle = false;// 是否使用红色搜索标题样式
 
     private View errorView;
 
@@ -83,6 +86,7 @@ public class WebActivity extends BaseActivity {
             WebView.enableSlowWholeDocumentDraw();
         isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
         isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
+        isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
 
         if (!isHttpGetUrl) {
             if (!isFullScreen)
@@ -98,6 +102,19 @@ public class WebActivity extends BaseActivity {
     public void initActions() {
         ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
         titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
+        if (isUserRedSearchTitle) {
+            searchTitleView.setVisibility(View.VISIBLE);
+            searchTitleView.setEditText(getIntent().getStringExtra("name_one"));
+            searchTitleView.hideRightView();
+            searchTitleView.setEditParentClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            setStatusBarEnable(getResources().getColor(R.color.common_red));
+            setStatusBarFontDark(false);
+        }
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
 
@@ -138,7 +155,7 @@ public class WebActivity extends BaseActivity {
 
 
     private void getUrl() {
-        showLoading();
+        emptyView.showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("type", getIntent().getIntExtra("menuType", 0));
         String param1 = getIntent().getStringExtra("name_one");
@@ -155,13 +172,14 @@ public class WebActivity extends BaseActivity {
 
             @Override
             public void success(NetModel model) {
-                hideLoadDialog();
                 if (model.success()) {
+                    emptyView.success();
                     WebModel webModel = model.dataToObject(WebModel.class);
                     if (webModel != null) {
                         isFullScreen = (webModel.webType == 1);
                         if (!isFullScreen) {
-                            setStatusBarFontDark(true);
+                            if (!isUserRedSearchTitle)
+                                setStatusBarFontDark(true);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 vStatus.setVisibility(View.VISIBLE);
                                 vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
@@ -172,16 +190,20 @@ public class WebActivity extends BaseActivity {
                         mAgentWeb = preAgentWeb.go(webModel.H5Address);
                     }
                 } else {
-                    showToast(model.msg);
+                    emptyView.error();
                 }
             }
 
             @Override
             public void error() {
-                hideLoadDialog();
-                ToastUtils.showHttpError();
+                emptyView.error();
             }
         });
+    }
+
+    @OnClick(R.id.errorView)
+    public void emptyClick() {
+        getUrl();
     }
 
     private WebViewClient mWebViewClient = new WebViewClient() {
@@ -189,50 +211,43 @@ public class WebActivity extends BaseActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             LogUtils.e("shouldOverrideUrlLoading1111:URL=" + url);
-            if (url.startsWith(Constants.URL_PREFIX)) {
-                try {
-                    if (url.startsWith("gxc://edit")) {
-                        Uri uri;
-                        uri = Uri.parse(url);
-                        int type;
-                        Set<String> parameter = uri.getQueryParameterNames();
-                        if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
-                            if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
-                                type = Integer.parseInt(uri.getQueryParameter("type"));
-                                Intent intent = new Intent(WebActivity.this, EditReportInfoActivity.class);
-                                intent.putExtra(EditReportInfoActivity.TYPE, type);
-                                if (type == EditReportInfoActivity.TYPE_INFO) {
-                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("companyId"));
-                                } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
-                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("productId"));
-                                } else if (type == EditReportInfoActivity.TYPE_RY) {
-                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("honorId"));
-                                } else if (type == EditReportInfoActivity.TYPE_HB) {
-                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("partnerId"));
-                                } else if (type == EditReportInfoActivity.TYPE_CY) {
-                                    intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("empId"));
-                                }
-
-                                startActivity(intent);
+            try {
+                if (url.startsWith("gxc://edit")) { // 自主填报
+                    Uri uri;
+                    uri = Uri.parse(url);
+                    int type;
+                    Set<String> parameter = uri.getQueryParameterNames();
+                    if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
+                        if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
+                            type = Integer.parseInt(uri.getQueryParameter("type"));
+                            Intent intent = new Intent(WebActivity.this, EditReportInfoActivity.class);
+                            intent.putExtra(EditReportInfoActivity.TYPE, type);
+                            if (type == EditReportInfoActivity.TYPE_INFO) {
+                                intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("companyId"));
+                            } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
+                                intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("productId"));
+                            } else if (type == EditReportInfoActivity.TYPE_RY) {
+                                intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("honorId"));
+                            } else if (type == EditReportInfoActivity.TYPE_HB) {
+                                intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("partnerId"));
+                            } else if (type == EditReportInfoActivity.TYPE_CY) {
+                                intent.putExtra(EditReportInfoActivity.ID, uri.getQueryParameter("empId"));
                             }
-                        }
 
-                        return true;
-                    } else {
-
-                        try {
-                            String deurl = URLDecoder.decode(url, "UTF-8");
-                            LogUtils.e("》》》" + deurl);
-                            Uri uri = Uri.parse(deurl);
-
-                            return true;
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+                            startActivity(intent);
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                    return true;
+                } else if (url.startsWith("gxc://vip")) { // VIP 开通
+//                    String deurl = URLDecoder.decode(url, "UTF-8");
+//                    LogUtils.e("》》》" + deurl);
+//                    Uri uri = Uri.parse(deurl);
+                    startActivity(PayActivity.class);
+                    return true;
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
 
@@ -323,9 +338,10 @@ public class WebActivity extends BaseActivity {
      *                 参数三 路径数  查关系必填
      * @return
      */
-    public static Intent getIntent(Context context, int menuType, String... extras) {
+    public static Intent getIntent(Context context, String title, int menuType, String... extras) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra("menuType", menuType);
+        intent.putExtra("title", title);
         if (extras != null && extras.length > 0) {
             intent.putExtra("name_one", extras[0]);
             if (extras.length > 1)
@@ -335,7 +351,24 @@ public class WebActivity extends BaseActivity {
         }
         intent.putExtra("isHttpGetUrl", true);
         intent.putExtra("isFullScreen", true);
+        intent.putExtra("isUserRedSearchTitle", isUserRedSearchTitle(menuType));
         return intent;
+    }
+
+    public static Intent getIntent(Context context, int menuType, String... extras) {
+        return getIntent(context, null, menuType, extras);
+    }
+
+    // 15 ：中标信息  16：裁判文书 17：行政处罚  18：商标查询
+    private static boolean isUserRedSearchTitle(int menuType) {
+        switch (menuType) {
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+                return true;
+        }
+        return false;
     }
 
 
@@ -356,6 +389,8 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public boolean isSetStatusBar() {
+        if (isUserRedSearchTitle)
+            return true;
         if (isFullScreen)
             return false;
         return super.isSetStatusBar();
@@ -363,6 +398,8 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public boolean isBarDark() {
+        if (isUserRedSearchTitle)
+            return false;
         if (isFullScreen)
             return false;
         return super.isBarDark();

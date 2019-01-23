@@ -118,6 +118,14 @@ public class SearchTitleView extends RelativeLayout{
         });
     }
 
+    public void hideRightView(){
+        mRight.setVisibility(View.INVISIBLE);
+    }
+
+    public void setEditParentClickListener(OnClickListener listener) {
+        mSearchEditText.setOnClickListener(listener);
+    }
+
     public void setEditText(String key){
         mSearchEditText.setText(key);
     }

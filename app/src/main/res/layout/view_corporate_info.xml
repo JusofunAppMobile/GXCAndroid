@@ -61,7 +61,7 @@
                 android:layout_height="125dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="18dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/id_fanmian" />
 
             <View
                 style="@style/s_line"

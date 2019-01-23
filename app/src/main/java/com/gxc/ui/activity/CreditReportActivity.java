@@ -1,8 +1,5 @@
 package com.gxc.ui.activity;
 
-import android.text.Html;
-import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.impl.ListResponseCall;
@@ -30,8 +27,6 @@ public class CreditReportActivity extends BaseListActivity {
 
     @BindView(R.id.titleView)
     TitleView titleView;
-    @BindView(R.id.text_title)
-    TextView textTitle;
     private String companyName = "", companyId = "";
 
     @Override
@@ -44,9 +39,6 @@ public class CreditReportActivity extends BaseListActivity {
         titleView.setTitle("信用报告");
         companyName = getIntent().getStringExtra("companyName");
         companyId = getIntent().getStringExtra("companyId");
-        textTitle.setText(Html.fromHtml("国信查支持<font  color=\"#df282d\">发票开取</font>，你可以在购买报告后开取发票"));
-
-
     }
 
     @Override
@@ -56,7 +48,7 @@ public class CreditReportActivity extends BaseListActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_credit_report;
+        return R.layout.act_recycler_common;
     }
 
 

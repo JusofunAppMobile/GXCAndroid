@@ -3,8 +3,6 @@ package com.gxc.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.gxc.model.HomeMenuModel;
 import com.gxc.model.UserModel;
@@ -12,13 +10,11 @@ import com.gxc.ui.activity.CreditCommitmentActivity;
 import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.RelationActivity;
-import com.gxc.ui.activity.ReportInfoActivity;
 import com.gxc.ui.activity.RiskTipActivity;
 import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.dialog.VIPDialog;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
-import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 
 /**
@@ -52,7 +48,7 @@ public class GoActivityUtil {
                 mContext.startActivity(new Intent(mContext, RiskTipActivity.class));
                 return;
             } else {
-                mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType));
+                mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType, model.menuName));
             }
         } else if (model.menuType == -1) {// h5跳转
 
@@ -61,7 +57,7 @@ public class GoActivityUtil {
             Intent intent = new Intent(mContext, CreditReportActivity.class);
             UserModel userModel = AppUtils.getUser();
 
-            if(userModel!=null) {
+            if (userModel != null) {
                 intent.putExtra("companyId", userModel.companyId);
                 intent.putExtra("companyName", userModel.authCompany);
             }
@@ -88,7 +84,7 @@ public class GoActivityUtil {
 
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
         } else {
-            mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType));
+            mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType, model.menuName));
         }
     }
 }

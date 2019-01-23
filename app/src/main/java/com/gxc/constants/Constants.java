@@ -25,7 +25,4 @@ public class Constants {
     public static int NUM_MAX = 5;
     public static int NUM_MAX2 = 4;
     public static int NUM_MAX3 = 6;
-
-    public static String URL_PREFIX = "gxc://";
-
 }

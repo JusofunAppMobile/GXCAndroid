@@ -116,7 +116,8 @@ public class CorporateInfoView extends BaseView {
                 viewPhone.setEditText(model.phone);
                 viewEmail.setEditText(model.email);
                 viewHttp.setEditText(model.webURL);
-                textDes.setText(model.introduce);
+                editContent.setText(model.introduce);
+                imgUrl = model.logo;
                 Glide.with(mContext).load(model.logo).apply(requestOptions).into(imgIcon);
 
             }
@@ -136,7 +137,8 @@ public class CorporateInfoView extends BaseView {
                 viewPhone.setEditText(model.industry);
                 viewEmail.setEditText(model.tag);
                 viewHttp.setEditText(model.url);
-                textDes.setText(model.introduce);
+                editContent.setText(model.introduce);
+                imgUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(imgIcon);
 
             }
@@ -147,7 +149,6 @@ public class CorporateInfoView extends BaseView {
         this.imgUrl = imageUrl;
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(imgIcon);
     }
-
 
     public void setEditTable(boolean editTable) {
         this.editTable = editTable;

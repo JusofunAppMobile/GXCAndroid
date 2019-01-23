@@ -17,6 +17,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -86,54 +87,14 @@ public class TypeSearchActivity extends BaseInquireActivity {
      * @return
      */
     public static Intent getIntent(Context context, int menuType) {
+        return getIntent(context, menuType, null);
+    }
+
+    public static Intent getIntent(Context context, int menuType, String menuName) {
         Intent intent = new Intent(context, TypeSearchActivity.class);
-        String type = "";
-        switch (menuType) {
-            case 1:// 股东高管
-                type = SearchHistoryItemModel.SEARCH_SHAREHOLDER;
-                break;
-            case 2:// 主营产品
-                type = SearchHistoryItemModel.SEARCH_PRODUCT;
-                break;
-            case 11:// 地址电话
-                type = SearchHistoryItemModel.SEARCH_ADDRESS;
-                break;
-            case 3:// 失信查询
-                type = SearchHistoryItemModel.SEARCH_DISHONEST;
-                break;
-            case 4:// 查税号
-                type = SearchHistoryItemModel.SEARCH_TAXID;
-                break;
-            case 5:// 招聘
-                type = SearchHistoryItemModel.SEARCH_RECRUITMENT;
-                break;
-            case 6:// 企业通讯录
-                type = SearchHistoryItemModel.SEARCH_CONTACT;
-                break;
-            case 7:// 查关系
-                type = SearchHistoryItemModel.SEARCH_RELATION;
-                break;
-            case 8:// 风险分析
-                type = SearchHistoryItemModel.SEARCH_RISK;
-                break;
-            case 0: //
-                type = SearchHistoryItemModel.SEARCH_COMMON;
-                break;
-            case 15: //中标信息
-                type = SearchHistoryItemModel.SEARCH_WINNING_BID;
-                break;
-            case 16: //裁判文书
-                type = SearchHistoryItemModel.SEARCH_REFEREE;
-                break;
-            case 17: //行政处罚
-                type = SearchHistoryItemModel.SEARCH_ADMINISTRATIVE;
-                break;
-            case 18: //商标查询
-                type = SearchHistoryItemModel.SEARCH_TRADEMARK;
-                break;
-        }
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, type);
+        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, String.valueOf(menuType));
+        intent.putExtra("menuName", menuName);
         intent.putExtra("menuType", String.valueOf(menuType));
         return intent;
     }
@@ -710,6 +671,12 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     searchTaxidNet(doSearchEvent.getSearchKey());
                 } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_RECRUITMENT)) {
                     searchRecruitmentNet(doSearchEvent.getSearchKey());
+                } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
+                        mCurrentType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
+                        mCurrentType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
+                        mCurrentType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
+                    startActivity(WebActivity.getIntent(this, getIntent().getStringExtra("menuName"), Integer.parseInt(mCurrentType), doSearchEvent.getSearchKey()));
+                    return;
                 } else {
                     searchNet(doSearchEvent.getSearchKey());
                 }

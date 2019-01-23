@@ -18,7 +18,17 @@
         android:id="@+id/titleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vStatus" />
+
+    <com.jusfoun.jusfouninquire.ui.view.SearchTitleView
+        android:id="@+id/searchTitleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vStatus" />
@@ -144,6 +154,17 @@
             android:textColor="@color/common_red"
             android:textSize="13sp" />
     </LinearLayout>
+
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/errorView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleView" />
 
     <android.support.constraint.Group
         android:id="@+id/relationGroup"

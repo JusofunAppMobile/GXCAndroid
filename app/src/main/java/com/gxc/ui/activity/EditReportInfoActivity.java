@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.inter.OnSimpleCompressListener;
+import com.gxc.inter.OnUploadListener;
 import com.gxc.model.EditReportInfoImgModel;
 import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.model.UserModel;
@@ -168,8 +169,24 @@ public class EditReportInfoActivity extends BaseActivity {
                                     if (!TextUtils.isEmpty(path)) {
                                         if (type == TYPE_INFO || type == TYPE_PRODUCE || type == TYPE_RY) {
                                             corporateInfoView.setImageSrc(path);
+                                            showLoading();
+                                            AppUtils.uploadPicture(path, "product", new OnUploadListener() {
+                                                @Override
+                                                public void complete(String url, String simple) {
+                                                    hideLoadDialog();
+                                                    corporateInfoView.setImageSrc(url);
+                                                }
+                                            });
                                         } else {
                                             corporateIRxImgView.setImageSrc(path);
+                                            showLoading();
+                                            AppUtils.uploadPicture(path, "honor", new OnUploadListener() {
+                                                @Override
+                                                public void complete(String url, String simple) {
+                                                    hideLoadDialog();
+                                                    corporateIRxImgView.setImageSrc(url);
+                                                }
+                                            });
                                         }
                                     }
                                 }

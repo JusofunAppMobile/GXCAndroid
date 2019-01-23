@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gxc.event.CompanySelectEvent;
-import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.LogUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
@@ -313,31 +312,16 @@ public class SearchResultAdapter extends BaseAdapter {
                                 companyDetailModel.setCompanyid(model.getCompanyid());
                                 List<CompanyDetailMenuModel> subclassMenu = new ArrayList<>();
                                 CompanyDetailMenuModel companyDetailMenuModel = new CompanyDetailMenuModel();
-                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID)) {
-                                    companyDetailMenuModel.setMenuname("中标信息查询");
-                                    companyDetailMenuModel.setType(CompanyDetailsActivity.TYPE_BIDDING);
-                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE)) {
-                                    companyDetailMenuModel.setMenuname("行政处罚查询");
-                                    companyDetailMenuModel.setType(CompanyDetailsActivity.TYPE_PUBLISH);
-                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
-                                    companyDetailMenuModel.setMenuname("商标查询");
-                                    companyDetailMenuModel.setType(CompanyDetailsActivity.TYPE_BRAND);
-                                }
                                 subclassMenu.add(companyDetailMenuModel);
                                 companyDetailModel.setSubclassMenu(subclassMenu);
 
-                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE)) {
-                                    String url = mContext.getString(R.string.req_url) + "/Html/courtInfo_cpws.html?entname=" + model.getCompanyname() + "&version=1.0.0&apptype=0";
-                                    mContext.startActivity(WebActivity.getIntent(mContext, "裁判文书", url));
-                                } else {
-                                    Bundle argument = new Bundle();
-                                    argument.putSerializable(CompanyDetailsActivity.COMPANY, companyDetailModel);
-                                    argument.putInt(CompanyDetailsActivity.POSITION, 0);
-                                    argument.putBoolean(CompanyDetailsActivity.IS_GXC, true);
-                                    Intent intent = new Intent(mContext, CompanyDetailsActivity.class);
-                                    intent.putExtras(argument);
-                                    mContext.startActivity(intent);
-                                }
+                                Bundle argument = new Bundle();
+                                argument.putSerializable(CompanyDetailsActivity.COMPANY, companyDetailModel);
+                                argument.putInt(CompanyDetailsActivity.POSITION, 0);
+                                argument.putBoolean(CompanyDetailsActivity.IS_GXC, true);
+                                Intent intent = new Intent(mContext, CompanyDetailsActivity.class);
+                                intent.putExtras(argument);
+                                mContext.startActivity(intent);
 
                             } else {
                                 Intent intent = new Intent(mContext, CompanyDetailActivity.class);

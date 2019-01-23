@@ -60,6 +60,8 @@ public class PayActivity extends BaseActivity {
     TextView tvLast;
     @BindView(R.id.tvMoney)
     TextView tvMoney;
+    @BindView(R.id.vSubmit)
+    TextView vSubmit;
 
     private PriceModel priceModel;
 
@@ -72,7 +74,7 @@ public class PayActivity extends BaseActivity {
     @Override
     public void initActions() {
         titleView.setTitle("成为VIP");
-        titleView.setRightText("VIP介绍");
+//        titleView.setRightText("VIP介绍");
 
         priceView1.setLabel("1年VIP会员");
         priceView2.setLabel("2年VIP会员");
@@ -87,6 +89,9 @@ public class PayActivity extends BaseActivity {
             GlideApp.with(InquireApplication.application).load(user.headIcon).apply(options).into(ivIcon);
 
             tvPhone.setText(user.phone);
+            if(user.vipStatus == 1)
+                vSubmit.setText("续费");
+
         }
 
         load();

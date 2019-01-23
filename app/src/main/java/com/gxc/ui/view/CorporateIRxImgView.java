@@ -97,6 +97,7 @@ public class CorporateIRxImgView extends BaseView {
             if(model!=null){
                 textTitle.setEditText(model.honor);
                 editCotent.setText(model.introduce);
+                imageUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
 
             }
@@ -111,6 +112,7 @@ public class CorporateIRxImgView extends BaseView {
             if(model!=null){
                 textTitle.setEditText(model.partner);
                 editCotent.setText(model.introduce);
+                imageUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
 
             }
@@ -126,6 +128,7 @@ public class CorporateIRxImgView extends BaseView {
                 textTitle.setEditText(model.name);
                 zhiwuText.setEditText(model.position);
                 editCotent.setText(model.introduce);
+                imageUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
 
             }
