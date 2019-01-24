@@ -52,7 +52,7 @@ public class CorporateInfoView extends BaseView {
     ImageView imgIcon;
     private RequestOptions requestOptions;
 
-    private String imgUrl;
+    private String imgPath;
 
     private boolean editTable;
 
@@ -73,8 +73,8 @@ public class CorporateInfoView extends BaseView {
         requestOptions = new RequestOptions()
                 .centerCrop()
                 .circleCrop()//设置圆形
-                .placeholder(R.color.white)
-                .error(R.color.white)
+                .placeholder(R.drawable.id_fanmian)
+                .error(R.drawable.id_fanmian)
                 .transform(new GlideRoundTransform(mContext, 5));
     }
 
@@ -109,6 +109,7 @@ public class CorporateInfoView extends BaseView {
             viewHttp.setData("网址",NUM_MAX2);
             textIcon.setText("LOGO");
             textDes.setText("公司介绍");
+            editContent.setHint("请输入公司介绍");
 
             if(model!=null){
                 viewName.setEditText(model.companyName);
@@ -117,9 +118,8 @@ public class CorporateInfoView extends BaseView {
                 viewEmail.setEditText(model.email);
                 viewHttp.setEditText(model.webURL);
                 editContent.setText(model.introduce);
-                imgUrl = model.logo;
                 Glide.with(mContext).load(model.logo).apply(requestOptions).into(imgIcon);
-
+                imgPath = model.urlComplete;
             }
         } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
             viewName.setData("所属公司",NUM_MAX2);
@@ -129,6 +129,7 @@ public class CorporateInfoView extends BaseView {
             viewHttp.setData("链接地址",NUM_MAX2);
             textIcon.setText("产品图片");
             textDes.setText("简介");
+            editContent.setHint("描述介绍产品性能、用途等信息");
 
 
             if(model!=null){
@@ -137,17 +138,19 @@ public class CorporateInfoView extends BaseView {
                 viewPhone.setEditText(model.industry);
                 viewEmail.setEditText(model.tag);
                 viewHttp.setEditText(model.url);
-//                editContent.setText(model.introduce);
-                imgUrl = model.image;
+                editContent.setText(model.introduce);
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(imgIcon);
-
+                imgPath = model.urlComplete;
             }
         }
     }
 
     public void setImageSrc(String imageUrl) {
-        this.imgUrl = imageUrl;
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(imgIcon);
+    }
+
+    public void setImagePath(String path) {
+        imgPath = path;
     }
 
     public void setEditTable(boolean editTable) {
@@ -174,7 +177,7 @@ public class CorporateInfoView extends BaseView {
             model.phone = viewPhone.getEditText();
             model.email = viewEmail.getEditText();
             model.webURL = viewHttp.getEditText();
-            model.logo = imgUrl;
+            model.urlComplete = imgPath;
             model.introduce = editContent.getText().toString();
         }else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
             model.companyName = viewName.getEditText();
@@ -182,7 +185,7 @@ public class CorporateInfoView extends BaseView {
             model.product = viewHangye.getEditText();
             model.tag = viewEmail.getEditText();
             model.url = viewHttp.getEditText();
-            model.image = imgUrl;
+            model.urlComplete = imgPath;
             model.introduce = editContent.getText().toString();
         }
         return  model;

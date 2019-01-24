@@ -31,9 +31,12 @@ public class CertificationModel extends NetModel {
     public String email;
     public String licenseImage;
     public String idcardImage;
-    public String status;
+    public int status; // 0：未认证 1：审核中 2：审核失败 3：审核成功
     public String idcard;
     public String licenseimgpath;
     public String idcardImgpath;
+    public String promptxt;
+    public String cityName;
+    public String provinceName;
 
 }

@@ -40,6 +40,8 @@ public class CorporateIRxImgView extends BaseView {
 
     private boolean editTable;
 
+    private String imgPath;
+
     public CorporateIRxImgView(Context context) {
         super(context);
     }
@@ -57,8 +59,8 @@ public class CorporateIRxImgView extends BaseView {
         requestOptions = new RequestOptions()
                 .centerCrop()
                 .circleCrop()//设置圆形
-                .placeholder(R.color.white)
-                .error(R.color.white)
+                .placeholder(R.drawable.id_fanmian)
+                .error(R.drawable.id_fanmian)
                 .transform(new GlideRoundTransform(mContext,5));
     }
 
@@ -97,9 +99,8 @@ public class CorporateIRxImgView extends BaseView {
             if(model!=null){
                 textTitle.setEditText(model.honor);
                 editCotent.setText(model.introduce);
-                imageUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
-
+                imgPath = model.urlComplete;
             }
 
         }else if(type == EditReportInfoActivity.TYPE_HB){
@@ -112,9 +113,8 @@ public class CorporateIRxImgView extends BaseView {
             if(model!=null){
                 textTitle.setEditText(model.partner);
                 editCotent.setText(model.introduce);
-                imageUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
-
+                imgPath = model.urlComplete;
             }
         }else if(type == EditReportInfoActivity.TYPE_CY){
             textTitle.setData("企业姓名",NUM_MAX2);
@@ -128,17 +128,18 @@ public class CorporateIRxImgView extends BaseView {
                 textTitle.setEditText(model.name);
                 zhiwuText.setEditText(model.position);
                 editCotent.setText(model.introduce);
-                imageUrl = model.image;
                 Glide.with(mContext).load(model.image).apply(requestOptions).into(photoImg);
-
+                imgPath = model.urlComplete;
             }
         }
     }
 
-    private String imageUrl;
     public void setImageSrc(String imageUrl){
-        this.imageUrl=imageUrl;
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(photoImg);
+    }
+
+    public void setImagePath(String path) {
+        imgPath = path;
     }
 
     public void setEditTable(boolean editTable) {
@@ -159,16 +160,16 @@ public class CorporateIRxImgView extends BaseView {
         if (type == EditReportInfoActivity.TYPE_RY) {
             model.honor  = textTitle.getEditText();
             model.introduce = editCotent.getText().toString();
-            model.image = imageUrl;
+            model.urlComplete = imgPath;
         }else if (type == EditReportInfoActivity.TYPE_HB) {
             model.partner  = textTitle.getEditText();
             model.introduce = editCotent.getText().toString();
-            model.image = imageUrl;
+            model.urlComplete = imgPath;
         }else if (type == EditReportInfoActivity.TYPE_CY) {
             model.name  = textTitle.getEditText();
             model.position  = zhiwuText.getEditText();
             model.introduce = editCotent.getText().toString();
-            model.image = imageUrl;
+            model.urlComplete = imgPath;
         }
         return  model;
     }

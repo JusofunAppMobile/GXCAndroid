@@ -1,9 +1,9 @@
 package com.gxc.ui.activity;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,14 +16,10 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.ui.util.AppUtil;
-import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
 import com.jusfoun.jusfouninquire.ui.util.RegularUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -132,7 +128,10 @@ public class ConfirmOrderActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    startActivity(ReportSubmitActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("message", model.dataToObject("message", String.class));
+                    startActivity(ReportSubmitActivity.class, bundle);
+                    finishDelay();
                 } else {
                     ToastUtils.show(model.msg);
                 }

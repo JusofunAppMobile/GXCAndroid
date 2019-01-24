@@ -61,18 +61,16 @@
                 android:layout_height="125dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="18dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/id_fanmian" />
 
-            <View
-                style="@style/s_line"
-                android:layout_marginTop="18dp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="18dp"
                 android:background="#f0f2f5" />
 
-            <View style="@style/s_line" />
 
             <TextView
                 android:id="@+id/text_des"
@@ -89,11 +87,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="15dp"
+                android:background="@null"
+                android:gravity="top"
+                android:lineSpacingExtra="5dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15sp"
-                android:gravity="top"
                 android:textColor="#666"
-                android:background="@null"
+                android:textCursorDrawable="@drawable/shape_cursor"
                 android:textSize="12sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

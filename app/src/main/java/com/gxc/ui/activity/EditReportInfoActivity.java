@@ -1,12 +1,12 @@
 package com.gxc.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.WebRefreshEvent;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
 import com.gxc.model.EditReportInfoImgModel;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * @author zhaoyapeng
@@ -80,46 +80,21 @@ public class EditReportInfoActivity extends BaseActivity {
     public void initActions() {
         corporateInfoView = new CorporateInfoView(this);
         corporateIRxImgView = new CorporateIRxImgView(this);
-        titlebar.setRightText("编辑");
         type = getIntent().getIntExtra(TYPE, TYPE_INFO);
         id = getIntent().getStringExtra(ID);
 
-
-        if (type == TYPE_INFO) {
-            titlebar.setTitle("企业信息");
-            if(!TextUtils.isEmpty(id)) {
-                getCompanyDetail();
+        netWorkError.setListener(new NetWorkErrorView.OnGXCRefreshListener() {
+            @Override
+            public void OnNetRefresh() {
+                loadByType();
             }
-        } else if (type == TYPE_PRODUCE) {
-            titlebar.setTitle("企业产品");
-            if(!TextUtils.isEmpty(id)) {
-                getProductDetail();
-            }
-        } else if (type == TYPE_RY) {
-            titlebar.setTitle("企业荣誉");
-            if(!TextUtils.isEmpty(id)) {
-                getRy();
-            }
-        } else if (type == TYPE_HB) {
-            titlebar.setTitle("企业伙伴");
-            if(!TextUtils.isEmpty(id)) {
-                getHB();
-            }
-        } else if (type == TYPE_CY) {
-            titlebar.setTitle("企业成员");
-            if(!TextUtils.isEmpty(id)) {
-                getCy();
-            }
-        }
+        });
 
         titlebar.setRightClickListener(new TitleView.OnRightClickListener() {
             @Override
             public void onClick(View v) {
                 if (isEdit) {
-                    isEdit = false;
-                    titlebar.setRightText("完成");
-                    corporateInfoView.setEditTable(true);
-                    corporateIRxImgView.setEditTable(true);
+                    setEditable();
                 } else {
 //                    UpdateReoprtInfoEvent event = new UpdateReoprtInfoEvent();
 //                    event.type = type;
@@ -143,6 +118,65 @@ public class EditReportInfoActivity extends BaseActivity {
                 }
             }
         });
+        loadByType();
+    }
+
+    private void loadByType(){
+        if (type == TYPE_INFO) {
+            titlebar.setTitle("企业信息");
+            if (!TextUtils.isEmpty(id))  // 修改
+                getCompanyDetail();
+            else {
+                corporateInfoView.setData(TYPE_INFO, null);
+                layoutView.addView(corporateInfoView); // 添加
+                setEditable();
+            }
+
+        } else if (type == TYPE_PRODUCE) {
+            titlebar.setTitle("企业产品");
+            if (!TextUtils.isEmpty(id))  // 修改
+                getProductDetail();
+            else {
+                corporateInfoView.setData(TYPE_PRODUCE, null);
+                layoutView.addView(corporateInfoView); // 添加
+                setEditable();
+            }
+
+        } else if (type == TYPE_RY) {
+            titlebar.setTitle("企业荣誉");
+            if (!TextUtils.isEmpty(id)) {
+                getRy();
+            } else {
+                corporateIRxImgView.setData(TYPE_RY, null);
+                layoutView.addView(corporateIRxImgView);
+                setEditable();
+            }
+        } else if (type == TYPE_HB) {
+            titlebar.setTitle("企业伙伴");
+            if (!TextUtils.isEmpty(id)) {
+                getHB();
+            } else {
+                corporateIRxImgView.setData(TYPE_HB, null);
+                layoutView.addView(corporateIRxImgView);
+                setEditable();
+            }
+        } else if (type == TYPE_CY) {
+            titlebar.setTitle("企业成员");
+            if (!TextUtils.isEmpty(id)) {
+                getCy();
+            } else {
+                corporateIRxImgView.setData(TYPE_CY, null);
+                layoutView.addView(corporateIRxImgView);
+                setEditable();
+            }
+        }
+    }
+
+    private void setEditable() {
+        isEdit = false;
+        titlebar.setRightText("完成");
+        corporateInfoView.setEditTable(true);
+        corporateIRxImgView.setEditTable(true);
     }
 
 
@@ -167,24 +201,20 @@ public class EditReportInfoActivity extends BaseActivity {
                                 @Override
                                 public void complete(String path) {
                                     if (!TextUtils.isEmpty(path)) {
-                                        if (type == TYPE_INFO || type == TYPE_PRODUCE || type == TYPE_RY) {
+                                        if (type == TYPE_INFO || type == TYPE_PRODUCE) {
                                             corporateInfoView.setImageSrc(path);
-                                            showLoading();
-                                            AppUtils.uploadPicture(path, "product", new OnUploadListener() {
+                                            AppUtils.uploadPicture(path, getUploadKey(), new OnUploadListener() {
                                                 @Override
                                                 public void complete(String url, String simple) {
-                                                    hideLoadDialog();
-                                                    corporateInfoView.setImageSrc(url);
+                                                    corporateInfoView.setImagePath(simple);
                                                 }
                                             });
                                         } else {
                                             corporateIRxImgView.setImageSrc(path);
-                                            showLoading();
-                                            AppUtils.uploadPicture(path, "honor", new OnUploadListener() {
+                                            AppUtils.uploadPicture(path, getUploadKey(), new OnUploadListener() {
                                                 @Override
                                                 public void complete(String url, String simple) {
-                                                    hideLoadDialog();
-                                                    corporateIRxImgView.setImageSrc(url);
+                                                    corporateIRxImgView.setImagePath(simple);
                                                 }
                                             });
                                         }
@@ -196,6 +226,22 @@ public class EditReportInfoActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    private String getUploadKey() {
+        switch (type) {
+            case TYPE_INFO:
+                return "logo";
+            case TYPE_PRODUCE:
+                return "product";
+            case TYPE_RY:
+                return "honor";
+            case TYPE_HB:
+                return "partner";
+            case TYPE_CY:
+                return "member";
+        }
+        return "";
     }
 
     /**
@@ -213,10 +259,12 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("phone", model.phone);
         map.put("email", model.email);
         map.put("webURL", model.webURL);
-        map.put("logo", model.logo);
+        map.put("logo", model.urlComplete);
         map.put("industry", model.industry);
         map.put("introduce", model.introduce);
         map.put("companyName", model.companyName);
+        if (!TextUtils.isEmpty(id))
+            map.put("companyId", id);
 
 
         RxManager.http(RetrofitUtils.getApi().CompanyInfoEditor(map), new ResponseCall() {
@@ -257,9 +305,10 @@ public class EditReportInfoActivity extends BaseActivity {
         map.put("product", model.product);
         map.put("tag", model.tag);
         map.put("url", model.url);
-        map.put("image", model.image);
+        map.put("image", model.urlComplete);
         map.put("introduce", model.introduce);
-        map.put("productId", id);
+        if (!TextUtils.isEmpty(id))
+            map.put("productId", id);
 
         RxManager.http(RetrofitUtils.getApi().productEditor(map), new ResponseCall() {
 
@@ -294,9 +343,10 @@ public class EditReportInfoActivity extends BaseActivity {
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("honor", model.honor);
-        map.put("image", model.image);
+        map.put("image", model.urlComplete);
         map.put("introduce", model.introduce);
-        map.put("honorId", id);
+        if (!TextUtils.isEmpty(id))
+            map.put("honorId", id);
         RxManager.http(RetrofitUtils.getApi().honorEditor(map), new ResponseCall() {
 
             @Override
@@ -330,9 +380,10 @@ public class EditReportInfoActivity extends BaseActivity {
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("partner", model.partner);
-        map.put("image", model.image);
+        map.put("image", model.urlComplete);
         map.put("introduce", model.introduce);
-        map.put("partnerId", id);
+        if (!TextUtils.isEmpty(id))
+            map.put("partnerId", id);
 
 
         RxManager.http(RetrofitUtils.getApi().partnerEditor(map), new ResponseCall() {
@@ -369,10 +420,12 @@ public class EditReportInfoActivity extends BaseActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", model.name);
         map.put("position", model.position);
-        map.put("image", model.image);
+        map.put("image", model.urlComplete);
         map.put("introduce", model.introduce);
+        if (!TextUtils.isEmpty(id))
+            map.put("empId", id);
 
-        RxManager.http(RetrofitUtils.getApi().partnerEditor(map), new ResponseCall() {
+        RxManager.http(RetrofitUtils.getApi().CompanyEmpEditor(map), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
@@ -395,6 +448,7 @@ public class EditReportInfoActivity extends BaseActivity {
 
 
     private void setStates() {
+        EventBus.getDefault().post(new WebRefreshEvent());
         isEdit = true;
         titlebar.setRightText("编辑");
         corporateInfoView.setEditTable(false);
@@ -408,27 +462,25 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getCompanyDetail() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        UserModel userModel = AppUtils.getUser();
         map.put("companyId", id);
         RxManager.http(RetrofitUtils.getApi().getCompanyInfo(map), new ResponseCall() {
 
             @Override
             public void success(NetModel data) {
                 if (data.success()) {
+                    titlebar.setRightText("编辑");
                     netWorkError.success();
                     EditReportInfoTextModel model = data.dataToObject(EditReportInfoTextModel.class);
                     corporateInfoView.setData(TYPE_INFO, model);
                     layoutView.addView(corporateInfoView);
                 } else {
                     netWorkError.error();
-                    showToast(data.msg);
                 }
             }
 
             @Override
             public void error() {
                 netWorkError.error();
-                ToastUtils.showHttpError();
             }
         });
     }
@@ -448,6 +500,7 @@ public class EditReportInfoActivity extends BaseActivity {
             @Override
             public void success(NetModel data) {
                 if (data.success()) {
+                    titlebar.setRightText("编辑");
                     netWorkError.success();
                     EditReportInfoTextModel model = data.dataToObject(EditReportInfoTextModel.class);
                     corporateInfoView.setData(TYPE_PRODUCE, model);
@@ -455,14 +508,12 @@ public class EditReportInfoActivity extends BaseActivity {
 
                 } else {
                     netWorkError.error();
-                    showToast(data.msg);
                 }
             }
 
             @Override
             public void error() {
                 netWorkError.error();
-                ToastUtils.showHttpError();
             }
         });
     }
@@ -473,26 +524,26 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getRy() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("honorId", id);
+        if (!TextUtils.isEmpty(id))
+            map.put("honorId", id);
         RxManager.http(RetrofitUtils.getApi().getHonorList(map), new ResponseCall() {
 
             @Override
             public void success(NetModel data) {
                 if (data.success()) {
+                    titlebar.setRightText("编辑");
                     netWorkError.success();
                     EditReportInfoImgModel model = data.dataToObject(EditReportInfoImgModel.class);
                     corporateIRxImgView.setData(TYPE_RY, model);
                     layoutView.addView(corporateIRxImgView);
                 } else {
                     netWorkError.error();
-                    showToast(data.msg);
                 }
             }
 
             @Override
             public void error() {
                 netWorkError.error();
-                ToastUtils.showHttpError();
             }
         });
     }
@@ -503,26 +554,26 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getHB() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("partnerId", id);
+        if (!TextUtils.isEmpty(id))
+            map.put("partnerId", id);
         RxManager.http(RetrofitUtils.getApi().getpartnerList(map), new ResponseCall() {
 
             @Override
             public void success(NetModel data) {
                 if (data.success()) {
+                    titlebar.setRightText("编辑");
                     netWorkError.success();
                     EditReportInfoImgModel model = data.dataToObject(EditReportInfoImgModel.class);
                     corporateIRxImgView.setData(TYPE_HB, model);
                     layoutView.addView(corporateIRxImgView);
                 } else {
                     netWorkError.error();
-                    showToast(data.msg);
                 }
             }
 
             @Override
             public void error() {
                 netWorkError.error();
-                ToastUtils.showHttpError();
             }
         });
     }
@@ -533,35 +584,31 @@ public class EditReportInfoActivity extends BaseActivity {
     private void getCy() {
         netWorkError.showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("empId", id);
+        if (!TextUtils.isEmpty(id))
+            map.put("empId", id);
         RxManager.http(RetrofitUtils.getApi().getEmployerList(map), new ResponseCall() {
 
             @Override
             public void success(NetModel data) {
                 if (data.success()) {
+                    titlebar.setRightText("编辑");
                     netWorkError.success();
                     EditReportInfoImgModel model = data.dataToObject(EditReportInfoImgModel.class);
                     corporateIRxImgView.setData(TYPE_CY, model);
                     layoutView.addView(corporateIRxImgView);
                 } else {
                     netWorkError.error();
-                    showToast(data.msg);
                 }
             }
 
             @Override
             public void error() {
                 netWorkError.error();
-                ToastUtils.showHttpError();
             }
         });
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    private void showHttpError(){
+        netWorkError.error();
     }
 }

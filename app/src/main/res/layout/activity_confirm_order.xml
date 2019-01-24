@@ -2,10 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MyTheme.Layout.Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/MyTheme.Layout.Root"
-    android:background="#f0f3f5">
+    android:background="#f0f3f5"
+    android:focusableInTouchMode="true">
 
 
     <com.jusfoun.jusfouninquire.ui.view.TitleView
@@ -20,17 +21,17 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
-        android:paddingBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/menu_bg01"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:paddingTop="35dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titlebar"
-        android:background="@drawable/menu_bg01">
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
 
         <TextView
             android:id="@+id/textView"
@@ -46,7 +47,6 @@
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="企业信用报告"
             android:textColor="#333"
             android:textSize="15sp"
@@ -66,43 +66,45 @@
 
         <TextView
             android:id="@+id/text_company"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="22dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:lineSpacingExtra="5dp"
+            android:singleLine="false"
             android:textColor="#333"
             android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/text_title" />
     </android.support.constraint.ConstraintLayout>
-
 
 
     <ImageView
         android:id="@+id/img_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/menu_bg02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:background="@drawable/menu_bg02"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
-        android:paddingBottom="36dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/menu_bg03"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:paddingBottom="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_bg"
-        android:background="@drawable/menu_bg03">
+        app:layout_constraintTop_toBottomOf="@+id/img_bg">
 
         <EditText
             android:id="@+id/edit_email"
@@ -112,10 +114,11 @@
             android:background="@drawable/bg_xinyongbaogao_selecter"
             android:hint="请输入接收报告的邮箱地址"
             android:inputType="textPersonName"
+            android:textCursorDrawable="@drawable/shape_cursor"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:textColor="#999"
-            android:textSize="12sp"
+            android:textColor="#333"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -138,12 +141,11 @@
             android:layout_marginTop="18dp"
             android:background="@drawable/bg_xinyongbaogao_selecter"
             android:gravity="center"
-            android:text="word"
+            android:text="Word"
             android:textColor="#df282d"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <TextView
             android:id="@+id/text_word"
@@ -156,18 +158,18 @@
             android:text="PDF+word"
             android:textColor="#df282d"
             android:textSize="10sp"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/text_pdf"
-            app:layout_constraintTop_toBottomOf="@+id/textView24"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout7"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="55dp"
+        android:layout_marginEnd="15dp"
         android:background="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

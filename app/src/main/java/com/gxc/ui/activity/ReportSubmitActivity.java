@@ -4,11 +4,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.CreditSendSucEvent;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * @author zhaoyapeng
@@ -23,6 +25,8 @@ public class ReportSubmitActivity extends BaseActivity {
     TextView textSend;
     @BindView(R.id.text_look)
     TextView textLook;
+    @BindView(R.id.tvMessage)
+    TextView tvMessage;
 
     @Override
     protected int getLayoutId() {
@@ -32,12 +36,14 @@ public class ReportSubmitActivity extends BaseActivity {
     @Override
     public void initActions() {
         titlebar.setTitle("提交成功");
+        tvMessage.setText(getIntent().getStringExtra("message"));
     }
 
     @OnClick({R.id.text_finish, R.id.text_look})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_finish:
+                EventBus.getDefault().post(new CreditSendSucEvent());
                 finish();
                 break;
             case R.id.text_look:

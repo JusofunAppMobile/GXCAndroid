@@ -16,21 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_tip"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:background="#fcf4f4"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="填写身份证信息，快速认证企业"
-        android:textColor="#f22b26"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_bar" />
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView4"
         android:layout_width="0dp"
@@ -40,12 +25,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_tip">
+        app:layout_constraintTop_toBottomOf="@+id/title_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fcf4f4"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:text="填写身份证信息，快速认证企业"
+                android:textColor="#f22b26"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_bar" />
 
             <com.gxc.ui.view.CorporateInfoItemView
                 android:id="@+id/view_name"
@@ -62,6 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <com.gxc.ui.view.CorporateInfoItemView
+                android:id="@+id/vAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <com.gxc.ui.view.CorporateInfoItemView
                 android:id="@+id/view_phone"
@@ -90,11 +97,10 @@
                 android:background="@drawable/bg_commit_renzhneg"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:textSize="19sp"
                 android:textColor="@color/white"
+                style="@style/C_Common_Bt_Red"
                 android:text="提交认证"
                 android:layout_marginTop="10dp"
-                android:elevation="1dp"
                 android:layout_marginBottom="20dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

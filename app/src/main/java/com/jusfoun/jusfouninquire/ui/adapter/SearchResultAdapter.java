@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gxc.event.CompanySelectEvent;
-import com.gxc.utils.LogUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
@@ -303,7 +302,8 @@ public class SearchResultAdapter extends BaseAdapter {
                                     ((Activity) mContext).finish();
                                     return;
                                 } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK)) {// 风险分析
-                                    LogUtils.e(">>>风险分析");
+                                    mContext.startActivity(com.gxc.ui.activity.WebActivity.getIntent(mContext, ((Activity) mContext).getIntent().getStringExtra("menuName"),
+                                            Integer.parseInt(SearchHistoryItemModel.SEARCH_RISK), model.getCompanyname()));
                                     return;
                                 }
 

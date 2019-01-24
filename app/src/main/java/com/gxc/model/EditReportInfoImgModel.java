@@ -22,6 +22,7 @@ public class EditReportInfoImgModel extends BaseModel {
 
     public String name;//成员名字
     public String position;//成员职务
+    public String urlComplete;
 
 
 }

@@ -23,6 +23,7 @@ public class EditReportInfoTextModel extends BaseModel {
     public String tag;
     public String url;
     public String image;
+    public String urlComplete;
 
 
 

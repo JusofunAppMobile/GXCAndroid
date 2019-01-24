@@ -1,6 +1,7 @@
 package com.gxc.ui.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 import com.gxc.base.BaseActivity;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
+import com.gxc.model.AddressModel;
 import com.gxc.model.CertificationModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.dialog.AddressDialog;
 import com.gxc.ui.view.CorporateIInfoImgItemView;
 import com.gxc.ui.view.CorporateInfoItemView;
 import com.gxc.utils.AppUtils;
@@ -29,8 +32,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
-import static com.gxc.constants.Constants.NUM_MAX;
+import static com.gxc.constants.Constants.NUM_MAX3;
 
 /**
  * @author zhaoyapeng
@@ -59,12 +68,18 @@ public class CertifiedCompanyActivity extends BaseActivity {
     Button btnCommit;
     @BindView(R.id.view_real_name)
     CorporateInfoItemView viewRealName;
+    @BindView(R.id.vAddress)
+    CorporateInfoItemView vAddress;
 
     public static final int PHOTO_YINGYE = 10001;//营业执照
     public static final int PHOTO_IDENTITY = 10002;//身份证
 
 
     private String yeUrl = "", cardUrl = "";
+
+    private List<AddressModel> addressList;
+
+    private AddressDialog addressDialog;
 
     @Override
     protected int getLayoutId() {
@@ -73,15 +88,17 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
     @Override
     public void initActions() {
-        viewName.setData("企业名称", NUM_MAX);
-        viewCode.setData("法人身份证", NUM_MAX);
-        viewPhone.setData("手机号码", NUM_MAX);
-        viewEmail.setData("邮箱", NUM_MAX);
+        setEditable(false);
+        viewName.setData("企业名称", NUM_MAX3);
+        viewCode.setData("法人身份证", NUM_MAX3);
+        viewPhone.setData("手机号码", NUM_MAX3);
+        viewEmail.setData("邮箱", NUM_MAX3);
         imgYyzz.setData("营业执照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
         imgIdfen.setData("本人身份证", getString(R.string.text_img_carme_top_identity), PHOTO_IDENTITY);
-        viewRealName.setData("真实姓名", NUM_MAX);
+        viewRealName.setData("真实姓名", NUM_MAX3);
+        vAddress.setData("企业注册地址", NUM_MAX3);
 
-        titleBar.setTitle("认证企业");
+        titleBar.setTitle("企业认证");
 
         btnCommit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +107,28 @@ public class CertifiedCompanyActivity extends BaseActivity {
             }
         });
 
-        getRZData();
+        vAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (addressDialog != null)
+                    addressDialog.show();
+            }
+        });
+        getAddressInfor();
+    }
+
+    private void setEditable(boolean enable) {
+        viewName.setEnabled(enable);
+        viewCode.setEnabled(enable);
+        viewPhone.setEnabled(enable);
+        viewEmail.setEnabled(enable);
+        imgYyzz.setEnabled(enable);
+        imgIdfen.setEnabled(enable);
+        viewRealName.setEnabled(enable);
+        btnCommit.setVisibility(enable ? View.VISIBLE : View.GONE);
+        vAddress.setEnabled(enable);
+        if (enable)
+            vAddress.setSelectType();
     }
 
     @Override
@@ -120,21 +158,17 @@ public class CertifiedCompanyActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(path)) {
                             if (PHOTO_YINGYE == requestCode) {
                                 imgYyzz.setImageSrc(path);
-                                showLoading();
                                 AppUtils.uploadPicture(path, "certification", new OnUploadListener() {
                                     @Override
                                     public void complete(String url, String simple) {
-                                        hideLoadDialog();
                                         yeUrl = simple;
                                     }
                                 });
                             } else if (PHOTO_IDENTITY == requestCode) {
-                                showLoading();
                                 imgIdfen.setImageSrc(path);
                                 AppUtils.uploadPicture(path, "idcard", new OnUploadListener() {
                                     @Override
                                     public void complete(String url, String simple) {
-                                        hideLoadDialog();
                                         cardUrl = simple;
                                     }
                                 });
@@ -147,11 +181,42 @@ public class CertifiedCompanyActivity extends BaseActivity {
     }
 
 
+    private void getAddressInfor() {
+        Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> subscriber) {
+                addressList = AppUtils.getAddressList(activity);
+                subscriber.onNext("");
+                subscriber.onComplete();
+            }
+        })
+                .subscribeOn(Schedulers.io())     //切换上游线程操作到io线程
+                .observeOn(AndroidSchedulers.mainThread())  //切换下游线程到主线程
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(@NonNull Object channel) {
+                        addressDialog = new AddressDialog(activity, addressList, new AddressDialog.OnSelectListener() {
+                            @Override
+                            public void select(AddressModel province, AddressModel city) {
+                                vAddress.setTag(province.id + (city != null ? "#" + city.id : ""));
+                                vAddress.setData(province.name + (city != null ? " " + city.name : ""));
+                            }
+                        });
+                        getRZData();
+                    }
+                });
+    }
+
+
     private void renzhengNet() {
 
         if (isEmptyAndToast(viewName.getEditText(), "请输入企业名称")) return;
         if (isEmptyAndToast(viewCode.getEditText(), "请输入法人身份证")) return;
         if (isEmptyAndToast(viewRealName.getEditText(), "请输入真实姓名")) return;
+        if (vAddress.getTag() == null) {
+            showToast("请选择公司地址");
+            return;
+        }
         if (isEmptyAndToast(viewPhone.getEditText(), "请输入手机号")) return;
         if (isEmptyAndToast(viewEmail.getEditText(), "请输入邮箱")) return;
         if (isEmptyAndToast(yeUrl, "请上传营业执照")) return;
@@ -167,8 +232,12 @@ public class CertifiedCompanyActivity extends BaseActivity {
         map.put("email", viewEmail.getEditText());
         map.put("licenseImage", yeUrl);
         map.put("idcardImage", cardUrl);
-        map.put("provinceId", "11");
-        map.put("cityId", "1101");
+        String[] tags = vAddress.getTag().toString().split("#");
+        map.put("provinceId", tags[0]);
+        if (tags.length == 2)
+            map.put("cityId", tags[1]);
+        else
+            map.put("cityId", "");
 
         RxManager.http(RetrofitUtils.getApi().subCompanyMsg(map), new ResponseCall() {
 
@@ -192,6 +261,25 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
     }
 
+    private void setStatusTip(int status, String error) {
+        // // 0：未认证 1：审核中 2：审核失败 3：审核成功
+        switch (status) {
+            case 3:
+                textTip.setText("认证成功");
+                break;
+            case 2:
+                textTip.setText(error);
+                break;
+            case 1:
+                textTip.setText("资料已提交、审核中");
+                break;
+            default:
+                textTip.setText("填写身份证信息，快速认证企业");
+                break;
+        }
+
+    }
+
     private void getRZData() {
 
         showLoading();
@@ -212,6 +300,11 @@ public class CertifiedCompanyActivity extends BaseActivity {
                     viewRealName.setContent(model.name);
                     yeUrl = model.licenseimgpath;
                     cardUrl = model.licenseimgpath;
+                    setStatusTip(model.status, model.promptxt);
+                    if (model.status != 1 && model.status != 3)
+                        setEditable(true);
+                    loadAddress(model);
+                    vAddress.setData(model.provinceName + " " + model.cityName);
                 } else {
                     showToast(data.msg);
                 }
@@ -224,5 +317,36 @@ public class CertifiedCompanyActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void loadAddress(CertificationModel model) {
+        if (addressList != null && !addressList.isEmpty() && !TextUtils.isEmpty(model.provinceName)) {
+            StringBuffer sb = new StringBuffer();
+            int provinceIndex = 0;
+            int cityIndex = 0;
+            for (int i = 0; i < addressList.size(); i++) {
+                AddressModel province = addressList.get(i);
+                if (province.name.equals(model.provinceName)) {
+                    provinceIndex = i;
+                    sb.append(province.id);
+                    if (province.children != null && !province.children.isEmpty()) {
+                        for (int j = 0; j < province.children.size(); j++) {
+                            AddressModel city = province.children.get(j);
+                            if (city.name.equals(model.cityName)) {
+                                cityIndex = j;
+                                sb.append("#" + city.id);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            if (sb.length() > 0)
+                vAddress.setTag(sb.toString());
+            if (provinceIndex != 0) {
+                addressDialog.setSelectPosition(provinceIndex, cityIndex);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.gxc.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.gxc.base.BaseActivity;
+import com.gxc.event.PaySucEvent;
+import com.gxc.inter.OnCallListener;
 import com.gxc.model.GlideApp;
 import com.gxc.model.PriceModel;
 import com.gxc.model.UserModel;
@@ -31,6 +34,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * @author liuguangdan
@@ -89,7 +93,7 @@ public class PayActivity extends BaseActivity {
             GlideApp.with(InquireApplication.application).load(user.headIcon).apply(options).into(ivIcon);
 
             tvPhone.setText(user.phone);
-            if(user.vipStatus == 1)
+            if (user.vipStatus == 1)
                 vSubmit.setText("续费");
 
         }
@@ -134,25 +138,38 @@ public class PayActivity extends BaseActivity {
 
             @Override
             public void success(NetModel model) {
-                hideLoadDialog();
                 if (model.success()) {
                     try {
                         String order = model.getDataJSONObject().getString("order");
                         new PayUtils(activity, new PayUtils.CallBack() {
                             @Override
                             public void paySuccess() {
-
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AppUtils.checkUserStatus(new OnCallListener() {
+                                            @Override
+                                            public void call() {
+                                                hideLoadDialog();
+                                                EventBus.getDefault().post(new PaySucEvent());
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                }, 1000);
                             }
 
                             @Override
                             public void payFail() {
-
+                                hideLoadDialog();
                             }
                         }).alipay(order);
                     } catch (JSONException e) {
+                        hideLoadDialog();
                         e.printStackTrace();
                     }
                 } else {
+                    hideLoadDialog();
                     showToast(model.msg);
                 }
             }

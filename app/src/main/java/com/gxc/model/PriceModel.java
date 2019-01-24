@@ -28,6 +28,6 @@ public class PriceModel {
     public String oneOriPrice;
     public String twoDayPrice;
     public String threeCurPrice;
-    public int vipLastDay;
+    public String vipLastDay;
 
 }

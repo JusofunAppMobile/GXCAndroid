@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -384,7 +385,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    public boolean isEmptyAndToast(EditText editText, String value) {
+    public boolean isEmptyAndToast(TextView editText, String value) {
         return isEmptyAndToast(getValue(editText), value);
     }
 
@@ -481,5 +482,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public void finishDelay() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 400);
     }
 }

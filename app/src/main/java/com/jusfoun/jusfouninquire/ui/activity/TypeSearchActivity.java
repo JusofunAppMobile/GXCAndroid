@@ -510,6 +510,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
                         SearchContactListModel model = (SearchContactListModel) data;
                         if (model.data != null && !model.data.isEmpty()) {
                             Intent intent = new Intent(mContext, SearchResultActivity.class);
+                            intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
                             intent.putExtra(SearchResultActivity.SEARCH_RESULT, model);
                             intent.putExtra(SearchResultActivity.SEARCH_KEY, key);
                             intent.putExtra(SearchResultActivity.SEARCH_TYPE, mCurrentType);
@@ -522,6 +523,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
                         SearchListModel model = (SearchListModel) data;
                         if (model.getBusinesslist() != null) {
                             Intent intent = new Intent(mContext, SearchResultActivity.class);
+                            intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
                             intent.putExtra(SearchResultActivity.SEARCH_RESULT, model);
                             intent.putExtra(SearchResultActivity.SEARCH_KEY, key);
                             intent.putExtra(SearchResultActivity.SEARCH_TYPE, mCurrentType);

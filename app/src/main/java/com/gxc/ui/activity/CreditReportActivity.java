@@ -2,6 +2,7 @@ package com.gxc.ui.activity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
+import com.gxc.event.CreditSendSucEvent;
 import com.gxc.impl.ListResponseCall;
 import com.gxc.model.CreditReportModel;
 import com.gxc.retrofit.NetModel;
@@ -9,6 +10,7 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.CreditReportAdapter;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.ArrayList;
@@ -72,5 +74,12 @@ public class CreditReportActivity extends BaseListActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof CreditSendSucEvent)
+            finish();
     }
 }

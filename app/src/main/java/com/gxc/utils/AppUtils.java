@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import com.gxc.event.LoginChangeEvent;
 import com.gxc.inter.OnCallListener;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
+import com.gxc.model.AddressModel;
 import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
@@ -29,9 +31,13 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -396,5 +402,39 @@ public class AppUtils {
         return Html.fromHtml("数量：" + context.getResources().getString(R.string.font_color) + num + "</font>条");
     }
 
+
+    public static List<AddressModel> getAddressList(Context context) {
+        String result = getAssetJson(context, "provice_city_area.json");
+        if (!TextUtils.isEmpty(result)) {
+            try {
+                JSONArray arr = new JSONArray(result);
+                List<AddressModel> list = new ArrayList<>();
+                Gson gson = new Gson();
+                for (int i = 0; i < arr.length(); i++) {
+                    list.add(gson.fromJson(arr.get(i).toString(), AddressModel.class));
+                }
+                return list;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static String getAssetJson(Context context, String fileName) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            AssetManager assetManager = context.getAssets();
+            BufferedReader bf = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName)));
+            String line;
+            while ((line = bf.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString();
+    }
 
 }

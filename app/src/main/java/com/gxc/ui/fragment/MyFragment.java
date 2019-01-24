@@ -246,7 +246,6 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-
     private void checkUpdate() {
         showLoading();
         HashMap<String, Object> map = new HashMap<>();

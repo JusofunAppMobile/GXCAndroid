@@ -12,12 +12,19 @@ import com.google.gson.Gson;
 import com.gxc.base.BaseActivity;
 import com.gxc.event.CompanySelectEvent;
 import com.gxc.model.HomeMenuModel;
-import com.gxc.utils.AppUtils;
+import com.gxc.model.WebModel;
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,21 +73,12 @@ public class RelationActivity extends BaseActivity {
     }
 
     private void loadUrl(String url) {
-
         if (preAgentWeb == null) {
             preAgentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webLayout, new LinearLayout.LayoutParams(-1, -1))
                     .useDefaultIndicator(Color.TRANSPARENT)
                     .createAgentWeb()
                     .ready();
-            if (getIntent().getBooleanExtra("isZoomable", false)) {
-                mAgentWeb.getWebCreator().getWebView().getSettings().setUseWideViewPort(true);
-                mAgentWeb.getWebCreator().getWebView().setInitialScale(25);//为25%，最小缩放等级
-                mAgentWeb.getWebCreator().getWebView().getSettings().setJavaScriptEnabled(true);
-                mAgentWeb.getWebCreator().getWebView().getSettings().setSupportZoom(true);
-                mAgentWeb.getWebCreator().getWebView().getSettings().setBuiltInZoomControls(true);
-                mAgentWeb.getWebCreator().getWebView().getSettings().setDisplayZoomControls(false);
-            }
         }
         if (mAgentWeb == null)
             mAgentWeb = preAgentWeb.go(url);
@@ -88,6 +86,37 @@ public class RelationActivity extends BaseActivity {
             mAgentWeb.getUrlLoader().loadUrl(url);
     }
 
+
+    private void getUrl() {
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("type", getIntent().getIntExtra("menuType", 7));
+        map.put("name_one", getValue(tvFirst));
+        map.put("name_two", getValue(tvSecond));
+        map.put("route_num", 6);// TEST TODO
+
+        RxManager.http(RetrofitUtils.getApi().getH5Address(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                hideLoadDialog();
+                if (model.success()) {
+                    WebModel webModel = model.dataToObject(WebModel.class);
+                    if (webModel != null) {
+                        loadUrl(webModel.H5Address);
+                    }
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                hideLoadDialog();
+                ToastUtils.showHttpError();
+            }
+        });
+    }
 
     @OnClick({R.id.tvFirst, R.id.tvSecond, R.id.bt, R.id.vBig})
     public void onViewClicked(View view) {
@@ -101,14 +130,16 @@ public class RelationActivity extends BaseActivity {
                 startActivity(TypeSearchActivity.getIntent(activity, menuModel.menuType));
                 break;
             case R.id.bt:
+                if (isEmptyAndToast(tvFirst, "请选择企业")) return;
+                if (isEmptyAndToast(tvSecond, "请选择企业")) return;
                 if (!TextUtils.isEmpty(getValue(tvFirst)) && !TextUtils.isEmpty(getValue(tvSecond))) {
                     webLayout.setVisibility(View.VISIBLE);
                     vBig.setVisibility(View.VISIBLE);
-                    loadUrl(AppUtils.TEST_URL);
+                    getUrl();
                 }
                 break;
             case R.id.vBig:
-                startActivity(WebActivity.getRelationIntent(activity, AppUtils.TEST_URL));
+                startActivity(WebActivity.getRelationIntent(activity, mAgentWeb.getWebCreator().getWebView().getUrl()));
                 break;
         }
     }

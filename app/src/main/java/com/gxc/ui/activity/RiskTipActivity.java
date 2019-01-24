@@ -1,10 +1,13 @@
 package com.gxc.ui.activity;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.PaySucEvent;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author liuguangdan
@@ -25,5 +28,17 @@ public class RiskTipActivity extends BaseActivity {
     @Override
     public void initActions() {
         titleView.setTitle("企业风险分析");
+    }
+
+    @OnClick(R.id.bt)
+    public void vip() {
+        startActivity(PayActivity.class);
+    }
+
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof PaySucEvent)
+            finish();
     }
 }

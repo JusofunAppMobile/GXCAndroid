@@ -3,7 +3,6 @@ package com.gxc.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.WebRefreshEvent;
 import com.gxc.model.WebModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
@@ -27,6 +27,7 @@ import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.SearchTitleView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
@@ -210,7 +211,7 @@ public class WebActivity extends BaseActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            LogUtils.e("shouldOverrideUrlLoading1111:URL=" + url);
+            LogUtils.e("shouldOverrideUrlLoading:URL=" + url);
             try {
                 if (url.startsWith("gxc://edit")) { // 自主填报
                     Uri uri;
@@ -220,6 +221,7 @@ public class WebActivity extends BaseActivity {
                     if (parameter != null && parameter.size() > 0 && parameter.contains("type")) {
                         if (!TextUtils.isEmpty(uri.getQueryParameter("type"))) {
                             type = Integer.parseInt(uri.getQueryParameter("type"));
+                            LogUtils.e("type=" + type);
                             Intent intent = new Intent(WebActivity.this, EditReportInfoActivity.class);
                             intent.putExtra(EditReportInfoActivity.TYPE, type);
                             if (type == EditReportInfoActivity.TYPE_INFO) {
@@ -249,24 +251,12 @@ public class WebActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
             return super.shouldOverrideUrlLoading(view, url);
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            LogUtils.e("shouldOverrideUrlLoading:URL=" + view.getUrl());
-//            http://202.106.10.250:4808/dist/#/vip?data=9iFQlbMLJeuq9ONpaG%2FVDkFlePca9Rf%2F9v6UTySLWiET1dgisCQG6A%3D%3D
-
             return super.shouldOverrideUrlLoading(view, request);
-        }
-
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-            LogUtils.e("onPageStarted=" + url);
         }
     };
 
@@ -403,5 +393,12 @@ public class WebActivity extends BaseActivity {
         if (isFullScreen)
             return false;
         return super.isBarDark();
+    }
+
+    @Override
+    public void onEvent(IEvent event) {
+        super.onEvent(event);
+        if (event instanceof WebRefreshEvent && mAgentWeb != null)
+            mAgentWeb.getWebCreator().getWebView().reload();
     }
 }

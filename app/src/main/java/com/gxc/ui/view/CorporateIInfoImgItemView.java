@@ -27,6 +27,7 @@ public class CorporateIInfoImgItemView extends BaseView {
     private ImageView photoImg;
     private int type;
     private RequestOptions requestOptions;
+
     public CorporateIInfoImgItemView(Context context) {
         super(context);
     }
@@ -46,7 +47,7 @@ public class CorporateIInfoImgItemView extends BaseView {
                 .circleCrop()//设置圆形
                 .placeholder(R.color.white)
                 .error(R.color.white)
-                .transform(new GlideRoundTransform(mContext,5));
+                .transform(new GlideRoundTransform(mContext, 5));
     }
 
     @Override
@@ -72,14 +73,20 @@ public class CorporateIInfoImgItemView extends BaseView {
         titleImgText.setText(title);
         desText.setText(des);
 
-        if(type== CertifiedCompanyActivity.PHOTO_IDENTITY){
+        if (type == CertifiedCompanyActivity.PHOTO_IDENTITY) {
             photoImg.setImageResource(R.drawable.id_zhengmian);
-        }else{
+        } else {
             photoImg.setImageResource(R.drawable.id_fanmian);
         }
     }
 
-    public void setImageSrc(String imageUrl){
+    public void setImageSrc(String imageUrl) {
         Glide.with(mContext).load(imageUrl).apply(requestOptions).into(photoImg);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        photoImg.setEnabled(enabled);
     }
 }

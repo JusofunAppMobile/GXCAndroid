@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
@@ -20,6 +21,7 @@ import com.jusfoun.jusfouninquire.ui.view.BaseView;
 public class CorporateInfoItemView extends BaseView {
     protected TextView textView13;
     protected EditText editText2;
+    protected ImageView ivArrow;
 
     public CorporateInfoItemView(Context context) {
         super(context);
@@ -43,6 +45,7 @@ public class CorporateInfoItemView extends BaseView {
         LayoutInflater.from(mContext).inflate(R.layout.view_corporate_info_item, this, true);
         textView13 = (TextView) findViewById(R.id.vSendCode);
         editText2 = (EditText) findViewById(R.id.editText2);
+        ivArrow = findViewById(R.id.ivArrow);
     }
 
     @Override
@@ -51,7 +54,6 @@ public class CorporateInfoItemView extends BaseView {
     }
 
     /**
-     *
      * @param title
      * @param maxNum 该页面中需要对齐的最大汉字个数
      */
@@ -68,6 +70,10 @@ public class CorporateInfoItemView extends BaseView {
         });
 
         editText2.setHint("请用户输入" + title.replaceAll(" ", ""));
+    }
+
+    public void setData(String value) {
+        editText2.setText(value);
     }
 
     private String getEmptyValue(int num) {
@@ -95,6 +101,17 @@ public class CorporateInfoItemView extends BaseView {
 
     public void setContent(String content) {
         editText2.setText(content);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        editText2.setEnabled(enabled);
+    }
+
+    public void setSelectType() {
+        editText2.setEnabled(false);
+        ivArrow.setVisibility(View.VISIBLE);
     }
 }
 
