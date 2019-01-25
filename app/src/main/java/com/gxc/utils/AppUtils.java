@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.widgets.MediaGridInset;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
@@ -436,5 +438,10 @@ public class AppUtils {
         }
         return stringBuilder.toString();
     }
+
+    public static void addItemDecoration(Context context, RecyclerView recyclerView) {
+        recyclerView.addItemDecoration(new MediaGridInset(4, DensityUtils.dp2px(context, 0.8f), false));
+    }
+
 
 }

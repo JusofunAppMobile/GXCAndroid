@@ -3,16 +3,30 @@
     style="@style/MyTheme.Layout.Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e22a30"
+    android:background="@color/common_red"
     android:fitsSystemWindows="false"
     android:orientation="vertical">
 
-    <com.jusfoun.jusfouninquire.ui.view.ObserveScrollView
-        android:id="@+id/scroll_view"
+    <View
+        android:id="@+id/vStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/common_red" />
+
+    <com.jusfoun.jusfouninquire.ui.view.PropagandaView.BackAndImageTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vStatusBar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/navigation"
-        android:background="#e22a30"
+        android:overScrollMode="never"
+        android:layout_below="@id/title"
+        android:background="@color/common_red"
         android:fillViewport="true"
         android:paddingLeft="0dp"
         android:scrollbars="none">
@@ -23,11 +37,6 @@
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <View
-                android:id="@+id/vBarEmpty1"
-                android:layout_width="1px"
-                android:layout_height="20dp"
-                android:visibility="gone" />
 
             <com.jusfoun.jusfouninquire.ui.view.CompanyDetailHeaderView
                 android:id="@+id/headerview"
@@ -42,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,15 +60,15 @@
                     android:paddingLeft="15dp">
 
                     <TextView
-                        android:layout_width="30dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="6dp"
                         android:layout_marginTop="4dp"
+                        android:layout_marginBottom="6dp"
                         android:background="@drawable/bg_title_left_shareholder"
                         android:gravity="center"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="股        东"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="@string/com_detail_gudong"
                         android:textColor="#df282d"
                         android:textSize="14sp" />
 
@@ -67,8 +76,8 @@
                         android:id="@+id/recyclerview_shareholder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginBottom="2dp" />
                 </LinearLayout>
 
 
@@ -79,15 +88,15 @@
                     android:paddingLeft="15dp">
 
                     <TextView
-                        android:layout_width="30dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="24dp"
                         android:layout_marginTop="4dp"
+                        android:layout_marginBottom="24dp"
                         android:background="@drawable/bg_title_left_dongshi"
                         android:gravity="center"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="董监高"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="@string/com_detail_djg"
                         android:textColor="#009bf2"
                         android:textSize="14sp" />
 
@@ -95,8 +104,8 @@
                         android:id="@+id/recyclerview_dongshi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginBottom="20dp" />
                 </LinearLayout>
 
                 <View style="@style/s_line_h" />
@@ -107,7 +116,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/info_pic_fengxian" />
 
                 <com.gxc.ui.view.CompanyMapView
@@ -137,9 +145,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="企业背景"
@@ -152,7 +160,7 @@
                 android:id="@+id/company_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_company_menu" />
+                android:background="#E0E0E0" />
 
             <View style="@style/s_line_h" />
             <!--风险信息-->
@@ -175,8 +183,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View style="@style/s_line_h" />
+
         </LinearLayout>
-    </com.jusfoun.jusfouninquire.ui.view.ObserveScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <com.gxc.ui.view.BottomBarView
         android:id="@+id/navigation"
@@ -191,30 +201,6 @@
         android:layout_height="match_parent"
         android:background="#FFF"
         android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/vTitleParent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#e22a30"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/vBarEmpty2"
-            android:layout_width="1px"
-            android:layout_height="20dp"
-            android:visibility="gone" />
-
-        <com.jusfoun.jusfouninquire.ui.view.PropagandaView.BackAndImageTitleView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            style="@style/C_Line"
-            android:background="@drawable/selector_line" />
-
-    </LinearLayout>
 
 
     <RelativeLayout

@@ -1,11 +1,14 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 import com.baidu.mobstat.StatService;
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.ui.util.AppUtil;
 import com.jusfoun.library.swipebacklayout.SwipeBackLayout;
 import com.umeng.analytics.MobclickAgent;
@@ -82,5 +85,13 @@ public abstract class BaseActivity extends FragmentActivity {
                 finish();
             }
         }, 400);
+    }
+
+    public void setStatusBar(int id) {
+        View vStatus = findViewById(id);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            vStatus.setVisibility(View.VISIBLE);
+            vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
+        }
     }
 }

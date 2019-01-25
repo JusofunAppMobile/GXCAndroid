@@ -147,15 +147,6 @@ public class CompanyDetailHeaderView extends LinearLayout {
             public void onClick(View v) {
                 if (model == null)
                     return;
-//
-//                if ("1".equals(model.getIsupdate())) {
-//                    refreshAnimUtil.startAnim();
-//                    if (updateListener != null) {
-//                        updateListener.onClick(v);
-//                    }
-//                } else if ("2".equals(model.getIsupdate())) {
-//                    Toast.makeText(context, "已经是最新信息", Toast.LENGTH_SHORT).show();
-//                }
 
                 refreshAnimUtil.startAnim();
                 if (updateListener != null) {

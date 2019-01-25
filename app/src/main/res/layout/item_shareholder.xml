@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="135dp"
+    android:layout_width="145dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_shareholder"
     android:layout_margin="4dp"
-    android:paddingLeft="8dp"
+    android:background="@drawable/bg_shareholder"
+    android:paddingLeft="4dp"
     android:paddingTop="8dp"
-    android:paddingBottom="15dp"
-    android:paddingRight="8dp"
-    android:elevation="2dp">
+    android:paddingRight="4dp"
+    android:paddingBottom="15dp">
 
 
     <TextView
         android:id="@+id/text_img"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:background="@drawable/bg_shareholder_name"
         android:gravity="center"
         android:textColor="@color/white"
@@ -26,33 +26,50 @@
 
     <TextView
         android:id="@+id/text_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textColor="#333"
         android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCompany"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="大股东"
         android:textColor="#df282d"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_img"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_img" />
 
     <TextView
         android:id="@+id/text_libi"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="持股比例"
         android:textColor="#999"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_img" />
 

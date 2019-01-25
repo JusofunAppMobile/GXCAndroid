@@ -1,6 +1,5 @@
 package com.gxc.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
@@ -36,7 +35,6 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
-import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
@@ -100,8 +98,6 @@ public class CreditFragment extends BaseFragment {
 
     public CreditDataModel.CompanyInfo companyInfo;
 
-    private AuthDialog authDialog;
-
     @Override
     protected int getLayoutId() {
         return R.layout.frag_credit;
@@ -109,7 +105,6 @@ public class CreditFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        authDialog= new AuthDialog(activity);
         textCompany = (TextView) findViewById(R.id.text_company);
         recycleviewService = (RecyclerView) findViewById(R.id.recycleview_service);
         recycleviewInquire = (RecyclerView) findViewById(R.id.recycleview_inquire);
@@ -151,14 +146,6 @@ public class CreditFragment extends BaseFragment {
         nestedScrollView = (NestedScrollView) rootView.findViewById(R.id.nestedScrollView);
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
-        authDialog.setCallBack(new AuthDialog.CallBack() {
-            @Override
-            public void onConfirmClick() {
-                Intent intent = new Intent(activity, CertifiedCompanyActivity.class);
-                startActivity(intent);
-                authDialog.dismiss();
-            }
-        });
 
         certificationImg.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -168,8 +155,7 @@ public class CreditFragment extends BaseFragment {
                     startActivity(LoginActivity.class);
                     return;
                 }
-                authDialog.show();
-
+                new AuthDialog(activity).show();
             }
         });
 

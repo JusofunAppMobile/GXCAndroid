@@ -1,10 +1,12 @@
 package com.gxc.ui.dialog;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.jusfoun.jusfouninquire.R;
 
 import butterknife.ButterKnife;
@@ -29,24 +31,13 @@ public class AuthDialog extends BaseDialog {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt:
-                if (callBack != null) {
-                    callBack.onConfirmClick();
-                }
+                Intent intent = new Intent(activity, CertifiedCompanyActivity.class);
+                activity.startActivity(intent);
+                dismiss();
                 break;
             case R.id.ivClose:
                 dismiss();
                 break;
         }
-    }
-
-    public interface CallBack {
-        void onConfirmClick();
-    }
-
-
-    public CallBack callBack;
-
-    public void setCallBack(CallBack callBack) {
-        this.callBack = callBack;
     }
 }

@@ -94,11 +94,11 @@ public class BottomBarView extends BaseView {
 
     public void setMonitorText(boolean isMonitor) {
         ((TextView) findViewById(R.id.tvMonitor)).setText(isMonitor ? "取消监控" : "监控");
-        if(isMonitor){
-            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong_sel);
-        }else{
-            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong);
-        }
+//        if(isMonitor){
+//            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong_sel);
+//        }else{
+//            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong);
+//        }
     }
 
 }

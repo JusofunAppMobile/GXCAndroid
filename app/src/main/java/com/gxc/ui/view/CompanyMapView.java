@@ -1,6 +1,8 @@
 package com.gxc.ui.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,7 +12,11 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.gxc.model.CorporateInfoModel;
+import com.gxc.model.UserModel;
+import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.WebActivity;
+import com.gxc.ui.dialog.AuthDialog;
+import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
@@ -61,14 +67,11 @@ public class CompanyMapView extends BaseView {
 
     @Override
     protected void initActions() {
-//        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgTupu);
-//        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgGuanxi);
-//        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547010415324&di=2bff13d5f997a4baacc85df560c570db&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fpptpic%2FUploadFiles_6909%2F201211%2F2012111719294197.jpg").apply(requestOptions).into(imgJiegou);
 
         layoutTupu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (model != null&&! TextUtils.isEmpty(model.AtlasH5Address)){
+                if (isAuthSucces() && model != null && !TextUtils.isEmpty(model.AtlasH5Address)) {
                     mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.AtlasH5Address));
                 }
             }
@@ -77,7 +80,7 @@ public class CompanyMapView extends BaseView {
         layoutGuanxi.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (model != null&&! TextUtils.isEmpty(model.CorrelationH5Address)){
+                if (isAuthSucces() && model != null && !TextUtils.isEmpty(model.CorrelationH5Address)) {
                     mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.CorrelationH5Address));
                 }
             }
@@ -86,11 +89,28 @@ public class CompanyMapView extends BaseView {
         layoutJiegou.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (model != null&&! TextUtils.isEmpty(model.OwnershipStructureH5Address)){
+                if (isAuthSucces() && model != null && !TextUtils.isEmpty(model.OwnershipStructureH5Address)) {
                     mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.OwnershipStructureH5Address));
                 }
             }
         });
+    }
+
+    /**
+     * 是否为企业认证用户，
+     *
+     * @return
+     */
+    private boolean isAuthSucces() {
+        UserModel user = AppUtils.getUser();
+        if (user == null) {
+            mContext.startActivity(new Intent(mContext, LoginActivity.class));
+            return false;
+        }
+        if (user.authStatus == 3)
+            return true;
+        new AuthDialog((Activity) mContext).show();
+        return false;
     }
 
     private void initView(View rootView) {

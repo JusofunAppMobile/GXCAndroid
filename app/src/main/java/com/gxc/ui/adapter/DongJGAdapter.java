@@ -1,6 +1,6 @@
 package com.gxc.ui.adapter;
 
-import android.text.Html;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -43,6 +43,7 @@ public class DongJGAdapter extends BaseQuickAdapter<CorporateInfoModel.MainStaff
         biliText.setVisibility(View.INVISIBLE);
 
         statusText.setText(riskModel.job);
+        statusText.setTextColor(Color.parseColor("#333333"));
     }
 
 }

@@ -1,41 +1,30 @@
 package com.jusfoun.jusfouninquire.ui.view;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.net.route.NetWorkCompanyDetails;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailsActivity;
 import com.jusfoun.jusfouninquire.ui.adapter.CompanyMenuAdapter;
-import com.jusfoun.jusfouninquire.ui.widget.DividerGridItemDecoration;
-import com.jusfoun.jusfouninquire.ui.widget.FullyGridLayoutManger;
 
 import java.util.HashMap;
 
 import netlib.util.EventUtils;
-import com.jusfoun.jusfouninquire.TimeOut;
 
 /**
  * @author zhaoyapeng
@@ -48,19 +37,13 @@ public class CompanyDetailMenuView extends RelativeLayout {
     private RecyclerView mCompanyMenu;
     private CompanyMenuAdapter adapter;
     private TextView titleText;
-    private LinearLayout titleLayout;
-    private ImageView jtImg;
     private String companyId, companyName;
     public static final int TYPE_RISKINFO = 1;
     public static final int TYPE_OPERATINGCONDITIONS = 2;
     public static final int TYPE_INTANGIBLEASSETS = 3;
 
     private UserInfoModel userInfo;
-    private int type;
     private CompanyDetailModel companyDetailModel;
-    private android.os.Handler handler;
-
-    private    int height =0;
 
     public CompanyDetailMenuView(Context context) {
         super(context);
@@ -89,39 +72,18 @@ public class CompanyDetailMenuView extends RelativeLayout {
     private void initData() {
         adapter = new CompanyMenuAdapter(mContext);
         userInfo = InquireApplication.getUserInfo();
-        handler =new Handler();
     }
 
     private void initViews() {
         LayoutInflater.from(mContext).inflate(R.layout.view_company_detail_menu, this, true);
         mCompanyMenu = (RecyclerView) findViewById(R.id.recyclerview);
         titleText = (TextView) findViewById(R.id.text_title);
-        titleLayout = (LinearLayout) findViewById(R.id.layout_title);
-        jtImg = (ImageView) findViewById(R.id.img_jiantou);
-
     }
 
     private void initActions() {
-//        mCompanyMenu.setNestedScrollingEnabled(false);
         mCompanyMenu.setLayoutManager(new GridLayoutManager(mContext, 4));
         mCompanyMenu.setAdapter(adapter);
-        mCompanyMenu.addItemDecoration(new DividerGridItemDecoration(mContext));
-
-
-        titleLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mCompanyMenu.getVisibility() == GONE) {
-                    if (adapter.getItemCount() == 0) {
-                        getMenuData(type);
-                    } else {
-                        startOpen();
-                    }
-                } else {
-                    startClose();
-                }
-            }
-        });
+        AppUtils.addItemDecoration(mContext, mCompanyMenu);
 
         adapter.setOnItemClickListener(new CompanyMenuAdapter.OnItemClickListener() {
             @Override
@@ -147,7 +109,6 @@ public class CompanyDetailMenuView extends RelativeLayout {
         this.companyDetailModel = companyDetailModel.getCloneModel();
         this.companyId = companyId;
         this.companyName = compantName;
-        this.type = type;
 
         if(type==TYPE_RISKINFO){
             titleText.setText("风险信息");
@@ -156,111 +117,14 @@ public class CompanyDetailMenuView extends RelativeLayout {
         }else if(type==TYPE_INTANGIBLEASSETS){
             titleText.setText("无形资产");
         }
-//        adapter.refresh(list);
-//
+        getMenuData(type);
     }
 
     public void setOnItemClickListener(CompanyMenuAdapter.OnItemClickListener listener) {
         adapter.setOnItemClickListener(listener);
     }
 
-    private void startOpen() {
-        mCompanyMenu.setVisibility(VISIBLE);
-        startOpenRotate();
-        if(height==0) {
-            final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            mCompanyMenu.measure(widthSpec, heightSpec);
-
-        }
-        mCompanyMenu.post(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("tag","startOpen="+mCompanyMenu.getMeasuredHeight()+" "+mCompanyMenu.getHeight());
-                if(height==0){
-                    height = mCompanyMenu.getMeasuredHeight();
-                }
-
-                ValueAnimator animator = ValueAnimator.ofInt(0, height);
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        int value = (int) valueAnimator.getAnimatedValue();
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mCompanyMenu.getLayoutParams();
-                        params.height = value;
-                        mCompanyMenu.setLayoutParams(params);
-                    }
-                });
-                animator.start();
-
-            }
-        });
-
-    }
-
-
-    private void startClose() {
-        startCloseRotate();
-
-        ValueAnimator animator = ValueAnimator.ofInt(height, 1);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mCompanyMenu.getLayoutParams();
-                params.height = value;
-                mCompanyMenu.setLayoutParams(params);
-            }
-        });
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mCompanyMenu.setVisibility(GONE);
-//                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mCompanyMenu.getLayoutParams();
-//                params.height = height;
-//                mCompanyMenu.setLayoutParams(params);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-        animator.start();
-    }
-
-    /**
-     * 箭头 旋转180度动画
-     */
-    private void startOpenRotate() {
-        RotateAnimation animation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setFillAfter(true);
-        jtImg.startAnimation(animation);
-    }
-
-    /**
-     * 箭头 恢复原位置
-     */
-    private void startCloseRotate() {
-        RotateAnimation animation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setFillAfter(true);
-        jtImg.startAnimation(animation);
-    }
-
     private void getMenuData(int type) {
-        if(callBack!=null){
-            callBack.showMenuLoading();
-        }
         HashMap<String, String> params = new HashMap<String,String>();
         TimeOut timeOut = new TimeOut(mContext);
         params = new HashMap<>();
@@ -278,59 +142,16 @@ public class CompanyDetailMenuView extends RelativeLayout {
         NetWorkCompanyDetails.getMenuList(mContext, type, params, "CompanyDetailsItemHttp", new NetWorkCallBack() {
             @Override
             public void onSuccess(Object data) {
-                if(callBack!=null){
-                    callBack.hideMenuLoading();
-                }
                 CompanyDetailModel model = (CompanyDetailModel) data;
                 if (model.getResult() == 0) {
-
-                    // TODO 测试测试
-//                    for (CompanyDetailMenuModel m : model.getSubclassMenu()) {
-//                        if(m.getMenuid().equals("29")) {
-//                            m.setCount("33");
-//                            m.setHasData("1");
-//                        }
-//                    }
-
                     companyDetailModel.setSubclassMenu(model.getSubclassMenu());
                     adapter.refresh(model.getSubclassMenu());
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startOpen();
-                        }
-                    },500);
-
-                } else {
-//                    Toast.makeText(mContext, model.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFail(String error) {
-                if(callBack!=null){
-                    callBack.hideMenuLoading();
-                }
             }
         });
     }
-
-
-    public interface CallBack {
-        void showMenuLoading();
-
-        void hideMenuLoading();
-    }
-
-    private CallBack callBack;
-
-    public void setCallBack(CallBack callBack) {
-        this.callBack = callBack;
-    }
-
-    public void startLoad(){
-        titleLayout.performClick();
-    }
-
 }

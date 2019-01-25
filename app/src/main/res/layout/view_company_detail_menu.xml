@@ -4,7 +4,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_underline_gray"
@@ -21,22 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="企业背景"
             android:textColor="#000000"
             android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/img_jiantou"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/img_down_jiantou" />
 
     </LinearLayout>
 
@@ -44,8 +36,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_company_menu"
-        android:visibility="gone" />
+        android:background="#E0E0E0" />
 
 
 </LinearLayout>
