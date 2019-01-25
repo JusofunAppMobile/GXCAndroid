@@ -17,7 +17,8 @@ import com.jusfoun.jusfouninquire.ui.view.BaseView;
  * @Description ${TODO}
  */
 public class BottomBarView extends BaseView {
-    private ImageView rzImg;
+    private ImageView rzImg,ivCredit;
+
     public BottomBarView(Context context) {
         super(context);
     }
@@ -40,6 +41,7 @@ public class BottomBarView extends BaseView {
 
         LayoutInflater.from(mContext).inflate(R.layout.view_bottom_bar, this, true);
         rzImg = findViewById(R.id.img_monitor);
+        ivCredit = findViewById(R.id.ivCredit);
     }
 
     @Override
@@ -93,12 +95,13 @@ public class BottomBarView extends BaseView {
     private TabSelectedListener tabSelectedListener;
 
     public void setMonitorText(boolean isMonitor) {
-        ((TextView) findViewById(R.id.tvMonitor)).setText(isMonitor ? "取消监控" : "监控");
-//        if(isMonitor){
-//            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong_sel);
-//        }else{
-//            rzImg.setImageResource(R.drawable.info_bot_icon_jiankong);
-//        }
+        ((TextView) findViewById(R.id.tvMonitor)).setText(isMonitor ? "已监控" : "监控");
+        rzImg.setSelected(isMonitor);
+    }
+
+    public void setCreditText(boolean isCredit) {
+        ((TextView) findViewById(R.id.tvCredit)).setText(isCredit ? "已认证" : "认证");
+        ivCredit.setSelected(isCredit);
     }
 
 }

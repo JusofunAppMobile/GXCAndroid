@@ -28,7 +28,7 @@ import butterknife.OnClick;
  * @author zhaoyapeng
  * @version create time:2019/1/1117:54
  * @Email zyp@jusfoun.com
- * @Description ${确认订单}
+ * @Description ${获取报告}
  */
 public class ConfirmOrderActivity extends BaseActivity {
     @BindView(R.id.titlebar)
@@ -59,7 +59,7 @@ public class ConfirmOrderActivity extends BaseActivity {
 
     @Override
     public void initActions() {
-        titlebar.setTitle("确认订单");
+        titlebar.setTitle("获取报告");
         creditReportItemModel =(CreditReportModel.CreditReportItemModel)getIntent().getSerializableExtra("model");
 
         type = getIntent().getIntExtra("type",0);

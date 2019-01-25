@@ -80,7 +80,7 @@ public class MyMonitorListActivity extends BaseListActivity {
                     if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {
                         adapter.addHeaderView(headView);
                     }
-                    if( pageIndex == 1 && (list == null || list.isEmpty()))
+                    if (pageIndex == 1 && (list == null || list.isEmpty()))
                         adapter.removeHeaderView(headView);
                     setCount(model.getDataByKey("totalCount", Integer.class));
                 } else {
@@ -88,13 +88,19 @@ public class MyMonitorListActivity extends BaseListActivity {
                 }
                 super.success(model);
             }
+
+            @Override
+            public void error() {
+                adapter.removeHeaderView(headView);
+                super.error();
+            }
         });
     }
 
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
-        if(event instanceof MonitorChangeEvent)
+        if (event instanceof MonitorChangeEvent)
             refresh();
     }
 }

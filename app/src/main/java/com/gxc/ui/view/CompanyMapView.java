@@ -15,7 +15,7 @@ import com.gxc.model.CorporateInfoModel;
 import com.gxc.model.UserModel;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.WebActivity;
-import com.gxc.ui.dialog.AuthDialog;
+import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.R;
@@ -71,7 +71,7 @@ public class CompanyMapView extends BaseView {
         layoutTupu.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAuthSucces() && model != null && !TextUtils.isEmpty(model.AtlasH5Address)) {
+                if (isVipUser() && model != null && !TextUtils.isEmpty(model.AtlasH5Address)) {
                     mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.AtlasH5Address));
                 }
             }
@@ -80,7 +80,7 @@ public class CompanyMapView extends BaseView {
         layoutGuanxi.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAuthSucces() && model != null && !TextUtils.isEmpty(model.CorrelationH5Address)) {
+                if (isVipUser() && model != null && !TextUtils.isEmpty(model.CorrelationH5Address)) {
                     mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.CorrelationH5Address));
                 }
             }
@@ -89,7 +89,7 @@ public class CompanyMapView extends BaseView {
         layoutJiegou.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAuthSucces() && model != null && !TextUtils.isEmpty(model.OwnershipStructureH5Address)) {
+                if (isVipUser() && model != null && !TextUtils.isEmpty(model.OwnershipStructureH5Address)) {
                     mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.OwnershipStructureH5Address));
                 }
             }
@@ -97,19 +97,19 @@ public class CompanyMapView extends BaseView {
     }
 
     /**
-     * 是否为企业认证用户，
+     * 是否为VIP用户
      *
      * @return
      */
-    private boolean isAuthSucces() {
+    private boolean isVipUser() {
         UserModel user = AppUtils.getUser();
         if (user == null) {
             mContext.startActivity(new Intent(mContext, LoginActivity.class));
             return false;
         }
-        if (user.authStatus == 3)
+        if (user.vipStatus == 1)
             return true;
-        new AuthDialog((Activity) mContext).show();
+        new VIPDialog((Activity) mContext).show();
         return false;
     }
 

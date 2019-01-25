@@ -43,6 +43,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import de.greenrobot.event.EventBus;
 import netlib.util.PreferenceUtils;
@@ -443,5 +444,9 @@ public class AppUtils {
         recyclerView.addItemDecoration(new MediaGridInset(4, DensityUtils.dp2px(context, 0.8f), false));
     }
 
+    public static int getRandom(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max) % (max - min + 1) + min;
+    }
 
 }

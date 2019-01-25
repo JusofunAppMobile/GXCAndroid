@@ -1,5 +1,6 @@
 package com.gxc.ui.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
@@ -63,6 +65,11 @@ public class MonitorAdpater extends BaseQuickAdapter<MonitorModel, BaseViewHolde
         UserModel user = AppUtils.getUser();
         if (user == null) {
             mContext.startActivity(new Intent(mContext, com.gxc.ui.activity.LoginActivity.class));
+            return;
+        }
+
+        if (user.vipStatus != 1) {
+            new VIPDialog((Activity) mContext).show();
             return;
         }
 

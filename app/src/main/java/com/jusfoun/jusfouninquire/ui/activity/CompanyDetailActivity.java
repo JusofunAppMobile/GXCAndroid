@@ -16,7 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.gxc.base.BaseActivity;
 import com.gxc.event.CollectChangeEvent;
+import com.gxc.event.LoginChangeEvent;
 import com.gxc.event.MonitorChangeEvent;
 import com.gxc.model.CorporateInfoModel;
 import com.gxc.model.UserModel;
@@ -29,7 +31,7 @@ import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.adapter.DongJGAdapter;
 import com.gxc.ui.adapter.ShareholderAdapter;
-import com.gxc.ui.dialog.AuthDialog;
+import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.view.BottomBarView;
 import com.gxc.ui.view.CompanyMapView;
 import com.gxc.utils.AppUtils;
@@ -73,7 +75,7 @@ import netlib.util.EventUtils;
  * @Email zyp@jusfoun.com
  * @Description ${公司详情页面}
  */
-public class CompanyDetailActivity extends BaseInquireActivity {
+public class CompanyDetailActivity extends BaseActivity {
 
     public static final String COMPANY_ID = "company_id";
     public static final String COMPANY_NAME = "company_name";
@@ -120,6 +122,12 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_company_detail;
+    }
+
+
     public static Intent getIntent(Context context, String id, String name) {
         Intent intent = new Intent(context, CompanyDetailActivity.class);
         intent.putExtra(CompanyDetailActivity.COMPANY_ID, id);
@@ -129,10 +137,27 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
 
     @Override
-    protected void initData() {
-        super.initData();
+    public void initActions() {
 
-        new AuthDialog(this).show();
+        scrollView = findViewById(R.id.scrollView);
+        mCompanyMenu = findViewById(R.id.company_menu);
+        title = findViewById(R.id.title);
+        loadingBack = findViewById(R.id.title_back);
+        netWorkError = findViewById(R.id.net_work_error);
+        riskInfoVide = findViewById(R.id.view_risk_info);
+        operatingConditionsView = findViewById(R.id.view_operating_conditions);
+        intangibleAssetsView = findViewById(R.id.view_intangible_assets);
+        myHeaderView = new MyHeaderView(activity);
+
+        loadingLayout = findViewById(R.id.loading);
+        imageView = findViewById(R.id.loading_img);
+        headerView = findViewById(R.id.headerview);
+        shareHolderRecycle = findViewById(R.id.recyclerview_shareholder);
+        dongshiRecycle = findViewById(R.id.recyclerview_dongshi);
+        navigation = findViewById(R.id.navigation);
+        companyMapView = findViewById(R.id.view_company_map);
+        fengxianImg = findViewById(R.id.img_fengxian);
+        gxcLayout = findViewById(R.id.layout_gxc);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -140,15 +165,16 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 mCompanyId = bundle.getString(COMPANY_ID);
             mCompanyName = bundle.getString(COMPANY_NAME);
         }
-        adapter = new CompanyMenuAdapter(mContext);
-        shareUtil = new ShareUtil(mContext);
+        adapter = new CompanyMenuAdapter(activity);
+        shareUtil = new ShareUtil(activity);
 
-        shareDialog = new ShareDialog(mContext, R.style.tool_dialog);
+        shareDialog = new ShareDialog(activity, R.style.tool_dialog);
         shareDialog.setCancelable(true);
 
         shareholderAdapter = new ShareholderAdapter();
         dongshiAdaper = new DongJGAdapter();
 
+        initWidgetActions();
     }
 
     @Override
@@ -161,32 +187,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         return false;
     }
 
-    @Override
-    protected void initView() {
-        setContentView(R.layout.activity_company_detail);
-        scrollView = findViewById(R.id.scrollView);
-        mCompanyMenu = findViewById(R.id.company_menu);
-        title = findViewById(R.id.title);
-        loadingBack = findViewById(R.id.title_back);
-        netWorkError = findViewById(R.id.net_work_error);
-        riskInfoVide = findViewById(R.id.view_risk_info);
-        operatingConditionsView = findViewById(R.id.view_operating_conditions);
-        intangibleAssetsView = findViewById(R.id.view_intangible_assets);
-        myHeaderView = new MyHeaderView(mContext);
 
-        loadingLayout = findViewById(R.id.loading);
-        imageView = findViewById(R.id.loading_img);
-        headerView = findViewById(R.id.headerview);
-        shareHolderRecycle = findViewById(R.id.recyclerview_shareholder);
-        dongshiRecycle = findViewById(R.id.recyclerview_dongshi);
-        navigation = findViewById(R.id.navigation);
-        companyMapView = findViewById(R.id.view_company_map);
-        fengxianImg = findViewById(R.id.img_fengxian);
-        gxcLayout = findViewById(R.id.layout_gxc);
-    }
-
-
-    @Override
     protected void initWidgetActions() {
         title.setTitleText("企业详情");
         setStatusBar(R.id.vStatusBar);
@@ -194,9 +195,11 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         navigation.setTabSelectedListener(new BottomBarView.TabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
+                if (corporateInfoModel == null || corporateInfoModel.companyInfo == null)
+                    return;
                 UserModel user = AppUtils.getUser();
                 if (user == null) {
-                    goActivity(com.gxc.ui.activity.LoginActivity.class);
+                    startActivity(com.gxc.ui.activity.LoginActivity.class);
                     return;
                 }
                 if (position == 0) {
@@ -206,7 +209,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                     startActivity(intent);
                 } else if (position == 1) {
                     if (model != null) {
-                        EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
+                        EventUtils.event(activity, EventUtils.BUSINESSDETAILS01);
                         Intent intent = new Intent(CompanyDetailActivity.this, CompanyAmendActivity.class);
                         intent.putExtra("companyId", mCompanyId);
                         intent.putExtra("companyName", mCompanyName);
@@ -218,7 +221,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 } else if (position == 2) {
                     monitorHandle();
                 } else if (position == 3) {
-                    goActivity(CertifiedCompanyActivity.class);
+                    if (corporateInfoModel.companyInfo.CertificationType == 0)
+                        startActivity(CertifiedCompanyActivity.class);
                 }
             }
         });
@@ -239,7 +243,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         adapter.setOnItemClickListener(new CompanyMenuAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, String umeng) {
-                EventUtils.event2(mContext, umeng);
+                EventUtils.event2(activity, umeng);
 
                 if (model == null)
                     return;
@@ -247,7 +251,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
                 argument.putSerializable(CompanyDetailsActivity.COMPANY, model);
                 argument.putInt(CompanyDetailsActivity.POSITION, position);
-                goActivity(CompanyDetailsActivity.class, argument);
+                startActivity(CompanyDetailsActivity.class, argument);
             }
         });
 
@@ -265,7 +269,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             public void onClick() {
                 if (model == null)
                     return;
-                EventUtils.event(mContext, EventUtils.DETAIL57);
+                EventUtils.event(activity, EventUtils.DETAIL57);
 //                putFollowState(model.getIsattention());
                 collectHandle();
             }
@@ -274,9 +278,9 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         title.setmShareListener(new BackAndImageTitleView.ShareListener() {
             @Override
             public void onClick() {
-                EventUtils.event(mContext, EventUtils.DETAIL58);
+                EventUtils.event(activity, EventUtils.DETAIL58);
                 showShareDialog();
-                EventUtils.event(mContext, EventUtils.BUSINESSDETAILS03);
+                EventUtils.event(activity, EventUtils.BUSINESSDETAILS03);
             }
         });
         shareDialog.setShareListener(new ShareDialog.ShareListener() {
@@ -290,7 +294,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 shareModel.setTitle(getString(R.string.share_title_company));
                 if (!TextUtils.isEmpty(model.getShareurl()))
                     shareModel.setUrl(model.getShareurl());
-                shareUtil.shareByType(mContext, shareModel, SHARE_MEDIA.WEIXIN_CIRCLE);
+                shareUtil.shareByType(activity, shareModel, SHARE_MEDIA.WEIXIN_CIRCLE);
             }
 
             @Override
@@ -303,7 +307,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 shareModel.setTitle(getString(R.string.share_title_company));
                 if (!TextUtils.isEmpty(model.getShareurl()))
                     shareModel.setUrl(model.getShareurl());
-                shareUtil.shareByType(mContext, shareModel, SHARE_MEDIA.WEIXIN);
+                shareUtil.shareByType(activity, shareModel, SHARE_MEDIA.WEIXIN);
             }
 
             @Override
@@ -316,7 +320,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 shareModel.setTitle(getString(R.string.share_title_company));
                 if (!TextUtils.isEmpty(model.getShareurl()))
                     shareModel.setUrl(model.getShareurl());
-                shareUtil.shareByType(mContext, shareModel, SHARE_MEDIA.SINA);
+                shareUtil.shareByType(activity, shareModel, SHARE_MEDIA.SINA);
             }
         });
 
@@ -331,7 +335,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             @Override
             public void onClick(View view) {
                 if (model != null) {
-                    EventUtils.event(mContext, EventUtils.BUSINESSDETAILS01);
+                    EventUtils.event(activity, EventUtils.BUSINESSDETAILS01);
                     Intent intent = new Intent(CompanyDetailActivity.this, CompanyAmendActivity.class);
                     intent.putExtra("companyId", mCompanyId);
                     intent.putExtra("companyName", mCompanyName);
@@ -355,13 +359,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         };
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         shareHolderRecycle.setLayoutManager(linearLayoutManager);
         shareHolderRecycle.setAdapter(shareholderAdapter);
 
 
-        LinearLayoutManager dongshiManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager dongshiManager = new LinearLayoutManager(activity);
         dongshiManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         dongshiRecycle.setLayoutManager(dongshiManager);
         dongshiRecycle.setAdapter(dongshiAdaper);
@@ -370,9 +374,9 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         fengxianImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAuthSucces() && corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
+                if (isVipUser() && corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
                     if (model != null && !TextUtils.isEmpty(corporateInfoModel.companyInfo.RiskH5Address)) {
-                        mContext.startActivity(com.gxc.ui.activity.WebActivity.getIntent(mContext, "风险分析", corporateInfoModel.companyInfo.RiskH5Address));
+                        activity.startActivity(com.gxc.ui.activity.WebActivity.getIntent(activity, "风险分析", corporateInfoModel.companyInfo.RiskH5Address));
                     }
                 }
             }
@@ -382,19 +386,19 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     }
 
     /**
-     * 是否为企业认证用户，
+     * 是否为VIP用户
      *
      * @return
      */
-    private boolean isAuthSucces() {
+    private boolean isVipUser() {
         UserModel user = AppUtils.getUser();
         if (user == null) {
-            goActivity(LoginActivity.class);
+            startActivity(LoginActivity.class);
             return false;
         }
-        if (user.authStatus == 3)
+        if (user.vipStatus == 1)
             return true;
-        new AuthDialog(this).show();
+        new VIPDialog(this).show();
         return false;
     }
 
@@ -406,7 +410,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
      * 下载企业详情
      */
     private void getCompanyDetail() {
-        TimeOut timeOut = new TimeOut(mContext);
+        TimeOut timeOut = new TimeOut(activity);
         params = new HashMap<>();
         params.put("companyid", mCompanyId);
         params.put("companyname", mCompanyName == null ? "" : mCompanyName);
@@ -420,7 +424,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
-        NetWorkCompanyDetails.getCompanyDetails(mContext, params, getLocalClassName(), new NetWorkCallBack() {
+        NetWorkCompanyDetails.getCompanyDetails(activity, params, getLocalClassName(), new NetWorkCallBack() {
             @Override
             public void onSuccess(Object data) {
                 if (data instanceof CompanyDetailModel) {
@@ -483,6 +487,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         if (corporateInfoModel != null && corporateInfoModel.companyInfo != null) {
             title.setFollow(corporateInfoModel.companyInfo.isCollect == 1);
             navigation.setMonitorText(corporateInfoModel.companyInfo.monitorType == 1);
+            navigation.setCreditText(corporateInfoModel.companyInfo.CertificationType == 1);
         }
     }
 
@@ -493,7 +498,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         //企业信息无数据时处理
         if (model.getResult() == 0) {
             if (model.getHasCompanyData() == 1) {
-                Intent intent = new Intent(mContext, SearchResultActivity.class);
+                Intent intent = new Intent(activity, SearchResultActivity.class);
                 intent.putExtra(SearchResultActivity.SEARCH_KEY, mCompanyName);
                 intent.putExtra(SearchResultActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
                 startActivity(intent);
@@ -565,13 +570,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             netWorkError.setServerError();
             netWorkError.setVisibility(View.VISIBLE);
             title.setVGone(View.GONE);
-            Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, model.getMsg(), Toast.LENGTH_SHORT).show();
         }
 
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         if (sceneAnimation != null)
             sceneAnimation.stop();
@@ -589,6 +594,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 //                userInfo = InquireApplication.getUserInfo();
 //                putFollowState(followStatue);
 //            }
+        } else if (event instanceof LoginChangeEvent) {
+            getGxcDetailData();
         }
     }
 
@@ -614,13 +621,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
         params.put("entid", model.getCompanyid());
         params.put("companyname", mCompanyName == null ? "" : mCompanyName);
         params.put("entname", mCompanyName == null ? "" : mCompanyName);
-        NetWorkCompanyDetails.updateCompanyDetails(mContext, params, getLocalClassName(), new NetWorkCallBack() {
+        NetWorkCompanyDetails.updateCompanyDetails(activity, params, getLocalClassName(), new NetWorkCallBack() {
             @Override
             public void onSuccess(Object data) {
                 BaseModel baseModel = (BaseModel) data;
                 if (baseModel.getResult() == 0) {
                     getUpdateState();
-//                    Toast.makeText(mContext,"更新成功",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(activity,"更新成功",Toast.LENGTH_SHORT).show();
 //                    headerView.setUpdate();
                 } else {
                     showToast(baseModel.getMsg());
@@ -636,7 +643,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
 
     private void getUpdateState() {
 
-        TimeOut timeOut = new TimeOut(mContext);
+        TimeOut timeOut = new TimeOut(activity);
 
         HashMap<String, String> params = new HashMap<>();
 //        if (userInfo != null && !TextUtils.isEmpty(userInfo.getUserid())) {
@@ -687,7 +694,7 @@ public class CompanyDetailActivity extends BaseInquireActivity {
     private void collectHandle() {
         UserModel user = AppUtils.getUser();
         if (user == null) {
-            goActivity(com.gxc.ui.activity.LoginActivity.class);
+            startActivity(com.gxc.ui.activity.LoginActivity.class);
             return;
         }
 
@@ -729,6 +736,9 @@ public class CompanyDetailActivity extends BaseInquireActivity {
      * 监控处理
      */
     private void monitorHandle() {
+
+        if (!isVipUser()) return;
+
         if (corporateInfoModel == null || corporateInfoModel.companyInfo == null)
             return;
 

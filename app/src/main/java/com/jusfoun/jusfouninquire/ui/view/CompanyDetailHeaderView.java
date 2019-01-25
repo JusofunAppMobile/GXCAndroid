@@ -1,7 +1,5 @@
 package com.jusfoun.jusfouninquire.ui.view;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +15,6 @@ import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -65,10 +61,10 @@ public class CompanyDetailHeaderView extends LinearLayout {
 
     private TextView mCompanyState, xinyongfenText;
     private LinearLayout locationWebLayout;
-    private ImageView jtImg, refreshImg;
+    private ImageView  refreshImg;
     private RefreshAnimUtil refreshAnimUtil;
     private View vExport;
-    private TextView moreText;
+    private View moreText;
     private CorporateInfoModel.CompanyInfo companyInfo;
 
     public CompanyDetailHeaderView(Context context) {
@@ -120,11 +116,10 @@ public class CompanyDetailHeaderView extends LinearLayout {
         website_layout = (RelativeLayout) findViewById(R.id.website_layout);
         mCompanyState = (TextView) findViewById(R.id.company_state_content);
         locationWebLayout = (LinearLayout) findViewById(R.id.layout_location_website);
-        jtImg = (ImageView) findViewById(R.id.img_jiantou);
         refreshImg = (ImageView) findViewById(R.id.img_update);
         refreshLayout = (RelativeLayout) findViewById(R.id.layout_refresh);
         xinyongfenText = (TextView) findViewById(R.id.text_fen);
-        moreText = (TextView) findViewById(R.id.text_more);
+        moreText =  findViewById(R.id.text_more);
         refreshAnimUtil = new RefreshAnimUtil(refreshImg);
     }
 
@@ -363,81 +358,6 @@ public class CompanyDetailHeaderView extends LinearLayout {
 
     public void setUpdateListener(OnClickListener updateListener) {
         this.updateListener = updateListener;
-    }
-
-
-    private void startOpen() {
-        startOpenRotate();
-        locationWebLayout.setVisibility(VISIBLE);
-        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        locationWebLayout.measure(widthSpec, heightSpec);
-        ValueAnimator animator = ValueAnimator.ofInt(0, locationWebLayout.getMeasuredHeight());
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) locationWebLayout.getLayoutParams();
-                params.height = value;
-                locationWebLayout.setLayoutParams(params);
-            }
-        });
-        animator.start();
-    }
-
-    private void startClose() {
-        startCloseRotate();
-        int height = locationWebLayout.getHeight();
-        ValueAnimator animator = ValueAnimator.ofInt(height, 0);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) locationWebLayout.getLayoutParams();
-                params.height = value;
-                locationWebLayout.setLayoutParams(params);
-            }
-        });
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                locationWebLayout.setVisibility(GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-        animator.start();
-    }
-
-    /**
-     * 箭头 旋转180度动画
-     */
-    private void startOpenRotate() {
-        RotateAnimation animation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setFillAfter(true);
-        jtImg.startAnimation(animation);
-    }
-
-    /**
-     * 箭头 恢复原位置
-     */
-    private void startCloseRotate() {
-        RotateAnimation animation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setFillAfter(true);
-        jtImg.startAnimation(animation);
     }
 
     public void setUpdateText(String text) {

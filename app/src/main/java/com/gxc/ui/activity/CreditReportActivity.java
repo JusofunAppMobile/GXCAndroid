@@ -38,8 +38,8 @@ public class CreditReportActivity extends BaseListActivity {
 
     @Override
     protected void initUi() {
-        titleView.setTitle("信用报告");
         companyName = getIntent().getStringExtra("companyName");
+        titleView.setTitle(companyName);
         companyId = getIntent().getStringExtra("companyId");
     }
 

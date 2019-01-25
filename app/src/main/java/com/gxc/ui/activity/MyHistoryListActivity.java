@@ -91,6 +91,12 @@ public class MyHistoryListActivity extends BaseListActivity implements TitleView
                 }
                 super.success(model);
             }
+
+            @Override
+            public void error() {
+                adapter.removeHeaderView(headView);
+                super.error();
+            }
         });
     }
 

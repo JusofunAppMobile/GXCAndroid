@@ -13,9 +13,10 @@ import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
+import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.adapter.MonitorAdpater;
-import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.R;
@@ -57,14 +58,19 @@ public class MonitorListFragment extends BaseListFragment {
         headView.setTipClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new VIPDialog(activity).show();
+                UserModel user = AppUtils.getUser();
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                startActivity(PayActivity.class);
             }
         });
     }
 
     private void refreshHeadViewTip() {
         UserModel user = AppUtils.getUser();
-        if (user == null)
+        if (user == null || user.vipStatus == 0)
             headView.setTip("成为VIP掌握企业风险动态");
         else
             headView.setTip("");
@@ -95,11 +101,12 @@ public class MonitorListFragment extends BaseListFragment {
                 if (model.success()) {
                     List<MonitorModel> list = getList(model);
                     if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {
-                        refreshHeadViewTip();
                         adapter.addHeaderView(headView);
                     }
                     if (pageIndex == 1 && (list == null || list.isEmpty()))
                         adapter.removeHeaderView(headView);
+
+                    refreshHeadViewTip();
                 } else {
                     adapter.removeHeaderView(headView);
                 }

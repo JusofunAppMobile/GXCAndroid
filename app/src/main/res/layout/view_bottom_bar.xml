@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/info_bot_icon_jiankong" />
+            android:src="@drawable/selector_com_monitor" />
 
         <TextView
             android:id="@+id/tvMonitor"
@@ -104,7 +104,8 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="#ED605F" />
+        android:background="#ED605F"
+        android:visibility="gone" />
 
 
     <LinearLayout
@@ -115,16 +116,19 @@
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
+            android:id="@+id/ivCredit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/info_bot_icon_renzheng" />
+            android:src="@drawable/selector_com_credit" />
 
         <TextView
+            android:id="@+id/tvCredit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

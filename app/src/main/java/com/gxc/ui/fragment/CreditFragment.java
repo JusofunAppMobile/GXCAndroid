@@ -35,10 +35,10 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
-import com.gxc.ui.dialog.AuthDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
@@ -50,7 +50,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import netlib.util.PreferenceUtils;
-import netlib.util.ToastUtils;
 
 /**
  * @author liuguangdan
@@ -143,11 +142,11 @@ public class CreditFragment extends BaseFragment {
         });
 
 
-        nestedScrollView = (NestedScrollView) rootView.findViewById(R.id.nestedScrollView);
+        nestedScrollView = rootView.findViewById(R.id.nestedScrollView);
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
 
-        certificationImg.setOnClickListener(new View.OnClickListener(){
+        certificationImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -155,7 +154,7 @@ public class CreditFragment extends BaseFragment {
                     startActivity(LoginActivity.class);
                     return;
                 }
-                new AuthDialog(activity).show();
+                startActivity(CertifiedCompanyActivity.class);
             }
         });
 
@@ -183,31 +182,39 @@ public class CreditFragment extends BaseFragment {
     private void initChart() {
 //        chart.setOnChartValueSelectedListener(this);
 
+        chart.setNoDataText("");
         // no description text
         chart.getDescription().setEnabled(false);
 
         // enable touch gestures
         chart.setTouchEnabled(true);
 
+
+
+//        chart.getViewPortHandler().setma
+
         chart.setDragDecelerationFrictionCoef(0.9f);
 
         // enable scaling and dragging
-        chart.setDragEnabled(true);
-        chart.setScaleEnabled(true);
-        chart.setDrawGridBackground(false);
+        chart.setDragEnabled(false);
+        chart.setScaleEnabled(false);
+        chart.setDrawGridBackground(true);
+        chart.setGridBackgroundColor(Color.parseColor("#F5F5F5"));
         chart.setHighlightPerDragEnabled(true);
         // if disabled, scaling can be done on x- and y-axis separately
         chart.setPinchZoom(true);
 
 
         // set an alternative background color
-        chart.setBackgroundColor(Color.WHITE);
         chart.getAxisRight().setEnabled(false);
 //         add data
 //        seekBarX.setProgress(20);
 //        seekBarY.setProgress(30);
 
-        chart.animateX(1500);
+        chart.animateX(1200);
+//        chart.setBackgroundColor(Color.GRAY);
+        //是否显示边界
+//        chart.setDrawBorders(false);
 
 //        // get the legend (only possible after setting data)
         Legend l = chart.getLegend();
@@ -218,21 +225,30 @@ public class CreditFragment extends BaseFragment {
         xAxis.setTextSize(11f);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawGridLines(true);
+//        xAxis.setGridLineWidth(40);
+//        xAxis.setGridColor(Color.parseColor("#F5F5F5"));
         xAxis.setDrawAxisLine(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(0xff333333);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(0.5f);
+//        xAxis.setCenterAxisLabels(true);
+        xAxis.setGranularity(1);
+        xAxis.setAxisMinimum(-0.5f);
+        xAxis.setGridColor(Color.parseColor("#CCCCCC"));
 
 
         YAxis leftAxis = chart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
-        leftAxis.setAxisMaximum(200f);
+//        leftAxis.setAxisMaximum(200f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setDrawGridLines(false);
+//        leftAxis.setGridDashedLine(new DashPathEffect(new float[]{30f, 30f}, 10f));
         leftAxis.setGranularityEnabled(true);
         leftAxis.setTextColor(0xff333333);
+
+//        leftAxis.setGridLineWidth(10);
+//        leftAxis.setGridColor(Color.parseColor("#F5F5F5"));
+
         leftAxis.setTextSize(10f);
 
 
@@ -247,7 +263,8 @@ public class CreditFragment extends BaseFragment {
         ArrayList<Entry> values1 = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            values1.add(new Entry(i, list.get(i).count));
+//            values1.add(new Entry(i, list.get(i).count));
+            values1.add(new Entry(i, AppUtils.getRandom(20, 100)));
         }
 
         LineDataSet set1;
@@ -353,7 +370,7 @@ public class CreditFragment extends BaseFragment {
                         serviceAdapter.setNewData(model.serviceList);
                         inquireAdapter.setNewData(model.inquiryList);
                     } else {
-                        showToast(data.msg);
+                        netWorkError.error();
                     }
                 } else {
                     netWorkError.error();
@@ -363,7 +380,6 @@ public class CreditFragment extends BaseFragment {
             @Override
             public void error() {
                 netWorkError.error();
-                ToastUtils.showHttpError();
             }
         });
 
@@ -396,7 +412,7 @@ public class CreditFragment extends BaseFragment {
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
-        if (event instanceof LoginChangeEvent){
+        if (event instanceof LoginChangeEvent) {
             getServiceData();
         }
     }

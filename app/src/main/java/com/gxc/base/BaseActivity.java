@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.gxc.event.FinishEvent;
 import com.gxc.ui.dialog.LoadingDialog;
+import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
@@ -491,5 +492,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
             }
         }, 400);
+    }
+
+    public void setStatusBar(int id) {
+        View vStatus = findViewById(id);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            vStatus.setVisibility(View.VISIBLE);
+            vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
+        }
     }
 }

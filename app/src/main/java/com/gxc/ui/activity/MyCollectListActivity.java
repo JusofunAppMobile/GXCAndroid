@@ -93,6 +93,7 @@ public class MyCollectListActivity extends BaseListActivity {
             @Override
             public void error() {
                 adapter.removeHeaderView(headView);
+                super.error();
             }
         });
     }

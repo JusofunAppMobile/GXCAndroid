@@ -65,6 +65,10 @@ public class WebActivity extends BaseActivity {
     NetWorkErrorView emptyView;
     @BindView(R.id.searchTitleView)
     SearchTitleView searchTitleView;
+    @BindView(R.id.ivCredit)
+    View ivCredit;
+
+    private boolean isCredit; // 信用报告-样本预览
 
     private boolean isRelation = false; // 是否为查关系
 
@@ -89,6 +93,7 @@ public class WebActivity extends BaseActivity {
         isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
         isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
         isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
+        isCredit = getIntent().getBooleanExtra("isCredit", false);
 
         if (!isHttpGetUrl) {
             if (!isFullScreen)
@@ -131,6 +136,8 @@ public class WebActivity extends BaseActivity {
             titleView.setVisibility(View.GONE);
         }
 
+        if (isCredit)
+            ivCredit.setVisibility(View.VISIBLE);
         titleView.setTitle(title);
 
         errorView = View.inflate(this, R.layout.view_empty, null);
@@ -297,6 +304,23 @@ public class WebActivity extends BaseActivity {
 
     public static Intent getIntent(Context context, String title, String url) {
         return getIntent(context, title, url, false);
+    }
+
+
+    /**
+     * 信用报告-样本预览
+     *
+     * @param context
+     * @param title
+     * @param url
+     * @return
+     */
+    public static Intent getCreditIntent(Context context, String url) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("title", "信用报告");
+        intent.putExtra("url", url);
+        intent.putExtra("isCredit", true);
+        return intent;
     }
 
 

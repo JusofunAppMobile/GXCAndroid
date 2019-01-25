@@ -1,7 +1,6 @@
 package com.gxc.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import com.gxc.utils.GlideRoundTransform;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.ui.activity.ExportContactsActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -34,7 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -53,7 +50,10 @@ public class CreditCommitmentActivity extends BaseActivity {
 
     private String imagePath;
     private RequestOptions requestOptions;
-    private  UserModel userModel ;
+    private UserModel userModel;
+
+    private EmailSendDialog dialog;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_credit_commitment;
@@ -68,7 +68,7 @@ public class CreditCommitmentActivity extends BaseActivity {
                 .circleCrop()//设置圆形
                 .placeholder(R.color.white)
                 .error(R.color.white)
-                .transform(new GlideRoundTransform(activity,5));
+                .transform(new GlideRoundTransform(activity, 5));
 
     }
 
@@ -76,18 +76,23 @@ public class CreditCommitmentActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_get_moban:
-                new EmailSendDialog(CreditCommitmentActivity.this, new EmailSendDialog.CallBack() {
-                    @Override
-                    public void onClick(String email) {
-                        getTemplateByEmail(email);
-                    }
-                }).show();
+                if (dialog == null) {
+                    dialog = new EmailSendDialog(CreditCommitmentActivity.this, new EmailSendDialog.CallBack() {
+                        @Override
+                        public void onClick(String email) {
+                            getTemplateByEmail(email);
+                        }
+                    });
+                }
+                dialog.show();
+
                 break;
             case R.id.img_photo:
                 AppUtils.pictureSelect(activity, false, 1, null);
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -109,7 +114,7 @@ public class CreditCommitmentActivity extends BaseActivity {
                             AppUtils.compress(activity, file, new OnSimpleCompressListener() {
                                 @Override
                                 public void complete(String path) {
-                                    if(!TextUtils.isEmpty(path)){
+                                    if (!TextUtils.isEmpty(path)) {
                                         AppUtils.uploadPicture(path, "promise ", new OnUploadListener() {
                                             @Override
                                             public void complete(String url, String simple) {
@@ -142,7 +147,6 @@ public class CreditCommitmentActivity extends BaseActivity {
                 hideLoadDialog();
                 if (model.success()) {
                     showToast("提交成功");
-                    finish();
                 } else {
                     showToast(model.msg);
                 }
@@ -159,7 +163,7 @@ public class CreditCommitmentActivity extends BaseActivity {
 
     private void getTemplateByEmail(String email) {
 
-       showLoading();
+        showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("companyname", userModel.authCompany);
         map.put("email", email);
@@ -170,7 +174,8 @@ public class CreditCommitmentActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    showToast("发送成功");
+                    showToast("模板已发送您的邮箱");
+                    dialog.dismiss();
                 } else {
                     showToast(model.msg);
                 }

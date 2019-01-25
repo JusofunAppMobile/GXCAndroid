@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#E2E2E2"> <!-- 水波纹的颜色 -->
+    <item>
+        <selector>
+
+            <item android:state_pressed="true">
+                <shape>
+                    <corners android:radius="3dp" />
+                    <solid android:color="#bc2227" />
+                </shape>
+            </item>
+
+            <item>
+                <shape>
+                    <corners android:radius="3dp" />
+                    <solid android:color="@color/common_red" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>
