@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.event.WebRefreshEvent;
+import com.gxc.model.UserModel;
 import com.gxc.model.WebModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
@@ -242,9 +243,11 @@ public class WebActivity extends BaseActivity {
 
                     return true;
                 } else if (url.startsWith("gxc://vip")) { // VIP 开通
-//                    String deurl = URLDecoder.decode(url, "UTF-8");
-//                    LogUtils.e("》》》" + deurl);
-//                    Uri uri = Uri.parse(deurl);
+                    UserModel user = AppUtils.getUser();
+                    if (user == null) {
+                        startActivity(LoginActivity.class);
+                        return true;
+                    }
                     startActivity(PayActivity.class);
                     return true;
                 }

@@ -98,6 +98,7 @@ public class PayActivity extends BaseActivity {
 
         }
 
+        vAlipay.setSelected(true);
         load();
     }
 

@@ -95,7 +95,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
-                android:text="发布该模块信息，在国信查上获取更多精准客户流量"
+                android:text="发布该模块信息，在国信上获取更多精准客户流量"
                 android:textColor="#999"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -288,7 +288,7 @@ public class SearchResultAdapter extends BaseAdapter {
                                 }
                             }
                         } else {
-                            // 国信查逻辑
+                            // 国信逻辑
                             if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
                                     mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
                                     mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||

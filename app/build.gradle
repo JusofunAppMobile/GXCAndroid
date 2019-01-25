@@ -99,7 +99,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "gxc_v${variant.mergedFlavor.versionName}_${variant.productFlavors[0].name}.apk".toLowerCase()
+            outputFileName = "gx_v${variant.mergedFlavor.versionName}_${variant.productFlavors[0].name}.apk".toLowerCase()
         }
     }
 

@@ -12,6 +12,7 @@ import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
 import com.gxc.model.AddressModel;
 import com.gxc.model.CertificationModel;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -202,7 +203,12 @@ public class CertifiedCompanyActivity extends BaseActivity {
                                 vAddress.setData(province.name + (city != null ? " " + city.name : ""));
                             }
                         });
-                        getRZData();
+                        UserModel user = AppUtils.getUser();
+                        if (user != null && user.authStatus != 0)
+                            getRZData();
+                        else {// 未认证过
+                            setEditable(true);
+                        }
                     }
                 });
     }

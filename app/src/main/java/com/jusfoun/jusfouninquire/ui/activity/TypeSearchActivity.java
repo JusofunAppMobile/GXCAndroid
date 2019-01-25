@@ -963,7 +963,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
 
 
     /**
-     * 是否为模糊搜索，国信查大多业务使用模糊搜索
+     * 是否为模糊搜索，国信大多业务使用模糊搜索
      */
     public static boolean isBlurrySearch(String mSearchType) {
         if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||

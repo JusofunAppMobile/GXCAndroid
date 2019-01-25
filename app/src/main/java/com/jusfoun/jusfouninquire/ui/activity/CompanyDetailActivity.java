@@ -237,7 +237,8 @@ public class CompanyDetailActivity extends BaseInquireActivity {
             @Override
             public void onTabSelected(int position) {
                 if (position == 0) {
-                    if (AppUtils.getUser() == null) {
+                    UserModel user = AppUtils.getUser();
+                    if (user == null) {
                         goActivity(com.gxc.ui.activity.LoginActivity.class);
                         return;
                     }
@@ -553,14 +554,13 @@ public class CompanyDetailActivity extends BaseInquireActivity {
                 if (data instanceof CompanyDetailModel) {
                     UserModel userModel = AppUtils.getUser();
                     if (userModel != null && userModel.vipStatus == 1) {
-                        getGxcDetailData();
                         updateView((CompanyDetailModel) data);
                     }else{
                         updateView((CompanyDetailModel) data);
                         loadingLayout.setVisibility(View.GONE);
                         sceneAnimation.stop();
                     }
-
+                    getGxcDetailData();
                 }
             }
 

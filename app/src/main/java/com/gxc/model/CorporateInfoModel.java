@@ -9,7 +9,7 @@ import java.util.List;
  * @author zhaoyapeng
  * @version create time:2019/1/1810:24
  * @Email zyp@jusfoun.com
- * @Description ${国信查 详情model}
+ * @Description ${国信 详情model}
  */
 public class CorporateInfoModel extends NetModel implements Serializable {
 

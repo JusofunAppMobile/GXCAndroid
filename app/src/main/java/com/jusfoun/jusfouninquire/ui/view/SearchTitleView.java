@@ -21,20 +21,19 @@ import com.jusfoun.jusfouninquire.R;
  * @date : 16/8/15
  * @Description :搜索结果页面 title view
  */
-public class SearchTitleView extends RelativeLayout{
+public class SearchTitleView extends RelativeLayout {
     private Context mContext;
 
 
-
     private ImageView mRight;
-    private ImageView mClear,mLeft;
+    private ImageView mClear, mLeft;
     private TextView mSearchEditText;
     private RelativeLayout mEditLayout;
 
 
     private TitleListener titleListener;
 
-    
+
     public SearchTitleView(Context context) {
         super(context);
         initData(context);
@@ -82,10 +81,10 @@ public class SearchTitleView extends RelativeLayout{
         mLeft.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (titleListener != null){
+                if (titleListener != null) {
                     titleListener.onLeftClick();
-                }else {
-                    ((Activity)mContext).finish();
+                } else {
+                    ((Activity) mContext).finish();
                 }
             }
         });
@@ -98,11 +97,10 @@ public class SearchTitleView extends RelativeLayout{
         });
 
 
-
         mSearchEditText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (titleListener != null){
+                if (titleListener != null) {
                     titleListener.onTypeSearch(mSearchEditText.getText().toString());
                 }
             }
@@ -111,22 +109,23 @@ public class SearchTitleView extends RelativeLayout{
         mClear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (titleListener != null){
+                if (titleListener != null) {
                     titleListener.onClear();
                 }
             }
         });
     }
 
-    public void hideRightView(){
+    public void hideRightView() {
         mRight.setVisibility(View.INVISIBLE);
+        mRight.getLayoutParams().width = mRight.getWidth() / 2;
     }
 
     public void setEditParentClickListener(OnClickListener listener) {
         mSearchEditText.setOnClickListener(listener);
     }
 
-    public void setEditText(String key){
+    public void setEditText(String key) {
         mSearchEditText.setText(key);
     }
 
@@ -135,10 +134,13 @@ public class SearchTitleView extends RelativeLayout{
         this.titleListener = titleListener;
     }
 
-    public interface TitleListener{
+    public interface TitleListener {
         void onLeftClick();
+
         void onRightClick();
+
         void onTypeSearch(String key);
+
         void onClear();
 
     }

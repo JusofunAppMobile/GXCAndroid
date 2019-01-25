@@ -173,9 +173,6 @@ public class CreditFragment extends BaseFragment {
             }
         });
 
-        textTitle.setTypeface(Typeface.DEFAULT_BOLD);
-
-
         changeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

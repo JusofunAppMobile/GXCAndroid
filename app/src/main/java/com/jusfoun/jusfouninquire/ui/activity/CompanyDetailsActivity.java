@@ -52,7 +52,7 @@ public class CompanyDetailsActivity extends BaseInquireActivity implements OnWeb
 
     private boolean isCanOpenMenu = true;
 
-    private boolean isGxc = false;//是否来源是国信查
+    private boolean isGxc = false;//是否来源是国信
 
     @Override
     protected void initData() {

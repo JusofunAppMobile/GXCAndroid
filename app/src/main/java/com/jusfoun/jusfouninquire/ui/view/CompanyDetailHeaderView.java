@@ -54,6 +54,8 @@ public class CompanyDetailHeaderView extends LinearLayout {
             legal, scale, create_date, industry_content, capacity_content,
             address_content, phone_content, website_content, legalName, tvTaxid;
 
+    private TextView tvScore;
+
     private RelativeLayout address_layout, phone_layout, website_layout, refreshLayout;
 
     private Drawable refresh;
@@ -100,6 +102,7 @@ public class CompanyDetailHeaderView extends LinearLayout {
         company_name = (TextView) findViewById(R.id.company_name);
         tvTaxid = (TextView) findViewById(R.id.tvTaxid);
         company_nature = (TextView) findViewById(R.id.company_nature);
+        tvScore = (TextView) findViewById(R.id.tvScore);
         vExport = findViewById(R.id.vExport);
         scan_count = (TextView) findViewById(R.id.scan_count);
 
@@ -352,8 +355,6 @@ public class CompanyDetailHeaderView extends LinearLayout {
         } catch (Exception e) {
             address_content.setTextColor(Color.parseColor("#333333"));
         }
-
-        xinyongfenText.setText("100");
     }
 
     private SpannableString getText(String str1, String str2) {
@@ -455,5 +456,7 @@ public class CompanyDetailHeaderView extends LinearLayout {
 
     public void setGxcData(CorporateInfoModel.CompanyInfo companyInfo) {
         this.companyInfo = companyInfo;
+        tvScore.setText("信用分：");
+        xinyongfenText.setText(TextUtils.isEmpty(companyInfo.creditScore) ? "暂无" : companyInfo.creditScore);
     }
 }

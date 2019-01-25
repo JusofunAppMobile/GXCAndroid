@@ -93,7 +93,7 @@ public class NetWorkErrorView extends RelativeLayout {
 
     }
 
-    /**国信查start**/
+    /**国信start**/
     public void showLoading(){
         setVisibility(VISIBLE);
         vEmpty.setVisibility(View.GONE);
@@ -121,7 +121,7 @@ public class NetWorkErrorView extends RelativeLayout {
         this.gxcListener = listener;
     }
 
-    /**国信查end**/
+    /**国信end**/
 
 
     /**

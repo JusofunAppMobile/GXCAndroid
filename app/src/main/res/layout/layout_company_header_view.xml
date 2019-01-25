@@ -47,10 +47,10 @@
                         android:paddingLeft="5dp">
 
                         <TextView
+                            android:id="@+id/tvScore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="信用分:"
                             android:textColor="#e1272e"
                             android:textSize="12sp" />
 
@@ -61,7 +61,7 @@
                             android:layout_gravity="center_vertical"
                             android:textColor="#e1272e"
                             android:textSize="13sp"
-                            android:paddingLeft="8dp"/>
+                            android:paddingLeft="4dp"/>
                     </LinearLayout>
 
 
