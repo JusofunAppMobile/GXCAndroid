@@ -206,6 +206,10 @@
         <attr name="image_id" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="info_item">
+        <attr name="is_text_view" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="PayTypeView">
         <attr name="label" format="string"/>
         <attr name="image" format="reference"/>

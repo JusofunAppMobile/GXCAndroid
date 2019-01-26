@@ -31,6 +31,8 @@ public class InforInputView extends LinearLayout {
     TextView tvValue;
     @BindView(R.id.image)
     ImageView image;
+    @BindView(R.id.ivArrow)
+    ImageView ivArrow;
 
     public InforInputView(Context context) {
         super(context);
@@ -80,6 +82,10 @@ public class InforInputView extends LinearLayout {
 
     public String getValue() {
         return tvValue.getText().toString();
+    }
+
+    public void hideArrow() {
+        ivArrow.setVisibility(View.INVISIBLE);
     }
 
 }

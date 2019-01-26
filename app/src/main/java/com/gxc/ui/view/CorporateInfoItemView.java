@@ -1,6 +1,8 @@
 package com.gxc.ui.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -20,19 +22,22 @@ import com.jusfoun.jusfouninquire.ui.view.BaseView;
  */
 public class CorporateInfoItemView extends BaseView {
     protected TextView textView13;
-    protected EditText editText2;
+    protected TextView editText2;
     protected ImageView ivArrow;
 
     public CorporateInfoItemView(Context context) {
         super(context);
+        init(null);
     }
 
     public CorporateInfoItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(attrs);
     }
 
     public CorporateInfoItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(attrs);
     }
 
     @Override
@@ -42,9 +47,20 @@ public class CorporateInfoItemView extends BaseView {
 
     @Override
     protected void initViews() {
-        LayoutInflater.from(mContext).inflate(R.layout.view_corporate_info_item, this, true);
+
+    }
+
+    private void init(AttributeSet attrs) {
+        int layoutId = R.layout.view_corporate_info_item;
+        if (attrs != null) {
+            TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.info_item);
+            boolean isTextView = array.getBoolean(R.styleable.info_item_is_text_view, false);
+            if (isTextView)
+                layoutId = R.layout.view_corporate_info_item2;
+        }
+        LayoutInflater.from(mContext).inflate(layoutId, this, true);
         textView13 = (TextView) findViewById(R.id.vSendCode);
-        editText2 = (EditText) findViewById(R.id.editText2);
+        editText2 = findViewById(R.id.editText2);
         ivArrow = findViewById(R.id.ivArrow);
     }
 
@@ -69,8 +85,9 @@ public class CorporateInfoItemView extends BaseView {
             }
         });
 
-        editText2.setHint("请用户输入" + title.replaceAll(" ", ""));
+        editText2.setHint("请输入" + title.replaceAll(" ", ""));
     }
+
 
     public void setData(String value) {
         editText2.setText(value);
@@ -94,6 +111,10 @@ public class CorporateInfoItemView extends BaseView {
         editText2.setInputType(editTable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
     }
 
+    public TextView getTextView(){
+        return editText2;
+    }
+
     public String getEditText() {
         return editText2.getText().toString();
     }
@@ -106,12 +127,29 @@ public class CorporateInfoItemView extends BaseView {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        editText2.setEnabled(enabled);
+        if (editText2 instanceof EditText)
+            editText2.setEnabled(enabled);
     }
 
     public void setSelectType() {
-        editText2.setEnabled(false);
+        if (editText2 instanceof EditText)
+            editText2.setEnabled(false);
         ivArrow.setVisibility(View.VISIBLE);
+    }
+
+    public void setInputTypeNum() {
+        editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
+    }
+
+    public void setMaxInputLength(int length) {
+        editText2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
+    }
+
+    @Override
+    public void setOnClickListener(View.OnClickListener l) {
+        super.setOnClickListener(l);
+        if (!(editText2 instanceof EditText))
+            editText2.setOnClickListener(l);
     }
 }
 

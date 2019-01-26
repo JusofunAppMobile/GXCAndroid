@@ -26,6 +26,7 @@ public class NetWorkErrorView extends RelativeLayout {
     private View vEmpty;
     private SceneAnimation sceneAnimation;
     private ImageView imageView;
+
     public NetWorkErrorView(Context context) {
         super(context);
         mContext = context;
@@ -80,10 +81,12 @@ public class NetWorkErrorView extends RelativeLayout {
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!sceneAnimation.getIsStop())
+                    return;
                 if (listener != null) {
                     listener.OnNetRefresh();
                 }
-                if(gxcListener!=null){
+                if (gxcListener != null) {
                     gxcListener.OnNetRefresh();
                     vEmpty.setVisibility(GONE);
                     sceneAnimation.start();
@@ -93,8 +96,10 @@ public class NetWorkErrorView extends RelativeLayout {
 
     }
 
-    /**国信start**/
-    public void showLoading(){
+    /**
+     * 国信start
+     **/
+    public void showLoading() {
         setVisibility(VISIBLE);
         vEmpty.setVisibility(View.GONE);
         sceneAnimation.start();
@@ -125,15 +130,16 @@ public class NetWorkErrorView extends RelativeLayout {
 
 
     /**
-     *   原企信宝 错误逻辑
-     * */
+     * 原企信宝 错误逻辑
+     */
     public void setNetWorkError() {
         sceneAnimation.stop();
         showEmptyView(true);
     }
+
     /**
-     *   原企信宝 错误逻辑
-     * */
+     * 原企信宝 错误逻辑
+     */
     public void setServerError() {
         sceneAnimation.stop();
         showEmptyView(true);

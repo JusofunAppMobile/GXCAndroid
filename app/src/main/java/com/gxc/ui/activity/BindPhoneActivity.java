@@ -193,6 +193,30 @@ public class BindPhoneActivity extends BaseActivity {
                     ToastUtils.showHttpError();
                 }
             });
+        } else if (type == TYPE_FORGET_PASSWORD) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("phone", phone);
+            map.put("code", code);
+            map.put("newpassword", DESUtils.encryptDES(getValue(etPassword), new TimeOut(this).getGCXkey()));
+            RxManager.http(RetrofitUtils.getApi().forgetPassword(map), new ResponseCall() {
+
+                @Override
+                public void success(NetModel model) {
+                    hideLoadDialog();
+                    if (model.success()) {
+                        showToast("修改成功");
+                        finish();
+                    } else {
+                        showToast(model.msg);
+                    }
+                }
+
+                @Override
+                public void error() {
+                    hideLoadDialog();
+                    ToastUtils.showHttpError();
+                }
+            });
         } else {
             showLoading();
             HashMap<String, Object> map = new HashMap<>();

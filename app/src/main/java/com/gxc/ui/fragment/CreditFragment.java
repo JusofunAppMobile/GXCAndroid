@@ -27,6 +27,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.gxc.base.BaseFragment;
 import com.gxc.constants.Constants;
+import com.gxc.event.AuthStatusChangeEvent;
 import com.gxc.event.LoginChangeEvent;
 import com.gxc.model.CreditDataModel;
 import com.gxc.model.HomeMenuModel;
@@ -188,7 +189,6 @@ public class CreditFragment extends BaseFragment {
 
         // enable touch gestures
         chart.setTouchEnabled(true);
-
 
 
 //        chart.getViewPortHandler().setma
@@ -386,6 +386,15 @@ public class CreditFragment extends BaseFragment {
 
     }
 
+    private boolean isFirst = true;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (netWorkError.getVisibility() == View.GONE && !isFirst)
+            AppUtils.checkUserStatus(null);
+        isFirst = false;
+    }
 
     private void initUICredit(boolean isCredit) {
 
@@ -412,7 +421,7 @@ public class CreditFragment extends BaseFragment {
     @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
-        if (event instanceof LoginChangeEvent) {
+        if (event instanceof LoginChangeEvent || event instanceof AuthStatusChangeEvent) {
             getServiceData();
         }
     }

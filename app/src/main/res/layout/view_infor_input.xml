@@ -33,7 +33,7 @@
         tools:text="18888888888" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/ivArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -53,7 +53,7 @@
         android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView12"
+        app:layout_constraintEnd_toStartOf="@+id/ivArrow"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View

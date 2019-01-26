@@ -24,6 +24,7 @@ import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -93,6 +94,8 @@ public class CertifiedCompanyActivity extends BaseActivity {
         viewName.setData("企业名称", NUM_MAX3);
         viewCode.setData("法人身份证", NUM_MAX3);
         viewPhone.setData("手机号码", NUM_MAX3);
+        viewPhone.setInputTypeNum();
+        viewPhone.setMaxInputLength(11);
         viewEmail.setData("邮箱", NUM_MAX3);
         imgYyzz.setData("营业执照", getString(R.string.text_img_carme_tip), PHOTO_YINGYE);
         imgIdfen.setData("本人身份证", getString(R.string.text_img_carme_top_identity), PHOTO_IDENTITY);
@@ -218,16 +221,27 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
         if (isEmptyAndToast(viewName.getEditText(), "请输入企业名称")) return;
         if (isEmptyAndToast(viewCode.getEditText(), "请输入法人身份证")) return;
+        if (!RegexUtils.checkIdCard(viewCode.getEditText())) {
+            showToast("身份证格式不正确");
+            return;
+        }
         if (isEmptyAndToast(viewRealName.getEditText(), "请输入真实姓名")) return;
         if (vAddress.getTag() == null) {
             showToast("请选择公司地址");
             return;
         }
         if (isEmptyAndToast(viewPhone.getEditText(), "请输入手机号")) return;
+        if(!RegexUtils.checkMobile(viewPhone.getEditText())){
+            showToast("手机号格式不正确");
+            return;
+        }
         if (isEmptyAndToast(viewEmail.getEditText(), "请输入邮箱")) return;
+        if(!RegexUtils.checkEmail(viewEmail.getEditText())){
+            showToast("邮箱格式不正确");
+            return;
+        }
         if (isEmptyAndToast(yeUrl, "请上传营业执照")) return;
         if (isEmptyAndToast(cardUrl, "请上传身份证")) return;
-
 
         showLoading();
         HashMap<String, Object> map = new HashMap<>();

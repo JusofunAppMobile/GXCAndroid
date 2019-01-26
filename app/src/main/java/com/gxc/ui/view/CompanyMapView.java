@@ -81,7 +81,7 @@ public class CompanyMapView extends BaseView {
             @Override
             public void onClick(View v) {
                 if (isVipUser() && model != null && !TextUtils.isEmpty(model.CorrelationH5Address)) {
-                    mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.CorrelationH5Address));
+                    mContext.startActivity(WebActivity.getIntent(mContext, "关联关系", model.CorrelationH5Address));
                 }
             }
         });
@@ -90,7 +90,7 @@ public class CompanyMapView extends BaseView {
             @Override
             public void onClick(View v) {
                 if (isVipUser() && model != null && !TextUtils.isEmpty(model.OwnershipStructureH5Address)) {
-                    mContext.startActivity(WebActivity.getIntent(mContext, "企业图谱", model.OwnershipStructureH5Address));
+                    mContext.startActivity(WebActivity.getIntent(mContext, "股权结构", model.OwnershipStructureH5Address));
                 }
             }
         });

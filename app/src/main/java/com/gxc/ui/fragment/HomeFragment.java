@@ -29,7 +29,6 @@ import com.gxc.ui.activity.HomeActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.activity.MoreNewsListActivity;
-import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.ui.adapter.HomeMonitorAdapter;
@@ -340,7 +339,7 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
             startActivity(LoginActivity.class);
             return;
         }
-        startActivity(PayActivity.class);
+        startActivity(WebActivity.getIntent(activity, 0));
     }
 
     @OnClick({R.id.vInput, R.id.tvInput2})

@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.gxc.constants.Constants;
+import com.gxc.event.AuthStatusChangeEvent;
 import com.gxc.event.LoginChangeEvent;
 import com.gxc.inter.OnCallListener;
 import com.gxc.inter.OnSimpleCompressListener;
@@ -27,6 +28,7 @@ import com.gxc.ui.widgets.MediaGridInset;
 import com.jusfoun.jusfouninquire.InquireApplication;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
+import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -384,6 +386,9 @@ public class AppUtils {
                     user.authCompany = tmp.authCompany;
                     user.vipStatus = tmp.vipStatus;
                     PreferenceUtils.setString(InquireApplication.application, Constants.USER, new Gson().toJson(user));
+                    int authStatus = user.authStatus;
+                    if (authStatus != tmp.authStatus)
+                        EventBus.getDefault().post(new AuthStatusChangeEvent());
                 }
                 if (listener != null)
                     listener.call();
@@ -447,6 +452,87 @@ public class AppUtils {
     public static int getRandom(int min, int max) {
         Random random = new Random();
         return random.nextInt(max) % (max - min + 1) + min;
+    }
+
+    /**
+     * 企信宝的类型 转化成 国信 类型
+     * // 1：股东高管 2：主营产品 3：失信查询 4：查税号 5：招聘 6：企业通讯录 7：查关系  8：风险分析   11 ：地址电话 15 ：中标信息  16：裁判文书 17：行政处罚  18：商标查询
+     *
+     * @param type
+     * @return
+     */
+    public static int parseToGxMenuType(String type) {
+        switch (type) {
+            case SearchHistoryItemModel.SEARCH_COMMON:
+                return 0;
+            case SearchHistoryItemModel.SEARCH_SHAREHOLDER:
+                return 1;
+            case SearchHistoryItemModel.SEARCH_PRODUCT:
+                return 2;
+            case SearchHistoryItemModel.SEARCH_DISHONEST:
+                return 3;
+            case SearchHistoryItemModel.SEARCH_TAXID:
+                return 4;
+            case SearchHistoryItemModel.SEARCH_RECRUITMENT:
+                return 5;
+            case SearchHistoryItemModel.SEARCH_CONTACT:
+                return 6;
+            case SearchHistoryItemModel.SEARCH_RELATION:
+                return 7;
+            case SearchHistoryItemModel.SEARCH_RISK:
+                return 8;
+            case SearchHistoryItemModel.SEARCH_WINNING_BID:
+                return 15;
+            case SearchHistoryItemModel.SEARCH_REFEREE:
+                return 16;
+            case SearchHistoryItemModel.SEARCH_ADMINISTRATIVE:
+                return 17;
+            case SearchHistoryItemModel.SEARCH_TRADEMARK:
+                return 18;
+
+        }
+        LogUtils.e(">>>>>>>注意：企信宝的类型 转化成 国信 类型 未匹配");
+        return 0;
+    }
+
+    /**
+     * 国信的类型 转化成 企信宝 类型
+     *
+     * @param menuType
+     * @return
+     */
+    public static String parseToQxb(int menuType) {
+        switch (menuType) {
+            case 0:
+                return SearchHistoryItemModel.SEARCH_COMMON;
+            case 1:
+                return SearchHistoryItemModel.SEARCH_SHAREHOLDER;
+            case 2:
+                return SearchHistoryItemModel.SEARCH_PRODUCT;
+            case 3:
+                return SearchHistoryItemModel.SEARCH_DISHONEST;
+            case 4:
+                return SearchHistoryItemModel.SEARCH_TAXID;
+            case 5:
+                return SearchHistoryItemModel.SEARCH_RECRUITMENT;
+            case 6:
+                return SearchHistoryItemModel.SEARCH_CONTACT;
+            case 7:
+                return SearchHistoryItemModel.SEARCH_RELATION;
+            case 8:
+                return SearchHistoryItemModel.SEARCH_RISK;
+            case 15:
+                return SearchHistoryItemModel.SEARCH_WINNING_BID;
+            case 16:
+                return SearchHistoryItemModel.SEARCH_REFEREE;
+            case 17:
+                return SearchHistoryItemModel.SEARCH_ADMINISTRATIVE;
+            case 18:
+                return SearchHistoryItemModel.SEARCH_TRADEMARK;
+
+        }
+        LogUtils.e(">>>>>>>注意：国信的类型 转化成 企信宝  类型 未匹配");
+        return "";
     }
 
 }

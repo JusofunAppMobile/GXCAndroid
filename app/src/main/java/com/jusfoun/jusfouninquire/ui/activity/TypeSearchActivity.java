@@ -18,6 +18,7 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.WebActivity;
+import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -93,7 +94,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
     public static Intent getIntent(Context context, int menuType, String menuName) {
         Intent intent = new Intent(context, TypeSearchActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, String.valueOf(menuType));
+        intent.putExtra(TypeSearchActivity.SEARCH_TYPE, AppUtils.parseToQxb(menuType));
         intent.putExtra("menuName", menuName);
         intent.putExtra("menuType", String.valueOf(menuType));
         return intent;
@@ -677,7 +678,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
                         mCurrentType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
                         mCurrentType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
                         mCurrentType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
-                    startActivity(WebActivity.getIntent(this, getIntent().getStringExtra("menuName"), Integer.parseInt(mCurrentType), doSearchEvent.getSearchKey()));
+                    startActivity(WebActivity.getIntent(this, getIntent().getStringExtra("menuName"), AppUtils.parseToGxMenuType(mCurrentType), doSearchEvent.getSearchKey()));
                     return;
                 } else {
                     searchNet(doSearchEvent.getSearchKey());

@@ -41,6 +41,10 @@ public interface Api {
     Observable<NetModel> updatePhone(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("/app/UserLogin/forgetPassword")
+    Observable<NetModel> forgetPassword(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @POST("/app/Home/IndustryInformation")
     Observable<NetModel> moreNews(@FieldMap Map<String, Object> params);
 

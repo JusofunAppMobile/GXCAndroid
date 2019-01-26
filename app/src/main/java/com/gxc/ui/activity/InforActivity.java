@@ -89,8 +89,11 @@ public class InforActivity extends BaseActivity {
                 vHeadIcon.loadImage(user.headIcon);
 
             // 认证成功后的公司名称不能修改
-            if (user.authStatus == 3)
+            if (user.authStatus == 3) {
                 vCompany.setEnabled(false);
+                vCompany.setValue(user.authCompany);
+                vCompany.hideArrow();
+            }
         }
     }
 

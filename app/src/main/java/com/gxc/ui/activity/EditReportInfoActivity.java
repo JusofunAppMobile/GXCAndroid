@@ -121,7 +121,7 @@ public class EditReportInfoActivity extends BaseActivity {
         loadByType();
     }
 
-    private void loadByType(){
+    private void loadByType() {
         if (type == TYPE_INFO) {
             titlebar.setTitle("企业信息");
             if (!TextUtils.isEmpty(id))  // 修改
@@ -273,8 +273,9 @@ public class EditReportInfoActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    ToastUtils.show("修改成功");
+                    ToastUtils.show("提交成功");
                     setStates();
+                    finishDelay();
                 } else {
                     showToast(model.msg);
                 }
@@ -316,8 +317,9 @@ public class EditReportInfoActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    ToastUtils.show("修改成功");
+                    ToastUtils.show("提交成功");
                     setStates();
+                    finishDelay();
                 } else {
                     showToast(model.msg);
                 }
@@ -353,8 +355,9 @@ public class EditReportInfoActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    ToastUtils.show("修改成功");
+                    ToastUtils.show("提交成功");
                     setStates();
+                    finishDelay();
                 } else {
                     showToast(model.msg);
                 }
@@ -392,8 +395,9 @@ public class EditReportInfoActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    ToastUtils.show("修改成功");
+                    ToastUtils.show("提交成功");
                     setStates();
+                    finishDelay();
                 } else {
                     showToast(model.msg);
                 }
@@ -431,8 +435,9 @@ public class EditReportInfoActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    ToastUtils.show("修改成功");
+                    ToastUtils.show("提交成功");
                     setStates();
+                    finishDelay();
                 } else {
                     showToast(model.msg);
                 }
@@ -608,7 +613,7 @@ public class EditReportInfoActivity extends BaseActivity {
         });
     }
 
-    private void showHttpError(){
+    private void showHttpError() {
         netWorkError.error();
     }
 }

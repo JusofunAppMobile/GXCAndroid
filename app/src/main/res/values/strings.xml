@@ -189,7 +189,7 @@
     <string name="text_credit_report_zhuanye">1.主要人员详细信息\n2.疑似实际股权控制路径\n3.企业联系方式\n4.注册资本组成部分</string>
 
 
-    <string name="relation_tip">请分别添加2个公司或个人\n再点击“查关系”发现关系</string>
+    <string name="relation_tip">请分别添加2个公司\n再点击“查关系”发现关系</string>
     <string name="risk_tip">对企业及关联企业全方位风险监控\n可实时或定时推送至邮箱、手机</string>
 
     <string name="font_color">&#060;font color=#E93A38&#062;</string>

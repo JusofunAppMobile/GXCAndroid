@@ -93,7 +93,7 @@ public class RelationActivity extends BaseActivity {
         map.put("type", getIntent().getIntExtra("menuType", 7));
         map.put("name_one", getValue(tvFirst));
         map.put("name_two", getValue(tvSecond));
-        map.put("route_num", 6);// TEST TODO
+        map.put("route_num", 3);// TEST TODO
 
         RxManager.http(RetrofitUtils.getApi().getH5Address(map), new ResponseCall() {
 

@@ -3,6 +3,7 @@ package com.gxc.ui.view;
 import android.app.Activity;
 import android.content.Context;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.ui.activity.EditReportInfoActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
 
@@ -99,19 +101,19 @@ public class CorporateInfoView extends BaseView {
 
     private int type;
 
-    public void setData(int type,EditReportInfoTextModel model) {
+    public void setData(int type, EditReportInfoTextModel model) {
         this.type = type;
         if (type == EditReportInfoActivity.TYPE_INFO) {
-            viewName.setData("企业名称",NUM_MAX2);
-            viewHangye.setData("行业",NUM_MAX2);
-            viewPhone.setData("联系电话",NUM_MAX2);
-            viewEmail.setData("邮箱",NUM_MAX2);
-            viewHttp.setData("网址",NUM_MAX2);
+            viewName.setData("企业名称", NUM_MAX2);
+            viewHangye.setData("行业", NUM_MAX2);
+            viewPhone.setData("联系电话", NUM_MAX2);
+            viewEmail.setData("邮箱", NUM_MAX2);
+            viewHttp.setData("网址", NUM_MAX2);
             textIcon.setText("LOGO");
             textDes.setText("公司介绍");
             editContent.setHint("请输入公司介绍");
 
-            if(model!=null){
+            if (model != null) {
                 viewName.setEditText(model.companyName);
                 viewHangye.setEditText(model.industry);
                 viewPhone.setEditText(model.phone);
@@ -122,17 +124,17 @@ public class CorporateInfoView extends BaseView {
                 imgPath = model.urlComplete;
             }
         } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
-            viewName.setData("所属公司",NUM_MAX2);
-            viewHangye.setData("产品名称",NUM_MAX2);
-            viewPhone.setData("所属领域",NUM_MAX2);
-            viewEmail.setData("标签",NUM_MAX2);
-            viewHttp.setData("链接地址",NUM_MAX2);
+            viewName.setData("所属公司", NUM_MAX2);
+            viewHangye.setData("产品名称", NUM_MAX2);
+            viewPhone.setData("所属领域", NUM_MAX2);
+            viewEmail.setData("标签", NUM_MAX2);
+            viewHttp.setData("链接地址", NUM_MAX2);
             textIcon.setText("产品图片");
             textDes.setText("简介");
-            editContent.setHint("描述介绍产品性能、用途等信息");
+            editContent.setHint("请输入描述介绍产品性能、用途等信息");
 
 
-            if(model!=null){
+            if (model != null) {
                 viewName.setEditText(model.companyName);
                 viewHangye.setEditText(model.product);
                 viewPhone.setEditText(model.industry);
@@ -172,6 +174,16 @@ public class CorporateInfoView extends BaseView {
         EditReportInfoTextModel model = new EditReportInfoTextModel();
 
         if (type == EditReportInfoActivity.TYPE_INFO) {
+            if (checkIsEmpty(viewName)) return null;
+            if (checkIsEmpty(viewHangye)) return null;
+            if (checkIsEmpty(viewPhone)) return null;
+            if (checkIsEmpty(viewEmail)) return null;
+            if (checkIsEmpty(viewHttp)) return null;
+            if (TextUtils.isEmpty(imgPath)) {
+                ToastUtils.show("请选择图片");
+                return null;
+            }
+            if (checkIsEmpty(editContent)) return null;
             model.companyName = viewName.getEditText();
             model.industry = viewHangye.getEditText();
             model.phone = viewPhone.getEditText();
@@ -179,7 +191,19 @@ public class CorporateInfoView extends BaseView {
             model.webURL = viewHttp.getEditText();
             model.urlComplete = imgPath;
             model.introduce = editContent.getText().toString();
-        }else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
+        } else if (type == EditReportInfoActivity.TYPE_PRODUCE) {
+            if (checkIsEmpty(viewName)) return null;
+            if (checkIsEmpty(viewHangye)) return null;
+            if (checkIsEmpty(viewPhone)) return null;
+            if (checkIsEmpty(viewEmail)) return null;
+            if (checkIsEmpty(viewHttp)) return null;
+            if (TextUtils.isEmpty(imgPath)) {
+                ToastUtils.show("请选择图片");
+                return null;
+            }
+            if (checkIsEmpty(editContent)) return null;
+
+
             model.companyName = viewName.getEditText();
             model.industry = viewPhone.getEditText();
             model.product = viewHangye.getEditText();
@@ -188,7 +212,19 @@ public class CorporateInfoView extends BaseView {
             model.urlComplete = imgPath;
             model.introduce = editContent.getText().toString();
         }
-        return  model;
+        return model;
+    }
+
+    private boolean checkIsEmpty(CorporateInfoItemView view) {
+        return checkIsEmpty(view.getTextView());
+    }
+
+    private boolean checkIsEmpty(TextView view) {
+        if (TextUtils.isEmpty(view.getText().toString())) {
+            ToastUtils.show(view.getHint().toString());
+            return true;
+        }
+        return false;
     }
 
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MyTheme.Layout.Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    style="@style/MyTheme.Layout.Root">
+    android:focusableInTouchMode="true">
 
 
     <com.jusfoun.jusfouninquire.ui.view.TitleView
@@ -68,7 +68,8 @@
             <com.gxc.ui.view.CorporateInfoItemView
                 android:id="@+id/vAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:is_text_view="true" />
 
             <com.gxc.ui.view.CorporateInfoItemView
                 android:id="@+id/view_phone"
@@ -92,16 +93,16 @@
 
             <Button
                 android:id="@+id/btn_commit"
+                style="@style/C_Common_Bt_Red"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@drawable/bg_commit_renzhneg"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/white"
-                style="@style/C_Common_Bt_Red"
-                android:text="提交认证"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_commit_renzhneg"
+                android:text="提交认证"
+                android:textColor="@color/white" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>
