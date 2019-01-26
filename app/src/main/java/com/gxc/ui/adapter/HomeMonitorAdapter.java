@@ -29,6 +29,6 @@ public class HomeMonitorAdapter extends BaseQuickAdapter<HomeMonitorModel, BaseV
         tvTitle.setText(model.companyName);
         tvTime.setText(model.changeDate);
 
-        tvInfo.setText(AppUtils.getNumFont(mContext, model.changeCount));
+        tvInfo.setText(AppUtils.getNumFont(mContext, model.changeNum));
     }
 }

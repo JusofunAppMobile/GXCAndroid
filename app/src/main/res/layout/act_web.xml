@@ -123,6 +123,7 @@
         android:paddingTop="5dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/vShare"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginRight="16dp">
@@ -189,6 +190,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="vFinish,vSave" />
+        app:constraint_referenced_ids="vFinish" />
 
 </android.support.constraint.ConstraintLayout>

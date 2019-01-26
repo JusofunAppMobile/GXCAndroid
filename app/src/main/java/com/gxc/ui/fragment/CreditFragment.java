@@ -1,6 +1,7 @@
 package com.gxc.ui.fragment;
 
 import android.graphics.Color;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -8,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -45,6 +47,8 @@ import com.gxc.utils.GoActivityUtil;
 import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.PropertyValuesHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +96,8 @@ public class CreditFragment extends BaseFragment {
 
     @BindView(R.id.layout2)
     ConstraintLayout changeLayout;
+    @BindView(R.id.vChartBg)
+    LinearLayout vChartBg;
 
 
     private RelativeLayout topLayout;
@@ -131,6 +137,7 @@ public class CreditFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 HomeMenuModel model = (HomeMenuModel) baseQuickAdapter.getData().get(i);
                 GoActivityUtil.goActivityByType(activity, model);
+
             }
         });
 
@@ -177,32 +184,64 @@ public class CreditFragment extends BaseFragment {
         });
         initChart();
         getServiceData();
+    }
 
+    private boolean isSetChartBg = false;
+
+    private void resetChartBg() {
+        if (isSetChartBg) return;
+        isSetChartBg = true;
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RectF rectF = chart.getContentRect();
+                vChartBg.layout((int) rectF.left, (int) rectF.top, (int) rectF.right, (int) rectF.bottom);
+                vChartBg.invalidate();
+                vChartBg.requestLayout();
+
+                int width = (int) (rectF.right - rectF.left);
+                width += width / 11;
+
+                vChartBg.getLayoutParams().width = width;
+                vChartBg.getLayoutParams().height = (int) (rectF.bottom - rectF.top);
+
+                PropertyValuesHolder animX = PropertyValuesHolder.ofFloat("translationX", rectF.left);
+                PropertyValuesHolder animY = PropertyValuesHolder.ofFloat("translationY", rectF.top);
+                ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(vChartBg, animX, animY);
+                animator.setDuration(0);
+                animator.setInterpolator(new DecelerateInterpolator());
+                animator.start();
+            }
+        }, 200);
     }
 
     private void initChart() {
+
 //        chart.setOnChartValueSelectedListener(this);
 
-        chart.setNoDataText("");
+        chart.setNoDataText("暂无数据");
+        chart.setNoDataTextColor(Color.parseColor("#999999"));
         // no description text
         chart.getDescription().setEnabled(false);
 
         // enable touch gestures
         chart.setTouchEnabled(true);
 
+//        chart.setPadding(40, 0, 40, 0);
+        chart.setExtraOffsets(0, 0, 20, 0);
 
 //        chart.getViewPortHandler().setma
-
-        chart.setDragDecelerationFrictionCoef(0.9f);
 
         // enable scaling and dragging
         chart.setDragEnabled(false);
         chart.setScaleEnabled(false);
-        chart.setDrawGridBackground(true);
-        chart.setGridBackgroundColor(Color.parseColor("#F5F5F5"));
+//        chart.setDrawGridBackground(false);
+//        chart.setGridBackgroundColor(Color.parseColor("#F5F5F5"));
         chart.setHighlightPerDragEnabled(true);
         // if disabled, scaling can be done on x- and y-axis separately
         chart.setPinchZoom(true);
+
+//        chart.fitScreen();
 
 
         // set an alternative background color
@@ -222,7 +261,7 @@ public class CreditFragment extends BaseFragment {
 //
         XAxis xAxis = chart.getXAxis();
 //        xAxis.setTypeface(tfLight);
-        xAxis.setTextSize(11f);
+        xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawGridLines(true);
 //        xAxis.setGridLineWidth(40);
@@ -230,21 +269,28 @@ public class CreditFragment extends BaseFragment {
         xAxis.setDrawAxisLine(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(0xff333333);
+//        xAxis.setLabelCount(3);
 //        xAxis.setCenterAxisLabels(true);
         xAxis.setGranularity(1);
-        xAxis.setAxisMinimum(-0.5f);
+        xAxis.setAxisMinimum(-0.3f);
         xAxis.setGridColor(Color.parseColor("#CCCCCC"));
-
+//        xAxis.setYOffset(-10);
+//        xAxis.setXOffset(-10);
 
         YAxis leftAxis = chart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
-//        leftAxis.setAxisMaximum(200f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setDrawGridLines(false);
+        leftAxis.setDrawAxisLine(false);
 //        leftAxis.setGridDashedLine(new DashPathEffect(new float[]{30f, 30f}, 10f));
         leftAxis.setGranularityEnabled(true);
         leftAxis.setTextColor(0xff333333);
+        leftAxis.setLabelCount(4);
+//        leftAxis.setXOffset(100);
+//        leftAxis.setYOffset(100);
+//        leftAxis.setMaxWidth(200);
+//        leftAxis.setMinWidth(200);
 
 //        leftAxis.setGridLineWidth(10);
 //        leftAxis.setGridColor(Color.parseColor("#F5F5F5"));
@@ -260,12 +306,23 @@ public class CreditFragment extends BaseFragment {
         if (list == null) {
             return;
         }
+
+        float max = 0;
+
         ArrayList<Entry> values1 = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-//            values1.add(new Entry(i, list.get(i).count));
-            values1.add(new Entry(i, AppUtils.getRandom(20, 100)));
+            values1.add(new Entry(i, list.get(i).count));
+            if (max < list.get(i).count)
+                max = list.get(i).count;
+//            values1.add(new Entry(i, AppUtils.getRandom(20, 100)));
         }
+
+        if (max < 10)
+            max = 10;
+        else
+            max += max * 0.15;
+        chart.getAxisLeft().setAxisMaximum(max);
 
         LineDataSet set1;
 
@@ -291,14 +348,14 @@ public class CreditFragment extends BaseFragment {
             set1 = new LineDataSet(values1, "");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
             set1.setColor(0xfff20000);
-            set1.setCircleColor(0xfffacbce);
+            set1.setCircleColor(0xfff20000);
             set1.setLineWidth(2f);
             set1.setCircleRadius(3.5f);
             set1.setFillAlpha(65);
             set1.setFillColor(ColorTemplate.getHoloBlue());
             set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setDrawCircleHole(true);
-            set1.setCircleHoleRadius(2.5f);
+            set1.setDrawCircleHole(false);
+            set1.setCircleHoleRadius(2f);
             set1.setCircleColorHole(0xfff20000);
             set1.setDrawValues(false);
             // create a data object with the data sets
@@ -311,6 +368,8 @@ public class CreditFragment extends BaseFragment {
             chart.invalidate();
         }
 //        chart.moveViewToX(5);
+        resetChartBg();
+
 
     }
 

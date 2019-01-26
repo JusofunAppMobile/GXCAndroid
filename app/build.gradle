@@ -35,23 +35,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "false"
+            resValue "string", "app_name", "国信"
             resValue "string", "req_url", "https://api.jusfoun.com/api_qixinbao"
-//            resValue "string", "http_host", "http://39.106.181.46:9080"
-            resValue "string", "http_host", "http://202.106.10.250:48088"
-            resValue "string", "http_host_html", "http://202.106.10.250:4808"
-//            resValue "string", "req_url", "http://api.jusfoun.com/api_qixinbao"
+            resValue "string", "http_host", "http://39.106.181.46:8088"
+            resValue "string", "http_host_html", "http://39.106.181.46:9090"
             manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
         }
         debug {
             signingConfig signingConfigs.jusfoun
             resValue "bool", "debug", "true"
+            resValue "string", "app_name", "国信-测试版"
             resValue "string", "req_url", "http://192.168.1.6:9981"
-//            resValue "string", "http_host", "http://39.106.181.46:9080"
-//            resValue "string", "http_host", "http://202.106.10.250:48088"
             resValue "string", "http_host", "http://202.106.10.250:48088"
-//            resValue "string", "http_host", "http://172.16.105.157:8088"
             resValue "string", "http_host_html", "http://202.106.10.250:4808"
-//            172.16.105.110:8088
             manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
         }
 

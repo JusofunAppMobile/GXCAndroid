@@ -140,6 +140,7 @@ public class RelationActivity extends BaseActivity {
                 break;
             case R.id.vBig:
                 startActivity(WebActivity.getRelationIntent(activity, mAgentWeb.getWebCreator().getWebView().getUrl()));
+//                startActivity(WebActivity.getRelationIntent(activity, AppUtils.TEST_URL));
                 break;
         }
     }

@@ -279,13 +279,70 @@
                     app:showLine="false"
                     app:text="政府访客统计" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/line_chart"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="162dp"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
-                    android:layout_marginBottom="32dp" />
+                    android:layout_marginBottom="32dp"
+                    android:layout_height="162dp">
+
+                    <LinearLayout
+                        android:id="@+id/vChartBg"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#F5F5F5" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#FFF" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#F5F5F5" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#FFF" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#F5F5F5" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#FFF" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="#F5F5F5" />
+
+                    </LinearLayout>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/line_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                      />
+
+                </RelativeLayout>
             </LinearLayout>
 
         </LinearLayout>

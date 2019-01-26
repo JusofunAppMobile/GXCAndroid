@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jusfoun.jusfouninquire.R;
@@ -18,7 +16,6 @@ import com.jusfoun.jusfouninquire.net.util.TouchUtil;
 import com.jusfoun.jusfouninquire.service.event.DishonestResultEvent;
 import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.adapter.DishonestAdapter;
-import com.jusfoun.jusfouninquire.ui.fragment.DishonestResultFragment;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
 import com.jusfoun.jusfouninquire.ui.view.FilterDrawerView;
 import com.jusfoun.jusfouninquire.ui.widget.SearchViewPager;
@@ -177,5 +174,16 @@ public class DishonestResultActivity extends BaseInquireActivity implements View
 //                showToast(error);
             }
         });
+    }
+
+    @Override
+    public boolean isBarDark() {
+        return false;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStatusBarRed();
     }
 }

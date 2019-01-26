@@ -4,13 +4,21 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.gxc.retrofit.NetModel;
+import com.gxc.retrofit.ResponseCall;
+import com.gxc.retrofit.RetrofitUtils;
+import com.gxc.retrofit.RxManager;
+import com.gxc.utils.AppUtils;
+import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.database.DBUtil;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.HotWordItemModel;
@@ -35,7 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import com.jusfoun.jusfouninquire.TimeOut;
 
 /**
  * SearchDishonestActivity
@@ -93,6 +100,7 @@ public class SearchDishonestActivity extends BaseInquireActivity{
                 DoSearchEvent event = new DoSearchEvent();
                 event.setSearchKey(key);
                 EventBus.getDefault().post(event);
+                insertSearchKey(key);
             }
         });
 
@@ -124,14 +132,59 @@ public class SearchDishonestActivity extends BaseInquireActivity{
         initGuideView();
     }
 
+    /**
+     * 新版搜索热搜关键字
+     */
+    private void loadNewHotKeys() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("menuType", AppUtils.parseToGxMenuType(SearchHistoryItemModel.SEARCH_DISHONEST));
+        RxManager.http(RetrofitUtils.getApi().searchWord(map), new ResponseCall() {
+
+            @Override
+            public void success(NetModel model) {
+                if (model.success()) {
+                    List<String> list = model.dataToList("keywords", String.class);
+                    if (list != null && !list.isEmpty()) {
+                        List<HotWordItemModel> hot = new ArrayList<>();
+                        for (String value : list)
+                            hot.add(new HotWordItemModel(value, value));
+                        mSearchGuideView.setHotSearch(hot, mCurrentType);
+                    }
+                } else {
+                    showToast(model.msg);
+                }
+            }
+
+            @Override
+            public void error() {
+                ToastUtils.showHttpError();
+            }
+        });
+    }
+
+    private void insertSearchKey(String key) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("menuType", AppUtils.parseToGxMenuType(SearchHistoryItemModel.SEARCH_DISHONEST));
+        map.put("keyWord", key);
+        RxManager.http(RetrofitUtils.getApi().insertSearchWord(map), new ResponseCall() {
+            @Override
+            public void success(NetModel model) {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+        });
+    }
+
 
     /**
      * 初始化搜索记录和热门搜索区域
      */
     private void initGuideView() {
         initHistorySearch();
-        initHotSearch();
-
     }
 
     /**
@@ -145,37 +198,6 @@ public class SearchDishonestActivity extends BaseInquireActivity{
             mSearchGuideView.setHistorySearch(historyItemModels,mCurrentType);
         }
     }
-
-
-    /**
-     * 初始化 热门搜索 区域 显示
-     */
-    private void initHotSearch() {
-        //TODO 网络请求，调用 SearchGuideView 的 setHotSearch（）方法进行显示
-        HashMap<String, String> params = new HashMap<>();
-        params.put("type",mCurrentType);
-        GetHotSearchRoute.getHotSearch(mContext, params, getLocalClassName(), new NetWorkCallBack() {
-            @Override
-            public void onSuccess(Object data) {
-                if (data instanceof SearchHotModel){
-                    SearchHotModel model = (SearchHotModel) data;
-                    if (model.getResult() == 0){
-                        if (model.getHotlist() != null && model.getHotlist().size() > 0){
-                            mSearchGuideView.setHotSearch(model.getHotlist(),mCurrentType);
-                        }
-                    }else {
-                        //TODO 错误逻辑待定
-                    }
-                }
-            }
-
-            @Override
-            public void onFail(String error) {
-
-            }
-        });
-    }
-
 
     /**
      * 保存历史搜索记录
@@ -286,6 +308,13 @@ public class SearchDishonestActivity extends BaseInquireActivity{
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStatusBarRed();
+        loadNewHotKeys();
+    }
+
+    @Override
     public void onEvent(IEvent event) {
         super.onEvent(event);
         if (event instanceof DoSearchEvent){
@@ -294,6 +323,7 @@ public class SearchDishonestActivity extends BaseInquireActivity{
                 //接收到搜索事件之后，保存搜索记录并进行搜索
                 saveSearchHistory(doSearchEvent.getSearchKey());
                 searchNet(doSearchEvent.getSearchKey());
+                insertSearchKey(doSearchEvent.getSearchKey());
             }
         }else if (event instanceof GoTypeSearchEvent){
             //业务逻辑：收到此事件，根据事件携带的关键字进行热词检索
@@ -331,5 +361,10 @@ public class SearchDishonestActivity extends BaseInquireActivity{
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean isBarDark() {
+        return false;
     }
 }

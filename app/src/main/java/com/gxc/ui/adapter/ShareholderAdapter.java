@@ -47,7 +47,7 @@ public class ShareholderAdapter extends BaseQuickAdapter<CorporateInfoModel.Shar
             biliText.setText("");
         }
 
-        if (!TextUtils.equals("1", riskModel.strongHolder)) {
+        if (TextUtils.equals("1", riskModel.strongHolder)) {
             statusText.setVisibility(View.VISIBLE);
         } else {
             statusText.setVisibility(View.GONE);
