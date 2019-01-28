@@ -8,7 +8,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.animation.SceneAnimation;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;

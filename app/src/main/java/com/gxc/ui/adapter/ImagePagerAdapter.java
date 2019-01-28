@@ -16,7 +16,7 @@ import com.gxc.model.HomeModel;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.List;
 

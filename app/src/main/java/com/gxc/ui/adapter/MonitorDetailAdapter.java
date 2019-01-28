@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.MonitorDetailModel;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,10 +63,11 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
                 vTop.setVisibility(View.VISIBLE);
                 vBottom.setVisibility(View.GONE);
                 vDivider.setVisibility(helper.getLayoutPosition() == 0 ? View.GONE : View.VISIBLE);
-                if (item.status == 1) { // 1:法律诉讼 2专利信息 3变更信息
+                // /图标类型lcon：1：变更信息    2：警示信息 3：利好信息
+                if (item.status == 2) { // 1:法律诉讼 2专利信息 3变更信息 (旧)
                     tvLabel.setTextColor(Color.parseColor("#E02D35"));
                     tvLabel.setBackgroundResource(R.drawable.shape_stroke_red);
-                } else if (item.status == 2) {
+                } else if (item.status == 3) {
                     tvLabel.setTextColor(Color.parseColor("#90CC6C"));
                     tvLabel.setBackgroundResource(R.drawable.shape_stroke_green);
                 } else {

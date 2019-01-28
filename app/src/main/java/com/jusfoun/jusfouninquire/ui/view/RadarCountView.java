@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 
 /**

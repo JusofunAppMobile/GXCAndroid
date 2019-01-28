@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.service.event.SearhHistoryEvent;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;

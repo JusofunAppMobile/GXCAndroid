@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.CompanyModel;
 import com.jusfoun.jusfouninquire.net.model.SearchCompanyModel;

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.util.TouchUtil;
 import com.jusfoun.jusfouninquire.sharedpreference.AdvertiseSharePreference;
 

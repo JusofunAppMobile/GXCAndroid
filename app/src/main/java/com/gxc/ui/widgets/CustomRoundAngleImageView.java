@@ -9,7 +9,8 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
+
 
 /**
  * @author liuguangdan

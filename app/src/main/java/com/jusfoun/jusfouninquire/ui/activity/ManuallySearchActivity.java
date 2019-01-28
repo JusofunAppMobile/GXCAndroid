@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 import com.jusfoun.jusfouninquire.net.route.PersonCenterHelper;

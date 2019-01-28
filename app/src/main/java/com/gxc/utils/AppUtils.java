@@ -26,7 +26,6 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.widgets.MediaGridInset;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.luck.picture.lib.PictureSelectionModel;
@@ -34,6 +33,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.siccredit.guoxin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

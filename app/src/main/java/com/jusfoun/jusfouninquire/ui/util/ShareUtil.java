@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.ShareModel;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;

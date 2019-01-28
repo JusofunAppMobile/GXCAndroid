@@ -9,7 +9,7 @@ import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.ui.adapter.MenuAdapter;
 

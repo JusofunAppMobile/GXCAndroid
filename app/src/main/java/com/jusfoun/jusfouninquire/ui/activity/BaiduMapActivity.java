@@ -1,6 +1,5 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -8,10 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +24,12 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.adapter.MapAppAdapter;
 import com.jusfoun.jusfouninquire.ui.util.AppInfo;
 import com.jusfoun.jusfouninquire.ui.util.LocationUtil;
 import com.jusfoun.jusfouninquire.ui.util.MapUtil;
 import com.jusfoun.jusfouninquire.ui.view.BackAndRightImageTitleView;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.List;

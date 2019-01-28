@@ -10,7 +10,7 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.adapter.VisitorAdapter;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 import java.util.List;

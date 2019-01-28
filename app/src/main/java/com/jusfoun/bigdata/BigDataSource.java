@@ -5,7 +5,6 @@ import android.content.Context;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.constant.NetConstant;
 import com.jusfoun.jusfouninquire.net.model.CompanyMapDataModel;
@@ -13,6 +12,7 @@ import com.jusfoun.jusfouninquire.net.util.GetParamsUtil;
 import com.jusfoun.jusfouninquire.net.volley.VolleyErrorUtil;
 import com.jusfoun.jusfouninquire.net.volley.VolleyGetRequest;
 import com.jusfoun.jusfouninquire.ui.util.VolleyUtil;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 

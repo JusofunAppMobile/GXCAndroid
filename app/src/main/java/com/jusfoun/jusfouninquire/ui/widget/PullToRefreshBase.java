@@ -34,7 +34,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.internal.ILoadingLayout;
 import com.jusfoun.jusfouninquire.ui.util.Utils;
 

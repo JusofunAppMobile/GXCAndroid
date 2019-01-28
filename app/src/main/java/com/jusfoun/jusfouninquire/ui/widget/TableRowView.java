@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.ContactinFormationModel;
 import com.jusfoun.jusfouninquire.net.model.ContactsModel;
 

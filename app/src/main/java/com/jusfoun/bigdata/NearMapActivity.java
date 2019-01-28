@@ -29,7 +29,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.jusfoun.bigdata.http.NearMapSource;
 import com.jusfoun.bigdata.xrecycleview.XRecyclerView;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 import com.jusfoun.jusfouninquire.service.event.IEvent;

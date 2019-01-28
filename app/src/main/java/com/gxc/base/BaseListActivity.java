@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.inter.OnCompleteListener;
 import com.gxc.utils.LogUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -27,7 +27,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.SearchTitleView;
@@ -160,6 +160,7 @@ public class WebActivity extends BaseActivity {
             getUrl();
         else
             mAgentWeb = preAgentWeb.go(url);
+
     }
 
 

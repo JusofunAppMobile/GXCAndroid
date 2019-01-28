@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 
 public class XListViewFooter extends LinearLayout {

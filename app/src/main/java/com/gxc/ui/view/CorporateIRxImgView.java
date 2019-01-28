@@ -18,8 +18,8 @@ import com.gxc.ui.activity.EditReportInfoActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
+import com.siccredit.guoxin.R;
 
 import static com.gxc.constants.Constants.NUM_MAX2;
 import static com.gxc.constants.Constants.NUM_MAX3;

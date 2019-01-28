@@ -2,7 +2,7 @@ package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.widget.FrameLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.fragment.SearchDishonestFragment;
 
 /**

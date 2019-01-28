@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

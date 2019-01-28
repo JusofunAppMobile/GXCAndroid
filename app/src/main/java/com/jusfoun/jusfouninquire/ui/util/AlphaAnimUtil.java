@@ -8,7 +8,7 @@ import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.NoticeImageLoadEvent;
 import com.jusfoun.jusfouninquire.service.event.NoticeTextEvent;
 import com.jusfoun.jusfouninquire.sharedpreference.FirstStartAppSharePreference;

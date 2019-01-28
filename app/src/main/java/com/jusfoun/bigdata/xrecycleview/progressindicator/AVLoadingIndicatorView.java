@@ -12,9 +12,35 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.*;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallBeatIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallClipRotateIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallClipRotateMultipleIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallClipRotatePulseIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallGridBeatIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallGridPulseIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallPulseIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallPulseRiseIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallPulseSyncIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallRotateIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallScaleIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallScaleMultipleIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallScaleRippleIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallScaleRippleMultipleIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallSpinFadeLoaderIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallTrianglePathIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallZigZagDeflectIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BallZigZagIndicator;
 import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.BaseIndicatorController;
-import com.jusfoun.jusfouninquire.R;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.CubeTransitionIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.LineScaleIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.LineScalePartyIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.LineScalePulseOutRapidIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.LineSpinFadeLoaderIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.PacmanIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.SemiCircleSpinIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.SquareSpinIndicator;
+import com.jusfoun.bigdata.xrecycleview.progressindicator.indicator.TriangleSkewSpinIndicator;
+import com.siccredit.guoxin.R;
 
 
 /**

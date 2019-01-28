@@ -44,7 +44,7 @@ import com.gxc.ui.activity.MonitorDetailActivity;
 import com.gxc.ui.adapter.HomeMenuAdapter;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.nineoldandroids.animation.ObjectAnimator;

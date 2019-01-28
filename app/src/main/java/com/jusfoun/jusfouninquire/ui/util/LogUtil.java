@@ -2,7 +2,8 @@ package com.jusfoun.jusfouninquire.ui.util;
 
 import android.util.Log;
 
-import com.jusfoun.jusfouninquire.BuildConfig;
+import com.siccredit.guoxin.BuildConfig;
+
 
 /**
  * Author  wangchenchen

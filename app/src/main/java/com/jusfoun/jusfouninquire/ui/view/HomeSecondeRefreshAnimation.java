@@ -3,7 +3,7 @@ package com.jusfoun.jusfouninquire.ui.view;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

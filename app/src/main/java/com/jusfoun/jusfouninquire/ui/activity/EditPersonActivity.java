@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.LoginModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;

@@ -6,7 +6,7 @@ import android.util.Log;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.ContactModel;
 import com.jusfoun.jusfouninquire.ui.util.VolleyUtil;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;

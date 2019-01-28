@@ -19,7 +19,7 @@ import com.gxc.ui.adapter.HomeNewsAdapter;
 import com.gxc.ui.adapter.ImagePagerAdapter;
 import com.gxc.ui.widgets.AutoScrollViewPager;
 import com.gxc.ui.widgets.MyCirclePageIndicator;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.ArrayList;

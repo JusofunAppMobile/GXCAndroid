@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.activity.CropImageViewAndUpload;
 import com.jusfoun.jusfouninquire.ui.util.crawl.TakePhotoEvent;
 import com.jusfoun.jusfouninquire.ui.widget.PublicDialog;
+import com.siccredit.guoxin.R;
 
 import de.greenrobot.event.EventBus;
 import simplecropimage.CropImage;

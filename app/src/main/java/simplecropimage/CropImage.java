@@ -41,7 +41,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

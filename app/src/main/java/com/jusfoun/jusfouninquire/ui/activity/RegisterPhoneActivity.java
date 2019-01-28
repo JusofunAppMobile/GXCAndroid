@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.constant.LoginConstant;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
@@ -26,7 +26,6 @@ import com.jusfoun.jusfouninquire.ui.widget.GeneralDialog;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.jusfoun.jusfouninquire.R.id.auth_code_Edit;
 
 /**
  * @author zhaoyapeng
@@ -79,7 +78,7 @@ public class RegisterPhoneActivity extends BaseInquireActivity {
 //        titleView.setLeftImage(R.mipmap.back_image);
         titleView.setTitle("注册");
         phoneNumEdit = (EditText) findViewById(R.id.phoneNumEdit);
-        phoneAuthCodeEdit = (EditText) findViewById(auth_code_Edit);
+        phoneAuthCodeEdit = (EditText) findViewById(R.id.auth_code_Edit);
         getAuthCodeBtn = (TextView) findViewById(R.id.getAuthCode);
         goLoginBtn = (TextView) findViewById(R.id.go_login_btn);
         infoBtn = (Button) findViewById(R.id.btn_info);

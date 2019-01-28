@@ -20,7 +20,7 @@ import com.gxc.ui.fragment.MonitorListFragment;
 import com.gxc.ui.fragment.MyFragment;
 import com.gxc.ui.widgets.ScrollableViewPager;
 import com.gxc.utils.AppUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

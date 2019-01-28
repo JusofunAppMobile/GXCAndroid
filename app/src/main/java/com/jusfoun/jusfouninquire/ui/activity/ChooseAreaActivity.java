@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.AreaModel;
 import com.jusfoun.jusfouninquire.ui.adapter.ChooseAreaAdapter;
 import com.jusfoun.jusfouninquire.ui.util.LibIOUtil;

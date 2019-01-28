@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.util.TouchUtil;
 import com.jusfoun.jusfouninquire.ui.util.AppUtil;
 import com.jusfoun.jusfouninquire.ui.util.KeyboardStatusDetector;

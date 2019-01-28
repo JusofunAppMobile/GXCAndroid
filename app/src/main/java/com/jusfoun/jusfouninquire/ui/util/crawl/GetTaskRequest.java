@@ -7,7 +7,7 @@ import android.os.Handler;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.util.GetParamsUtil;
 import com.jusfoun.jusfouninquire.net.volley.VolleyGetRequest;
 import com.jusfoun.jusfouninquire.ui.util.LogUtil;

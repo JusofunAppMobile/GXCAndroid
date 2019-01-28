@@ -21,7 +21,7 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.ui.adapter.CompanyAmendAdapter;

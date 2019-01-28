@@ -2,8 +2,8 @@ package com.gxc.ui.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.RecentChangeItemModel;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

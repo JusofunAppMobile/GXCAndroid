@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.AdItemModel;
 import com.jusfoun.jusfouninquire.net.model.HotConsultingItemModel;
 import com.jusfoun.jusfouninquire.net.route.GetHotConsultingInfo;

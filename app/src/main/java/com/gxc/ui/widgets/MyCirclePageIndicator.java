@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 
 import com.gxc.ui.adapter.ImagePagerAdapter;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.viewpagerindicator.PageIndicator;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;

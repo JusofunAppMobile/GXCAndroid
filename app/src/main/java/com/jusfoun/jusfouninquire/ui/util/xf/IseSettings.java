@@ -15,7 +15,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * 评测设置界面

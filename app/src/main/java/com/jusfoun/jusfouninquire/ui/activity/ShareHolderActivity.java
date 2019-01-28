@@ -8,7 +8,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.model.CompanyListModel;
 import com.jusfoun.jusfouninquire.net.util.GetParamsUtil;

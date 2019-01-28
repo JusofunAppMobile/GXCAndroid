@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gxc.base.BaseListActivity;
 import com.gxc.model.HomeMonitorModel;
 import com.gxc.ui.adapter.HomeMonitorAdapter;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import butterknife.BindView;

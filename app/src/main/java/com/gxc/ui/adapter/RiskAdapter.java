@@ -1,13 +1,11 @@
 package com.gxc.ui.adapter;
 
-import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.RiskModel;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
-import java.util.List;
 
 /**
  * @author liuguangdan

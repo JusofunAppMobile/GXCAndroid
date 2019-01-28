@@ -14,11 +14,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.util.ResourceUtil;
 import com.jusfoun.jusfouninquire.ui.util.VolleyUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.siccredit.guoxin.R;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;

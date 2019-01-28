@@ -6,8 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.BiddingListModel;
 import com.jusfoun.jusfouninquire.net.model.RecruitListModel;
 import com.jusfoun.jusfouninquire.net.util.AppUtil;

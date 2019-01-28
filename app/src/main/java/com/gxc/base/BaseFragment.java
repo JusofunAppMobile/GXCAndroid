@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.gxc.ui.dialog.LoadingDialog;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
+import com.siccredit.guoxin.R;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;

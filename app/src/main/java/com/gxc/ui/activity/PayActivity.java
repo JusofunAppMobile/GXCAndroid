@@ -24,7 +24,7 @@ import com.gxc.utils.AppUtils;
 import com.gxc.utils.PayUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import org.json.JSONException;

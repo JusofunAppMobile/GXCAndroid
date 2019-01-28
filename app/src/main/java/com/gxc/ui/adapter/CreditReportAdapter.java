@@ -13,7 +13,7 @@ import com.gxc.model.CreditReportModel;
 import com.gxc.ui.activity.ConfirmOrderActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.dialog.VIPDialog;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

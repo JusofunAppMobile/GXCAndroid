@@ -13,7 +13,7 @@ import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.MyCollectListActivity;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 

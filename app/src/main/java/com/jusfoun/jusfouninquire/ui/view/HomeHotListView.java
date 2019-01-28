@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.HomeDataItemModel;
 import com.jusfoun.jusfouninquire.net.model.NewHomeModel;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;

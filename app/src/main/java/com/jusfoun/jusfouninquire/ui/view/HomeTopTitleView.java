@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 

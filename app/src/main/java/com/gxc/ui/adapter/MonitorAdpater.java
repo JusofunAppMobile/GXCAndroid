@@ -17,7 +17,7 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 

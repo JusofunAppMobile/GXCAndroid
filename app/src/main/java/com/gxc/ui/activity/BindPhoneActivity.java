@@ -18,9 +18,9 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.DESUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 
@@ -87,7 +87,6 @@ public class BindPhoneActivity extends BaseActivity {
                 if (user != null) {
                     etPhone.setText(user.phone);
                     etPhone.setEnabled(false);
-                    vSendCode.performClick();
                 }
                 break;
         }

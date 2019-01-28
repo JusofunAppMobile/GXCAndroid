@@ -10,12 +10,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 
-public class MyProgressBar extends ImageView {
+public class MyProgressBar extends android.support.v7.widget.AppCompatImageView {
     private RotateAnimation mRotateAnimation;
     private Paint paint = null;
     private Drawable defaultDrawable = null;

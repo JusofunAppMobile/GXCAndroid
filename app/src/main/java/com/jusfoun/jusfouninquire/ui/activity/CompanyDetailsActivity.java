@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.service.event.CompanyMapEvent;
 import com.jusfoun.jusfouninquire.service.event.CompanyWebEvent;

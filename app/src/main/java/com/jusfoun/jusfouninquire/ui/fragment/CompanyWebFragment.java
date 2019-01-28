@@ -12,7 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.service.event.CompanyWebEvent;
 import com.jusfoun.jusfouninquire.service.event.IEvent;

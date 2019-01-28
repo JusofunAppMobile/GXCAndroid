@@ -2,7 +2,8 @@ package com.jusfoun.jusfouninquire.ui.animation;
 
 import android.widget.ImageView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
+
 
 /**
  * @author zhaoyapeng

@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jusfoun.bigdata.xrecycleview.progressindicator.AVLoadingIndicatorView;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 
 public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeader {

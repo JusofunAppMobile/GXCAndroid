@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gxc.ui.activity.PayActivity;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -12,7 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.sharedpreference.NoticeImagePreference;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;

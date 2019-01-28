@@ -12,7 +12,7 @@
 //import android.text.TextUtils;
 //
 //import com.google.gson.Gson;
-//import com.jusfoun.jusfouninquire.R;
+//import com.siccredit.guoxin.R;
 //import com.jusfoun.jusfouninquire.net.model.JpushModel;
 //import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 //import com.jusfoun.jusfouninquire.service.event.CenterViewChangedEvent;

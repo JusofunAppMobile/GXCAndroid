@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 import com.jusfoun.jusfouninquire.net.route.LoginRegisterHelper;
@@ -21,7 +21,6 @@ import com.jusfoun.jusfouninquire.ui.widget.CountDownUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.jusfoun.jusfouninquire.R.id.phoneNumEdit;
 
 /**
  * @author lee
@@ -57,7 +56,7 @@ public class ForgetPwdActivity extends BaseInquireActivity {
         setContentView(R.layout.activity_forget_password);
         titleView = (TitleView) findViewById(R.id.titleView);
         titleView.setTitle("找回密码");
-        phoneEdit = (EditText) findViewById(phoneNumEdit);
+        phoneEdit = (EditText) findViewById(R.id.phoneNumEdit);
         getAuthCode = (TextView) findViewById(R.id.getAuthCode);
         verificationEdit = (EditText) findViewById(R.id.auth_code_Edit);
         newPasswrodEdit = (EditText) findViewById(R.id.passwordEdit);

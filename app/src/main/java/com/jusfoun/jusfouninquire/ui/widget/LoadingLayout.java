@@ -35,7 +35,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.internal.ILoadingLayout;
 import com.jusfoun.jusfouninquire.ui.util.Utils;
 import com.jusfoun.jusfouninquire.ui.widget.PullToRefreshBase.Mode;

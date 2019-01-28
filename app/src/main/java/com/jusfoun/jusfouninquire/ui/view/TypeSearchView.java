@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.adapter.TypeSearchAdapter;
 import com.jusfoun.jusfouninquire.ui.widget.SearchViewPager;
 

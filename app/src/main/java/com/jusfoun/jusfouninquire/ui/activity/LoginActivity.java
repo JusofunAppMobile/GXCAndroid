@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.constant.LoginConstant;
 import com.jusfoun.jusfouninquire.net.constant.NetConstant;

@@ -3,7 +3,7 @@ package com.jusfoun.jusfouninquire.ui.activity;
 import android.os.AsyncTask;
 import android.widget.ScrollView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.widget.PullToRefreshBase;
 import com.jusfoun.jusfouninquire.ui.widget.PullToRefreshScrollView;
 

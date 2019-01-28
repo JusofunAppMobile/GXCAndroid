@@ -26,7 +26,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView.ScaleType;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.widget.PullToRefreshBase.Mode;
 import com.jusfoun.jusfouninquire.ui.widget.PullToRefreshBase.Orientation;
 import com.jusfoun.jusfouninquire.ui.widget.LoadingLayout;

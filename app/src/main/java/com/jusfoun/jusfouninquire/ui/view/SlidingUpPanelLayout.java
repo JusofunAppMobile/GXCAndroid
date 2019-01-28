@@ -3,10 +3,8 @@ package com.jusfoun.jusfouninquire.ui.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
@@ -24,9 +22,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
-
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.List;

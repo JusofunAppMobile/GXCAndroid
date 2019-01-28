@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
+import com.siccredit.guoxin.R;
 
 
 /**

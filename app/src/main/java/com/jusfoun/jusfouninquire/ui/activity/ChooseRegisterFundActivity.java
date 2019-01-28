@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.ChooseRegisterFundItemModel;
 import com.jusfoun.jusfouninquire.ui.adapter.ChooseRegisterFundAdapter;
 import com.jusfoun.jusfouninquire.ui.view.BackAndRightImageTitleView;

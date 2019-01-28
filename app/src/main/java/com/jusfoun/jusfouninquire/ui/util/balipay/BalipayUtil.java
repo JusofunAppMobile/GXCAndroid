@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.constant.NetConstant;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.net.util.GetParamsUtil;

@@ -29,10 +29,10 @@ import com.gxc.ui.dialog.LoadingDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.siccredit.guoxin.R;
 import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;

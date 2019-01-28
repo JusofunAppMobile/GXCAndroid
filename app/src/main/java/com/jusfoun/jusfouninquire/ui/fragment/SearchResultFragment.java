@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,7 +19,7 @@ import com.google.gson.Gson;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
@@ -34,7 +33,6 @@ import com.jusfoun.jusfouninquire.net.model.SearchListModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.net.route.NetWorkCompanyDetails;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
-import com.jusfoun.jusfouninquire.net.util.AppUtil;
 import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.activity.BaseInquireActivity;
 import com.jusfoun.jusfouninquire.ui.activity.ExportContactsActivity;
@@ -43,6 +41,7 @@ import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;
 import com.jusfoun.jusfouninquire.ui.adapter.SearchResultAdapter;
 import com.jusfoun.jusfouninquire.ui.view.ContactsTitleView;
+import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.SearchResultCountView;
 import com.jusfoun.jusfouninquire.ui.view.XListView;
 import com.jusfoun.jusfouninquire.ui.widget.EmailSendDialog;
@@ -54,7 +53,6 @@ import java.util.List;
 import netlib.util.EventUtils;
 import netlib.util.ToastUtils;
 
-import static com.jusfoun.jusfouninquire.R.id.register_time_sort;
 
 /**
  * SearchResultFragment
@@ -73,10 +71,8 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
     private SearchResultAdapter mAdapter;
     private RelativeLayout mFocusLayout;
     private ViewGroup mFundLayout, mTimeLayout;
-    private LinearLayout mLooanywhere;
     private ImageView mFocusUp, mFocusDown;
     private TextView mFocusText, mFundText, mTimeText;
-    private Button mLookanywhere, footWhere;
 
     //是否是升序排序
     private boolean mIsFocusUp, mIsFundUp, mIsTimeUp;
@@ -84,7 +80,6 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
     private String mCurrentType;
     private String mSearchKey;
-    private View footView;
 
 
     private String mSequence = "2";
@@ -100,6 +95,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
     private ContactsTitleView contactsTitleView;
 
     private SearchResultCountView searchResultCountView;
+    private NetWorkErrorView netView;
 
     @Override
     protected void initData() {
@@ -125,9 +121,8 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
     protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_result, container, false);
         mFocusLayout = (RelativeLayout) view.findViewById(R.id.focus_sort_layout);
+        netView = view.findViewById(R.id.netView);
 //        mView = view.findViewById(R.id.myself);
-        mLooanywhere = (LinearLayout) view.findViewById(R.id.look_any);
-        mLookanywhere = (Button) view.findViewById(R.id.look_anywhere);
         mFundLayout = (ViewGroup) view.findViewById(R.id.register_fund_sort_layout);
         mTimeLayout = (LinearLayout) view.findViewById(R.id.register_time_sort_layout);
         mFocusUp = (ImageView) view.findViewById(R.id.focus_sort_up_image);
@@ -139,10 +134,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
         mResult = (XListView) view.findViewById(R.id.search_result_listview);
         mFocusText = (TextView) view.findViewById(R.id.focus_sort);
         mFundText = (TextView) view.findViewById(R.id.register_fund_sort);
-        mTimeText = (TextView) view.findViewById(register_time_sort);
-
-        footView = LayoutInflater.from(mContext).inflate(R.layout.layout_foot_search_result, null);
-        footWhere = (Button) footView.findViewById(R.id.look_anywhere);
+        mTimeText = (TextView) view.findViewById(R.id.register_time_sort);
 
         vArrowFund = view.findViewById(R.id.vArrowFund);
         vArrowTime = view.findViewById(R.id.vArrowTime);
@@ -207,65 +199,20 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             refresh();
         }
 
-//        if (isDataEmpty()) {
-//            mLooanywhere.setVisibility(View.VISIBLE);
-//        } else {
-//            mLooanywhere.setVisibility(View.GONE);
-//        }
-
         mResult.setXListViewListener(this);
         if (mData != null)
             mResult.setPullLoadEnable(getCount() > pageSize);
         if (mResult.isEnablePullLoad()) {
             if (isHasFoot) {
                 isHasFoot = false;
-                mResult.removeFooterView(footView);
             }
         } else {
             if (!isHasFoot && mData != null && getCount() > 0) {
                 isHasFoot = true;
-                mResult.addFooterView(footView);
             }
         }
-//        mResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (view.getTag() instanceof SearchResultAdapter.ViewHolder) {
-//                    SearchResultAdapter.ViewHolder holder = (SearchResultAdapter.ViewHolder) view.getTag();
-//                    if (holder == null) {
-//                        return;
-//                    }
-//
-//                    EventUtils.event(mContext, EventUtils.SEARCH46);
-//                    if (!isContacts()) {
-//                        HomeDataItemModel model =  holder.model;
-//                        if (model != null) {
-//                            Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-//                            intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.getCompanyid());
-//                            intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.getCompanyname());
-//                            startActivity(intent);
-//                        }
-//                    }
-//                }
-//
-////                else if (view.getTag() instanceof SearchResultAdapter.ConstactsViewHolder) {
-////                    SearchResultAdapter.ConstactsViewHolder holder = (SearchResultAdapter.ConstactsViewHolder) view.getTag();
-////                    if (holder == null) {
-////                        return;
-////                    }
-////                    SearchContactListModel.DataBean model = holder.getData();
-////                    if (model != null) {
-////                        Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-////                        intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.id);
-////                        intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.name);
-////                        startActivity(intent);
-////                    }
-////                }
-//            }
-//        });
 
 
-        //        mFocusText.setTextColor(getResources().getColor(R.color.search_name_color));
         setSelect(mFocusText, true);
 
 
@@ -277,22 +224,15 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                 mFocusUp.setImageResource(mIsFocusUp ? R.mipmap.sort_up_selected : R.mipmap.sort_up_unselected);
                 mFocusDown.setImageResource(mIsFocusUp ? R.mipmap.sort_down_unselected : R.mipmap.sort_down_selected);
                 mSequence = "2";
-//                mFocusText.setTextColor(getResources().getColor(R.color.search_name_color));
                 setSelect(mFocusText, true);
 
                 vArrowFund.setSelected(false);
 
-//                mFundUp.setImageResource(R.mipmap.sort_up_unselected);
-//                mFundDown.setImageResource(R.mipmap.sort_down_unselected);
                 mIsFundUp = true;
-//                mFundText.setTextColor(getResources().getColor(R.color.black));
                 setSelect(mFundText, false);
 
-//                mTimeUp.setImageResource(R.mipmap.sort_up_unselected);
-//                mTimeDown.setImageResource(R.mipmap.sort_down_unselected);
                 vArrowTime.setSelected(false);
                 mIsTimeUp = true;
-//                mTimeText.setTextColor(getResources().getColor(R.color.black));
                 setSelect(mTimeText, false);
 
                 doSearch();
@@ -300,52 +240,25 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             }
         });
 
-        mLookanywhere.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                searchWholeNet();
-            }
-        });
-
-        footWhere.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                searchWholeNet();
-            }
-        });
-
-        mFundLayout.setOnClickListener(new View.OnClickListener()
-
-        {
+        mFundLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventUtils.event(mContext, EventUtils.SEARCH55);
                 mIsFundUp = !mIsFundUp;
 
                 vArrowFund.setSelected(mIsFundUp);
-//                mFundUp.setImageResource(mIsFundUp ? R.mipmap.sort_up_selected : R.mipmap.sort_up_unselected);
-//                mFundDown.setImageResource(mIsFundUp ? R.mipmap.sort_down_unselected : R.mipmap.sort_down_selected);
                 mSequence = mIsFundUp ? "3" : "4";
-//                mFundText.setTextColor(getResources().getColor(R.color.search_name_color));
                 setSelect(mFundText, true);
 
 
                 mFocusUp.setImageResource(R.mipmap.sort_up_unselected);
                 mFocusDown.setImageResource(R.mipmap.sort_down_unselected);
                 mIsFocusUp = true;
-//                mFocusText.setTextColor(getResources().getColor(R.color.black));
                 setSelect(mFocusText, false);
 
 
-//                mTimeUp.setImageResource(R.mipmap.sort_up_unselected);
-//                mTimeDown.setImageResource(R.mipmap.sort_down_unselected);
                 vArrowTime.setSelected(false);
                 mIsTimeUp = true;
-//                mTimeText.setTextColor(getResources().getColor(R.color.black));
                 setSelect(mTimeText, false);
 
                 doSearch();
@@ -353,32 +266,22 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             }
         });
 
-        mTimeLayout.setOnClickListener(new View.OnClickListener()
-
-        {
+        mTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventUtils.event(mContext, EventUtils.SEARCH56);
                 mIsTimeUp = !mIsTimeUp;
-//                mTimeUp.setImageResource(mIsTimeUp ? R.mipmap.sort_up_selected : R.mipmap.sort_up_unselected);
-//                mTimeDown.setImageResource(mIsTimeUp ? R.mipmap.sort_down_unselected : R.mipmap.sort_down_selected);
                 vArrowTime.setSelected(mIsTimeUp);
                 mSequence = mIsTimeUp ? "5" : "6";
-//                mTimeText.setTextColor(getResources().getColor(R.color.search_name_color));
                 setSelect(mTimeText, true);
 
                 mFocusUp.setImageResource(R.mipmap.sort_up_unselected);
-//                mFundDown.setImageResource(R.mipmap.sort_down_unselected);
                 mIsFocusUp = true;
-//                mFocusText.setTextColor(getResources().getColor(R.color.black));
                 setSelect(mFocusText, false);
 
-//                mFundUp.setImageResource(R.mipmap.sort_up_unselected);
-//                mFundDown.setImageResource(R.mipmap.sort_down_unselected);
                 vArrowFund.setSelected(false);
 
                 mIsFundUp = true;
-//                mFundText.setTextColor(getResources().getColor(R.color.black));
                 setSelect(mFundText, false);
 
                 doSearch();
@@ -387,7 +290,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
         if (mData == null) {
             doSearch();
-        }else
+        } else
             searchResultCountView.setVisibility(View.VISIBLE);
 
 
@@ -455,14 +358,6 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
             @Override
             public void goExport() {
-//                Intent intent = new Intent(mContext, ContactsListActivity.class);
-//                SearchContactListModel model = new SearchContactListModel();
-//                model.data = mAdapter.getList();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("model", model);
-//                intent.putExtras(bundle);
-//                mContext.startActivity(intent);
-
 
                 if (isContacts()) {
 
@@ -501,8 +396,6 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                     intent.putExtra("model", new Gson().toJson(list));
                     mContext.startActivity(intent);
                 } else {
-//                    List<ContactsModel> list = new ArrayList<>();
-
                     List<HomeDataItemModel> list = mAdapter.getShareholderList();
                     if (list != null) {
                         showToast("选中" + list.size() + "个");
@@ -523,7 +416,6 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                 doSearch();
             }
         });
-//        mAdapter.setSearchType(mCurrentType);
         if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType) || SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mCurrentType)) {
             menuTitlelayout.setVisibility(View.GONE);
             contactsTitleView.setVisibility(View.VISIBLE);
@@ -560,18 +452,6 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
         textView.setTypeface(select ? Typeface.defaultFromStyle(Typeface.BOLD) : Typeface.defaultFromStyle(Typeface.NORMAL));
     }
 
-    /**
-     * 跳转到全网搜索
-     */
-    private void searchWholeNet() {
-        String url = String.format(mContext.getString(R.string.search_whole_net), search_city, mSearchKey, AppUtil.getVersionName(mContext));
-        Intent intent = new Intent(mContext, WebActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(WebActivity.TITLE, "企业查询");
-        bundle.putString(WebActivity.URL, mContext.getString(R.string.req_url) + url);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
     /**
      * 网络搜索
@@ -627,24 +507,18 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                             mAdapter.refresh(model.getBusinesslist());
                             mResult.setPullLoadEnable(model.getCount() > pageSize);
                             mResult.setVisibility(View.VISIBLE);
-                            mLooanywhere.setVisibility(View.GONE);
                         } else {
                             mAdapter.refresh(model.getBusinesslist());
                             mResult.setPullLoadEnable(false);
-//                            showToast(mContext.getString(R.string.search_result_none));
                             mResult.setVisibility(View.GONE);
-                            mLooanywhere.setVisibility(View.VISIBLE);
-//                            mView.setVisibility(View.GONE);
                         }
                         if (mResult.isEnablePullLoad()) {
                             if (isHasFoot) {
                                 isHasFoot = false;
-                                mResult.removeFooterView(footView);
                             }
                         } else {
                             if (!isHasFoot) {
                                 isHasFoot = true;
-                                mResult.addFooterView(footView);
                             }
                         }
                     } else {
@@ -666,24 +540,18 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                             mAdapter.refresh2(model.data);
                             mResult.setPullLoadEnable(model.totalCount > pageSize);
                             mResult.setVisibility(View.VISIBLE);
-                            mLooanywhere.setVisibility(View.GONE);
                         } else {
                             mAdapter.refresh2(model.data);
                             mResult.setPullLoadEnable(false);
-//                            showToast(mContext.getString(R.string.search_result_none));
                             mResult.setVisibility(View.GONE);
-                            mLooanywhere.setVisibility(View.VISIBLE);
-//                            mView.setVisibility(View.GONE);
                         }
                         if (mResult.isEnablePullLoad()) {
                             if (isHasFoot) {
                                 isHasFoot = false;
-                                mResult.removeFooterView(footView);
                             }
                         } else {
                             if (!isHasFoot) {
                                 isHasFoot = true;
-                                mResult.addFooterView(footView);
                             }
                         }
                     } else {
@@ -783,12 +651,10 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                             if (mResult.isEnablePullLoad()) {
                                 if (isHasFoot) {
                                     isHasFoot = false;
-                                    mResult.removeFooterView(footView);
                                 }
                             } else {
                                 if (!isHasFoot) {
                                     isHasFoot = true;
-                                    mResult.addFooterView(footView);
                                 }
                             }
                             if (model.getBusinesslist() != null && model.getBusinesslist().size() > 0) {
@@ -816,12 +682,10 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                             if (mResult.isEnablePullLoad()) {
                                 if (isHasFoot) {
                                     isHasFoot = false;
-                                    mResult.removeFooterView(footView);
                                 }
                             } else {
                                 if (!isHasFoot) {
                                     isHasFoot = true;
-                                    mResult.addFooterView(footView);
                                 }
                             }
                             if (model.data != null && model.data.size() > 0) {
@@ -933,10 +797,6 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             return;
         }
         UserInfoModel model = InquireApplication.getUserInfo();
-//        if (model == null) {
-//            goActivity(LoginActivity.class);
-//            return;
-//        }
 
         UserModel user = AppUtils.getUser();
         if (user == null) {

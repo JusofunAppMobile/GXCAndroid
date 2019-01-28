@@ -19,8 +19,8 @@ import com.gxc.ui.activity.PayActivity;
 import com.gxc.ui.adapter.MonitorAdpater;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 import java.util.List;

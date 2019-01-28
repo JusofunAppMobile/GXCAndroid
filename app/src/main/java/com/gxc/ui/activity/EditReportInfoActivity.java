@@ -21,12 +21,12 @@ import com.gxc.ui.view.CorporateInfoView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.siccredit.guoxin.R;
 
 import java.io.File;
 import java.util.HashMap;

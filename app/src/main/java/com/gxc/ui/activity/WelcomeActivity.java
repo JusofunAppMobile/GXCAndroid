@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.List;

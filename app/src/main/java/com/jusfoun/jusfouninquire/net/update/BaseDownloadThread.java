@@ -5,7 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.util.ResourceUtil;
 
 

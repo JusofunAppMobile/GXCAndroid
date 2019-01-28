@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.adapter.CommonSearchTitleAdapter;
 import com.jusfoun.jusfouninquire.ui.widget.SearchViewPager;
 

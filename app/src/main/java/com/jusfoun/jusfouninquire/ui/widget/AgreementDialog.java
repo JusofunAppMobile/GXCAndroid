@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.activity.BaseInquireActivity;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;

@@ -8,24 +8,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
-import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
-import com.jusfoun.jusfouninquire.TimeOut;
-import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
-import com.jusfoun.jusfouninquire.net.model.BaseModel;
-import com.jusfoun.jusfouninquire.net.route.ReportRoute;
-import com.jusfoun.jusfouninquire.service.event.RefreshMyReportEvent;
-import com.jusfoun.jusfouninquire.ui.activity.BaseInquireActivity;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
 import com.jusfoun.jusfouninquire.ui.util.RegularUtils;
+import com.siccredit.guoxin.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
-import de.greenrobot.event.EventBus;
-import netlib.util.PreferenceUtils;
 import netlib.util.ToastUtils;
 
 /**

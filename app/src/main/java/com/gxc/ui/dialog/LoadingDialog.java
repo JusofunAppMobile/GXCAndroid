@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.widget.MyProgressBar;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

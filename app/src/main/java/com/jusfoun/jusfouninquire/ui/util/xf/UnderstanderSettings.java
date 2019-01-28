@@ -8,7 +8,7 @@ import android.preference.PreferenceActivity;
 import android.view.Window;
 
 import com.iflytek.sunflower.FlowerCollector;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * 语义理解设置界面

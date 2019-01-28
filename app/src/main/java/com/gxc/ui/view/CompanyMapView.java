@@ -18,8 +18,8 @@ import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

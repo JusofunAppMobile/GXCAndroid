@@ -3,7 +3,7 @@ package com.jusfoun.bigdata;
 import android.widget.Toast;
 
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * 吐司

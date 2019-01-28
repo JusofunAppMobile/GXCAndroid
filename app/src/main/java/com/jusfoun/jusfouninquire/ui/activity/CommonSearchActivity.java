@@ -1,8 +1,7 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.widget.ListView;
-
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.adapter.SearchHotWordsAdapter;
 import com.jusfoun.jusfouninquire.ui.view.SearchGuideView;
 

@@ -37,7 +37,7 @@ import com.gxc.utils.AppUtils;
 import com.gxc.utils.HtmlUrlUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -147,6 +147,10 @@ public class MyFragment extends BaseFragment {
                 startActivity(CertifiedCompanyActivity.class);
                 break;
             case 4:// VIP特权
+                if (user == null) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
                 startActivity(WebActivity.getIntent(activity, 0));
                 break;
 //            case 5:// 赠送好友VIP

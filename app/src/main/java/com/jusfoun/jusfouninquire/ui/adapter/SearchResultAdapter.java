@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.gxc.event.CompanySelectEvent;
 import com.gxc.utils.AppUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.net.model.HomeDataItemModel;
@@ -38,7 +38,6 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
-import static com.jusfoun.jusfouninquire.R.id.company_info;
 
 /**
  * SearchResultAdapter
@@ -180,7 +179,7 @@ public class SearchResultAdapter extends BaseAdapter {
 
         public ViewHolder(View view) {
             mCompanyName = (TextView) view.findViewById(R.id.company_name);
-            mCompanyInfo = (TextView) view.findViewById(company_info);
+            mCompanyInfo = (TextView) view.findViewById(R.id.company_info);
             mCompanyState = (TextView) view.findViewById(R.id.company_state);
             tvLegal = (TextView) view.findViewById(R.id.tvLegal);
             tvEstablish = (TextView) view.findViewById(R.id.tvEstablish);
@@ -361,7 +360,7 @@ public class SearchResultAdapter extends BaseAdapter {
 
         public ConstactsViewHolder(View view) {
             mCompanyName = (TextView) view.findViewById(R.id.company_name);
-            mCompanyInfo = (TextView) view.findViewById(company_info);
+            mCompanyInfo = (TextView) view.findViewById(R.id.company_info);
             mCompanyState = (TextView) view.findViewById(R.id.company_state);
             tvLegal = (TextView) view.findViewById(R.id.tvLegal);
             tvEstablish = (TextView) view.findViewById(R.id.tvEstablish);
@@ -534,7 +533,7 @@ public class SearchResultAdapter extends BaseAdapter {
 
         public ShareHolderViewHolder(View view) {
             mCompanyName = (TextView) view.findViewById(R.id.company_name);
-            mCompanyInfo = (TextView) view.findViewById(company_info);
+            mCompanyInfo = (TextView) view.findViewById(R.id.company_info);
             mCompanyState = (TextView) view.findViewById(R.id.company_state);
             tvLegal = (TextView) view.findViewById(R.id.tvLegal);
             ivHolder = view.findViewById(R.id.ivHolder);

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.constant.NetConstant;
 import com.jusfoun.jusfouninquire.ui.util.VolleyGetRequest;
 import com.jusfoun.jusfouninquire.ui.util.VolleyUtil;

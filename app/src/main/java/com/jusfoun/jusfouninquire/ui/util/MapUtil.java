@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.baidu.mapapi.model.LatLng;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;

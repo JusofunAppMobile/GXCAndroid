@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:myxmlns="http://schemas.android.com/apk/res/com.jusfoun.gxt"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    xmlns:myxmlns="http://schemas.android.com/apk/res-auto"
     style="@style/MyTheme.Layout.Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="ResAuto"
     android:background="@color/activity_background"
-    >
+    android:orientation="vertical"
+    tools:ignore="ResAuto">
 
     <com.jusfoun.jusfouninquire.ui.view.BackAndRightImageTitleView
         android:id="@+id/advanced_search_titleview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
 
     </com.jusfoun.jusfouninquire.ui.view.BackAndRightImageTitleView>
 
@@ -23,14 +21,15 @@
         android:id="@+id/title_line"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line_color"
         android:layout_below="@id/advanced_search_titleview"
-        />
+        android:background="@color/line_color" />
+
     <ScrollView
         android:id="@+id/advanced_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title_line">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,51 +43,46 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="24dp"
                 android:paddingBottom="10dp"
-                android:textSize="14dp"
-
                 android:text="@string/advanced_search_condition_prefix"
-                />
+
+                android:textSize="14dp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line_color"
-                />
+                android:background="@color/line_color" />
 
             <LinearLayout
                 android:id="@+id/name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <EditText
                     android:id="@+id/search_company_name"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:background="@color/white"
-                    android:textSize="14dp"
-                    android:textColorHint="@color/search_text_hint_color"
-                    android:maxLength="50"
                     android:hint="@string/advanced_search_condition_company_name"
-                    android:inputType="text"
                     android:imeOptions="actionNext"
-                    />
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/search_text_hint_color"
+                    android:textSize="14dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
             </LinearLayout>
 
@@ -96,8 +90,7 @@
                 android:id="@+id/product_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/search_company_products"
@@ -105,27 +98,25 @@
                     android:layout_height="43dp"
                     android:layout_gravity="center_vertical"
 
-                    android:paddingLeft="10dp"
                     android:background="@color/white"
-                    android:textColorHint="@color/search_text_hint_color"
-                    android:maxLength="50"
                     android:hint="@string/advanced_search_condition_company_products"
-                    android:inputType="text"
                     android:imeOptions="actionNext"
-                    android:textSize="14dp"
-                    />
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/search_text_hint_color"
+                    android:textSize="14dp" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
             </LinearLayout>
@@ -134,36 +125,32 @@
                 android:id="@+id/legal_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/search_legal_shareholder"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:background="@color/white"
-                    android:textColorHint="@color/search_text_hint_color"
-                    android:maxLength="50"
                     android:hint="@string/advanced_search_condition_company_legal"
-                    android:inputType="text"
                     android:imeOptions="actionNext"
-                    android:textSize="14dp"
-                    />
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/search_text_hint_color"
+                    android:textSize="14dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
             </LinearLayout>
@@ -173,28 +160,25 @@
                 android:id="@+id/industry_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <com.jusfoun.jusfouninquire.ui.view.TextChooseView
                     android:id="@+id/industry_type"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@color/white"
-                    myxmlns:tagchoosetext="@string/advanced_search_condition_industry_type"
-                    >
-                </com.jusfoun.jusfouninquire.ui.view.TextChooseView>
+                    myxmlns:tagchoosetext="@string/advanced_search_condition_industry_type"></com.jusfoun.jusfouninquire.ui.view.TextChooseView>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
             </LinearLayout>
 
@@ -202,30 +186,27 @@
                 android:id="@+id/area_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <com.jusfoun.jusfouninquire.ui.view.TextChooseView
                     android:id="@+id/area"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@color/white"
-                    myxmlns:tagchoosetext="@string/advanced_search_condition_area"
-                    >
+                    myxmlns:tagchoosetext="@string/advanced_search_condition_area">
 
                 </com.jusfoun.jusfouninquire.ui.view.TextChooseView>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
             </LinearLayout>
@@ -235,37 +216,33 @@
                 android:id="@+id/street_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/company_street"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:background="@color/white"
-                    android:textColorHint="@color/search_text_hint_color"
-                    android:maxLength="50"
                     android:hint="@string/advanced_search_condition_street"
-                    android:inputType="text"
                     android:imeOptions="actionNext"
-                    android:textSize="14dp"
-                    />
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/search_text_hint_color"
+                    android:textSize="14dp" />
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
             </LinearLayout>
@@ -274,19 +251,18 @@
                 android:id="@+id/building_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/company_building"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:background="@color/white"
-                    android:textColorHint="@color/search_text_hint_color"
-                    android:maxLength="50"
                     android:hint="@string/advanced_search_condition_building"
+                    android:maxLength="50"
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/search_text_hint_color"
 
                     android:textSize="14dp"
 
@@ -295,15 +271,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
             </LinearLayout>
@@ -313,8 +287,7 @@
                 android:id="@+id/fund_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <com.jusfoun.jusfouninquire.ui.view.TextChooseView
                     android:id="@+id/registered_fund"
@@ -330,15 +303,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="12dp"
-                    android:background="@color/line_color"
-                    />
+                    android:background="@color/line_color" />
 
 
             </LinearLayout>
@@ -351,12 +322,11 @@
                 android:background="@color/white"
                 myxmlns:tagchoosetext="@string/advanced_search_condition_registered_time"
 
-                >
-            </com.jusfoun.jusfouninquire.ui.view.TextChooseView>
+                ></com.jusfoun.jusfouninquire.ui.view.TextChooseView>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+                android:layout_height="80dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -364,39 +334,37 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:layout_alignParentBottom="true"
-        >
+        android:layout_alignParentBottom="true">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black"
             android:alpha="0.6"
-            >
+            android:background="@color/black">
 
         </View>
+
         <Button
             android:id="@+id/advanced_search_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="12dp"
             android:layout_marginRight="32dp"
+            android:background="@drawable/advanced_search_background"
+            android:gravity="center"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="@string/industry_search"
-            android:textSize="16dp"
             android:textColor="@color/search_table_background"
-            android:background="@drawable/advanced_search_background"
-            />
+            android:textSize="16dp" />
     </FrameLayout>
 
     <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
         android:id="@+id/net_work_error"
-        android:layout_below="@id/advanced_search_titleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        />
+        android:layout_below="@id/advanced_search_titleview"
+        android:visibility="gone" />
 
 </RelativeLayout>

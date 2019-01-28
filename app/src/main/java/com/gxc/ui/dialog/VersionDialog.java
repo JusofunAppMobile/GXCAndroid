@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.gxc.model.VersionModel;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

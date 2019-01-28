@@ -39,7 +39,6 @@ import com.gxc.ui.widgets.MyCirclePageIndicator;
 import com.gxc.ui.widgets.NavTitleView;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GoActivityUtil;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
@@ -47,6 +46,7 @@ import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.gxc.ui.activity;
 
 import com.gxc.base.BaseActivity;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

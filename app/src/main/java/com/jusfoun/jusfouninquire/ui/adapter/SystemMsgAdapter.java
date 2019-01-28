@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.model.SystemMsgItemModel;
 import com.jusfoun.jusfouninquire.ui.widget.SwipeRightMenuLayout;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,14 +105,8 @@ public class SystemMsgAdapter extends BaseAdapter{
             this.convertView=convertView;
 
             View del=inflater.inflate(R.layout.layout_delect_menu,null);
-            FrameLayout delectView= (FrameLayout) convertView.findViewById(R.id.swipe_right);
-            delectView.removeAllViews();
-            delectView.addView(del);
 
             View view=inflater.inflate(R.layout.system_msg_list_item,null);
-            FrameLayout content= (FrameLayout) convertView.findViewById(R.id.swipe_content);
-            content.removeAllViews();
-            content.addView(view);
 
             msgName = (TextView) convertView.findViewById(R.id.msg_name);
             msgContact = (TextView) convertView.findViewById(R.id.msg_contact);

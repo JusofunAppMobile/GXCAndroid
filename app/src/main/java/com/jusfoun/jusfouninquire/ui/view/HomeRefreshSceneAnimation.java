@@ -9,7 +9,7 @@ package com.jusfoun.jusfouninquire.ui.view;
 
 import android.widget.ImageView;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 public class HomeRefreshSceneAnimation {
     private ImageView mImageView;

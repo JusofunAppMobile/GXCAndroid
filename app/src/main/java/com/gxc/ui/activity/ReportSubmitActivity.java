@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.event.CreditSendSucEvent;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import butterknife.BindView;

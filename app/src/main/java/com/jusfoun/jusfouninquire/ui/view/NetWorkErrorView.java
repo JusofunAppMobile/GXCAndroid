@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.animation.SceneAnimation;
+import com.siccredit.guoxin.R;
 
 /**
  * Created by Albert on 2015/11/27.

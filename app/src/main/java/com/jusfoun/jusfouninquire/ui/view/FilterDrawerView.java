@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.FilterContentItemModel;
 import com.jusfoun.jusfouninquire.net.model.FilterItemModel;
 import com.jusfoun.jusfouninquire.net.model.FilterModel;

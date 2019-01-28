@@ -2,7 +2,7 @@ package com.gxc.retrofit;
 
 
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;

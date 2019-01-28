@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.AdItemModel;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;
 

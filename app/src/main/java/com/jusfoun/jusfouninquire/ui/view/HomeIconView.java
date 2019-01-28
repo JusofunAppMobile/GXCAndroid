@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.adapter.HomeIconAdapter;
 import com.jusfoun.jusfouninquire.ui.widget.DividerGridItemDecoration;
 import com.jusfoun.jusfouninquire.ui.widget.FullyGridLayoutManger;

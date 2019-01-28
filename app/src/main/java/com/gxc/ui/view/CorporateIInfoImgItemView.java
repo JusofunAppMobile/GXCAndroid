@@ -13,8 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gxc.ui.activity.CertifiedCompanyActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

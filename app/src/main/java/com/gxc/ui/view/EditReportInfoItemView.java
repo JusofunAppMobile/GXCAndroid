@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.gxc.model.EditReportInfoImgModel;
 import com.gxc.model.EditReportInfoTextModel;
 import com.gxc.ui.activity.EditReportInfoActivity;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
 
 /**

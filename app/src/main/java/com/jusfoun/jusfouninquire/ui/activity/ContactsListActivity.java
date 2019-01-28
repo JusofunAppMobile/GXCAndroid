@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.SearchContactListModel;
 import com.jusfoun.jusfouninquire.net.model.SearchListModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;

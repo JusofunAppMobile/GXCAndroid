@@ -15,9 +15,9 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.ToastUtils;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.ui.util.RegularUtils;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 

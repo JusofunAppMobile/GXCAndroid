@@ -69,24 +69,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/register_fund_sort"
                     android:src="@drawable/selector_sanjiao" />
-
-                <!--<ImageView-->
-                <!--android:id="@+id/register_fund_sort_up_image"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_toRightOf="@id/register_fund_sort"-->
-                <!--android:src="@mipmap/sort_up_unselected"-->
-                <!--android:visibility="gone" />-->
-
-                <!--<ImageView-->
-                <!--android:id="@+id/register_fund_sort_down_image"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/register_fund_sort_up_image"-->
-                <!--android:layout_marginTop="4dp"-->
-                <!--android:layout_toRightOf="@id/register_fund_sort"-->
-                <!--android:src="@mipmap/sort_down_unselected"-->
-                <!--android:visibility="gone" />-->
             </LinearLayout>
 
 
@@ -110,21 +92,6 @@
                     android:layout_toRightOf="@id/register_fund_sort"
                     android:src="@drawable/selector_sanjiao" />
 
-                <!--<ImageView-->
-                <!--android:id="@+id/register_time_sort_up_image"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_toRightOf="@id/register_time_sort"-->
-                <!--android:src="@mipmap/sort_up_unselected" />-->
-
-                <!--<ImageView-->
-                <!--android:id="@+id/register_time_sort_down_image"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/register_time_sort_up_image"-->
-                <!--android:layout_marginTop="4dp"-->
-                <!--android:layout_toRightOf="@id/register_time_sort"-->
-                <!--android:src="@mipmap/sort_down_unselected" />-->
             </LinearLayout>
 
         </LinearLayout>
@@ -162,63 +129,10 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/look_any"
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/netView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <View style="@style/C_Line" />
-
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="133dp"
-            android:gravity="center"
-            android:src="@mipmap/enpty_search" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="没有找到信息？"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="试试全网查找吧"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="14dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/look_anywhere"
-                android:layout_width="73dp"
-                android:layout_height="30dp"
-                android:background="@drawable/look_anywhere"
-                android:text="全网查找"
-                android:textColor="#ffffff"
-                android:textSize="14dp" />
-        </LinearLayout>
-    </LinearLayout>
+        android:visibility="gone" />
 
 </RelativeLayout>

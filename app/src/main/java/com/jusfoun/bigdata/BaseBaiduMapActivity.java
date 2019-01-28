@@ -47,7 +47,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.jusfoun.BaiduPopView;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
 

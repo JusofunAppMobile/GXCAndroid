@@ -12,7 +12,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 import com.jusfoun.jusfouninquire.net.model.CompanyMapModel;
 import com.jusfoun.jusfouninquire.net.model.InvestmentModel;

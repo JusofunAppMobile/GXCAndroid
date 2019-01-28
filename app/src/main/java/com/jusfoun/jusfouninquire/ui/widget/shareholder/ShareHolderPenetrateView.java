@@ -24,7 +24,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.util.PhoneUtil;
 
 import java.io.BufferedReader;

@@ -6,18 +6,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.jusfoun.bigdata.BaseCompanySituationModel;
 import com.jusfoun.bigdata.NearMapModel;
-import com.jusfoun.bigdata.Toaster;
 import com.jusfoun.bigdata.UrlConstant;
 import com.jusfoun.bigdata.XListModel;
-import com.jusfoun.jusfouninquire.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
-import com.jusfoun.jusfouninquire.net.constant.NetConstant;
-import com.jusfoun.jusfouninquire.net.model.NewHomeModel;
 import com.jusfoun.jusfouninquire.net.util.GetParamsUtil;
 import com.jusfoun.jusfouninquire.net.volley.VolleyErrorUtil;
 import com.jusfoun.jusfouninquire.net.volley.VolleyGetRequest;
 import com.jusfoun.jusfouninquire.net.volley.VolleyPostRequest;
 import com.jusfoun.jusfouninquire.ui.util.VolleyUtil;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 

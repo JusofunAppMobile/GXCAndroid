@@ -9,7 +9,7 @@ import com.gxc.base.BaseActivity;
 import com.gxc.ui.fragment.RiskListFragment;
 import com.gxc.ui.widgets.ScrollableViewPager;
 import com.gxc.ui.widgets.TabView;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 
 import java.util.ArrayList;

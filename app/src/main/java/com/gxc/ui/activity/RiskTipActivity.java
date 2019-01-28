@@ -2,7 +2,7 @@ package com.gxc.ui.activity;
 
 import com.gxc.base.BaseActivity;
 import com.gxc.event.PaySucEvent;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 

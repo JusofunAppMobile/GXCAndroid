@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jusfoun.jusfouninquire.JniUtil;
-import com.jusfoun.jusfouninquire.R;
+import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.FlipperAnimEvent;
 import com.jusfoun.jusfouninquire.service.event.HomeLeadEvent;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
