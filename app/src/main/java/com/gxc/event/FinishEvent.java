@@ -9,4 +9,5 @@ import com.jusfoun.jusfouninquire.service.event.IEvent;
  * @Description ${}
  */
 public class FinishEvent implements IEvent {
+    public boolean isQuit = false;
 }

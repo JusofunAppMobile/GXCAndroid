@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.gxc.event.FinishEvent;
+import com.gxc.event.QuitAppEvent;
+import com.gxc.ui.activity.HomeActivity;
 import com.gxc.ui.dialog.LoadingDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
@@ -142,8 +144,18 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void onEvent(IEvent event) {
         LogUtils.e("onEvent++++>>" + event.getClass().getSimpleName() + "<<" + getClass().getSimpleName());
-        if (event instanceof FinishEvent)
+        if (event instanceof FinishEvent) {
             finish();
+        } else if (event instanceof QuitAppEvent) {
+            if (!this.getLocalClassName().equals(HomeActivity.class.getName())) {
+                finish();
+            } else {
+                if(AppUtils.getUser()!=null) {
+                    ToastUtils.show(((QuitAppEvent) event).msg);
+                    AppUtils.logout();
+                }
+            }
+        }
     }
 
     @Override

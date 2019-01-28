@@ -1,5 +1,11 @@
 package com.gxc.ui.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,6 +14,8 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gxc.base.BaseActivity;
 import com.gxc.constants.Constants;
+import com.gxc.event.FinishEvent;
+import com.gxc.event.QuitAppEvent;
 import com.gxc.model.VersionModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
@@ -20,6 +28,8 @@ import com.gxc.ui.fragment.MonitorListFragment;
 import com.gxc.ui.fragment.MyFragment;
 import com.gxc.ui.widgets.ScrollableViewPager;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.ToastUtils;
+import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
@@ -27,6 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
+import netlib.util.AppUtil;
 import netlib.util.PreferenceUtils;
 
 /**
@@ -44,6 +56,7 @@ public class HomeActivity extends BaseActivity {
     BottomNavigationBar navigation;
 
     String[] titles = new String[]{"首页", "监控动态", "信用服务", "我的"};
+
 
     public void selectTab(int position) {
         navigation.selectTab(position);
@@ -85,6 +98,7 @@ public class HomeActivity extends BaseActivity {
 
             }
         });
+
 
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
@@ -151,4 +165,5 @@ public class HomeActivity extends BaseActivity {
             }
         });
     }
+
 }
