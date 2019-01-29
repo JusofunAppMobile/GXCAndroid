@@ -322,8 +322,6 @@ public class SearchResultFragment extends BaseListFragment {
             }
         });
         if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType) || SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mCurrentType)) {
-            menuTitlelayout.setVisibility(View.GONE);
-            contactsTitleView.setVisibility(View.VISIBLE);
             searchResultCountView.setDaochuGone();
         }
 
@@ -382,24 +380,54 @@ public class SearchResultFragment extends BaseListFragment {
                 if (baseModel.getResult() == 0) {
                     if (!isContacts()) {
                         SearchListModel model = (SearchListModel) data;
+                        if (pageIndex == 1 && model.getCount() > 0)
+                            handleTopView(true);
                         searchResultCountView.setData(String.valueOf(model.getCount()));
                         searchResultCountView.reSet();
                         completeLoadData(model.getBusinesslist(), model.getCount());
                     } else {
                         SearchContactListModel model = (SearchContactListModel) data;
+                        if (pageIndex == 1 && model.totalCount > 0)
+                            handleTopView(true);
                         searchResultCountView.setData(String.valueOf(model.totalCount));
                         contactsTitleView.reSet();
                         completeLoadData(model.data, model.totalCount);
                     }
-                } else
+                } else {
+                    handleTopView(false);
                     completeLoadDataError();
+                }
             }
 
             @Override
             public void onFail(String error) {
+                handleTopView(false);
                 completeLoadDataError();
             }
         });
+    }
+
+    private void handleTopView(boolean show) {
+        if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType) || SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mCurrentType)) {
+            if (show) {
+                mTimeLayout.setVisibility(View.VISIBLE);
+                contactsTitleView.setVisibility(View.VISIBLE);
+                searchResultCountView.setVisibility(View.VISIBLE);
+            } else {
+                mTimeLayout.setVisibility(View.GONE);
+                contactsTitleView.setVisibility(View.GONE);
+                searchResultCountView.setVisibility(View.GONE);
+
+            }
+        } else {
+            if (show) {
+                searchResultCountView.setVisibility(View.VISIBLE);
+                menuTitlelayout.setVisibility(View.VISIBLE);
+            } else {
+                searchResultCountView.setVisibility(View.GONE);
+                menuTitlelayout.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
