@@ -159,7 +159,7 @@ public class MonitorDetailActivity extends BaseListActivity {
                 if (list != null && !list.isEmpty()) {
                     List<MonitorDetailModel> mList = new ArrayList<>();
                     for (MonotorSouDetailModel sModel : list) {
-                        mList.add(new MonitorDetailModel(sModel.lcon, sModel.total));
+                        mList.add(new MonitorDetailModel(sModel.lcon, sModel.total, sModel.monitor_name));
                         if (sModel.data != null && !sModel.data.isEmpty()) {
                             for (MonotorSouDetailModel.DataBean cModel : sModel.data) {
                                 mList.add(new MonitorDetailModel(cModel.contont, cModel.time));

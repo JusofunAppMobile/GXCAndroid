@@ -21,10 +21,11 @@ public class MonitorDetailModel {
      * @param status
      * @param total
      */
-    public MonitorDetailModel(int status, int total) {
+    public MonitorDetailModel(int status, int total, String title) {
         type = 1;
         this.status = status;
         this.total = total;
+        this.contont = title;
     }
 
     /**

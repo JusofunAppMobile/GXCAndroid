@@ -60,6 +60,7 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
 
         public void update(MyViewHolder helper, MonitorDetailModel item) {
             if (item.type == 1) { // 1:父布局 2：子布局
+                tvTitle.setText(item.contont);
                 vTop.setVisibility(View.VISIBLE);
                 vBottom.setVisibility(View.GONE);
                 vDivider.setVisibility(helper.getLayoutPosition() == 0 ? View.GONE : View.VISIBLE);
@@ -67,12 +68,15 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
                 if (item.status == 2) { // 1:法律诉讼 2专利信息 3变更信息 (旧)
                     tvLabel.setTextColor(Color.parseColor("#E02D35"));
                     tvLabel.setBackgroundResource(R.drawable.shape_stroke_red);
+                    tvLabel.setText("警示信息");
                 } else if (item.status == 3) {
                     tvLabel.setTextColor(Color.parseColor("#90CC6C"));
                     tvLabel.setBackgroundResource(R.drawable.shape_stroke_green);
+                    tvLabel.setText("利好信息");
                 } else {
                     tvLabel.setTextColor(Color.parseColor("#2D94EC"));
                     tvLabel.setBackgroundResource(R.drawable.shape_stroke_blue2);
+                    tvLabel.setText("提示信息");
                 }
                 tvNum.setText("共" + item.total + "条");
             } else {

@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,14 +27,20 @@ public class PictureUtils {
 
     /**
      * 截长图
+     *
      * @param activity
      * @param view
      */
     public static void saveImage(final Activity activity, final View view) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        LogUtils.e(view.isHardwareAccelerated() + ">>>>>>>>>>>>1");
+        view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        LogUtils.e(view.isHardwareAccelerated() + ">>>>>>>>>>>>2");
+//        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        LogUtils.e(view.isHardwareAccelerated() + ">>>>>>>>>>>>3");
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
                 try {
                     Bitmap bitmap = getViewBitmap(view);
                     if (bitmap != null) {
@@ -55,8 +62,14 @@ public class PictureUtils {
                     });
                     e.printStackTrace();
                 }
-            }
-        }).start();
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                    }
+                });
+//            }
+//        }).start();
 
     }
 
@@ -88,6 +101,7 @@ public class PictureUtils {
         int iHeight = bm.getHeight();
         bigCanvas.drawBitmap(bm, 0, iHeight, paint);
         view.draw(bigCanvas);
+        view.setDrawingCacheEnabled(false);
         return bm;
     }
 
