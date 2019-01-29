@@ -74,6 +74,8 @@ public class MyFragment extends BaseFragment {
     ImageView ivCompanyLogo;
     @BindView(R.id.vVip)
     ImageView vVip;
+    @BindView(R.id.vVip2)
+    ImageView vVip2;
     @BindView(R.id.tvNormalTip1)
     TextView tvNormalTip1;
     @BindView(R.id.tvNormalTip2)
@@ -195,6 +197,7 @@ public class MyFragment extends BaseFragment {
             ivNormalVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
             ivCompanyVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
             vVip.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+            vVip2.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvNormalTip1.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvNormalTip2.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvStatus.setText(getStatus(user.authStatus));

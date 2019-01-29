@@ -3,7 +3,6 @@ package com.gxc.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,8 +59,6 @@ public class WebActivity extends BaseActivity {
     Group relationGroup;
     @BindView(R.id.ivBack2)
     View ivBack2;
-    @BindView(R.id.vStatus)
-    View vStatus;
     @BindView(R.id.errorView)
     NetWorkErrorView emptyView;
     @BindView(R.id.searchTitleView)
@@ -100,9 +97,11 @@ public class WebActivity extends BaseActivity {
         } else
             setTheme(R.style.MyTheme_Layout_Root2);
         super.onCreate(savedInstanceState);
+        if (isSetStatusBar() && isFullScreen)
+            setStatusBarRed();
     }
 
-    private void initIntentExtra(){
+    private void initIntentExtra() {
         isRelation = getIntent().getBooleanExtra("isRelation", false);
         isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
         isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
@@ -123,6 +122,12 @@ public class WebActivity extends BaseActivity {
             searchTitleView.setEditText(getIntent().getStringExtra("name_one"));
             searchTitleView.hideRightView();
             searchTitleView.setEditParentClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            searchTitleView.setOnClearListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -169,7 +174,6 @@ public class WebActivity extends BaseActivity {
             getUrl();
         else
             mAgentWeb = preAgentWeb.go(url);
-
     }
 
 
@@ -196,13 +200,9 @@ public class WebActivity extends BaseActivity {
                     WebModel webModel = model.dataToObject(WebModel.class);
                     if (webModel != null) {
                         isFullScreen = (webModel.webType == 1);
-                        if (!isFullScreen) {
-                            if (!isUserRedSearchTitle)
+                        if ((isFullScreen && !isRelation) || !isFullScreen) {
+                            if (!isFullScreen && !isUserRedSearchTitle)
                                 setStatusBarFontDark(true);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                vStatus.setVisibility(View.VISIBLE);
-                                vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
-                            }
                         }
                         ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
                         titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
@@ -321,7 +321,6 @@ public class WebActivity extends BaseActivity {
      * 信用报告-样本预览
      *
      * @param context
-     * @param title
      * @param url
      * @return
      */
@@ -418,8 +417,8 @@ public class WebActivity extends BaseActivity {
     public boolean isSetStatusBar() {
         if (isUserRedSearchTitle)
             return true;
-        if (isFullScreen)
-            return false;
+//        if (isFullScreen)
+//            return false;
         return super.isSetStatusBar();
     }
 

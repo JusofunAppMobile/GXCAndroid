@@ -153,11 +153,11 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
     }
 
     protected String getEmptyTipText() {
-        return "没有相关数据";
+        return "没有查找到相关信息";
     }
 
     protected String getHttpErrorTip() {
-        return "刷新试试吧~";
+        return "网络奔溃了";
     }
 
     protected boolean isLoadMoreEnable() {
@@ -169,14 +169,12 @@ public abstract class BaseListActivity extends BaseActivity implements SwipeRefr
         adapter.setNewData(new ArrayList());
         if (vEmpty != null) {
             vEmpty.setVisibility(View.VISIBLE);
-            if (tvEmpty != null) {
-                tvEmpty.setText(text);
-            }
+            tvError.setText(text);
             if (isError) {
-                tvError.setVisibility(View.VISIBLE);
+                tvEmpty.setVisibility(View.VISIBLE);
                 tvReload.setVisibility(View.VISIBLE);
             } else {
-                tvError.setVisibility(View.GONE);
+                tvEmpty.setVisibility(View.GONE);
                 tvReload.setVisibility(View.GONE);
             }
         }

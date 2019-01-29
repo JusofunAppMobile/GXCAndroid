@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gxc.base.BaseActivity;
+import com.gxc.event.AuthStatusChangeEvent;
 import com.gxc.inter.OnSimpleCompressListener;
 import com.gxc.inter.OnUploadListener;
 import com.gxc.model.AddressModel;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -265,6 +267,7 @@ public class CertifiedCompanyActivity extends BaseActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
+                    EventBus.getDefault().post(new AuthStatusChangeEvent());
                     showToast("提交成功");
                     finish();
                 } else {

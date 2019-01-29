@@ -87,12 +87,11 @@ public class CreditFragment extends BaseFragment {
     TextView textCompayType;
     @BindView(R.id.text_num)
     TextView textNum;
+    @BindView(R.id.tvStatus)
+    TextView tvStatus;
     @BindView(R.id.net_work_error)
     NetWorkErrorView netWorkError;
     private ImageView certificationImg;
-
-    @BindView(R.id.img_shenhezhong)
-    ImageView shImg;
 
     @BindView(R.id.layout2)
     ConstraintLayout changeLayout;
@@ -394,7 +393,7 @@ public class CreditFragment extends BaseFragment {
 //                            textTitle.setTextColor(0xff333333);
 //                            layoutRoot.setBackgroundColor(0xffffffff);
                         } else if ("1".equals(model.companyInfo.status)) {
-                            shImg.setVisibility(View.VISIBLE);
+                            tvStatus.setVisibility(View.VISIBLE);
                             initUICredit(false);
                             topLayout.setVisibility(View.VISIBLE);
                         } else if ("2".equals(model.companyInfo.status)) {
@@ -404,7 +403,7 @@ public class CreditFragment extends BaseFragment {
 //                            textTitle.setTextColor(0xff333333);
 //                            layoutRoot.setBackgroundColor(0xffffffff);
                         } else if ("3".equals(model.companyInfo.status)) {
-                            shImg.setVisibility(View.GONE);
+                            tvStatus.setVisibility(View.GONE);
                             initUICredit(true);
                             topLayout.setVisibility(View.VISIBLE);
                         }

@@ -42,7 +42,7 @@
         android:background="@null"
         android:ellipsize="end"
         android:inputType="textPersonName"
-        android:maxLength="20"
+        android:maxLength="100"
         android:singleLine="true"
         android:textColor="#333"
         android:textCursorDrawable="@drawable/shape_cursor"
