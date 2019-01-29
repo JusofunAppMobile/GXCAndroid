@@ -127,6 +127,10 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
         completeLoadData(list, false, totalCount);
     }
 
+    public void completeLoadData(List list) {
+        completeLoadData(list, false, 0);
+    }
+
     /**
      * 网络错误时调用
      */

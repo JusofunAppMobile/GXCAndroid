@@ -116,23 +116,27 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="5dp" />
 
-            <com.jusfoun.jusfouninquire.ui.view.XListView
-                android:id="@+id/search_result_listview"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/view_search_result"
-                android:divider="@null"
-                android:dividerHeight="0dp" />
+                android:layout_below="@id/view_search_result">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbarThumbVertical="@drawable/shape_scrollbar_vertical_thumb"
+                    android:scrollbars="vertical" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
 
 
         </RelativeLayout>
 
     </LinearLayout>
 
-    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
-        android:id="@+id/netView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+    <include layout="@layout/view_empty" />
 
 </RelativeLayout>

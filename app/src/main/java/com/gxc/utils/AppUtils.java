@@ -503,8 +503,6 @@ public class AppUtils {
      */
     public static String parseToQxb(int menuType) {
         switch (menuType) {
-            case 0:
-                return SearchHistoryItemModel.SEARCH_COMMON;
             case 1:
                 return SearchHistoryItemModel.SEARCH_SHAREHOLDER;
             case 2:
@@ -529,10 +527,10 @@ public class AppUtils {
                 return SearchHistoryItemModel.SEARCH_ADMINISTRATIVE;
             case 18:
                 return SearchHistoryItemModel.SEARCH_TRADEMARK;
+            default:
+                return SearchHistoryItemModel.SEARCH_COMMON;
 
         }
-        LogUtils.e(">>>>>>>注意：国信的类型 转化成 企信宝  类型 未匹配");
-        return "";
     }
 
 }

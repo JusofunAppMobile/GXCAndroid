@@ -55,7 +55,7 @@ public class MonitorDetailActivity extends BaseListActivity {
 
     @Override
     protected BaseQuickAdapter getAdapter() {
-        return new MonitorDetailAdapter(this);
+        return new MonitorDetailAdapter();
     }
 
     public static Intent getIntent(Context context, String companyId, String companyName) {

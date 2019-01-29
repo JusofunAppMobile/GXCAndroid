@@ -3,6 +3,7 @@ package com.gxc.ui.fragment;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gxc.base.BaseActivity;
 import com.gxc.base.BaseListFragment;
 import com.gxc.event.LoginChangeEvent;
 import com.gxc.event.MonitorChangeEvent;
@@ -47,7 +48,7 @@ public class MonitorListFragment extends BaseListFragment {
             pageSize = 10;
         else
             pageSize = Integer.MAX_VALUE;
-        return new MonitorAdpater(activity);
+        return new MonitorAdpater((BaseActivity) activity);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.gxc.ui.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -21,16 +20,13 @@ import butterknife.ButterKnife;
  */
 public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, MonitorDetailAdapter.MyViewHolder> {
 
-    private Context context;
-
-    public MonitorDetailAdapter(Context context) {
+    public MonitorDetailAdapter() {
         super(R.layout.item_monitor_detail);
-        this.context = context;
     }
 
     @Override
     protected void convert(MyViewHolder helper, MonitorDetailModel item) {
-        helper.update(helper, item);
+        helper.update(item);
     }
 
 
@@ -58,12 +54,12 @@ public class MonitorDetailAdapter extends BaseQuickAdapter<MonitorDetailModel, M
             ButterKnife.bind(this, view);
         }
 
-        public void update(MyViewHolder helper, MonitorDetailModel item) {
+        public void update(MonitorDetailModel item) {
             if (item.type == 1) { // 1:父布局 2：子布局
                 tvTitle.setText(item.contont);
                 vTop.setVisibility(View.VISIBLE);
                 vBottom.setVisibility(View.GONE);
-                vDivider.setVisibility(helper.getLayoutPosition() == 0 ? View.GONE : View.VISIBLE);
+                vDivider.setVisibility(getLayoutPosition() == 0 ? View.GONE : View.VISIBLE);
                 // /图标类型lcon：1：变更信息    2：警示信息 3：利好信息
                 if (item.status == 2) { // 1:法律诉讼 2专利信息 3变更信息 (旧)
                     tvLabel.setTextColor(Color.parseColor("#E02D35"));

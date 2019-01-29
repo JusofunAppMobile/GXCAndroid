@@ -4,20 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.event.CompanySelectEvent;
 import com.gxc.utils.AppUtils;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.net.model.HomeDataItemModel;
@@ -28,10 +28,12 @@ import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailsActivity;
 import com.jusfoun.jusfouninquire.ui.activity.ShareHolderActivity;
 import com.jusfoun.jusfouninquire.ui.view.ContactsOpenView;
+import com.siccredit.guoxin.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,14 +49,15 @@ import de.greenrobot.event.EventBus;
  * @date : 16/8/15
  * @Description :搜索结果适配器
  */
-public class SearchResultAdapter extends BaseAdapter {
+public class SearchResultAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
+
+
     private Context mContext;
-    private List<HomeDataItemModel> mData;
-    private List<SearchContactListModel.DataBean> mData2;
     private String mSearchType;// 0 正常搜索 1 通讯录
     public static int TYPE_NORMAL = 0;
     public static int TYPE_CONSTANCTS = 1;
     public static int TYPE_SHAREHOLDER = 2; // 股东穿透
+    private int type;
 
     private int selectStateType = 0;// 0，不显示  1 显示
     public static int TYPE_STATE_SELECT_NO = 0;
@@ -64,330 +67,55 @@ public class SearchResultAdapter extends BaseAdapter {
     private Map<String, String> compaySelectMap, contactsSelectMap;
 
     public SearchResultAdapter(Context mContext, String mSearchType) {
-        this.mContext = mContext;
-        mData = new ArrayList<>();
-        mData2 = new ArrayList<>();
+        super(null);
         this.mSearchType = mSearchType;
+        this.type = getType();
+        if (type == TYPE_CONSTANCTS)
+            mLayoutResId = R.layout.item_search_result_constancts;
+        else if (type == TYPE_SHAREHOLDER)
+            mLayoutResId = R.layout.item_search_shareholder;
+        else
+            mLayoutResId = R.layout.item_search_result;
+        this.mContext = mContext;
         compaySelectMap = new HashMap<>();
         contactsSelectMap = new HashMap<>();
     }
 
-    private boolean isContacts() {
-        return SearchHistoryItemModel.SEARCH_CONTACT.equals(mSearchType);
-    }
-
     @Override
-    public int getCount() {
-        if (isContacts())
-            return mData2.size();
-        return mData.size();
-    }
+    protected void convert(BaseViewHolder helper, Object item) {
+        //TYPE_CONSTANCTS###########################################
+        TextView mCompanyName = helper.getView(R.id.company_name);
+        TextView mCompanyInfo = helper.getView(R.id.company_info);
+        TextView mCompanyState = helper.getView(R.id.company_state);
+        TextView tvLegal = helper.getView(R.id.tvLegal);
+        TextView tvEstablish = helper.getView(R.id.tvEstablish);
+        TextView tvRelate = helper.getView(R.id.tvRelate);
+        LinearLayout mRelateLayout = helper.getView(R.id.relate_layout);
 
-    @Override
-    public Object getItem(int i) {
-        if (isContacts())
-            return mData2.get(i);
-        return mData.get(i);
-    }
+        View vTop = helper.getView(R.id.vTop);
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
+        final ImageView selectImg = helper.getView(R.id.img_select);
+        TextView phoneText1 = helper.getView(R.id.text_phone1);
+        final TextView phoneText2 = helper.getView(R.id.text_phone2);
+        final TextView pointText = helper.getView(R.id.text_point);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
-
-        if (getItemViewType(position) == TYPE_CONSTANCTS) {
-            ConstactsViewHolder holder = null;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_search_result_constancts, null);
-                holder = new ConstactsViewHolder(convertView);
-                convertView.setTag(holder);
-            } else {
-                holder = (ConstactsViewHolder) convertView.getTag();
-            }
-            holder.update(position);
-            return convertView;
-        } else if (getItemViewType(position) == TYPE_SHAREHOLDER) {
-            ShareHolderViewHolder holder = null;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_search_shareholder, null);
-                holder = new ShareHolderViewHolder(convertView);
-                convertView.setTag(holder);
-            } else {
-                holder = (ShareHolderViewHolder) convertView.getTag();
-            }
-            holder.update(position);
-            return convertView;
-        } else {
-            ViewHolder holder = null;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_search_result, null);
-                holder = new ViewHolder(convertView);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            holder.update(position);
-            return convertView;
-        }
-    }
-
-//    public void setSearchType(String mSearchType) {
-//        this.mSearchType = mSearchType;
-//    }
-
-    public void refresh(List<HomeDataItemModel> data) {
-        compaySelectMap.clear();
-        mData.clear();
-        if (data != null)
-            mData.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    public void refresh2(List<SearchContactListModel.DataBean> data) {
-        compaySelectMap.clear();
-        mData2.clear();
-        if (data != null)
-            mData2.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    public void addData(List<HomeDataItemModel> data) {
-        mData.addAll(data);
-        setReportAllSelect();
-        notifyDataSetChanged();
-    }
-
-    public void addData2(List<SearchContactListModel.DataBean> data) {
-        mData2.addAll(data);
-        setConstanctAllSelect();
-        notifyDataSetChanged();
-    }
-
-
-    public class ViewHolder {
-        private TextView mCompanyName, mCompanyInfo, mCompanyState, tvLegal, tvEstablish, tvRelate;
-        private LinearLayout mRelateLayout;
-        private View vTop;
         //        private View mDivider;
-        public HomeDataItemModel model;
-        private ImageView selectImg;
-        private RelativeLayout rootLayout;
-        private TextView preViewText;
+        ContactsOpenView contactsOpenView = helper.getView(R.id.view_contacts);
+        RelativeLayout rootLayout = helper.getView(R.id.layout_root);
+        //TYPE_CONSTANCTS###########################################
 
-        public ViewHolder(View view) {
-            mCompanyName = (TextView) view.findViewById(R.id.company_name);
-            mCompanyInfo = (TextView) view.findViewById(R.id.company_info);
-            mCompanyState = (TextView) view.findViewById(R.id.company_state);
-            tvLegal = (TextView) view.findViewById(R.id.tvLegal);
-            tvEstablish = (TextView) view.findViewById(R.id.tvEstablish);
-//            mRelated = (TextView) view.findViewById(R.id.related_text);
-            mRelateLayout = (LinearLayout) view.findViewById(R.id.relate_layout);
-            tvRelate = (TextView) view.findViewById(R.id.tvRelate);
-            vTop = view.findViewById(R.id.vTop);
-//            mDivider = view.findViewById(R.id.divider_view);
-            selectImg = (ImageView) view.findViewById(R.id.img_select);
-            rootLayout = (RelativeLayout) view.findViewById(R.id.layout_root);
-            preViewText = (TextView) view.findViewById(R.id.text_report_preview);
-        }
+        //TYPE_SHAREHOLDER###########################################
+        View ivHolder = helper.getView(R.id.ivHolder);
+        //TYPE_SHAREHOLDER###########################################
 
-        public Object getData(int position) {
-            return mData.get(position);
-        }
-
-        public void update(int position) {
-
-            if (!isContacts()) {
-                final HomeDataItemModel data = mData.get(position);
-                model = data;
-                tvLegal.setText(data.getLegal());
-                mCompanyInfo.setText(data.getFunds());
-                tvEstablish.setText(data.establish);
-//            tvRelate.setText(data.relatednofont);
-
-                if (!TextUtils.isEmpty(data.getRelated()))
-                    tvRelate.setText(Html.fromHtml(data.getRelated()));
-
-                mRelateLayout.setVisibility(TextUtils.isEmpty(data.getRelated()) ? View.GONE : View.VISIBLE);
-
-                vTop.setBackgroundResource(mRelateLayout.getVisibility() == View.VISIBLE ? R.drawable.img_item_2 : R.drawable.img_item_bg);
-
-                if (!TextUtils.isEmpty(data.getCompanylightname())) {
-                    mCompanyName.setText(Html.fromHtml(data.getCompanylightname()));
-                } else {
-                    mCompanyName.setText(data.getCompanyname());
-                }
-
-
-                mCompanyState.setText(data.getCompanystate());
-
-
-                if (TYPE_STATE_SELECT_NO == selectStateType) {
-                    selectImg.setVisibility(View.GONE);
-                    preViewText.setVisibility(View.GONE);
-                } else if (TYPE_STATE_SELECT_SHOW == selectStateType) {
-                    selectImg.setVisibility(View.VISIBLE);
-                    preViewText.setVisibility(View.VISIBLE);
-                    selectImg.setImageResource(R.drawable.img_constant_select_no);
-                }
-//                selectImg.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if (compaySelectMap.containsKey(data.getCompanyid())) {
-//                            compaySelectMap.remove(data.getCompanyid());
-//                            selectImg.setImageResource(R.drawable.img_constant_select_no);
-//                            if (callBack != null) {
-//                                callBack.cancleSelectAll();
-//                            }
-//                            compaySelectMap.remove(data.getCompanyid());
-//                        } else {
-//
-//                            Log.e("tag", "compaySelectMap=" + compaySelectMap.size());
-//                            if (compaySelectMap.size() < 100) {
-//                                compaySelectMap.put(data.getCompanyid(), "");
-//                                selectImg.setImageResource(R.drawable.img_constant_select_yes);
-//                            }
-//
-//                            if (callBack != null) {
-//                                callBack.select();
-//                            }
-//                        }
-//
-//                    }
-//                });
-
-                if (compaySelectMap.containsKey(data.getCompanyid())) {
-//                    data.isSelect = true;
-                    selectImg.setImageResource(R.drawable.img_constant_select_yes);
-                } else {
-                    selectImg.setImageResource(R.drawable.img_constant_select_no);
-                }
-                TouchUtil.createTouchDelegate(selectImg, 40);
-
-
-                rootLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (TYPE_STATE_SELECT_SHOW == selectStateType) {
-                            if (compaySelectMap.containsKey(data.getCompanyid())) {
-                                compaySelectMap.remove(data.getCompanyid());
-                                selectImg.setImageResource(R.drawable.img_constant_select_no);
-                                if (callBack != null) {
-                                    callBack.cancleSelectAll();
-                                }
-                                isSelectAll = false;
-                            } else {
-                                if (compaySelectMap.size() < 100) {
-                                    compaySelectMap.put(data.getCompanyid(), "");
-                                    selectImg.setImageResource(R.drawable.img_constant_select_yes);
-                                }
-                                if (callBack != null) {
-                                    callBack.select();
-                                }
-                            }
-                        } else {
-                            // 国信逻辑
-                            if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
-                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
-                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
-                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK) ||
-                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK) ||
-                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
-
-                                // 查关系
-                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
-                                    EventBus.getDefault().post(new CompanySelectEvent(model.getCompanyname(), model.getCompanyid()));
-                                    ((Activity) mContext).finish();
-                                    return;
-                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK)) {// 风险分析
-                                    mContext.startActivity(com.gxc.ui.activity.WebActivity.getIntent(mContext, ((Activity) mContext).getIntent().getStringExtra("menuName"),
-                                            AppUtils.parseToGxMenuType(SearchHistoryItemModel.SEARCH_RISK), model.getCompanyname()));
-                                    return;
-                                }
-
-                                CompanyDetailModel companyDetailModel = new CompanyDetailModel();
-                                companyDetailModel.setCompanyname(model.getCompanyname());
-                                companyDetailModel.setCompanyid(model.getCompanyid());
-                                List<CompanyDetailMenuModel> subclassMenu = new ArrayList<>();
-                                CompanyDetailMenuModel companyDetailMenuModel = new CompanyDetailMenuModel();
-                                subclassMenu.add(companyDetailMenuModel);
-                                companyDetailModel.setSubclassMenu(subclassMenu);
-
-                                Bundle argument = new Bundle();
-                                argument.putSerializable(CompanyDetailsActivity.COMPANY, companyDetailModel);
-                                argument.putInt(CompanyDetailsActivity.POSITION, 0);
-                                argument.putBoolean(CompanyDetailsActivity.IS_GXC, true);
-                                Intent intent = new Intent(mContext, CompanyDetailsActivity.class);
-                                intent.putExtras(argument);
-                                mContext.startActivity(intent);
-
-                            } else {
-                                Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-                                intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.getCompanyid());
-                                intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.getCompanyname());
-                                mContext.startActivity(intent);
-                            }
-
-                        }
-                    }
-                });
-
-                preViewText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (callBack != null) {
-                            callBack.preView(data);
-                        }
-                    }
-                });
-
-            }
-        }
-    }
-
-    public class ConstactsViewHolder {
-        private TextView mCompanyName, mCompanyInfo, mCompanyState, tvLegal, tvEstablish, tvRelate;
-        private LinearLayout mRelateLayout;
-        private View vTop;
-        private ImageView selectImg;
-        private TextView phoneText1, phoneText2, pointText;
+        //TYPE_NORMAL###########################################
         //        private View mDivider;
-        public SearchContactListModel.DataBean data;
-        private ContactsOpenView contactsOpenView;
-        private RelativeLayout rootLayout;
+        TextView preViewText = helper.getView(R.id.text_report_preview);
+        //TYPE_NORMAL###########################################
 
-        public ConstactsViewHolder(View view) {
-            mCompanyName = (TextView) view.findViewById(R.id.company_name);
-            mCompanyInfo = (TextView) view.findViewById(R.id.company_info);
-            mCompanyState = (TextView) view.findViewById(R.id.company_state);
-            tvLegal = (TextView) view.findViewById(R.id.tvLegal);
-            tvEstablish = (TextView) view.findViewById(R.id.tvEstablish);
-            mRelateLayout = (LinearLayout) view.findViewById(R.id.relate_layout);
-            tvRelate = (TextView) view.findViewById(R.id.tvRelate);
-            vTop = view.findViewById(R.id.vTop);
-            selectImg = (ImageView) view.findViewById(R.id.img_select);
-            phoneText1 = (TextView) view.findViewById(R.id.text_phone1);
-            phoneText2 = (TextView) view.findViewById(R.id.text_phone2);
-            pointText = (TextView) view.findViewById(R.id.text_point);
-            contactsOpenView = (ContactsOpenView) view.findViewById(R.id.view_contacts);
-            rootLayout = (RelativeLayout) view.findViewById(R.id.layout_root);
-        }
 
-        public SearchContactListModel.DataBean getData() {
-            return data;
-        }
-
-        public void update(int position) {
-            data = mData2.get(position);
-
-//            mCompanyInfo.setText(data.getFunds());
-//
-//            if (!TextUtils.isEmpty(data.getRelated()))
-//                tvRelate.setText(Html.fromHtml(data.getRelated()));
-
-//            mRelateLayout.setVisibility(TextUtils.isEmpty(data.getRelated()) ? View.GONE : View.VISIBLE);
+        if (type == TYPE_CONSTANCTS) {
+            final SearchContactListModel.DataBean data = (SearchContactListModel.DataBean) item;
             mRelateLayout.setVisibility(View.GONE);
             vTop.setBackgroundResource(mRelateLayout.getVisibility() == View.VISIBLE ? R.drawable.img_item_2 : R.drawable.img_item_bg);
 
@@ -408,14 +136,6 @@ public class SearchResultAdapter extends BaseAdapter {
                 selectImg.setVisibility(View.VISIBLE);
                 selectImg.setImageResource(R.drawable.img_constant_select_no);
             }
-
-//            else if (TYPE_STATE_SELECT_SHOW_ALL == selectStateType) {
-//                selectImg.setVisibility(View.VISIBLE);
-//                selectImg.setImageResource(R.drawable.img_constant_select_yes);
-//            } else if (TYPE_STATE_SELECT_SHOW_CANCLE == selectStateType) {
-//                selectImg.setVisibility(View.VISIBLE);
-//                selectImg.setImageResource(R.drawable.img_constant_select_no);
-//            }
             phoneText2.setText("");
             phoneText1.setText("");
 
@@ -463,27 +183,7 @@ public class SearchResultAdapter extends BaseAdapter {
             });
             contactsOpenView.setData(data);
 
-
-//            selectImg.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (data.isSelect) {
-//                        data.isSelect = false;
-//                        isSelectAll = false;
-//                        selectImg.setImageResource(R.drawable.img_constant_select_no);
-//                        if (callBack != null) {
-//                            callBack.cancleSelectAll();
-//                        }
-//                    } else {
-//                        data.isSelect = true;
-//                        selectImg.setImageResource(R.drawable.img_constant_select_yes);
-//                    }
-//
-//                }
-//            });
-
             if (contactsSelectMap.containsKey(data.id)) {
-//                    data.isSelect = true;
                 selectImg.setImageResource(R.drawable.img_constant_select_yes);
             } else {
                 selectImg.setImageResource(R.drawable.img_constant_select_no);
@@ -520,36 +220,8 @@ public class SearchResultAdapter extends BaseAdapter {
                     }
                 }
             });
-        }
-    }
-
-
-    public class ShareHolderViewHolder {
-        private TextView mCompanyName, mCompanyInfo, mCompanyState, tvLegal, tvEstablish;
-        public HomeDataItemModel model;
-        private ImageView selectImg;
-        private View ivHolder;
-        private RelativeLayout rootLayout;
-
-        public ShareHolderViewHolder(View view) {
-            mCompanyName = (TextView) view.findViewById(R.id.company_name);
-            mCompanyInfo = (TextView) view.findViewById(R.id.company_info);
-            mCompanyState = (TextView) view.findViewById(R.id.company_state);
-            tvLegal = (TextView) view.findViewById(R.id.tvLegal);
-            ivHolder = view.findViewById(R.id.ivHolder);
-            tvEstablish = (TextView) view.findViewById(R.id.tvEstablish);
-            selectImg = (ImageView) view.findViewById(R.id.img_select);
-            rootLayout = (RelativeLayout) view.findViewById(R.id.layout_root);
-        }
-
-        public Object getData(int position) {
-            return mData.get(position);
-        }
-
-        public void update(int position) {
-
-            final HomeDataItemModel data = mData.get(position);
-            model = data;
+        } else if (type == TYPE_SHAREHOLDER) {
+            final HomeDataItemModel data = (HomeDataItemModel) item;
             tvLegal.setText(data.getLegal());
             mCompanyInfo.setText(data.getFunds());
             tvEstablish.setText(data.establish);
@@ -569,8 +241,8 @@ public class SearchResultAdapter extends BaseAdapter {
 
 
                     Intent intent = new Intent(mContext, ShareHolderActivity.class);
-                    intent.putExtra(ShareHolderActivity.COMPANY_ID, model.getCompanyid());
-                    intent.putExtra(ShareHolderActivity.COMPANY_NAME, model.getCompanyname());
+                    intent.putExtra(ShareHolderActivity.COMPANY_ID, data.getCompanyid());
+                    intent.putExtra(ShareHolderActivity.COMPANY_NAME, data.getCompanyname());
                     mContext.startActivity(intent);
                 }
             });
@@ -614,14 +286,163 @@ public class SearchResultAdapter extends BaseAdapter {
                         }
                     } else {
                         Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-                        intent.putExtra(CompanyDetailActivity.COMPANY_ID, model.getCompanyid());
-                        intent.putExtra(CompanyDetailActivity.COMPANY_NAME, model.getCompanyname());
+                        intent.putExtra(CompanyDetailActivity.COMPANY_ID, data.getCompanyid());
+                        intent.putExtra(CompanyDetailActivity.COMPANY_NAME, data.getCompanyname());
                         mContext.startActivity(intent);
                     }
                 }
             });
+        } else {
+            final HomeDataItemModel data = (HomeDataItemModel) item;
+            if (!isContacts()) {
+                tvLegal.setText(data.getLegal());
+                mCompanyInfo.setText(data.getFunds());
+                tvEstablish.setText(data.establish);
+//            tvRelate.setText(data.relatednofont);
+
+                if (!TextUtils.isEmpty(data.getRelated()))
+                    tvRelate.setText(Html.fromHtml(data.getRelated()));
+
+                mRelateLayout.setVisibility(TextUtils.isEmpty(data.getRelated()) ? View.GONE : View.VISIBLE);
+
+                vTop.setBackgroundResource(mRelateLayout.getVisibility() == View.VISIBLE ? R.drawable.img_item_2 : R.drawable.img_item_bg);
+
+                if (!TextUtils.isEmpty(data.getCompanylightname())) {
+                    mCompanyName.setText(Html.fromHtml(data.getCompanylightname()));
+                } else {
+                    mCompanyName.setText(data.getCompanyname());
+                }
+
+
+                mCompanyState.setText(data.getCompanystate());
+
+
+                if (TYPE_STATE_SELECT_NO == selectStateType) {
+                    selectImg.setVisibility(View.GONE);
+                    preViewText.setVisibility(View.GONE);
+                } else if (TYPE_STATE_SELECT_SHOW == selectStateType) {
+                    selectImg.setVisibility(View.VISIBLE);
+                    preViewText.setVisibility(View.VISIBLE);
+                    selectImg.setImageResource(R.drawable.img_constant_select_no);
+                }
+
+                if (compaySelectMap.containsKey(data.getCompanyid())) {
+                    selectImg.setImageResource(R.drawable.img_constant_select_yes);
+                } else {
+                    selectImg.setImageResource(R.drawable.img_constant_select_no);
+                }
+                TouchUtil.createTouchDelegate(selectImg, 40);
+
+
+                rootLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (TYPE_STATE_SELECT_SHOW == selectStateType) {
+                            if (compaySelectMap.containsKey(data.getCompanyid())) {
+                                compaySelectMap.remove(data.getCompanyid());
+                                selectImg.setImageResource(R.drawable.img_constant_select_no);
+                                if (callBack != null) {
+                                    callBack.cancleSelectAll();
+                                }
+                                isSelectAll = false;
+                            } else {
+                                if (compaySelectMap.size() < 100) {
+                                    compaySelectMap.put(data.getCompanyid(), "");
+                                    selectImg.setImageResource(R.drawable.img_constant_select_yes);
+                                }
+                                if (callBack != null) {
+                                    callBack.select();
+                                }
+                            }
+                        } else {
+                            // 国信逻辑
+                            if (mSearchType.equals(SearchHistoryItemModel.SEARCH_WINNING_BID) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK) ||
+                                    mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
+
+                                // 查关系
+                                if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RELATION)) {
+                                    EventBus.getDefault().post(new CompanySelectEvent(data.getCompanyname(), data.getCompanyid()));
+                                    ((Activity) mContext).finish();
+                                    return;
+                                } else if (mSearchType.equals(SearchHistoryItemModel.SEARCH_RISK)) {// 风险分析
+                                    mContext.startActivity(com.gxc.ui.activity.WebActivity.getIntent(mContext, ((Activity) mContext).getIntent().getStringExtra("menuName"),
+                                            AppUtils.parseToGxMenuType(SearchHistoryItemModel.SEARCH_RISK), data.getCompanyname()));
+                                    return;
+                                }
+
+                                CompanyDetailModel companyDetailModel = new CompanyDetailModel();
+                                companyDetailModel.setCompanyname(data.getCompanyname());
+                                companyDetailModel.setCompanyid(data.getCompanyid());
+                                List<CompanyDetailMenuModel> subclassMenu = new ArrayList<>();
+                                CompanyDetailMenuModel companyDetailMenuModel = new CompanyDetailMenuModel();
+                                subclassMenu.add(companyDetailMenuModel);
+                                companyDetailModel.setSubclassMenu(subclassMenu);
+
+                                Bundle argument = new Bundle();
+                                argument.putSerializable(CompanyDetailsActivity.COMPANY, companyDetailModel);
+                                argument.putInt(CompanyDetailsActivity.POSITION, 0);
+                                argument.putBoolean(CompanyDetailsActivity.IS_GXC, true);
+                                Intent intent = new Intent(mContext, CompanyDetailsActivity.class);
+                                intent.putExtras(argument);
+                                mContext.startActivity(intent);
+
+                            } else {
+                                Intent intent = new Intent(mContext, CompanyDetailActivity.class);
+                                intent.putExtra(CompanyDetailActivity.COMPANY_ID, data.getCompanyid());
+                                intent.putExtra(CompanyDetailActivity.COMPANY_NAME, data.getCompanyname());
+                                mContext.startActivity(intent);
+                            }
+
+                        }
+                    }
+                });
+
+                preViewText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (callBack != null) {
+                            callBack.preView(data);
+                        }
+                    }
+                });
+
+            }
         }
+
+
     }
+
+    public int getType() {
+        if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mSearchType))
+            return TYPE_CONSTANCTS;
+        if (SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mSearchType))
+            return TYPE_SHAREHOLDER;
+        return TYPE_NORMAL;
+    }
+
+    private boolean isContacts() {
+        return SearchHistoryItemModel.SEARCH_CONTACT.equals(mSearchType);
+    }
+
+    @Override
+    public void setNewData(@Nullable List<Object> data) {
+        compaySelectMap.clear();
+        super.setNewData(data);
+    }
+
+    @Override
+    public void addData(@NonNull Collection<?> newData) {
+        super.addData(newData);
+        if (isContacts())
+            setConstanctAllSelect();
+        else
+            setReportAllSelect();
+    }
+
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -629,15 +450,6 @@ public class SearchResultAdapter extends BaseAdapter {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         return sdf.format(calendar.getTime());
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mSearchType))
-            return TYPE_CONSTANCTS;
-        if (SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mSearchType))
-            return TYPE_SHAREHOLDER;
-        return TYPE_NORMAL;
     }
 
     /**
@@ -650,28 +462,30 @@ public class SearchResultAdapter extends BaseAdapter {
     public List<SearchContactListModel.DataBean> getList() {
         List<SearchContactListModel.DataBean> list = new ArrayList<>();
 
-        if (mData2 != null) {
-            for (int i = 0; i < mData2.size(); i++) {
-                if (mData2.get(i) != null && contactsSelectMap.containsKey(mData2.get(i).id)) {
-                    list.add(mData2.get(i));
-                }
+        if (getData() == null || getData().isEmpty())
+            return list;
+
+        for (Object obj : getData()) {
+            SearchContactListModel.DataBean bean = (SearchContactListModel.DataBean) obj;
+            if (bean != null && contactsSelectMap.containsKey(bean.id)) {
+                list.add(bean);
             }
         }
-
         return list;
     }
 
     public List<HomeDataItemModel> getShareholderList() {
         List<HomeDataItemModel> list = new ArrayList<>();
 
-        if (mData != null) {
-            for (int i = 0; i < mData.size(); i++) {
-                if (mData.get(i) != null && compaySelectMap.containsKey(mData.get(i).getCompanyid())) {
-                    list.add(mData.get(i));
+        List<Object> dataList = getData();
+        if (dataList != null && !dataList.isEmpty()) {
+            for (Object obj : dataList) {
+                HomeDataItemModel model = (HomeDataItemModel) obj;
+                if (model != null && compaySelectMap.containsKey(model.getCompanyid())) {
+                    list.add(model);
                 }
             }
         }
-
         return list;
     }
 
@@ -682,24 +496,20 @@ public class SearchResultAdapter extends BaseAdapter {
     public List<HomeDataItemModel> getSelectReportList() {
         List<HomeDataItemModel> list = new ArrayList<>();
 
-        if (mData != null) {
-            for (int i = 0; i < mData.size(); i++) {
-                if (mData.get(i) != null && compaySelectMap.containsKey(mData.get(i).getCompanyid())) {
-                    list.add(mData.get(i));
+        List<Object> dataList = getData();
+        if (dataList != null && !dataList.isEmpty()) {
+            for (Object obj : dataList) {
+                HomeDataItemModel model = (HomeDataItemModel) obj;
+                if (model != null && compaySelectMap.containsKey(model.getCompanyid())) {
+                    list.add(model);
                 }
             }
         }
-
         return list;
     }
 
     public int getSelectReportCount() {
         return compaySelectMap.size();
-    }
-
-    public List<SearchContactListModel.DataBean> getmData2List() {
-
-        return mData2;
     }
 
 
@@ -722,9 +532,13 @@ public class SearchResultAdapter extends BaseAdapter {
         if (!isSelectAll)
             return;
 
-        for (int i = 0; i < mData.size(); i++) {
-            if (compaySelectMap.size() < 100 && !compaySelectMap.containsKey(mData.get(i).getCompanyid())) {
-                compaySelectMap.put(mData.get(i).getCompanyid(), "");
+        List<Object> dataList = getData();
+        if (dataList != null && !dataList.isEmpty()) {
+            for (Object obj : dataList) {
+                HomeDataItemModel model = (HomeDataItemModel) obj;
+                if (model != null && compaySelectMap.size() < 100 && !compaySelectMap.containsKey(model.getCompanyid())) {
+                    compaySelectMap.put(model.getCompanyid(), "");
+                }
             }
         }
     }
@@ -733,7 +547,7 @@ public class SearchResultAdapter extends BaseAdapter {
     public void setAllState(boolean isSelect) {
         isSelectAll = isSelect;
         if (isContacts()) {
-            if (mData2 != null) {
+            if (getData() != null) {
                 if (!isSelect) {
                     contactsSelectMap.clear();
                     return;
@@ -755,9 +569,13 @@ public class SearchResultAdapter extends BaseAdapter {
         if (!isSelectAll)
             return;
 
-        for (int i = 0; i < mData2.size(); i++) {
-            if (contactsSelectMap.size() < 100 && !contactsSelectMap.containsKey(mData2.get(i).id)) {
-                contactsSelectMap.put(mData2.get(i).id, "");
+        if (getData() == null || getData().isEmpty())
+            return;
+
+        for (Object obj : getData()) {
+            SearchContactListModel.DataBean bean = (SearchContactListModel.DataBean) obj;
+            if (contactsSelectMap.size() < 100 && !contactsSelectMap.containsKey(bean.id)) {
+                contactsSelectMap.put(bean.id, "");
             }
         }
     }
@@ -765,10 +583,13 @@ public class SearchResultAdapter extends BaseAdapter {
     public void setShareholderAllSelect() {
         if (!isSelectAll)
             return;
+        if (getData() == null || getData().isEmpty())
+            return;
 
-        for (int i = 0; i < mData.size(); i++) {
-            if (compaySelectMap.size() < 100 && !compaySelectMap.containsKey(mData.get(i).getCompanyid())) {
-                compaySelectMap.put(mData.get(i).getCompanyid(), "");
+        for (Object obj : getData()) {
+            HomeDataItemModel bean = (HomeDataItemModel) obj;
+            if (contactsSelectMap.size() < 100 && !contactsSelectMap.containsKey(bean.getCompanyid())) {
+                contactsSelectMap.put(bean.getCompanyid(), "");
             }
         }
     }
