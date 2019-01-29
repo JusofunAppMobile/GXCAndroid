@@ -147,13 +147,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (event instanceof FinishEvent) {
             finish();
         } else if (event instanceof QuitAppEvent) {
-            if (!this.getLocalClassName().equals(HomeActivity.class.getName())) {
+            if (!(this instanceof HomeActivity)) {
                 finish();
-            } else {
-                if(AppUtils.getUser()!=null) {
-                    ToastUtils.show(((QuitAppEvent) event).msg);
-                    AppUtils.logout();
-                }
             }
         }
     }

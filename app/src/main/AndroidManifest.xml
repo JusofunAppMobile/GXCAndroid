@@ -262,6 +262,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/my_style_horizontal"
+            android:hardwareAccelerated="false"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
         <activity
             android:name="com.gxc.ui.activity.MyMonitorListActivity"

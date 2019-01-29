@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.constraint.Group;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -27,13 +28,13 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.SearchTitleView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -90,11 +91,7 @@ public class WebActivity extends BaseActivity {
         // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             WebView.enableSlowWholeDocumentDraw();
-        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
-        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
-        isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
-        isCredit = getIntent().getBooleanExtra("isCredit", false);
-
+        initIntentExtra();
         if (!isHttpGetUrl) {
             if (!isFullScreen)
                 setTheme(R.style.MyTheme_Layout_Root);
@@ -105,8 +102,20 @@ public class WebActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
+    private void initIntentExtra(){
+        isRelation = getIntent().getBooleanExtra("isRelation", false);
+        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
+        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
+        isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
+        isCredit = getIntent().getBooleanExtra("isCredit", false);
+    }
+
     @Override
     public void initActions() {
+
+        if (!isRelation) // 查关系 开启硬件加速会造成截屏时出现空白
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+
         ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
         titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
         if (isUserRedSearchTitle) {
@@ -128,7 +137,7 @@ public class WebActivity extends BaseActivity {
         LogUtils.e("URL=" + url);
         LogUtils.e("TITLE=" + title);
 
-        isRelation = getIntent().getBooleanExtra("isRelation", false);
+
         relationGroup.setVisibility(isRelation ? View.VISIBLE : View.GONE);
 
         if (isRelation) { // 查关系
@@ -149,7 +158,7 @@ public class WebActivity extends BaseActivity {
 
         preAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(layout, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator(isRelation ? Color.TRANSPARENT : -1)
+                .useDefaultIndicator()
                 .setWebViewClient(mWebViewClient)
                 .setMainFrameErrorView(errorView)
                 .interceptUnkownUrl()

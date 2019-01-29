@@ -78,6 +78,15 @@
         app:srcCompat="@drawable/icon_back" />
 
 
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EAEAEA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vStatus" />
+
     <LinearLayout
         android:id="@+id/vFinish"
         android:layout_width="wrap_content"
@@ -123,7 +132,6 @@
         android:paddingTop="5dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/vShare"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginRight="16dp">
@@ -190,6 +198,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="vFinish" />
+        app:constraint_referenced_ids="vFinish,vSave,vLine" />
 
 </android.support.constraint.ConstraintLayout>

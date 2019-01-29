@@ -8,6 +8,5 @@ import com.jusfoun.jusfouninquire.service.event.IEvent;
  * @Email zyp@jusfoun.com
  * @Description ${TODO}
  */
-public class QuitAppEvent  implements IEvent {
-    public String msg;
+public class QuitAppEvent implements IEvent {
 }

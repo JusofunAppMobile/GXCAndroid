@@ -226,6 +226,10 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
         delayLoadData();
     }
 
+    protected void stopLoadingData() {
+        isLoadingData = false;
+    }
+
 
     private void delayLoadData() {
         new Handler().postDelayed(new Runnable() {

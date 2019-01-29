@@ -98,6 +98,11 @@ public class MonitorListFragment extends BaseListFragment {
 
             @Override
             public void success(NetModel model) {
+                if (model.isRejectVisite()) {
+                    stopLoadingData();
+                    refresh();
+                    return;
+                }
                 if (model.success()) {
                     List<MonitorModel> list = getList(model);
                     if (list != null && !list.isEmpty() && pageIndex == 1 && headView.getParent() == null) {

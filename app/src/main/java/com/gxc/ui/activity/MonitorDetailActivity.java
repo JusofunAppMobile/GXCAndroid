@@ -126,8 +126,8 @@ public class MonitorDetailActivity extends BaseListActivity {
         StringBuffer sb = new StringBuffer();
         if (menuAdpater.getData() != null && !menuAdpater.getData().isEmpty()) {
             for (MonitorMenuModel model : menuAdpater.getData()) {
-                model.isSelect = false;
-                sb.append(model.monitor_condition_id + ",");
+                if (model.isSelect)
+                    sb.append(model.monitor_condition_id + ",");
             }
             if (sb.toString().endsWith(","))
                 sb.deleteCharAt(sb.toString().length() - 1);
