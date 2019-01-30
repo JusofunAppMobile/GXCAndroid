@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.Md5Util;
 import com.jusfoun.jusfouninquire.TimeOut;
 
 import java.io.IOException;

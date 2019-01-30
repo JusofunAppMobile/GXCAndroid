@@ -49,7 +49,6 @@ public class SplashActivity extends BaseInquireActivity {
         StatService.setDebugOn(false);
         StatService.start(this);
 
-        Log.e("tag", "new com.gxc.utils.JniUtil().getGXCLineKey(this);=" + new JniGXCUtil().getGXCLineKey(this));
     }
 
     private void goNext() {

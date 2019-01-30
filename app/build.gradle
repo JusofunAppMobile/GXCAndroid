@@ -108,8 +108,6 @@ android {
     }
 
 
-
-
 }
 
 dependencies {
@@ -164,8 +162,7 @@ dependencies {
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
 
-    //    compile(name: 'mylibrary-release', ext: 'aar')
-    implementation files('libs/mySdk.jar')
+    compile(name: 'umeng_social_util', ext: 'aar')
 
     ///////////////////////////////////////////////
 
