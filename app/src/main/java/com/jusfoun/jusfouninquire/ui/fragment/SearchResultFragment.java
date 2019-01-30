@@ -3,10 +3,8 @@ package com.jusfoun.jusfouninquire.ui.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,11 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.gxc.base.BaseListFragment;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
@@ -33,18 +32,14 @@ import com.jusfoun.jusfouninquire.net.model.SearchListModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.net.route.NetWorkCompanyDetails;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
-import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
-import com.jusfoun.jusfouninquire.ui.activity.BaseInquireActivity;
 import com.jusfoun.jusfouninquire.ui.activity.ExportContactsActivity;
 import com.jusfoun.jusfouninquire.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;
 import com.jusfoun.jusfouninquire.ui.adapter.SearchResultAdapter;
 import com.jusfoun.jusfouninquire.ui.view.ContactsTitleView;
-import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.SearchResultCountView;
-import com.jusfoun.jusfouninquire.ui.view.XListView;
-import com.jusfoun.jusfouninquire.ui.widget.EmailSendDialog;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +47,8 @@ import java.util.List;
 
 import netlib.util.EventUtils;
 import netlib.util.ToastUtils;
+
+import static com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity.isBlurrySearch;
 
 
 /**
@@ -62,13 +59,9 @@ import netlib.util.ToastUtils;
  * @date : 16/8/10
  * @Description :搜索结果页面，配合抽屉显示的碎片
  */
-public class SearchResultFragment extends BaseInquireFragment implements XListView.IXListViewListener {
+public class SearchResultFragment extends BaseListFragment {
 
     public static final String SEARCH_RESULT = "search_result";
-    private BaseModel mData;
-    //    private View mView;
-    private XListView mResult;
-    private SearchResultAdapter mAdapter;
     private RelativeLayout mFocusLayout;
     private ViewGroup mFundLayout, mTimeLayout;
     private ImageView mFocusUp, mFocusDown;
@@ -77,149 +70,67 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
     //是否是升序排序
     private boolean mIsFocusUp, mIsFundUp, mIsTimeUp;
 
-
     private String mCurrentType;
     private String mSearchKey;
 
 
     private String mSequence = "2";
-    private String mCity = "", mProvince = "", mCapital = "", mTime = "", mIndustry = "";
+    private String mCity = "", mProvince = "", mCapital = "", mTime = "", mIndustry = "", isHavWebSite = "";
 
-    private int pageIndex = 1;
-    private int pageSize = 20;
-    private boolean isHasFoot = false;
-    private String search_city = "全国";
     private View vArrowFund, vArrowTime;
 
     private LinearLayout menuTitlelayout;
     private ContactsTitleView contactsTitleView;
 
     private SearchResultCountView searchResultCountView;
-    private NetWorkErrorView netView;
+    private SearchResultAdapter adapter;
 
     @Override
-    protected void initData() {
-        if (getArguments() != null && getArguments().getSerializable(SEARCH_RESULT) != null) {
-            mData = (BaseModel) getArguments().getSerializable(SEARCH_RESULT);
-        }
+    protected BaseQuickAdapter getAdapter() {
+        getArgumentsData();
+        return adapter = new SearchResultAdapter(activity, mCurrentType);
+    }
 
-        if (getArguments() != null) {
-            mCurrentType = getArguments().getString(SearchResultActivity.SEARCH_TYPE);
-            mSearchKey = getArguments().getString(SearchResultActivity.SEARCH_KEY);
-        }
+    private void getArgumentsData() {
+        if (getArguments() == null) return;
+        mCurrentType = getArguments().getString(SearchResultActivity.SEARCH_TYPE);
+        mSearchKey = getArguments().getString(SearchResultActivity.SEARCH_KEY);
 
-        mAdapter = new SearchResultAdapter(mContext, mCurrentType);
-        mIsFundUp = true;
-        mIsTimeUp = true;
         if (isContacts()) {
             mSequence = "6";
         }
-
     }
 
     @Override
-    protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_result, container, false);
-        mFocusLayout = (RelativeLayout) view.findViewById(R.id.focus_sort_layout);
-        netView = view.findViewById(R.id.netView);
-//        mView = view.findViewById(R.id.myself);
-        mFundLayout = (ViewGroup) view.findViewById(R.id.register_fund_sort_layout);
-        mTimeLayout = (LinearLayout) view.findViewById(R.id.register_time_sort_layout);
-        mFocusUp = (ImageView) view.findViewById(R.id.focus_sort_up_image);
-        mFocusDown = (ImageView) view.findViewById(R.id.focus_sort_down_image);
-//        mFundUp = (ImageView) view.findViewById(R.id.register_fund_sort_up_image);
-//        mFundDown = (ImageView) view.findViewById(R.id.register_fund_sort_down_image);
-//        mTimeUp = (ImageView) view.findViewById(R.id.register_time_sort_up_image);
-//        mTimeDown = (ImageView) view.findViewById(R.id.register_time_sort_down_image);
-        mResult = (XListView) view.findViewById(R.id.search_result_listview);
-        mFocusText = (TextView) view.findViewById(R.id.focus_sort);
-        mFundText = (TextView) view.findViewById(R.id.register_fund_sort);
-        mTimeText = (TextView) view.findViewById(R.id.register_time_sort);
+    protected void initUi() {
+        mIsFundUp = true;
+        mIsTimeUp = true;
+        mFocusLayout = (RelativeLayout) rootView.findViewById(R.id.focus_sort_layout);
+        mFundLayout = (ViewGroup) rootView.findViewById(R.id.register_fund_sort_layout);
+        mTimeLayout = (LinearLayout) rootView.findViewById(R.id.register_time_sort_layout);
+        mFocusUp = (ImageView) rootView.findViewById(R.id.focus_sort_up_image);
+        mFocusDown = (ImageView) rootView.findViewById(R.id.focus_sort_down_image);
+        mFocusText = (TextView) rootView.findViewById(R.id.focus_sort);
+        mFundText = (TextView) rootView.findViewById(R.id.register_fund_sort);
+        mTimeText = (TextView) rootView.findViewById(R.id.register_time_sort);
 
-        vArrowFund = view.findViewById(R.id.vArrowFund);
-        vArrowTime = view.findViewById(R.id.vArrowTime);
+        vArrowFund = rootView.findViewById(R.id.vArrowFund);
+        vArrowTime = rootView.findViewById(R.id.vArrowTime);
 
-
-        searchResultCountView = (SearchResultCountView) view.findViewById(R.id.view_search_result);
-        menuTitlelayout = (LinearLayout) view.findViewById(R.id.layout_title_menu);
-        contactsTitleView = (ContactsTitleView) view.findViewById(R.id.view_title_contacts);
+        searchResultCountView = (SearchResultCountView) rootView.findViewById(R.id.view_search_result);
+        menuTitlelayout = (LinearLayout) rootView.findViewById(R.id.layout_title_menu);
+        contactsTitleView = (ContactsTitleView) rootView.findViewById(R.id.view_title_contacts);
 
         if (SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mCurrentType)) {
             contactsTitleView.setLabel("导出数据");
         }
 
-
-        if (mData != null)
-            searchResultCountView.setData(String.valueOf(getCount()));
-
-        return view;
-    }
-
-    private int getCount() {
-        if (isContacts())
-            return ((SearchContactListModel) mData).totalCount;
-        else
-            return ((SearchListModel) mData).getCount();
-    }
-
-    /**
-     * 是否为企业通讯录页面
-     *
-     * @return
-     */
-    private boolean isContacts() {
-        return SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType);
-    }
-
-    private void refresh() {
-        if (isContacts())
-            mAdapter.refresh2(((SearchContactListModel) mData).data);
-        else
-            mAdapter.refresh(((SearchListModel) mData).getBusinesslist());
-    }
-
-    private boolean isDataEmpty() {
-        if (isContacts()) {
-            if (mData == null || ((SearchContactListModel) mData).data == null ||
-                    ((SearchContactListModel) mData).data.isEmpty())
-                return true;
-        } else {
-            if (mData == null || ((SearchListModel) mData).getBusinesslist() == null ||
-                    ((SearchListModel) mData).getBusinesslist().isEmpty())
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    protected void initWeightActions() {
-        mResult.setAdapter(mAdapter);
-//        mAdapter.setSearchType(mCurrentType);
-        if (mData != null) {
-            refresh();
-        }
-
-        mResult.setXListViewListener(this);
-        if (mData != null)
-            mResult.setPullLoadEnable(getCount() > pageSize);
-        if (mResult.isEnablePullLoad()) {
-            if (isHasFoot) {
-                isHasFoot = false;
-            }
-        } else {
-            if (!isHasFoot && mData != null && getCount() > 0) {
-                isHasFoot = true;
-            }
-        }
-
-
         setSelect(mFocusText, true);
-
 
         mFocusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventUtils.event(mContext, EventUtils.SEARCH54);
+                EventUtils.event(activity, EventUtils.SEARCH54);
                 mIsFocusUp = !mIsFocusUp;
                 mFocusUp.setImageResource(mIsFocusUp ? R.mipmap.sort_up_selected : R.mipmap.sort_up_unselected);
                 mFocusDown.setImageResource(mIsFocusUp ? R.mipmap.sort_down_unselected : R.mipmap.sort_down_selected);
@@ -235,15 +146,14 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                 mIsTimeUp = true;
                 setSelect(mTimeText, false);
 
-                doSearch();
-
+                refresh();
             }
         });
 
         mFundLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventUtils.event(mContext, EventUtils.SEARCH55);
+                EventUtils.event(activity, EventUtils.SEARCH55);
                 mIsFundUp = !mIsFundUp;
 
                 vArrowFund.setSelected(mIsFundUp);
@@ -261,7 +171,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                 mIsTimeUp = true;
                 setSelect(mTimeText, false);
 
-                doSearch();
+                refresh();
 
             }
         });
@@ -269,7 +179,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
         mTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventUtils.event(mContext, EventUtils.SEARCH56);
+                EventUtils.event(activity, EventUtils.SEARCH56);
                 mIsTimeUp = !mIsTimeUp;
                 vArrowTime.setSelected(mIsTimeUp);
                 mSequence = mIsTimeUp ? "5" : "6";
@@ -284,29 +194,24 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                 mIsFundUp = true;
                 setSelect(mFundText, false);
 
-                doSearch();
+                refresh();
             }
         });
-
-        if (mData == null) {
-            doSearch();
-        } else
-            searchResultCountView.setVisibility(View.VISIBLE);
 
 
         searchResultCountView.setCallBack(new SearchResultCountView.Callback() {
             @Override
             public void selectAll() {
-                mAdapter.setCommonAllState(true);
-                mAdapter.notifyDataSetChanged();
-                searchResultCountView.setSelectText(mAdapter.getSelectReportCount() + "");
+                adapter.setCommonAllState(true);
+                adapter.notifyDataSetChanged();
+                searchResultCountView.setSelectText(adapter.getSelectReportCount() + "");
             }
 
             @Override
             public void cancleSelectAll() {
-                mAdapter.setCommonAllState(false);
-                mAdapter.notifyDataSetChanged();
-                searchResultCountView.setSelectText(mAdapter.getSelectReportCount() + "");
+                adapter.setCommonAllState(false);
+                adapter.notifyDataSetChanged();
+                searchResultCountView.setSelectText(adapter.getSelectReportCount() + "");
             }
 
             @Override
@@ -316,44 +221,45 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
             @Override
             public void showSelect() {
-                mAdapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_SHOW);
-                mAdapter.setCommonAllState(false);
-                mAdapter.notifyDataSetChanged();
+                adapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_SHOW);
+                adapter.setCommonAllState(false);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void hideSelect() {
-                mAdapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_NO);
-                mAdapter.setCommonAllState(false);
-                mAdapter.notifyDataSetChanged();
+                adapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_NO);
+                adapter.setCommonAllState(false);
+                adapter.notifyDataSetChanged();
             }
         });
+
         contactsTitleView.setCallBack(new ContactsTitleView.Callback() {
             @Override
             public void selectAll() {
-                mAdapter.setAllState(true);
-                mAdapter.notifyDataSetChanged();
+                adapter.setAllState(true);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void cancleSelectAll() {
-                mAdapter.setAllState(false);
-                mAdapter.notifyDataSetChanged();
+                adapter.setAllState(false);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void cancleSelect() {
-                mAdapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_NO);
-                mAdapter.setAllState(false);
-                mAdapter.notifyDataSetChanged();
+                adapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_NO);
+                adapter.setAllState(false);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void select() {
-                mAdapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_SHOW);
+                adapter.setStateType(SearchResultAdapter.TYPE_STATE_SELECT_SHOW);
 
-                mAdapter.setAllState(false);
-                mAdapter.notifyDataSetChanged();
+                adapter.setAllState(false);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -363,7 +269,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
                     List<ContactsModel> list = new ArrayList<>();
 
-                    List<SearchContactListModel.DataBean> dataBeansList = mAdapter.getList();
+                    List<SearchContactListModel.DataBean> dataBeansList = adapter.getList();
                     if (dataBeansList != null)
                         for (int i = 0; i < dataBeansList.size(); i++) {
                             ContactsModel cm = new ContactsModel();
@@ -389,14 +295,14 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                         }
 
                     if (list.size() == 0) {
-                        Toast.makeText(mContext, "未选中企业", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "未选中企业", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Intent intent = new Intent(mContext, ExportContactsActivity.class);
+                    Intent intent = new Intent(activity, ExportContactsActivity.class);
                     intent.putExtra("model", new Gson().toJson(list));
-                    mContext.startActivity(intent);
+                    activity.startActivity(intent);
                 } else {
-                    List<HomeDataItemModel> list = mAdapter.getShareholderList();
+                    List<HomeDataItemModel> list = adapter.getShareholderList();
                     if (list != null) {
                         showToast("选中" + list.size() + "个");
                     }
@@ -407,27 +313,24 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
             @Override
             public void searchAse() {
                 mSequence = "5";
-                doSearch();
+                refresh();
             }
 
             @Override
             public void searchDes() {
-                mSequence = "6";
-                doSearch();
+                refresh();
             }
         });
         if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType) || SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mCurrentType)) {
-            menuTitlelayout.setVisibility(View.GONE);
-            contactsTitleView.setVisibility(View.VISIBLE);
             searchResultCountView.setDaochuGone();
         }
 
-        mAdapter.setCallBack(new SearchResultAdapter.CallBack() {
+        adapter.setCallBack(new SearchResultAdapter.CallBack() {
             @Override
             public void cancleSelectAll() {
                 contactsTitleView.setCancleSelect();
                 searchResultCountView.setCancleSelect();
-                searchResultCountView.setSelectText(mAdapter.getSelectReportCount() + "");
+                searchResultCountView.setSelectText(adapter.getSelectReportCount() + "");
             }
 
             @Override
@@ -439,12 +342,108 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
             @Override
             public void select() {
-                searchResultCountView.setSelectText(mAdapter.getSelectReportCount() + "");
+                searchResultCountView.setSelectText(adapter.getSelectReportCount() + "");
             }
         });
-
-
     }
+
+    @Override
+    protected void startLoadData() {
+        final TimeOut timeOut = new TimeOut(activity);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userid", "");
+
+        params.put("t", timeOut.getParamTimeMollis() + "");
+        params.put("m", timeOut.MD5time() + "");
+
+        params.put("searchkey", mSearchKey);
+        if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT))
+            params.put("type", "6");
+        else if (isBlurrySearch(mCurrentType)) {
+            params.put("type", SearchHistoryItemModel.SEARCH_COMMON);
+        } else {
+            params.put("type", mCurrentType);
+        }
+        params.put("pageSize", pageSize + "");
+        params.put("pageIndex", pageIndex + "");
+        params.put("sequence", mSequence);
+        params.put("city", mCity);
+        params.put("province", mProvince);
+        params.put("registeredcapital", mCapital);
+        params.put("regtime", mTime);
+        params.put("industryid", mIndustry);
+        params.put("isHavWebSite", isHavWebSite);
+        SearchRoute.searchNet(activity, params, getActivity().getLocalClassName().toString(), new NetWorkCallBack() {
+            @Override
+            public void onSuccess(Object data) {
+                BaseModel baseModel = (BaseModel) data;
+                if (baseModel.getResult() == 0) {
+                    if (!isContacts()) {
+                        SearchListModel model = (SearchListModel) data;
+                        if (pageIndex == 1 && model.getCount() > 0)
+                            handleTopView(true);
+                        searchResultCountView.setData(String.valueOf(model.getCount()));
+                        searchResultCountView.reSet();
+                        completeLoadData(model.getBusinesslist(), model.getCount());
+                    } else {
+                        SearchContactListModel model = (SearchContactListModel) data;
+                        if (pageIndex == 1 && model.totalCount > 0)
+                            handleTopView(true);
+                        searchResultCountView.setData(String.valueOf(model.totalCount));
+                        contactsTitleView.reSet();
+                        completeLoadData(model.data, model.totalCount);
+                    }
+                } else {
+                    handleTopView(false);
+                    completeLoadDataError();
+                }
+            }
+
+            @Override
+            public void onFail(String error) {
+                handleTopView(false);
+                completeLoadDataError();
+            }
+        });
+    }
+
+    private void handleTopView(boolean show) {
+        if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType) || SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT.equals(mCurrentType)) {
+            if (show) {
+                mTimeLayout.setVisibility(View.VISIBLE);
+                contactsTitleView.setVisibility(View.VISIBLE);
+                searchResultCountView.setVisibility(View.VISIBLE);
+            } else {
+                mTimeLayout.setVisibility(View.GONE);
+                contactsTitleView.setVisibility(View.GONE);
+                searchResultCountView.setVisibility(View.GONE);
+
+            }
+        } else {
+            if (show) {
+                searchResultCountView.setVisibility(View.VISIBLE);
+                menuTitlelayout.setVisibility(View.VISIBLE);
+            } else {
+                searchResultCountView.setVisibility(View.GONE);
+                menuTitlelayout.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_search_result;
+    }
+
+    /**
+     * 是否为企业通讯录页面
+     *
+     * @return
+     */
+    private boolean isContacts() {
+        return SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType);
+    }
+
 
     private void setSelect(TextView textView, boolean select) {
         textView.setSelected(select);
@@ -454,285 +453,31 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
 
     /**
-     * 网络搜索
-     */
-    private void doSearch() {
-        pageIndex = 1;
-        final TimeOut timeOut = new TimeOut(mContext);
-        HashMap<String, String> params = new HashMap<>();
-        if (LoginSharePreference.getUserInfo(mContext) != null
-                && !TextUtils.isEmpty(LoginSharePreference.getUserInfo(mContext).getUserid())) {
-            params.put("userid", LoginSharePreference.getUserInfo(mContext).getUserid());
-        } else {
-            params.put("userid", "");
-        }
-
-        if (!TextUtils.isEmpty(mCity)) {
-            search_city = mCity;
-        } else if (!TextUtils.isEmpty(mProvince)) {
-            search_city = mProvince;
-        } else {
-            search_city = "全国";
-        }
-
-        params.put("t", timeOut.getParamTimeMollis() + "");
-        params.put("m", timeOut.MD5time() + "");
-
-        params.put("searchkey", mSearchKey);
-        if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT))
-            params.put("type", "6");
-        else
-            params.put("type", mCurrentType);
-        params.put("pageSize", pageSize + "");
-        params.put("pageIndex", pageIndex + "");
-        params.put("sequence", mSequence);
-        params.put("city", mCity);
-        params.put("province", mProvince);
-        params.put("registeredcapital", mCapital);
-        params.put("regtime", mTime);
-        params.put("industryid", mIndustry);
-        showLoading();
-        SearchRoute.searchNet(mContext, params, getActivity().getLocalClassName().toString(), new NetWorkCallBack() {
-            @Override
-            public void onSuccess(Object data) {
-                hideLoadDialog();
-                searchResultCountView.setVisibility(View.VISIBLE);
-                mResult.stopRefresh();
-                if (!isContacts()) {
-                    SearchListModel model = (SearchListModel) data;
-                    searchResultCountView.setData(String.valueOf(model.getCount()));
-                    if (model.getResult() == 0) {
-                        searchResultCountView.reSet();
-                        if (model.getBusinesslist() != null && model.getBusinesslist().size() > 0) {
-                            mAdapter.refresh(model.getBusinesslist());
-                            mResult.setPullLoadEnable(model.getCount() > pageSize);
-                            mResult.setVisibility(View.VISIBLE);
-                        } else {
-                            mAdapter.refresh(model.getBusinesslist());
-                            mResult.setPullLoadEnable(false);
-                            mResult.setVisibility(View.GONE);
-                        }
-                        if (mResult.isEnablePullLoad()) {
-                            if (isHasFoot) {
-                                isHasFoot = false;
-                            }
-                        } else {
-                            if (!isHasFoot) {
-                                isHasFoot = true;
-                            }
-                        }
-                    } else {
-                        if (model.getResult() != -1) {
-                            if (!TextUtils.isEmpty(model.getMsg())) {
-                                showToast(model.getMsg());
-                            } else {
-                                showToast("网络不给力，请稍后重试");
-                            }
-                        }
-
-                    }
-                } else {
-                    SearchContactListModel model = (SearchContactListModel) data;
-                    searchResultCountView.setData(String.valueOf(model.totalCount));
-                    if (model.getResult() == 0) {
-                        contactsTitleView.reSet();
-                        if (model.data != null && model.data.size() > 0) {
-                            mAdapter.refresh2(model.data);
-                            mResult.setPullLoadEnable(model.totalCount > pageSize);
-                            mResult.setVisibility(View.VISIBLE);
-                        } else {
-                            mAdapter.refresh2(model.data);
-                            mResult.setPullLoadEnable(false);
-                            mResult.setVisibility(View.GONE);
-                        }
-                        if (mResult.isEnablePullLoad()) {
-                            if (isHasFoot) {
-                                isHasFoot = false;
-                            }
-                        } else {
-                            if (!isHasFoot) {
-                                isHasFoot = true;
-                            }
-                        }
-                    } else {
-                        if (model.getResult() != -1) {
-                            if (!TextUtils.isEmpty(model.getMsg())) {
-                                showToast(model.getMsg());
-                            } else {
-                                showToast("网络不给力，请稍后重试");
-                            }
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFail(String error) {
-                mResult.stopRefresh();
-                showToast("网络不给力，请稍后重试");
-                hideLoadDialog();
-            }
-        });
-    }
-
-    /**
      * 根据筛选条件进行重新搜索
      *
      * @param params
      */
     public void doFilterSearch(HashMap<String, String> params) {
-        if (params.get("city") != null) {
-            mCity = params.get("city").toString();
-        }
-        if (params.get("province") != null) {
-            mProvince = params.get("province").toString();
-        }
-
-        if (params.get("registeredcapital") != null) {
-            mCapital = params.get("registeredcapital").toString();
-        }
-
-        if (params.get("isHavWebSite") != null) {
-            mCapital = params.get("isHavWebSite").toString();
-        }
-
-        if (params.get("regtime") != null) {
-            mTime = params.get("regtime").toString();
-        }
-
-        if (params.get("industryid") != null) {
-            mIndustry = params.get("industryid").toString();
-        }
-
-        doSearch();
+        mCity = getMapValue(params, "city");
+        mProvince = getMapValue(params, "province");
+        mCapital = getMapValue(params, "registeredcapital");
+        isHavWebSite = getMapValue(params, "isHavWebSite");
+        mTime = getMapValue(params, "regtime");
+        mIndustry = getMapValue(params, "industryid");
+        refresh();
     }
 
-    /**
-     * 加载更多网络请求
-     */
-    private void doLoadMore() {
-        TimeOut timeOut = new TimeOut(mContext);
-        HashMap<String, String> params = new HashMap<>();
-        if (LoginSharePreference.getUserInfo(mContext) != null
-                && !TextUtils.isEmpty(LoginSharePreference.getUserInfo(mContext).getUserid())) {
-            params.put("userid", LoginSharePreference.getUserInfo(mContext).getUserid());
-        } else {
-            params.put("userid", "");
-        }
-
-        params.put("t", timeOut.getParamTimeMollis() + "");
-        params.put("m", timeOut.MD5time() + "");
-
-        params.put("searchkey", mSearchKey);
-        if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT))
-            params.put("type", "6");
+    private String getMapValue(HashMap<String, String> params, String key) {
+        if (params.containsKey(key))
+            return params.get(key);
         else
-            params.put("type", mCurrentType);
-        params.put("pageSize", pageSize + "");//业务逻辑是每次上拉加载10条
-        params.put("pageIndex", pageIndex + 1 + "");
-        params.put("sequence", mSequence);
-        params.put("city", mCity);
-        params.put("province", mProvince);
-        params.put("registeredcapital", mCapital);
-        params.put("regtime", mTime);
-        params.put("industryid", mIndustry);
-
-        SearchRoute.searchNet(mContext, params, getActivity().getLocalClassName().toString(), new NetWorkCallBack() {
-            @Override
-            public void onSuccess(Object data) {
-                mResult.stopLoadMore();
-                if (!isContacts()) {
-                    if (data instanceof SearchListModel) {
-                        SearchListModel model = (SearchListModel) data;
-                        if (model.getResult() == 0) {
-                            pageIndex = pageIndex + 1;
-                            mResult.setPullLoadEnable(model.getCount() > (pageSize * pageIndex));
-                            if (mResult.isEnablePullLoad()) {
-                                if (isHasFoot) {
-                                    isHasFoot = false;
-                                }
-                            } else {
-                                if (!isHasFoot) {
-                                    isHasFoot = true;
-                                }
-                            }
-                            if (model.getBusinesslist() != null && model.getBusinesslist().size() > 0) {
-                                mAdapter.addData(model.getBusinesslist());
-                                searchResultCountView.setSelectText(mAdapter.getSelectReportCount() + "");
-                            } else {
-
-                            }
-                        } else {
-                            if (model.getResult() != -1) {
-                                if (!TextUtils.isEmpty(model.getMsg())) {
-                                    showToast(model.getMsg());
-                                } else {
-                                    showToast("网络不给力，请稍后重试");
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if (data instanceof SearchContactListModel) {
-                        SearchContactListModel model = (SearchContactListModel) data;
-                        if (model.getResult() == 0) {
-                            pageIndex = pageIndex + 1;
-                            mResult.setPullLoadEnable(model.totalCount > (pageSize * pageIndex));
-                            if (mResult.isEnablePullLoad()) {
-                                if (isHasFoot) {
-                                    isHasFoot = false;
-                                }
-                            } else {
-                                if (!isHasFoot) {
-                                    isHasFoot = true;
-                                }
-                            }
-                            if (model.data != null && model.data.size() > 0) {
-                                mAdapter.addData2(model.data);
-                            } else {
-
-                            }
-
-//                            saveCrashInfo2File();
-                        } else {
-                            if (model.getResult() != -1) {
-                                if (!TextUtils.isEmpty(model.getMsg())) {
-                                    showToast(model.getMsg());
-                                } else {
-                                    showToast("网络不给力，请稍后重试");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFail(String error) {
-                mResult.stopLoadMore();
-                showToast("网络不给力，请稍后重试");
-
-            }
-        });
-
-    }
-
-    @Override
-    public void onRefresh() {
-
-        doSearch();
-    }
-
-    @Override
-    public void onLoadMore() {
-        doLoadMore();
+            return "";
     }
 
     private void reprewReport(final HomeDataItemModel homeDataItemModel) {
         UserInfoModel userInfo = InquireApplication.getUserInfo();
         if (userInfo == null) {
-            goActivity(LoginActivity.class);
+            startActivity(LoginActivity.class);
             return;
         }
 
@@ -741,7 +486,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
         final String mCompanyId = homeDataItemModel.getCompanyid();
         final String mCompanyName = homeDataItemModel.getCompanyname();
 
-        TimeOut timeOut = new TimeOut(mContext);
+        TimeOut timeOut = new TimeOut(activity);
         HashMap<String, String> params = new HashMap<>();
         params.put("entId", mCompanyId);
         params.put("entName", mCompanyName == null ? "" : mCompanyName);
@@ -753,7 +498,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
         }
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
-        NetWorkCompanyDetails.getReportUrl(mContext, params, ((Activity) mContext).getLocalClassName(), new NetWorkCallBack() {
+        NetWorkCompanyDetails.getReportUrl(activity, params, ((Activity) activity).getLocalClassName(), new NetWorkCallBack() {
             @Override
             public void onSuccess(Object data) {
                 hideLoadDialog();
@@ -771,16 +516,16 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                         }
 
 
-                        WebActivity.startCompanyReportActivity(mContext, model.getData().getReportUrl(), mCompanyName, cId, "1".equals(model.getData().getVipType()));
+                        WebActivity.startCompanyReportActivity(activity, model.getData().getReportUrl(), mCompanyName, cId, "1".equals(model.getData().getVipType()));
                     }
                 } else {
-                    Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, model.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFail(String error) {
-                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, error, Toast.LENGTH_SHORT).show();
                 hideLoadDialog();
             }
         });
@@ -793,18 +538,18 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
     private void sendReport() {
 
 
-        if (mContext == null || !isAdded()) {
+        if (activity == null || !isAdded()) {
             return;
         }
         UserInfoModel model = InquireApplication.getUserInfo();
 
         UserModel user = AppUtils.getUser();
         if (user == null) {
-            goActivity(com.gxc.ui.activity.LoginActivity.class);
+            startActivity(com.gxc.ui.activity.LoginActivity.class);
             return;
         }
 
-        final List<HomeDataItemModel> list = mAdapter.getSelectReportList();
+        final List<HomeDataItemModel> list = adapter.getSelectReportList();
 
         if (list == null || list.size() == 0) {
             ToastUtils.show("您未选中企业");
@@ -813,7 +558,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
 
         showLoading();
-        TimeOut timeOut = new TimeOut(mContext);
+        TimeOut timeOut = new TimeOut(activity);
         HashMap<String, String> params = new HashMap<String, String>();
         params = new HashMap<>();
 
@@ -836,7 +581,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
         }
         params.put("t", timeOut.getParamTimeMollis() + "");
         params.put("m", timeOut.MD5time() + "");
-        NetWorkCompanyDetails.getReportUrl(mContext, params, ((Activity) mContext).getLocalClassName(), new NetWorkCallBack() {
+        NetWorkCompanyDetails.getReportUrl(activity, params, ((Activity) activity).getLocalClassName(), new NetWorkCallBack() {
             @Override
             public void onSuccess(Object data) {
                 hideLoadDialog();
@@ -858,7 +603,7 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
                                 }
                                 if (sb.toString().endsWith(","))
                                     sb.deleteCharAt(sb.length() - 1);
-                                new EmailSendDialog(((BaseInquireActivity) mContext), "", sb.toString(), EmailSendDialog.TYPE_REPORT_MORE).show();
+//                                new EmailSendDialog(activity), "", sb.toString(), EmailSendDialog.TYPE_REPORT_MORE).show();
                             }
                         } else {
                             WebActivity.startVipPage(getActivity());
@@ -866,13 +611,13 @@ public class SearchResultFragment extends BaseInquireFragment implements XListVi
 
                     }
                 } else {
-                    Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, model.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFail(String error) {
-                Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, error, Toast.LENGTH_SHORT).show();
                 hideLoadDialog();
             }
         });

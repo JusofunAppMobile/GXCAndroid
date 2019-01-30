@@ -76,15 +76,55 @@
                         android:elevation="7dp"
                         android:padding="20dp">
 
-                        <TextView
-                            android:id="@+id/text_company"
-                            android:layout_width="0dp"
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#333"
-                            android:textSize="15sp"
+                            android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/text_company"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    android:layout_weight="1"
+                                    android:text="九次方大数据科技有限公司"
+                                    android:textColor="#333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tvStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginLeft="16dp"
+                                    android:background="@drawable/shape_risk_bg"
+                                    android:padding="2dp"
+                                    android:text="审核中"
+                                    android:textColor="@color/common_red"
+                                    android:textSize="10sp"
+                                    app:layout_constraintBottom_toBottomOf="@+id/ivCompanyLogo"
+                                    app:layout_constraintStart_toEndOf="@+id/ivCompanyLogo" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1px"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/textView7"
@@ -128,14 +168,6 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/textView9" />
 
-
-                        <ImageView
-                            android:id="@+id/img_shenhezhong"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/mine_icon_shenhe" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -281,10 +313,10 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_height="162dp"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
-                    android:layout_marginBottom="32dp"
-                    android:layout_height="162dp">
+                    android:layout_marginBottom="32dp">
 
                     <LinearLayout
                         android:id="@+id/vChartBg"
@@ -339,8 +371,7 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                      />
+                        android:layout_height="match_parent" />
 
                 </RelativeLayout>
             </LinearLayout>

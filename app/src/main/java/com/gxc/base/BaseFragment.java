@@ -1,5 +1,6 @@
 package com.gxc.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +27,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected ViewGroup rootView;
 
-    protected BaseActivity activity;
+    protected Activity activity;
     private LoadingDialog loadingDialog;
 
     protected abstract int getLayoutId();
@@ -36,7 +37,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (BaseActivity) getActivity();
+        activity = getActivity();
     }
 
     @Override
@@ -66,7 +67,7 @@ public abstract class BaseFragment extends Fragment {
      * 接收event 重写此方法
      */
     public void onEvent(IEvent event) {
-        LogUtils.e("onEvent++++>>"+event.getClass().getSimpleName()+"<<" + getClass().getSimpleName());
+        LogUtils.e("onEvent++++>>" + event.getClass().getSimpleName() + "<<" + getClass().getSimpleName());
     }
 
     /**

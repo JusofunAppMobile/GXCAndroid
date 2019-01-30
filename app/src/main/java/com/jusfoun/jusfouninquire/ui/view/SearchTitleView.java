@@ -116,6 +116,10 @@ public class SearchTitleView extends RelativeLayout {
         });
     }
 
+    public void setOnClearListener(OnClickListener listener) {
+        mClear.setOnClickListener(listener);
+    }
+
     public void hideRightView() {
         mRight.setVisibility(View.INVISIBLE);
         mRight.getLayoutParams().width = mRight.getWidth() / 2;

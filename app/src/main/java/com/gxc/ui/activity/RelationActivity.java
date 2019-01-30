@@ -2,7 +2,6 @@ package com.gxc.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,11 +17,11 @@ import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
 import com.gxc.utils.ToastUtils;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 
@@ -76,7 +75,7 @@ public class RelationActivity extends BaseActivity {
         if (preAgentWeb == null) {
             preAgentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webLayout, new LinearLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator(Color.TRANSPARENT)
+                    .useDefaultIndicator()
                     .createAgentWeb()
                     .ready();
         }

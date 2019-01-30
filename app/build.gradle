@@ -37,8 +37,8 @@ android {
             resValue "bool", "debug", "false"
             resValue "string", "app_name", "国信"
             resValue "string", "req_url", "https://api.jusfoun.com/api_qixinbao"
-            resValue "string", "http_host", "http://39.106.181.46:8088"
-            resValue "string", "http_host_html", "http://39.106.181.46:9090"
+            resValue "string", "http_host", "http://guoxin.sic-credit.com:8088"
+            resValue "string", "http_host_html", "http://guoxin.sic-credit.com:9090"
             manifestPlaceholders = [UMENG_APPKEY: "56494900e0f55a30ee00388d"]
         }
         debug {

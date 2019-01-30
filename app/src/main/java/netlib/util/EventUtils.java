@@ -3,11 +3,6 @@ package netlib.util;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.baidu.mobstat.StatService;
-import com.umeng.analytics.MobclickAgent;
-
-import java.lang.reflect.Field;
-
 /**
  * 事件统计工具类
  *
@@ -206,8 +201,8 @@ public class EventUtils {
      * @param id 格式为id#标签
      */
     public static void event(Context context, String id) {
-        MobclickAgent.onEvent(context, id.split("#")[0]);
-        StatService.onEvent(context, id.split("#")[0], id.split("#")[1]);
+//        MobclickAgent.onEvent(context, id.split("#")[0]);
+//        StatService.onEvent(context, id.split("#")[0], id.split("#")[1]);
     }
 
     /**

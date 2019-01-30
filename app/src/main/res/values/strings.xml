@@ -152,7 +152,7 @@
 
     <string name="search_cancel">取消</string>
 
-    <string name="search_result_none">没有相关数据</string>
+    <string name="search_result_none">没有查找到相关信息</string>
     <string name="search_result_back">返回</string>
     <string name="search_result_filter">筛选</string>
     

@@ -202,8 +202,8 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
         pager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % homeModel.adImages.size());
         pager.setInterval(5000);
         indicator.setViewPager(pager);
-        indicator.setFillColor(Color.parseColor("#A3A3A3"));
-        indicator.setPageColor(Color.parseColor("#464646"));
+        indicator.setFillColor(getResources().getColor(R.color.common_red));
+        indicator.setPageColor(Color.parseColor("#E8E8E8"));
         indicator.setSnap(true);
         indicator.setRadius(8);
         indicator.setStrokeWidth(0);
@@ -288,6 +288,7 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
         super.onResume();
         if (homeModel != null)
             pager.startAutoScroll();
+        AppUtils.checkUserStatus(null);
     }
 
     @Override

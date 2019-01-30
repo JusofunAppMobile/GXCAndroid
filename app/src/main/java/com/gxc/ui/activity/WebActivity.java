@@ -3,13 +3,13 @@ package com.gxc.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.Group;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -27,13 +27,13 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.PictureUtils;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.SearchTitleView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -59,8 +59,6 @@ public class WebActivity extends BaseActivity {
     Group relationGroup;
     @BindView(R.id.ivBack2)
     View ivBack2;
-    @BindView(R.id.vStatus)
-    View vStatus;
     @BindView(R.id.errorView)
     NetWorkErrorView emptyView;
     @BindView(R.id.searchTitleView)
@@ -90,11 +88,7 @@ public class WebActivity extends BaseActivity {
         // 在android5.0及以上版本使用webView进行截长图时,默认是截取可是区域内的内容.因此需要在支撑窗体内容之前加上
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             WebView.enableSlowWholeDocumentDraw();
-        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
-        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
-        isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
-        isCredit = getIntent().getBooleanExtra("isCredit", false);
-
+        initIntentExtra();
         if (!isHttpGetUrl) {
             if (!isFullScreen)
                 setTheme(R.style.MyTheme_Layout_Root);
@@ -103,10 +97,24 @@ public class WebActivity extends BaseActivity {
         } else
             setTheme(R.style.MyTheme_Layout_Root2);
         super.onCreate(savedInstanceState);
+        if (isSetStatusBar() && isFullScreen)
+            setStatusBarRed();
+    }
+
+    private void initIntentExtra() {
+        isRelation = getIntent().getBooleanExtra("isRelation", false);
+        isHttpGetUrl = getIntent().getBooleanExtra("isHttpGetUrl", false);
+        isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
+        isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
+        isCredit = getIntent().getBooleanExtra("isCredit", false);
     }
 
     @Override
     public void initActions() {
+
+        if (!isRelation) // 查关系 开启硬件加速会造成截屏时出现空白
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+
         ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
         titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
         if (isUserRedSearchTitle) {
@@ -114,6 +122,12 @@ public class WebActivity extends BaseActivity {
             searchTitleView.setEditText(getIntent().getStringExtra("name_one"));
             searchTitleView.hideRightView();
             searchTitleView.setEditParentClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            searchTitleView.setOnClearListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -128,7 +142,7 @@ public class WebActivity extends BaseActivity {
         LogUtils.e("URL=" + url);
         LogUtils.e("TITLE=" + title);
 
-        isRelation = getIntent().getBooleanExtra("isRelation", false);
+
         relationGroup.setVisibility(isRelation ? View.VISIBLE : View.GONE);
 
         if (isRelation) { // 查关系
@@ -149,7 +163,7 @@ public class WebActivity extends BaseActivity {
 
         preAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(layout, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator(isRelation ? Color.TRANSPARENT : -1)
+                .useDefaultIndicator()
                 .setWebViewClient(mWebViewClient)
                 .setMainFrameErrorView(errorView)
                 .interceptUnkownUrl()
@@ -160,7 +174,6 @@ public class WebActivity extends BaseActivity {
             getUrl();
         else
             mAgentWeb = preAgentWeb.go(url);
-
     }
 
 
@@ -187,13 +200,9 @@ public class WebActivity extends BaseActivity {
                     WebModel webModel = model.dataToObject(WebModel.class);
                     if (webModel != null) {
                         isFullScreen = (webModel.webType == 1);
-                        if (!isFullScreen) {
-                            if (!isUserRedSearchTitle)
+                        if ((isFullScreen && !isRelation) || !isFullScreen) {
+                            if (!isFullScreen && !isUserRedSearchTitle)
                                 setStatusBarFontDark(true);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                vStatus.setVisibility(View.VISIBLE);
-                                vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
-                            }
                         }
                         ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
                         titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
@@ -312,7 +321,6 @@ public class WebActivity extends BaseActivity {
      * 信用报告-样本预览
      *
      * @param context
-     * @param title
      * @param url
      * @return
      */
@@ -409,8 +417,8 @@ public class WebActivity extends BaseActivity {
     public boolean isSetStatusBar() {
         if (isUserRedSearchTitle)
             return true;
-        if (isFullScreen)
-            return false;
+//        if (isFullScreen)
+//            return false;
         return super.isSetStatusBar();
     }
 

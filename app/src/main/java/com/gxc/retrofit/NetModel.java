@@ -1,7 +1,5 @@
 package com.gxc.retrofit;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.jusfoun.jusfouninquire.net.model.BaseModel;
 
@@ -13,6 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import static com.gxc.constants.Constants.REJECT_VISIT_CODE;
 
 /**
  * model基类
@@ -38,6 +38,14 @@ public class NetModel extends BaseModel implements Serializable {
      */
     public boolean success() {
         return result == 0;
+    }
+
+    /**
+     * 用户被剔除状态码
+     * @return
+     */
+    public boolean isRejectVisite(){
+        return result == REJECT_VISIT_CODE;
     }
 
     public <T> T dataToObject(String key, Class<T> clazz) {

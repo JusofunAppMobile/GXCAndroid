@@ -1,10 +1,8 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,17 +17,13 @@ import com.gxc.retrofit.RxManager;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.ToastUtils;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.database.DBUtil;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
-import com.jusfoun.jusfouninquire.net.model.BaseModel;
 import com.jusfoun.jusfouninquire.net.model.HotWordItemModel;
 import com.jusfoun.jusfouninquire.net.model.RecruitmentModel;
-import com.jusfoun.jusfouninquire.net.model.SearchContactListModel;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.net.model.SearchHotModel;
-import com.jusfoun.jusfouninquire.net.model.SearchListModel;
 import com.jusfoun.jusfouninquire.net.model.TaxationDataModel;
 import com.jusfoun.jusfouninquire.net.route.GetHotSearchRoute;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
@@ -43,6 +37,7 @@ import com.jusfoun.jusfouninquire.ui.adapter.SearchHotWordsAdapter;
 import com.jusfoun.jusfouninquire.ui.util.KeyBoardUtil;
 import com.jusfoun.jusfouninquire.ui.view.CommonSearchTitleView;
 import com.jusfoun.jusfouninquire.ui.view.SearchGuideView;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -334,95 +329,12 @@ public class TypeSearchActivity extends BaseInquireActivity {
     /**
      * 搜索网络请求
      */
-    private void searchNet(final String key) {
-        TimeOut timeOut = new TimeOut(mContext);
-        HashMap<String, String> params = new HashMap<>();
-        if (LoginSharePreference.getUserInfo(mContext) != null
-                && !TextUtils.isEmpty(LoginSharePreference.getUserInfo(mContext).getUserid())) {
-            params.put("userid", LoginSharePreference.getUserInfo(mContext).getUserid());
-        } else {
-            params.put("userid", "");
-        }
-        params.put("t", timeOut.getParamTimeMollis() + "");
-        params.put("m", timeOut.MD5time() + "");
-
-        params.put("searchkey", key);
-        if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT))
-            params.put("type", "6");
-        else if (isBlurrySearch(mCurrentType)) {
-            params.put("type", SearchHistoryItemModel.SEARCH_COMMON);
-        } else {
-            params.put("type", mCurrentType);
-        }
-        params.put("pageSize", "20");
-        params.put("pageIndex", "1");
-        if (SearchHistoryItemModel.SEARCH_CONTACT.equals(params.get("type"))) {
-            params.put("sequence", "6");// 企业通讯录，默认注册时间降序
-        } else {
-            params.put("sequence", "2");
-        }
-
-        params.put("city", "");
-        params.put("province", "");
-        params.put("registeredcapital", "");
-        params.put("regtime", "");
-        params.put("industryid", "");
-        showLoading();
-        EventUtils.event(mContext, EventUtils.SEARCH29);
-        SearchRoute.searchNet(this, params, this.getLocalClassName().toString(), new NetWorkCallBack() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onSuccess(Object data) {
-                hideLoadDialog();
-                BaseModel bm = (BaseModel) data;
-
-                if (bm.getResult() == 0) {
-                    if (SearchHistoryItemModel.SEARCH_CONTACT.equals(mCurrentType)) {
-                        SearchContactListModel model = (SearchContactListModel) data;
-                        if (model.data != null && !model.data.isEmpty()) {
-                            Intent intent = new Intent(mContext, SearchResultActivity.class);
-                            intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
-                            intent.putExtra(SearchResultActivity.SEARCH_RESULT, model);
-                            intent.putExtra(SearchResultActivity.SEARCH_KEY, key);
-                            intent.putExtra(SearchResultActivity.SEARCH_TYPE, mCurrentType);
-                            startActivity(intent);
-                        } else {
-                            EventUtils.event(mContext, EventUtils.SEARCH30);
-                            showToast(getString(R.string.search_result_none));
-                        }
-                    } else {
-                        SearchListModel model = (SearchListModel) data;
-                        if (model.getBusinesslist() != null) {
-                            Intent intent = new Intent(mContext, SearchResultActivity.class);
-                            intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
-                            intent.putExtra(SearchResultActivity.SEARCH_RESULT, model);
-                            intent.putExtra(SearchResultActivity.SEARCH_KEY, key);
-                            intent.putExtra(SearchResultActivity.SEARCH_TYPE, mCurrentType);
-                            startActivity(intent);
-                        } else {
-                            EventUtils.event(mContext, EventUtils.SEARCH30);
-                            showToast(getString(R.string.search_result_none));
-                        }
-
-                    }
-                } else {
-                    if (bm.getResult() != -1) {
-                        if (!TextUtils.isEmpty(bm.getMsg())) {
-                            showToast(bm.getMsg());
-                        } else {
-                            showToast("网络不给力，请稍后重试");
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFail(String error) {
-                hideLoadDialog();
-                showToast("网络不给力，请稍后重试");
-            }
-        });
+    private void starNext(final String key) {
+        Intent intent = new Intent(mContext, SearchResultActivity.class);
+        intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
+        intent.putExtra(SearchResultActivity.SEARCH_KEY, key);
+        intent.putExtra(SearchResultActivity.SEARCH_TYPE, mCurrentType);
+        startActivity(intent);
     }
 
     /**
@@ -551,7 +463,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     startActivity(WebActivity.getIntent(this, getIntent().getStringExtra("menuName"), AppUtils.parseToGxMenuType(mCurrentType), doSearchEvent.getSearchKey()));
                     return;
                 } else {
-                    searchNet(doSearchEvent.getSearchKey());
+                    starNext(doSearchEvent.getSearchKey());
                 }
                 insertSearchKey(doSearchEvent.getSearchKey());
             }

@@ -69,8 +69,8 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
         indicator = headView.findViewById(R.id.indicator);
 
         pager.setInterval(5000);
-        indicator.setFillColor(Color.parseColor("#A3A3A3"));
-        indicator.setPageColor(Color.parseColor("#464646"));
+        indicator.setFillColor(getResources().getColor(R.color.common_red));
+        indicator.setPageColor(Color.parseColor("#E8E8E8"));
         indicator.setSnap(true);
         indicator.setRadius(8);
         indicator.setStrokeWidth(0);
@@ -116,7 +116,7 @@ public class MoreNewsListActivity extends BaseListActivity implements ViewPager.
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         super.onItemClick(adapter, view, position);
-        startActivity(WebActivity.getIntent(activity, "行业资讯", ((HomeNewsModel)adapter.getItem(position)).newsURL));
+        startActivity(WebActivity.getIntent(activity, "行业资讯", ((HomeNewsModel) adapter.getItem(position)).newsURL));
     }
 
     @Override

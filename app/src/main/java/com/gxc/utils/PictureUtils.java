@@ -26,11 +26,11 @@ public class PictureUtils {
 
     /**
      * 截长图
+     *
      * @param activity
      * @param view
      */
     public static void saveImage(final Activity activity, final View view) {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -55,9 +55,14 @@ public class PictureUtils {
                     });
                     e.printStackTrace();
                 }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                    }
+                });
             }
         }).start();
-
     }
 
     private static Bitmap getViewBitmap(final View view) {
@@ -121,6 +126,4 @@ public class PictureUtils {
             }
         }
     }
-
-
 }

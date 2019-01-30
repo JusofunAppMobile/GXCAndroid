@@ -55,7 +55,7 @@ public class MonitorDetailActivity extends BaseListActivity {
 
     @Override
     protected BaseQuickAdapter getAdapter() {
-        return new MonitorDetailAdapter(this);
+        return new MonitorDetailAdapter();
     }
 
     public static Intent getIntent(Context context, String companyId, String companyName) {
@@ -126,8 +126,8 @@ public class MonitorDetailActivity extends BaseListActivity {
         StringBuffer sb = new StringBuffer();
         if (menuAdpater.getData() != null && !menuAdpater.getData().isEmpty()) {
             for (MonitorMenuModel model : menuAdpater.getData()) {
-                model.isSelect = false;
-                sb.append(model.monitor_condition_id + ",");
+                if (model.isSelect)
+                    sb.append(model.monitor_condition_id + ",");
             }
             if (sb.toString().endsWith(","))
                 sb.deleteCharAt(sb.toString().length() - 1);
@@ -159,7 +159,7 @@ public class MonitorDetailActivity extends BaseListActivity {
                 if (list != null && !list.isEmpty()) {
                     List<MonitorDetailModel> mList = new ArrayList<>();
                     for (MonotorSouDetailModel sModel : list) {
-                        mList.add(new MonitorDetailModel(sModel.lcon, sModel.total));
+                        mList.add(new MonitorDetailModel(sModel.lcon, sModel.total, sModel.monitor_name));
                         if (sModel.data != null && !sModel.data.isEmpty()) {
                             for (MonotorSouDetailModel.DataBean cModel : sModel.data) {
                                 mList.add(new MonitorDetailModel(cModel.contont, cModel.time));

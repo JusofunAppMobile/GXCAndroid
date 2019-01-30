@@ -127,6 +127,10 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
         completeLoadData(list, false, totalCount);
     }
 
+    public void completeLoadData(List list) {
+        completeLoadData(list, false, 0);
+    }
+
     /**
      * 网络错误时调用
      */
@@ -136,7 +140,7 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
     }
 
     protected String getEmptyTipText() {
-        return "没有相关数据";
+        return "没有查找到相关信息";
     }
 
     protected String getHttpErrorTip() {
@@ -153,14 +157,12 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
         adapter.setNewData(new ArrayList());
         if (vEmpty != null) {
             vEmpty.setVisibility(View.VISIBLE);
-            if (tvEmpty != null) {
-                tvEmpty.setText(text);
-            }
+            tvError.setText(text);
             if (isError) {
-                tvError.setVisibility(View.VISIBLE);
+                tvEmpty.setVisibility(View.VISIBLE);
                 tvReload.setVisibility(View.VISIBLE);
             } else {
-                tvError.setVisibility(View.GONE);
+                tvEmpty.setVisibility(View.GONE);
                 tvReload.setVisibility(View.GONE);
             }
         }
@@ -224,6 +226,10 @@ public abstract class BaseListFragment extends BaseFragment implements SwipeRefr
         LogUtils.e(">>>正在刷新, pageIndex=" + pageIndex);
         adapter.setEnableLoadMore(false);
         delayLoadData();
+    }
+
+    protected void stopLoadingData() {
+        isLoadingData = false;
     }
 
 
