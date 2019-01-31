@@ -105,6 +105,11 @@ public class CompanyMenuAdapter extends RecyclerView.Adapter<CompanyMenuAdapter.
 
             view.setEnabled("1".equals(model.getHasData()));
 
+            float alpha = view.isEnabled() ? 1 : 0.4f;
+            countText.setAlpha(alpha);
+            txt.setAlpha(alpha);
+            img.setAlpha(alpha);
+
             img.setImageURI(Uri.parse(model.getIcon()));
             if (!TextUtils.isEmpty(model.getCount()) && Integer.valueOf(model.getCount()) <= 99) {
                 countText.setText(model.getCount());
