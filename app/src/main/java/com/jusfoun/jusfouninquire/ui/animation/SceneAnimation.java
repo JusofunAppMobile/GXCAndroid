@@ -1,5 +1,6 @@
 package com.jusfoun.jusfouninquire.ui.animation;
 
+import android.os.Handler;
 import android.widget.ImageView;
 
 import com.siccredit.guoxin.R;
@@ -55,8 +56,16 @@ public class SceneAnimation {
         playConstant(1);
     }
 
+    Handler handler = new Handler();
+
     public void stop() {
-        isStop = true;
+        // 延迟处理，避免连续点击
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isStop = true;
+            }
+        }, 200);
     }
 
     // 判断该当前的状态

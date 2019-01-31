@@ -106,8 +106,8 @@ public class NetWorkErrorView extends RelativeLayout {
     }
 
     public void success() {
-        sceneAnimation.stop();
         setVisibility(GONE);
+        sceneAnimation.stop();
     }
 
 
