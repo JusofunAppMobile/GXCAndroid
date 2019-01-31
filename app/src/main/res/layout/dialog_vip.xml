@@ -72,21 +72,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvInfor" />
 
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="获得专业政府认证企业信用分"
-            android:textColor="#333"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView34" />
-
 
         <Button
             android:id="@+id/bt"
@@ -102,8 +87,9 @@
             android:text="立即开通"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.539"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView35" />
+            app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
         <ImageView
             android:id="@+id/imageView16"
@@ -127,16 +113,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView34" />
 
-        <ImageView
-            android:id="@+id/imageView18"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:background="@drawable/shape_point"
-            app:layout_constraintBottom_toBottomOf="@+id/textView35"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView35" />
     </android.support.constraint.ConstraintLayout>
 
     <ImageView

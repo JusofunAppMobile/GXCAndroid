@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jusfoun.bigdata.NearMapActivity;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
-import com.jusfoun.jusfouninquire.ui.activity.SearchDishonestActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
+import com.siccredit.guoxin.R;
 
 import netlib.util.EventUtils;
 
@@ -144,8 +142,8 @@ public class HomeIconAdapter extends RecyclerView.Adapter {
                             break;
                         case 3:
                             EventUtils.event(mContext, EventUtils.HOME06);
-                            Intent intentDishonest = new Intent(mContext, SearchDishonestActivity.class);
-                            mContext.startActivity(intentDishonest);
+//                            Intent intentDishonest = new Intent(mContext, SearchDishonestActivity.class);
+//                            mContext.startActivity(intentDishonest);
                             break;
                         case 4:
                             intent.putExtra(TypeSearchActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_TAXID);

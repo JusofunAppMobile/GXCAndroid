@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.FilterModel;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
-import com.jusfoun.jusfouninquire.service.event.GoHomeEvent;
-import com.jusfoun.jusfouninquire.service.event.GoTypeSearchEvent;
-import com.jusfoun.jusfouninquire.service.event.ReSearchEvent;
 import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.fragment.SearchResultFragment;
 import com.jusfoun.jusfouninquire.ui.view.FilterDrawerView;
@@ -20,7 +18,6 @@ import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 
-import de.greenrobot.event.EventBus;
 import netlib.util.EventUtils;
 
 /**
@@ -106,16 +103,9 @@ public class SearchResultActivity extends BaseInquireActivity {
             mTitle.setEditText(mSearchKey);
         }
 
-
-        mTitle.setTitleListener(new SearchTitleView.TitleListener() {
+        mTitle.setOnFilterClickListener(new View.OnClickListener() {
             @Override
-            public void onLeftClick() {
-                EventBus.getDefault().post(new GoHomeEvent());
-                finish();
-            }
-
-            @Override
-            public void onRightClick() {
+            public void onClick(View v) {
                 EventUtils.event(mContext, EventUtils.SEARCH47);
                 if (mDrawerLayout.isDrawerOpen(mFilterView)) {
                     mDrawerLayout.closeDrawer(mFilterView);
@@ -123,21 +113,8 @@ public class SearchResultActivity extends BaseInquireActivity {
                     mDrawerLayout.openDrawer(mFilterView);
                 }
             }
-
-            @Override
-            public void onTypeSearch(String key) {
-                GoTypeSearchEvent event = new GoTypeSearchEvent();
-                event.setKey(mSearchKey);
-                EventBus.getDefault().post(event);
-                finish();
-            }
-
-            @Override
-            public void onClear() {
-                EventBus.getDefault().post(new ReSearchEvent());
-                finish();
-            }
         });
+
 //        mFilterView.addHeader();
         mFilterView.setParams(params);
         mFilterView.setListener(new FilterDrawerView.SearchSureListener() {

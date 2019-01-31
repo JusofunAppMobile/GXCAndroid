@@ -123,18 +123,6 @@ public class WebActivity extends BaseActivity {
             searchTitleView.setVisibility(View.VISIBLE);
             searchTitleView.setEditText(getIntent().getStringExtra("name_one"));
             searchTitleView.hideRightView();
-            searchTitleView.setEditParentClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            searchTitleView.setOnClearListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
             setStatusBarEnable(getResources().getColor(R.color.common_red));
             setStatusBarFontDark(false);
         }

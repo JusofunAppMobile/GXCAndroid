@@ -15,7 +15,6 @@ import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.activity.WebActivity;
 import com.gxc.ui.dialog.VIPDialog;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
-import com.jusfoun.jusfouninquire.ui.activity.SearchDishonestActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 
 /**
@@ -77,8 +76,6 @@ public class GoActivityUtil {
             mContext.startActivity(new Intent(mContext, VisitorListActivity.class));
         } else if (model.menuType == 14) { // 14自主填报
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
-        } else if (model.menuType == 3) { // 失信查询
-            mContext.startActivity(new Intent(mContext, SearchDishonestActivity.class));
         } else {
             mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType, model.menuName));
         }

@@ -61,10 +61,11 @@ public class CompanyDetailHeaderView extends LinearLayout {
 
     private TextView mCompanyState, xinyongfenText;
     private LinearLayout locationWebLayout;
-    private ImageView  refreshImg;
+    private ImageView refreshImg;
     private RefreshAnimUtil refreshAnimUtil;
     private View vExport;
     private View moreText;
+    private View vScore;
     private CorporateInfoModel.CompanyInfo companyInfo;
 
     public CompanyDetailHeaderView(Context context) {
@@ -96,6 +97,7 @@ public class CompanyDetailHeaderView extends LinearLayout {
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.layout_company_header_view, this, true);
         company_name = (TextView) findViewById(R.id.company_name);
+        vScore = findViewById(R.id.vScore);
         tvTaxid = (TextView) findViewById(R.id.tvTaxid);
         company_nature = (TextView) findViewById(R.id.company_nature);
         tvScore = (TextView) findViewById(R.id.tvScore);
@@ -119,7 +121,7 @@ public class CompanyDetailHeaderView extends LinearLayout {
         refreshImg = (ImageView) findViewById(R.id.img_update);
         refreshLayout = (RelativeLayout) findViewById(R.id.layout_refresh);
         xinyongfenText = (TextView) findViewById(R.id.text_fen);
-        moreText =  findViewById(R.id.text_more);
+        moreText = findViewById(R.id.text_more);
         refreshAnimUtil = new RefreshAnimUtil(refreshImg);
     }
 
@@ -367,6 +369,8 @@ public class CompanyDetailHeaderView extends LinearLayout {
 
     public void setGxcData(CorporateInfoModel.CompanyInfo companyInfo) {
         this.companyInfo = companyInfo;
+        if(TextUtils.isEmpty(companyInfo.creditScore))
+            vScore.setVisibility(View.GONE);
         tvScore.setText("信用分：");
         xinyongfenText.setText(TextUtils.isEmpty(companyInfo.creditScore) ? "暂无" : companyInfo.creditScore);
     }

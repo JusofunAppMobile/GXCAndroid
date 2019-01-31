@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.gxc.event.CompanySelectEvent;
+import com.gxc.model.UserModel;
 import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
@@ -138,6 +139,10 @@ public class TypeSearchActivity extends BaseInquireActivity {
     }
 
     private void insertSearchKey(String key) {
+        UserModel user = AppUtils.getUser();
+        if (user == null) // 未登录用户不记录
+            return;
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("menuType", getMenuType());
         map.put("keyWord", key);
@@ -208,6 +213,8 @@ public class TypeSearchActivity extends BaseInquireActivity {
                     mTitle.setEditHint(getString(R.string.type_search_contact));
                 } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_SHAREHOLDER_RIFT)) {
                     mTitle.setEditHint(getString(R.string.type_search_contact));
+                } else if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_DISHONEST)) {
+                    mTitle.setEditHint(getString(R.string.type_search_dishonest));
                 }
             }
         }
@@ -330,7 +337,11 @@ public class TypeSearchActivity extends BaseInquireActivity {
      * 搜索网络请求
      */
     private void starNext(final String key) {
-        Intent intent = new Intent(mContext, SearchResultActivity.class);
+        Class clazz = SearchResultActivity.class;
+        if (mCurrentType.equals(SearchHistoryItemModel.SEARCH_DISHONEST)) { // 失信查询
+            clazz = DishonestResultActivity.class;
+        }
+        Intent intent = new Intent(mContext, clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
         intent.putExtra(SearchResultActivity.SEARCH_KEY, key);

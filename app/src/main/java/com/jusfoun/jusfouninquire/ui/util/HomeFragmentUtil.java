@@ -1,7 +1,6 @@
 package com.jusfoun.jusfouninquire.ui.util;
 
 import com.jusfoun.jusfouninquire.ui.fragment.BaseInquireFragment;
-import com.jusfoun.jusfouninquire.ui.fragment.HomeFragment;
 import com.jusfoun.jusfouninquire.ui.fragment.NewHomeFragment;
 import com.jusfoun.jusfouninquire.ui.fragment.PersonalFragment;
 import com.jusfoun.jusfouninquire.ui.fragment.SetFragement;

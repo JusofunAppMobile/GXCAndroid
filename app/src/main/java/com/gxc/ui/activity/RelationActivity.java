@@ -21,6 +21,7 @@ import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.just.agentweb.AgentWeb;
+import com.just.agentweb.AgentWebConfig;
 import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
@@ -50,7 +51,6 @@ public class RelationActivity extends BaseActivity {
     private HomeMenuModel menuModel;
 
     private AgentWeb mAgentWeb;
-    private AgentWeb.PreAgentWeb preAgentWeb;
 
     private TextView curTextView;
 
@@ -72,17 +72,17 @@ public class RelationActivity extends BaseActivity {
     }
 
     private void loadUrl(String url) {
-        if (preAgentWeb == null) {
-            preAgentWeb = AgentWeb.with(this)
-                    .setAgentWebParent(webLayout, new LinearLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator()
-                    .createAgentWeb()
-                    .ready();
+        // 清空缓存
+        AgentWebConfig.clearDiskCache(this);
+        if (mAgentWeb != null) {
+            webLayout.removeAllViews();
+            mAgentWeb.getWebLifeCycle().onDestroy();
+            mAgentWeb = null;
         }
-        if (mAgentWeb == null)
-            mAgentWeb = preAgentWeb.go(url);
-        else
-            mAgentWeb.getUrlLoader().loadUrl(url);
+        mAgentWeb = AgentWeb.with(this)
+                .setAgentWebParent(webLayout, new LinearLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator()
+                .createAgentWeb().ready().go(url);
     }
 
 
@@ -92,7 +92,7 @@ public class RelationActivity extends BaseActivity {
         map.put("type", getIntent().getIntExtra("menuType", 7));
         map.put("name_one", getValue(tvFirst));
         map.put("name_two", getValue(tvSecond));
-        map.put("route_num", 3);// TEST TODO
+        map.put("route_num", 3);
 
         RxManager.http(RetrofitUtils.getApi().getH5Address(map), new ResponseCall() {
 
@@ -131,6 +131,16 @@ public class RelationActivity extends BaseActivity {
             case R.id.bt:
                 if (isEmptyAndToast(tvFirst, "请选择企业")) return;
                 if (isEmptyAndToast(tvSecond, "请选择企业")) return;
+
+                // 如果名字相同， 不进行查找
+                if (tvFirst.getTag() != null && tvSecond.getTag() != null) {
+                    if ((getValue(tvFirst).equals(tvFirst.getTag().toString()) && getValue(tvSecond).equals(tvSecond.getTag().toString())))
+                        return;
+                }
+
+                tvFirst.setTag(getValue(tvFirst));
+                tvSecond.setTag(getValue(tvSecond));
+
                 if (!TextUtils.isEmpty(getValue(tvFirst)) && !TextUtils.isEmpty(getValue(tvSecond))) {
                     webLayout.setVisibility(View.VISIBLE);
                     vBig.setVisibility(View.VISIBLE);
@@ -139,7 +149,6 @@ public class RelationActivity extends BaseActivity {
                 break;
             case R.id.vBig:
                 startActivity(WebActivity.getRelationIntent(activity, mAgentWeb.getWebCreator().getWebView().getUrl()));
-//                startActivity(WebActivity.getRelationIntent(activity, AppUtils.TEST_URL));
                 break;
         }
     }
@@ -157,32 +166,9 @@ public class RelationActivity extends BaseActivity {
     }
 
     @Override
-    public void onPause() {
-        if (mAgentWeb != null)
-            mAgentWeb.getWebLifeCycle().onPause();
-        super.onPause();
-
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mAgentWeb != null)
             mAgentWeb.getWebLifeCycle().onDestroy();
-    }
-
-    @Override
-    public void onResume() {
-        if (mAgentWeb != null)
-            mAgentWeb.getWebLifeCycle().onResume();
-        super.onResume();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mAgentWeb != null && mAgentWeb.back())
-            mAgentWeb.getWebCreator().getWebView().goBack();
-        else
-            super.onBackPressed();
     }
 }

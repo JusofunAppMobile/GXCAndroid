@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jusfoun.jusfouninquire.service.event.GoTypeSearchEvent;
 import com.siccredit.guoxin.R;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * SearchTitleView
@@ -23,15 +26,9 @@ import com.siccredit.guoxin.R;
  */
 public class SearchTitleView extends RelativeLayout {
     private Context mContext;
-
-
     private ImageView mRight;
     private ImageView mClear, mLeft;
     private TextView mSearchEditText;
-    private RelativeLayout mEditLayout;
-
-
-    private TitleListener titleListener;
 
 
     public SearchTitleView(Context context) {
@@ -73,26 +70,17 @@ public class SearchTitleView extends RelativeLayout {
         mRight = (ImageView) findViewById(R.id.right_text);
         mClear = (ImageView) findViewById(R.id.clear_search_image);
         mSearchEditText = (TextView) findViewById(R.id.search_edittext);
-        mEditLayout = (RelativeLayout) findViewById(R.id.search_title_layout);
-
     }
 
     private void initWidgetAction() {
         mLeft.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (titleListener != null) {
-                    titleListener.onLeftClick();
-                } else {
-                    ((Activity) mContext).finish();
-                }
-            }
-        });
-
-        mRight.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                titleListener.onRightClick();
+//                if (titleListener != null) {
+//                    titleListener.onLeftClick();
+//                } else {
+                ((Activity) mContext).finish();
+//                }
             }
         });
 
@@ -100,24 +88,25 @@ public class SearchTitleView extends RelativeLayout {
         mSearchEditText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (titleListener != null) {
-                    titleListener.onTypeSearch(mSearchEditText.getText().toString());
-                }
+//                EventBus.getDefault().post(new SearchResultFinishEvent());
+                finish();
             }
         });
 
         mClear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (titleListener != null) {
-                    titleListener.onClear();
-                }
+//                EventBus.getDefault().post(new SearchResultFinishEvent());
+                finish();
             }
         });
     }
 
-    public void setOnClearListener(OnClickListener listener) {
-        mClear.setOnClickListener(listener);
+    private void finish() {
+        GoTypeSearchEvent event = new GoTypeSearchEvent();
+        event.setKey(mSearchEditText.getText().toString());
+        EventBus.getDefault().post(event);
+        ((Activity) mContext).finish();
     }
 
     public void hideRightView() {
@@ -125,27 +114,11 @@ public class SearchTitleView extends RelativeLayout {
         mRight.getLayoutParams().width = mRight.getWidth() / 2;
     }
 
-    public void setEditParentClickListener(OnClickListener listener) {
-        mSearchEditText.setOnClickListener(listener);
-    }
-
     public void setEditText(String key) {
         mSearchEditText.setText(key);
     }
 
-
-    public void setTitleListener(TitleListener titleListener) {
-        this.titleListener = titleListener;
-    }
-
-    public interface TitleListener {
-        void onLeftClick();
-
-        void onRightClick();
-
-        void onTypeSearch(String key);
-
-        void onClear();
-
+    public void setOnFilterClickListener(OnClickListener listener) {
+        mRight.setOnClickListener(listener);
     }
 }

@@ -43,16 +43,16 @@
                         android:textColor="#333"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+                        app:layout_constraintEnd_toStartOf="@+id/vScore"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
-                        android:id="@+id/linearLayout3"
+                        android:id="@+id/vScore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/company_name">
 

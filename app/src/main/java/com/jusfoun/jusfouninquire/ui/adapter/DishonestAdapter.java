@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.jusfoun.jusfouninquire.net.model.SearchDisHonestModel;
+import com.jusfoun.jusfouninquire.ui.activity.SearchResultActivity;
 import com.jusfoun.jusfouninquire.ui.fragment.DishonestResultFragment;
 
 /**
@@ -16,19 +16,17 @@ import com.jusfoun.jusfouninquire.ui.fragment.DishonestResultFragment;
  */
 public class DishonestAdapter extends FragmentPagerAdapter {
     private String searchkey;
-    private SearchDisHonestModel model;
-    public DishonestAdapter(FragmentManager fm, String searchkey, SearchDisHonestModel model) {
+
+    public DishonestAdapter(FragmentManager fm, String searchkey) {
         super(fm);
-        this.searchkey=searchkey;
-        this.model=model;
+        this.searchkey = searchkey;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Bundle argument=new Bundle();
-        argument.putString(DishonestResultFragment.SEARCHKEY,searchkey);
-        argument.putInt(DishonestResultFragment.TYPE,position+1);
-        argument.putSerializable(DishonestResultFragment.MODEL,model);
+        Bundle argument = new Bundle();
+        argument.putString(SearchResultActivity.SEARCH_KEY, searchkey);
+        argument.putInt(DishonestResultFragment.TYPE, position + 1);
         return DishonestResultFragment.getInstance(argument);
     }
 
