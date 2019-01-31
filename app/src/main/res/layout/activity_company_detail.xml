@@ -3,8 +3,6 @@
     style="@style/MyTheme.Layout.Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_red"
-    android:fitsSystemWindows="false"
     android:orientation="vertical">
 
     <View
@@ -24,11 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/navigation"
-        android:overScrollMode="never"
         android:layout_below="@id/title"
         android:background="@color/common_red"
         android:fillViewport="true"
-        android:paddingLeft="0dp"
+        android:overScrollMode="never"
         android:scrollbars="none">
 
         <LinearLayout
@@ -50,14 +47,15 @@
                 android:id="@+id/layout_gxc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/vGudong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:paddingLeft="15dp">
+                    android:paddingLeft="15dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -82,10 +80,12 @@
 
 
                 <LinearLayout
+                    android:id="@+id/vJianshi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:paddingLeft="15dp">
+                    android:paddingLeft="15dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -194,34 +194,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 
-
     <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
         android:id="@+id/net_work_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF"
+        android:layout_below="@id/title"
         android:visibility="gone" />
-
-
-    <RelativeLayout
-        android:id="@+id/loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFF"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/loading_img"
-            android:layout_width="@dimen/loading_width"
-            android:layout_height="@dimen/loading_height"
-            android:layout_centerInParent="true" />
-
-        <com.jusfoun.jusfouninquire.ui.view.PropagandaView.BackAndImageTitleView
-            android:id="@+id/title_back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
 
 </RelativeLayout>

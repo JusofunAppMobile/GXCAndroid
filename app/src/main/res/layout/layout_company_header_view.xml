@@ -29,7 +29,7 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp">
+                    android:layout_marginTop="10dp">
 
 
                     <TextView
@@ -339,7 +339,7 @@
                     android:layout_height="6dp"
                     android:layout_gravity="center_vertical"
                     android:tint="#9C9C9C"
-                    android:layout_marginRight="18dp"
+                    android:layout_marginRight="10dp"
                     android:rotation="-90"
                     android:src="@mipmap/img_down_jiantou" />
             </LinearLayout>
