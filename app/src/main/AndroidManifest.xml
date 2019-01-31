@@ -665,7 +665,7 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
-        <!-- 信用服务-信用报告-->
+        <!-- 企业服务-企业报告-->
         <activity
             android:name="com.gxc.ui.activity.CreditReportActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -673,7 +673,7 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
-        <!-- 信用服务-信用承诺-->
+        <!-- 企业服务-企业承诺-->
         <activity
             android:name="com.gxc.ui.activity.CreditCommitmentActivity"
             android:configChanges="orientation|keyboardHidden"

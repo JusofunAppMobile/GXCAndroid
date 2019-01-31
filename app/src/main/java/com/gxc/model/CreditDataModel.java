@@ -8,7 +8,7 @@ import java.util.List;
  * @author zhaoyapeng
  * @version create time:2019/1/1516:45
  * @Email zyp@jusfoun.com
- * @Description ${信用报告model}
+ * @Description ${企业报告model}
  */
 public class CreditDataModel extends NetModel {
 

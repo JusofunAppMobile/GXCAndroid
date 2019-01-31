@@ -23,7 +23,7 @@ import butterknife.BindView;
  * @author zhaoyapeng
  * @version create time:2019/1/718:43
  * @Email zyp@jusfoun.com
- * @Description ${信用服务-信用报告页面}
+ * @Description ${企业服务-企业报告页面}
  */
 public class CreditReportActivity extends BaseListActivity {
 

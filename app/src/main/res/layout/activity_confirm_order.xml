@@ -47,7 +47,7 @@
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业信用报告"
+            android:text="企业报告"
             android:textColor="#333"
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/textView"

@@ -1,13 +1,11 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,22 +17,22 @@ import com.gxc.retrofit.NetModel;
 import com.gxc.retrofit.ResponseCall;
 import com.gxc.retrofit.RetrofitUtils;
 import com.gxc.retrofit.RxManager;
+import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailMenuModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.ui.adapter.CompanyAmendAdapter;
+import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.jusfoun.jusfouninquire.ui.widget.DisableMenuEditText;
 import com.jusfoun.jusfouninquire.ui.widget.FullyGridLayoutManger;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import butterknife.ButterKnife;
 
 /**
  * Author  JUSFOUN
@@ -69,7 +67,6 @@ public class CompanyAmendActivity extends BaseInquireActivity {
      * 变量
      */
     private String mCompanyid, mCompanyname, taxid, states;
-    private boolean isHasCheck = false;
 
     /**
      * 对象
@@ -87,6 +84,8 @@ public class CompanyAmendActivity extends BaseInquireActivity {
     private RecyclerView typeRecycleView;
 
     private List<ErrorMenuModel.ObjectionItem> objectionList;//所有分类
+
+    private NetWorkErrorView vNet;
 
     @Override
     protected void initData() {
@@ -110,6 +109,7 @@ public class CompanyAmendActivity extends BaseInquireActivity {
         titleView.setTitle("纠错");
 
         recyclerView = (RecyclerView) findViewById(R.id.company_menu);
+        vNet = findViewById(R.id.vNet);
         submitAmend = (Button) findViewById(R.id.submit_amend);
         mErrorContent = (DisableMenuEditText) findViewById(R.id.error_content);
         mContactEdit = (DisableMenuEditText) findViewById(R.id.contact_edit);
@@ -220,37 +220,74 @@ public class CompanyAmendActivity extends BaseInquireActivity {
             titleView.setTitle("异议纠错");
         } else {
             layoutUserInfo.setVisibility(View.GONE);
-            titleView.setTitle("信用异议");
+            titleView.setTitle("企业异议");
         }
 
         textCompany.setTypeface(Typeface.DEFAULT_BOLD);
 
         getErrorTypeList();
+
+        vNet.setListener(new NetWorkErrorView.OnGXCRefreshListener() {
+            @Override
+            public void OnNetRefresh() {
+                getErrorTypeList();
+            }
+        });
     }
 
+
+    /**
+     * 异议纠错
+     */
     private void postCompanyAmend() {
         Map<String, CompanyDetailMenuModel> map = amendAdapter.getSelectMap();
 
-        String menuIds = "";
-        String menuNames = "";
-        if (map != null) {
-
-            for (CompanyDetailMenuModel model : map.values()) {
-                menuIds = model.getMenuid() + ",";
-                menuNames = model.menuName + ",";
-            }
-        }
-
-
-        menuIds = menuIds.substring(menuIds.length() - 1, menuIds.length());
-        menuNames = menuNames.substring(menuNames.length() - 1, menuNames.length());
-        Log.e(TAG, menuIds);
-
-        if (TextUtils.isEmpty(mErrorContent.getText()) && TextUtils.isEmpty(mContactEdit.getText())
-                && !isHasCheck) {
-            Toast.makeText(mContext, "请纠正我们的错误，或留下联系方式方便我们联系您", Toast.LENGTH_SHORT).show();
+        if (map.isEmpty()) {
+            ToastUtils.show("请选择异议信息");
             return;
         }
+
+        if (TextUtils.isEmpty(getValue(editName))) {
+            ToastUtils.show("请输入真实姓名");
+            return;
+        }
+
+        if (TextUtils.isEmpty(getValue(editCode))) {
+            ToastUtils.show("请输入身份证号");
+            return;
+        }
+
+        if (TextUtils.isEmpty(getValue(mContactEdit))) {
+            ToastUtils.show("请输入联系电话");
+            return;
+        }
+
+        if (TextUtils.isEmpty(getValue(editEmail))) {
+            ToastUtils.show("请输入电子邮箱");
+            return;
+        }
+
+        if (TextUtils.isEmpty(mErrorContent.getText())) {
+            ToastUtils.show("请输入详细描述信息");
+            return;
+        }
+
+        StringBuffer menuIds = new StringBuffer();
+        StringBuffer menuNames = new StringBuffer();
+        if (map != null) {
+            for (CompanyDetailMenuModel model : map.values()) {
+                menuIds.append(model.getMenuid() + ",");
+                menuNames.append(model.menuName + ",");
+            }
+        }
+        if (menuIds.toString().endsWith(","))
+            menuIds.deleteCharAt(menuIds.lastIndexOf(","));
+        if (menuNames.toString().endsWith(","))
+            menuNames.deleteCharAt(menuNames.lastIndexOf(","));
+
+        LogUtils.e("menuIds=" + menuIds);
+        LogUtils.e("menuNames=" + menuNames);
+
 
         showLoading();
         HashMap<String, Object> params = new HashMap<>();
@@ -269,7 +306,7 @@ public class CompanyAmendActivity extends BaseInquireActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
+                    showToast("感谢您的反馈");
                     finish();
                 } else {
                     Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
@@ -285,34 +322,34 @@ public class CompanyAmendActivity extends BaseInquireActivity {
     }
 
 
+    /**
+     * 企业异议
+     */
     private void postServiceAmend() {
         Map<String, CompanyDetailMenuModel> map = amendAdapter.getSelectMap();
 
-        String menuIds = "";
-        String menuNames = "";
-        if (map != null) {
-
-            for (CompanyDetailMenuModel model : map.values()) {
-                menuIds = model.getMenuid() + ",";
-                menuNames = model.menuName + ",";
-            }
-        }
-
-
-        if(TextUtils.isEmpty(menuIds)){
+        if (map.isEmpty()) {
             ToastUtils.show("请选择异议信息");
             return;
         }
 
-        menuIds = menuIds.substring(menuIds.length() - 1, menuIds.length());
-        menuNames = menuNames.substring(menuNames.length() - 1, menuNames.length());
-        Log.e(TAG, menuIds);
-
-        if (TextUtils.isEmpty(mErrorContent.getText()) && TextUtils.isEmpty(mContactEdit.getText())
-                && !isHasCheck) {
-            Toast.makeText(mContext, "请纠正我们的错误，或留下联系方式方便我们联系您", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(mErrorContent.getText())) {
+            ToastUtils.show("请输入详细描述信息");
             return;
         }
+
+        StringBuffer menuIds = new StringBuffer();
+        StringBuffer menuNames = new StringBuffer();
+        if (map != null) {
+            for (CompanyDetailMenuModel model : map.values()) {
+                menuIds.append(model.getMenuid() + ",");
+                menuNames.append(model.menuName + ",");
+            }
+        }
+        if (menuIds.toString().endsWith(","))
+            menuIds.deleteCharAt(menuIds.lastIndexOf(","));
+        if (menuNames.toString().endsWith(","))
+            menuNames.deleteCharAt(menuNames.lastIndexOf(","));
 
         showLoading();
         HashMap<String, Object> params = new HashMap<>();
@@ -327,7 +364,7 @@ public class CompanyAmendActivity extends BaseInquireActivity {
             public void success(NetModel model) {
                 hideLoadDialog();
                 if (model.success()) {
-                    Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
+                    showToast("感谢您的反馈");
                     finish();
                 } else {
                     Toast.makeText(mContext, model.getMsg(), Toast.LENGTH_SHORT).show();
@@ -342,21 +379,14 @@ public class CompanyAmendActivity extends BaseInquireActivity {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     private void getErrorTypeList() {
-        showLoading();
+        vNet.showLoading();
         RxManager.http(RetrofitUtils.getApi().getErrorTypeList(), new ResponseCall() {
 
             @Override
             public void success(NetModel model) {
-                hideLoadDialog();
                 if (model.success()) {
+                    vNet.success();
                     ErrorMenuModel errorMenuModel = model.dataToObject(ErrorMenuModel.class);
 
                     List<ErrorMenuModel.ObjectionItem> objectionList = errorMenuModel.objectionList;
@@ -377,14 +407,13 @@ public class CompanyAmendActivity extends BaseInquireActivity {
                     }
 
                 } else {
-                    showToast(model.msg);
+                    vNet.error();
                 }
             }
 
             @Override
             public void error() {
-                hideLoadDialog();
-                ToastUtils.showHttpError();
+                vNet.error();
             }
         });
 

@@ -1,6 +1,7 @@
 package com.gxc.ui.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,9 +23,11 @@ import com.gxc.ui.dialog.AddressDialog;
 import com.gxc.ui.view.CorporateIInfoImgItemView;
 import com.gxc.ui.view.CorporateInfoItemView;
 import com.gxc.utils.AppUtils;
+import com.gxc.utils.KeyboardStatusDetector;
 import com.gxc.utils.LogUtils;
 import com.gxc.utils.ToastUtils;
 import com.jusfoun.jusfouninquire.ui.util.RegexUtils;
+import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -51,7 +54,7 @@ import static com.gxc.constants.Constants.NUM_MAX3;
  * @Email zyp@jusfoun.com
  * @Description ${认证企业}
  */
-public class CertifiedCompanyActivity extends BaseActivity {
+public class CertifiedCompanyActivity extends BaseActivity implements NetWorkErrorView.OnGXCRefreshListener {
     @BindView(R.id.text_tip)
     TextView textTip;
     @BindView(R.id.view_name)
@@ -70,10 +73,14 @@ public class CertifiedCompanyActivity extends BaseActivity {
     TitleView titleBar;
     @BindView(R.id.btn_commit)
     Button btnCommit;
+    @BindView(R.id.vBottom)
+    View vBottom;
     @BindView(R.id.view_real_name)
     CorporateInfoItemView viewRealName;
     @BindView(R.id.vAddress)
     CorporateInfoItemView vAddress;
+    @BindView(R.id.vNet)
+    NetWorkErrorView vNet;
 
     public static final int PHOTO_YINGYE = 10001;//营业执照
     public static final int PHOTO_IDENTITY = 10002;//身份证
@@ -121,6 +128,31 @@ public class CertifiedCompanyActivity extends BaseActivity {
             }
         });
         getAddressInfor();
+
+        vNet.setListener(this);
+
+        new KeyboardStatusDetector()
+                .registerActivity(activity)  //or register to an activity
+                .setVisibilityListener(new KeyboardStatusDetector.KeyboardVisibilityListener() {
+                    @Override
+                    public void onVisibilityChanged(boolean keyboardVisible) {
+                        if (keyboardVisible)
+                            vBottom.setVisibility(View.GONE);
+                        else
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    vBottom.setVisibility(View.VISIBLE);
+                                }
+                            }, 200);
+                    }
+                });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        AppUtils.hideSoftInput(activity);
     }
 
     private void setEditable(boolean enable) {
@@ -131,10 +163,9 @@ public class CertifiedCompanyActivity extends BaseActivity {
         imgYyzz.setEnabled(enable);
         imgIdfen.setEnabled(enable);
         viewRealName.setEnabled(enable);
-        btnCommit.setVisibility(enable ? View.VISIBLE : View.GONE);
+        vBottom.setVisibility(enable ? View.VISIBLE : View.GONE);
         vAddress.setEnabled(enable);
-        if (enable)
-            vAddress.setSelectType();
+        vAddress.setSelectType(enable);
     }
 
     @Override
@@ -233,12 +264,12 @@ public class CertifiedCompanyActivity extends BaseActivity {
             return;
         }
         if (isEmptyAndToast(viewPhone.getEditText(), "请输入手机号")) return;
-        if(!RegexUtils.checkMobile(viewPhone.getEditText())){
+        if (!RegexUtils.checkMobile(viewPhone.getEditText())) {
             showToast("手机号格式不正确");
             return;
         }
         if (isEmptyAndToast(viewEmail.getEditText(), "请输入邮箱")) return;
-        if(!RegexUtils.checkEmail(viewEmail.getEditText())){
+        if (!RegexUtils.checkEmail(viewEmail.getEditText())) {
             showToast("邮箱格式不正确");
             return;
         }
@@ -305,14 +336,14 @@ public class CertifiedCompanyActivity extends BaseActivity {
 
     private void getRZData() {
 
-        showLoading();
+        vNet.showLoading();
 
         RxManager.http(RetrofitUtils.getApi().getCompanyMsg(), new ResponseCall() {
 
             @Override
             public void success(NetModel data) {
-                hideLoadDialog();
                 if (data.success()) {
+                    vNet.success();
                     CertificationModel model = data.dataToObject(CertificationModel.class);
                     viewName.setContent(model.companyname);
                     viewPhone.setContent(model.phone);
@@ -329,14 +360,13 @@ public class CertifiedCompanyActivity extends BaseActivity {
                     loadAddress(model);
                     vAddress.setData(model.provinceName + " " + model.cityName);
                 } else {
-                    showToast(data.msg);
+                    vNet.error();
                 }
             }
 
             @Override
             public void error() {
-                hideLoadDialog();
-                ToastUtils.showHttpError();
+                vNet.error();
             }
         });
 
@@ -371,5 +401,10 @@ public class CertifiedCompanyActivity extends BaseActivity {
                 addressDialog.setSelectPosition(provinceIndex, cityIndex);
             }
         }
+    }
+
+    @Override
+    public void OnNetRefresh() {
+        getRZData();
     }
 }

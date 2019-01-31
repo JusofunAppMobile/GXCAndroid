@@ -34,13 +34,13 @@ public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel.Cred
         TextView previewText = helper.getView(R.id.textView25);
         TextView reportText = helper.getView(R.id.text_report);
         if (helper.getAdapterPosition() == 0) {
-            titleText.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">标准版</font>"));
+            titleText.setText(Html.fromHtml("企业报告-<font  color=\"#fca249\">标准版</font>"));
             desText.setText(Html.fromHtml("今天剩余<font  color=\"#fca249\">" + item.basicVersionDownloadNum + "</font>" + "次下载机会"));
             contenteText.setTextColor(Color.parseColor("#666666"));
             contenteText.setText(mContext.getString(R.string.text_credit_report_biaozhun));
         } else if (helper.getAdapterPosition() == 1) {
-            titleText.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">专业版</font>"));
-            desText.setText(Html.fromHtml("包括<font  color=\"#fca249\">基础版企业信用报告</font>" + "所有内容，以及："));
+            titleText.setText(Html.fromHtml("企业报告-<font  color=\"#fca249\">专业版</font>"));
+            desText.setText(Html.fromHtml("包括<font  color=\"#fca249\">基础版企业报告</font>" + "所有内容，以及："));
             contenteText.setText(mContext.getString(R.string.text_credit_report_zhuanye));
             contenteText.setTextColor(Color.parseColor("#fca249"));
         }

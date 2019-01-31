@@ -1,15 +1,11 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 
-import android.Manifest;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.FilterModel;
 import com.jusfoun.jusfouninquire.net.route.SearchRoute;
@@ -20,13 +16,12 @@ import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.fragment.SearchResultFragment;
 import com.jusfoun.jusfouninquire.ui.view.FilterDrawerView;
 import com.jusfoun.jusfouninquire.ui.view.SearchTitleView;
+import com.siccredit.guoxin.R;
 
 import java.util.HashMap;
 
 import de.greenrobot.event.EventBus;
 import netlib.util.EventUtils;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
 /**
  * SearchResultActivity
@@ -36,7 +31,7 @@ import permissions.dispatcher.RuntimePermissions;
  * @date : 16/8/9
  * @Description :搜索结果页面
  */
-@RuntimePermissions
+//@RuntimePermissions
 public class SearchResultActivity extends BaseInquireActivity {
 
     public static final String SEARCH_RESULT = "search_result";
@@ -48,7 +43,7 @@ public class SearchResultActivity extends BaseInquireActivity {
     private SearchResultFragment contentFragment;
     private SearchTitleView mTitle;
 
-//    private SearchListModel mData;
+    //    private SearchListModel mData;
     private String mCurrentType;
     private String mSearchKey;
     private HashMap<String, String> params;
@@ -157,12 +152,12 @@ public class SearchResultActivity extends BaseInquireActivity {
         filterNet();
 
         // 延迟开始定位，避免权限弹出框弹出后 出现黑色背景
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SearchResultActivityPermissionsDispatcher.getPermissionWithPermissionCheck(SearchResultActivity.this);
-            }
-        }, 500);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                SearchResultActivityPermissionsDispatcher.getPermissionWithPermissionCheck(SearchResultActivity.this);
+//            }
+//        }, 500);
     }
 
     private void filterNet() {
@@ -195,14 +190,20 @@ public class SearchResultActivity extends BaseInquireActivity {
         });
     }
 
-    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-    void getPermission() {
-        mFilterView.startLocation();
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        SearchResultActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
+    //    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+//    void getPermission() {
+//        mFilterView.startLocation();
+//    }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        SearchResultActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+//    }
 }

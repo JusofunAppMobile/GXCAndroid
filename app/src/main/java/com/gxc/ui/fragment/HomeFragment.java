@@ -272,6 +272,7 @@ public class HomeFragment extends BaseFragment implements NetWorkErrorView.OnGXC
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(activity, SearchResultActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         intent.putExtra(SearchResultActivity.SEARCH_KEY, val);
                         intent.putExtra(SearchResultActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_COMMON);
                         startActivity(intent);

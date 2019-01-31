@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author zhaoyapeng
  * @version create time:2019/1/808:52
  * @Email zyp@jusfoun.com
- * @Description ${信用报告model}
+ * @Description ${企业报告model}
  */
 public class CreditReportModel extends BaseModel implements Serializable{
 

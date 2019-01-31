@@ -71,18 +71,11 @@ public class GoActivityUtil {
             intent.putExtra("states", user.states);
             intent.putExtra(CompanyAmendActivity.TYPE, CompanyAmendActivity.TYPE_OBJECTION);
             mContext.startActivity(intent);
-        } else if (model.menuType == 12) { // 信用承诺
+        } else if (model.menuType == 12) { // 企业承诺
             mContext.startActivity(new Intent(mContext, CreditCommitmentActivity.class));
         } else if (model.menuType == 13) { // 访客
             mContext.startActivity(new Intent(mContext, VisitorListActivity.class));
-        } else if (model.menuType == 14) {
-//            Intent intent = new Intent(mContext, ReportInfoActivity.class);
-////            if (companyInfo != null) {
-////                intent.putExtra("companyName", companyInfo.companyName);
-////                intent.putExtra("companyId", companyInfo.companyId);
-////            }
-//            mContext.startActivity(intent);
-
+        } else if (model.menuType == 14) { // 14自主填报
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));
         } else if (model.menuType == 3) { // 失信查询
             mContext.startActivity(new Intent(mContext, SearchDishonestActivity.class));

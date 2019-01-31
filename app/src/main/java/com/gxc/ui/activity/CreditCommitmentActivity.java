@@ -38,7 +38,7 @@ import butterknife.OnClick;
  * @author zhaoyapeng
  * @version create time:2019/1/1115:11
  * @Email zyp@jusfoun.com
- * @Description ${信用承诺书}
+ * @Description ${企业承诺书}
  */
 public class CreditCommitmentActivity extends BaseActivity {
     @BindView(R.id.titlebar)
@@ -62,7 +62,7 @@ public class CreditCommitmentActivity extends BaseActivity {
     @Override
     public void initActions() {
         userModel = AppUtils.getUser();
-        titlebar.setTitle("信用承诺");
+        titlebar.setTitle("企业承诺");
         requestOptions = new RequestOptions()
                 .centerCrop()
                 .circleCrop()//设置圆形

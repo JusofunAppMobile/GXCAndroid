@@ -64,9 +64,9 @@ public class ConfirmOrderActivity extends BaseActivity {
 
         type = getIntent().getIntExtra("type",0);
         if (type == 0) {
-            textTitle.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">标准版</font>"));
+            textTitle.setText(Html.fromHtml("企业报告-<font  color=\"#fca249\">标准版</font>"));
         } else if (type == 1) {
-            textTitle.setText(Html.fromHtml("企业信用报告-<font  color=\"#fca249\">专业版</font>"));
+            textTitle.setText(Html.fromHtml("企业报告-<font  color=\"#fca249\">专业版</font>"));
         }
 
         textCompany.setText(creditReportItemModel.companyName);

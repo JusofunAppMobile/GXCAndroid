@@ -60,7 +60,7 @@ import netlib.util.PreferenceUtils;
  * @author liuguangdan
  * @version create at 2019/1/4/004 19:39
  * @Email lgd@jusfoun.com
- * @Description ${信用服务}
+ * @Description ${企业服务}
  */
 public class CreditFragment extends BaseFragment {
 

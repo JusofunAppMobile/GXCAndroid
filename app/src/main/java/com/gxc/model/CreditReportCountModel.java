@@ -7,7 +7,7 @@ import com.jusfoun.jusfouninquire.net.model.BaseModel;
  * @author zhaoyapeng
  * @version create time:2019/1/1509:51
  * @Email zyp@jusfoun.com
- * @Description ${信用报告 剩余数量model}
+ * @Description ${企业报告 剩余数量model}
  */
 public class CreditReportCountModel extends NetModel {
 

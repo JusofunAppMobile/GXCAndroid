@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
 import com.gxc.utils.AppUtils;
@@ -93,5 +94,9 @@ public abstract class BaseActivity extends FragmentActivity {
             vStatus.setVisibility(View.VISIBLE);
             vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
         }
+    }
+
+    protected String getValue(TextView textView) {
+        return textView.getText().toString();
     }
 }

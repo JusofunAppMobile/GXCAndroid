@@ -364,8 +364,8 @@ public class AppUtils {
     }
 
     public static void logout() {
-        EventBus.getDefault().post(new LoginChangeEvent());
         PreferenceUtils.setString(InquireApplication.application, Constants.USER, null);
+        EventBus.getDefault().post(new LoginChangeEvent());
     }
 
     /**

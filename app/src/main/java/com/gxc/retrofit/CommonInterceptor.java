@@ -1,13 +1,10 @@
 package com.gxc.retrofit;
 
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.gxc.model.UserModel;
 import com.gxc.utils.AppUtils;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.jusfoun.jusfouninquire.Md5Util;
 import com.jusfoun.jusfouninquire.TimeOut;
 
 import java.io.IOException;
@@ -18,7 +15,6 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CommonInterceptor implements Interceptor {

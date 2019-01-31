@@ -1,5 +1,6 @@
 package com.gxc.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -99,7 +100,9 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.vRegister:
-                startActivity(RegisterActivity.class);
+                Intent intent = new Intent(this, RegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
                 break;
             case R.id.vLogin:
                 login();

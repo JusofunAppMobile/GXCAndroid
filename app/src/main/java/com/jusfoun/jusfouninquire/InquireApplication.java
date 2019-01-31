@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.baidu.location.BDLocation;
-import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,9 +18,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.siccredit.guoxin.R;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
-import com.umeng.socialize.PlatformConfig;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
@@ -54,17 +51,17 @@ public class InquireApplication extends MultiDexApplication {
         application = this;
         Fresco.initialize(this);
 
-        SDKInitializer.initialize(this);
-        MobclickAgent.openActivityDurationTrack(false);
+//        SDKInitializer.initialize(this);
+//        MobclickAgent.openActivityDurationTrack(false);
 //        JPushInterface.init(this);
 //        if (JPushInterface.isPushStopped(this))
 //            JPushInterface.resumePush(this);
         Config.DEBUG = true;
-        PlatformConfig.setWeixin(getString(R.string.wx_appid),
-                getString(R.string.wx_appSecret));
-        //微信 appid appsecret
-        PlatformConfig.setSinaWeibo(getString(R.string.sina_appid),
-                getString(R.string.sina_appSecret),"http://sns.whalecloud.com");
+//        PlatformConfig.setWeixin(getString(R.string.wx_appid),
+//                getString(R.string.wx_appSecret));
+//        //微信 appid appsecret
+//        PlatformConfig.setSinaWeibo(getString(R.string.sina_appid),
+//                getString(R.string.sina_appSecret),"http://sns.whalecloud.com");
 
         boolean debug = getResources().getBoolean(R.bool.debug);
 

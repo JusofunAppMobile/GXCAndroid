@@ -60,7 +60,6 @@ public class SettingActivity extends BaseActivity {
     public void logout() {
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("a", "b");
         RxManager.http(RetrofitUtils.getApi().logout(map), new ResponseCall() {
 
             @Override
@@ -102,7 +101,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.vAbout:
 //                startActivity(AboutActivity.class);
-                startActivity(WebActivity.getIntent(this, "服务协议", HtmlUrlUtils.getAboutUrl(), false));
+                startActivity(WebActivity.getIntent(this, "关于我们", HtmlUrlUtils.getAboutUrl(), false));
                 break;
         }
     }

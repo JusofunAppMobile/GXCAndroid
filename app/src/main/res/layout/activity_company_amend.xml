@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MyTheme.Layout.Root"
@@ -11,11 +11,18 @@
     <com.jusfoun.jusfouninquire.ui.view.TitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,16 +95,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="10dp"
                     android:text="异议类型"
                     android:textColor="#333"
                     android:textSize="15sp" />
@@ -109,8 +116,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp" />
             </LinearLayout>
 
             <View style="@style/s_line_h" />
@@ -124,10 +131,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
 
@@ -154,8 +161,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp" />
 
             </LinearLayout>
 
@@ -165,8 +172,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="10dip"
+                android:layout_marginRight="16dp"
                 android:orientation="vertical">
 
                 <com.jusfoun.jusfouninquire.ui.widget.DisableMenuEditText
@@ -176,11 +183,14 @@
                     android:background="@drawable/shape_input_stroke_gray"
                     android:gravity="center|left"
                     android:hint="您的真实姓名"
+                    android:inputType="text"
                     android:longClickable="false"
                     android:maxLength="21"
+                    android:maxLines="1"
                     android:paddingLeft="13dp"
                     android:textColor="@color/edit_text_color"
                     android:textColorHint="@color/eidt_hint_textcolor"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:textSize="14sp" />
 
 
@@ -192,11 +202,14 @@
                     android:background="@drawable/shape_input_stroke_gray"
                     android:gravity="center|left"
                     android:hint="您的身份证号"
+                    android:inputType="text"
                     android:longClickable="false"
                     android:maxLength="21"
+                    android:maxLines="1"
                     android:paddingLeft="13dp"
                     android:textColor="@color/edit_text_color"
                     android:textColorHint="@color/eidt_hint_textcolor"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:textSize="14sp" />
 
 
@@ -208,11 +221,14 @@
                     android:background="@drawable/shape_input_stroke_gray"
                     android:gravity="center|left"
                     android:hint="您的联系电话"
+                    android:inputType="text"
                     android:longClickable="false"
                     android:maxLength="21"
+                    android:maxLines="1"
                     android:paddingLeft="13dp"
                     android:textColor="@color/edit_text_color"
                     android:textColorHint="@color/eidt_hint_textcolor"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:textSize="14sp" />
 
 
@@ -224,11 +240,14 @@
                     android:background="@drawable/shape_input_stroke_gray"
                     android:gravity="center|left"
                     android:hint="您的电子邮箱"
+                    android:inputType="text"
                     android:longClickable="false"
                     android:maxLength="21"
+                    android:maxLines="1"
                     android:paddingLeft="13dp"
                     android:textColor="@color/edit_text_color"
                     android:textColorHint="@color/eidt_hint_textcolor"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -237,17 +256,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/shape_input_stroke_gray"
                 android:gravity="top|left"
                 android:hint="我们会收集您提交的请求，并在3~5个工作日回复"
+                android:inputType="text"
                 android:longClickable="false"
-                android:maxLength="5001"
+                android:maxLength="1500"
                 android:minLines="3"
                 android:padding="@dimen/padding_margin_left_or_right"
                 android:textColor="@color/edit_text_color"
                 android:textColorHint="@color/eidt_hint_textcolor"
+                android:textCursorDrawable="@drawable/shape_cursor"
                 android:textSize="14sp" />
 
 
@@ -256,8 +277,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -275,8 +296,8 @@
                 android:id="@+id/submit_amend"
                 style="@style/C_Common_Bt"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="16dp"
                 android:text="确认" />
 
             <View
@@ -286,4 +307,14 @@
         </LinearLayout>
 
     </ScrollView>
-</LinearLayout>
+
+    <com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView
+        android:id="@+id/vNet"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
+</android.support.constraint.ConstraintLayout>

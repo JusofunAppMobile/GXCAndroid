@@ -108,12 +108,10 @@ android {
     }
 
 
-
-
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0-rc01'
     implementation 'com.android.support:support-v4:28.0.0-rc01'
     implementation 'com.mcxiaoke.volley:library:1.0.19'
@@ -164,9 +162,7 @@ dependencies {
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
 
-    //    compile(name: 'mylibrary-release', ext: 'aar')
-    implementation files('libs/mySdk.jar')
-
+    implementation(name: 'mySdk', ext: 'aar')
     ///////////////////////////////////////////////
 
     //   retrofit

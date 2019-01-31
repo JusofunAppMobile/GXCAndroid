@@ -331,6 +331,7 @@ public class TypeSearchActivity extends BaseInquireActivity {
      */
     private void starNext(final String key) {
         Intent intent = new Intent(mContext, SearchResultActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.putExtra("menuName", getIntent().getStringExtra("menuName"));
         intent.putExtra(SearchResultActivity.SEARCH_KEY, key);
         intent.putExtra(SearchResultActivity.SEARCH_TYPE, mCurrentType);
@@ -460,7 +461,9 @@ public class TypeSearchActivity extends BaseInquireActivity {
                         mCurrentType.equals(SearchHistoryItemModel.SEARCH_REFEREE) ||
                         mCurrentType.equals(SearchHistoryItemModel.SEARCH_ADMINISTRATIVE) ||
                         mCurrentType.equals(SearchHistoryItemModel.SEARCH_TRADEMARK)) {
-                    startActivity(WebActivity.getIntent(this, getIntent().getStringExtra("menuName"), AppUtils.parseToGxMenuType(mCurrentType), doSearchEvent.getSearchKey()));
+                    Intent intent = WebActivity.getIntent(this, getIntent().getStringExtra("menuName"), AppUtils.parseToGxMenuType(mCurrentType), doSearchEvent.getSearchKey());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
                     return;
                 } else {
                     starNext(doSearchEvent.getSearchKey());
@@ -487,7 +490,6 @@ public class TypeSearchActivity extends BaseInquireActivity {
         //bugfree 18588,返回页面后刷新搜索历史
         initHistorySearch();
     }
-
 
 
     @Override

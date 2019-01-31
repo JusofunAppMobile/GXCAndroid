@@ -111,7 +111,7 @@ public class CorporateInfoItemView extends BaseView {
         editText2.setInputType(editTable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
     }
 
-    public TextView getTextView(){
+    public TextView getTextView() {
         return editText2;
     }
 
@@ -131,10 +131,9 @@ public class CorporateInfoItemView extends BaseView {
             editText2.setEnabled(enabled);
     }
 
-    public void setSelectType() {
-        if (editText2 instanceof EditText)
-            editText2.setEnabled(false);
-        ivArrow.setVisibility(View.VISIBLE);
+    public void setSelectType(boolean enable) {
+        editText2.setEnabled(enable);
+        ivArrow.setVisibility(enable ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void setInputTypeNum() {

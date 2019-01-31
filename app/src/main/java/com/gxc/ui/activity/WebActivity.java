@@ -65,8 +65,10 @@ public class WebActivity extends BaseActivity {
     SearchTitleView searchTitleView;
     @BindView(R.id.ivCredit)
     View ivCredit;
+    @BindView(R.id.vStatus)
+    View vStatus;
 
-    private boolean isCredit; // 信用报告-样本预览
+    private boolean isCredit; // 企业报告-样本预览
 
     private boolean isRelation = false; // 是否为查关系
 
@@ -200,9 +202,13 @@ public class WebActivity extends BaseActivity {
                     WebModel webModel = model.dataToObject(WebModel.class);
                     if (webModel != null) {
                         isFullScreen = (webModel.webType == 1);
-                        if ((isFullScreen && !isRelation) || !isFullScreen) {
-                            if (!isFullScreen && !isUserRedSearchTitle)
+                        if (!isFullScreen) {
+                            if (!isUserRedSearchTitle)
                                 setStatusBarFontDark(true);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                vStatus.setVisibility(View.VISIBLE);
+                                vStatus.getLayoutParams().height = AppUtils.getStatusHeight();
+                            }
                         }
                         ivBack2.setVisibility(isFullScreen ? View.VISIBLE : View.GONE);
                         titleView.setVisibility(isFullScreen ? View.GONE : View.VISIBLE);
@@ -318,7 +324,7 @@ public class WebActivity extends BaseActivity {
 
 
     /**
-     * 信用报告-样本预览
+     * 企业报告-样本预览
      *
      * @param context
      * @param url
@@ -326,7 +332,7 @@ public class WebActivity extends BaseActivity {
      */
     public static Intent getCreditIntent(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra("title", "信用报告");
+        intent.putExtra("title", "企业报告");
         intent.putExtra("url", url);
         intent.putExtra("isCredit", true);
         return intent;
@@ -397,6 +403,12 @@ public class WebActivity extends BaseActivity {
         return false;
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        if (isUserRedSearchTitle)
+            overridePendingTransition(0, 0);
+    }
 
     @OnClick({R.id.vFinish, R.id.vSave, R.id.vShare, R.id.ivBack2})
     public void onViewClicked(View view) {

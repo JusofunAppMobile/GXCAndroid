@@ -17,7 +17,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import com.siccredit.guoxin.R;
+import com.jusfoun.jusfouninquire.TimeOut;
 import com.jusfoun.jusfouninquire.net.model.SearchHistoryItemModel;
 import com.jusfoun.jusfouninquire.net.util.AppUtil;
 import com.jusfoun.jusfouninquire.ui.activity.BaseInquireActivity;
@@ -27,6 +27,7 @@ import com.jusfoun.jusfouninquire.ui.animation.SceneAnimation;
 import com.jusfoun.jusfouninquire.ui.util.SystemIntentUtil;
 import com.jusfoun.jusfouninquire.ui.util.balipay.BalipayUtil;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
+import com.siccredit.guoxin.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -34,8 +35,6 @@ import org.apache.http.client.methods.HttpHead;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.Set;
-
-import com.jusfoun.jusfouninquire.TimeOut;
 
 /**
  * Author  JUSFOUN
@@ -200,6 +199,7 @@ public class CustomWebViewClent extends WebViewClient {
             } else if (shareholdertype != null && shareholdertype.equals("1") && !TextUtils.isEmpty(name)) {
                 // 跳转股东高管搜索  名称不能为空
                 Intent intent = new Intent(mContext, SearchResultActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra(SearchResultActivity.SEARCH_KEY, name);
                 intent.putExtra(SearchResultActivity.SEARCH_TYPE, SearchHistoryItemModel.SEARCH_SHAREHOLDER);
                 mContext.startActivity(intent);

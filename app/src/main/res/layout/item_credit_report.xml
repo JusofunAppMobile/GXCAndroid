@@ -19,7 +19,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="21dp"
-            android:text="企业信用报告-标准版"
+            android:text="企业报告-标准版"
             android:textColor="#333"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"

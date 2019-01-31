@@ -227,7 +227,7 @@ public class MyFragment extends BaseFragment {
         return "未认证";
     }
 
-    @OnClick({R.id.vHistory, R.id.vHelper, R.id.vVersion, R.id.vSetting, R.id.vVip})
+    @OnClick({R.id.vHistory, R.id.vHelper, R.id.vVersion, R.id.vSetting, R.id.vVip, R.id.vVip2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.vHistory: // 浏览历史
@@ -248,6 +248,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(SettingActivity.class);
                 break;
             case R.id.vVip: // VIP
+            case R.id.vVip2: // VIP
                 startActivity(PayActivity.class);
                 break;
         }

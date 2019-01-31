@@ -55,7 +55,7 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.navigation)
     BottomNavigationBar navigation;
 
-    String[] titles = new String[]{"首页", "监控动态", "信用服务", "我的"};
+    String[] titles = new String[]{"首页", "监控动态", "企业服务", "我的"};
 
 
     public void selectTab(int position) {
