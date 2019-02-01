@@ -76,6 +76,7 @@ public class WebActivity extends BaseActivity {
 
     private boolean isHttpGetUrl = false;// 是否需要通过请求接口获取链接
     private boolean isUserRedSearchTitle = false;// 是否使用红色搜索标题样式
+    private int menuType;
 
     private View errorView;
 
@@ -99,7 +100,7 @@ public class WebActivity extends BaseActivity {
         } else
             setTheme(R.style.MyTheme_Layout_Root2);
         super.onCreate(savedInstanceState);
-        if (isSetStatusBar() && isFullScreen)
+        if (isSetStatusBar() && isFullScreen && (!isHttpGetUrl || (isHttpGetUrl && menuType == 0)))
             setStatusBarRed();
     }
 
@@ -109,6 +110,7 @@ public class WebActivity extends BaseActivity {
         isFullScreen = getIntent().getBooleanExtra("isFullScreen", false);
         isUserRedSearchTitle = getIntent().getBooleanExtra("isUserRedSearchTitle", false);
         isCredit = getIntent().getBooleanExtra("isCredit", false);
+        menuType = getIntent().getIntExtra("menuType", 0);
     }
 
     @Override

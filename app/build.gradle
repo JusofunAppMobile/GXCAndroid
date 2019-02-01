@@ -16,8 +16,8 @@ android {
         applicationId 'com.siccredit.guoxin'
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 129
-        versionName "2.1.7"
+        versionCode 130
+        versionName '2.1.8'
         ndk {
             moduleName "jso" // 生成的so名字
 //            ldLibs.add("log")
@@ -161,8 +161,8 @@ dependencies {
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
-
     implementation(name: 'mySdk', ext: 'aar')
+
     ///////////////////////////////////////////////
 
     //   retrofit
