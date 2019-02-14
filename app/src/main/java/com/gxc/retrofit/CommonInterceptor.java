@@ -30,14 +30,10 @@ public class CommonInterceptor implements Interceptor {
         HashMap<String, Object> map = new HashMap<>();
         TimeOut timeOut = new TimeOut(InquireApplication.application);
         UserModel model = AppUtils.getUser();
-
-        if (model != null) {
+        if (model != null)
             map.put("userId", model.userId);
-        }else{
+        else
             map.put("userId", "");
-        }
-
-
         map.put("t", timeOut.getParamTimeMollis() + "");
         if (request.body() instanceof FormBody) {
             FormBody oldRormBpody = (FormBody) request.body();
@@ -46,10 +42,10 @@ public class CommonInterceptor implements Interceptor {
             }
             formBody.add("data", new Gson().toJson(map));
             formBody.add("m", timeOut.MD5GXCtime(new Gson().toJson(map)));
-        } else if(!(request.body() instanceof MultipartBody)){
+        } else if (!(request.body() instanceof MultipartBody)) {
             formBody.add("data", new Gson().toJson(map));
             formBody.add("m", timeOut.MD5GXCtime(new Gson().toJson(map)));
-        }else{
+        } else {
             return chain.proceed(request);
         }
         Request newRequest = request.newBuilder()
