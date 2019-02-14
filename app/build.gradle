@@ -16,8 +16,8 @@ android {
         applicationId 'com.siccredit.guoxin'
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 130
-        versionName '2.1.8'
+        versionCode 131
+        versionName '2.1.9'
         ndk {
             moduleName "jso" // 生成的so名字
 //            ldLibs.add("log")

@@ -1,6 +1,5 @@
 package com.gxc.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -10,10 +9,8 @@ import com.gxc.ui.activity.CreditCommitmentActivity;
 import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.RelationActivity;
-import com.gxc.ui.activity.RiskTipActivity;
 import com.gxc.ui.activity.VisitorListActivity;
 import com.gxc.ui.activity.WebActivity;
-import com.gxc.ui.dialog.VIPDialog;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyAmendActivity;
 import com.jusfoun.jusfouninquire.ui.activity.TypeSearchActivity;
 
@@ -34,22 +31,22 @@ public class GoActivityUtil {
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                 return;
             }
-            if (user.vipStatus == 0) {
-                new VIPDialog((Activity) mContext).show();
-            } else {
+//            if (user.vipStatus == 0) {
+//                new VIPDialog((Activity) mContext).show();
+//            } else {
                 mContext.startActivity(RelationActivity.getIntent(mContext, model));
-            }
+//            }
         } else if (model.menuType == 8) { // 风险分析
             if (user == null) {
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                 return;
             }
-            if (user.vipStatus == 0) {
-                mContext.startActivity(new Intent(mContext, RiskTipActivity.class));
-                return;
-            } else {
+//            if (user.vipStatus == 0) {
+//                mContext.startActivity(new Intent(mContext, RiskTipActivity.class));
+//                return;
+//            } else {
                 mContext.startActivity(TypeSearchActivity.getIntent(mContext, model.menuType, model.menuName));
-            }
+//            }
         } else if (model.menuType == -1) {// h5跳转
 
             mContext.startActivity(WebActivity.getIntent(mContext, model.menuName, model.menuUrl));

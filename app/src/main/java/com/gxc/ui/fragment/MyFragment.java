@@ -102,7 +102,7 @@ public class MyFragment extends BaseFragment {
         list.add(new HomeMenuModel(R.drawable.mine_icon_jiankong, "我的监控", -1001));
         list.add(new HomeMenuModel(R.drawable.mine_icon_shoucang, "我的收藏", -1001));
         list.add(new HomeMenuModel(R.drawable.mine_icon_renzheng, "企业认证", -1001));
-        list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权", -1001));
+//        list.add(new HomeMenuModel(R.drawable.mine_icon_vip, "VIP特权", -1001));
 //        list.add(new HomeMenuModel(R.drawable.mine_icon_zengsong, "赠送好友VIP"));
         homeMenuAdapter.setNewData(list);
         menuRecycler.setAdapter(homeMenuAdapter);
@@ -196,8 +196,8 @@ public class MyFragment extends BaseFragment {
             // 用户vip状态 0：普通用户 1：vip用户
             ivNormalVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
             ivCompanyVip.setVisibility(user.vipStatus == 1 ? View.VISIBLE : View.GONE);
-            vVip.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
-            vVip2.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+//            vVip.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
+//            vVip2.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvNormalTip1.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvNormalTip2.setVisibility(user.vipStatus == 0 ? View.VISIBLE : View.GONE);
             tvStatus.setText(getStatus(user.authStatus));

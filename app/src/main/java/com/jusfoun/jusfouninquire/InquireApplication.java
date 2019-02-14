@@ -69,7 +69,7 @@ public class InquireApplication extends MultiDexApplication {
             FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                     .showThreadInfo(false)
                     .methodCount(0)
-                    .tag("guoxincha")
+                    .tag("gx")
                     .build();
             com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
         }

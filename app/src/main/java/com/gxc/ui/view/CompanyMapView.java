@@ -1,6 +1,5 @@
 package com.gxc.ui.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import com.gxc.model.CorporateInfoModel;
 import com.gxc.model.UserModel;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.activity.WebActivity;
-import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.utils.AppUtils;
 import com.gxc.utils.GlideRoundTransform;
 import com.jusfoun.jusfouninquire.ui.view.BaseView;
@@ -107,10 +105,10 @@ public class CompanyMapView extends BaseView {
             mContext.startActivity(new Intent(mContext, LoginActivity.class));
             return false;
         }
-        if (user.vipStatus == 1)
+//        if (user.vipStatus == 1)
             return true;
-        new VIPDialog((Activity) mContext).show();
-        return false;
+//        new VIPDialog((Activity) mContext).show();
+//        return false;
     }
 
     private void initView(View rootView) {

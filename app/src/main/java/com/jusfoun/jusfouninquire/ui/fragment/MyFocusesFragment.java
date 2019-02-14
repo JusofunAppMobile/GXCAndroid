@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.siccredit.guoxin.R;
+import com.gxc.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.FocusedItemModel;
 import com.jusfoun.jusfouninquire.net.model.FocusedModel;
@@ -28,13 +28,13 @@ import com.jusfoun.jusfouninquire.service.event.HideUpdateEvent;
 import com.jusfoun.jusfouninquire.service.event.IEvent;
 import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.activity.CompanyDetailActivity;
-import com.jusfoun.jusfouninquire.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.ui.adapter.AttentionAdapter;
 import com.jusfoun.jusfouninquire.ui.animation.SceneAnimation;
 import com.jusfoun.jusfouninquire.ui.view.NetWorkErrorView;
 import com.jusfoun.jusfouninquire.ui.view.XListView;
 import com.jusfoun.library.animationadapter.adapter.AnimationAdapter;
 import com.jusfoun.library.animationadapter.adapter.ScaleInAnimationAdapter;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,7 +139,7 @@ public class MyFocusesFragment extends BaseInquireFragment implements XListView.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, LoginActivity.class);
-                intent.putExtra(LoginActivity.FROM_MY_FOCUS, true);
+//                intent.putExtra(LoginActivity.FROM_MY_FOCUS, true);
                 //startActivityForResult(intent, LOGIN_REQUEST);
                 startActivity(intent);
             }

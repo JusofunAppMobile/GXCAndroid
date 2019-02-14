@@ -1,26 +1,23 @@
 package com.jusfoun.jusfouninquire.ui.activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.gxc.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.ContactModel;
 import com.jusfoun.jusfouninquire.net.model.ContactsModel;
-import com.jusfoun.jusfouninquire.net.model.LoginModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.net.route.LoginRegisterHelper;
-import com.jusfoun.jusfouninquire.sharedpreference.LoginSharePreference;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.jusfoun.jusfouninquire.ui.widget.EmailSendDialog;
 import com.jusfoun.jusfouninquire.ui.widget.TableRowView;
+import com.siccredit.guoxin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -2,12 +2,16 @@ package com.gxc.retrofit;
 
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -42,7 +46,9 @@ public class LoggingInterceptor implements Interceptor {
             body = buffer.readString(charset);
         }
 
-        Logger.e("发送请求\nmethod：%s\nurl:%s\nheaders:%sbody:%s", request.method(), request.url(), request.headers(), getDecode(body));
+        String requestHeaders = parseHeaders(request.headers());
+
+        Logger.e("发送请求 method：%s\nurl:       %s\nheaders:  %s\nbody:     %s", request.method(), request.url(), requestHeaders, getDecode(body));
 
         long startNs = System.nanoTime();
         Response response = chain.proceed(request);
@@ -68,9 +74,27 @@ public class LoggingInterceptor implements Interceptor {
             rBody = buffer.clone().readString(charset);
         }
 
-        Logger.e("收到响应 %s%s %ss\n请求url:%s\n请求body:%s\n请求header:%s响应body:%s",
-                response.code(), response.message(), tookMs, response.request().url(), getDecode(body), request.headers(), getDecode(rBody));
+        Logger.e("收到响应 响应码：%s 响应时间：%ss\n请求url:        %s\n请求body:       %s\n请求header:     %s\n响应body:       %s",
+                response.code(), tookMs, response.request().url(), getDecode(body), requestHeaders, getDecode(rBody));
+
+        Logger.json(rBody);
+
         return response;
+    }
+
+    public String parseHeaders(Headers headers) {
+        if (headers != null && headers.size() > 0) {
+            JSONObject obj = new JSONObject();
+            for (String name : headers.names()) {
+                try {
+                    obj.put(name, headers.get(name));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return obj.toString();
+        }
+        return null;
     }
 
     private String getDecode(String value) {

@@ -101,13 +101,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
-        <!-- 搜索页面-->
-        <activity
-            android:name="com.jusfoun.jusfouninquire.ui.activity.SearchActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/my_style_horizontal"
-            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <!--&lt;!&ndash; 搜索页面&ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name="com.jusfoun.jusfouninquire.ui.activity.SearchActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/my_style_horizontal"-->
+            <!--android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />-->
 
         <!-- 提交人工查询页面-->
         <activity
@@ -155,12 +155,12 @@
             android:theme="@style/my_style_horizontal"
             android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
         <!-- 单独的登录页面-->
-        <activity
-            android:name="com.jusfoun.jusfouninquire.ui.activity.LoginActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/my_style_horizontal"
-            android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />
+        <!--<activity-->
+            <!--android:name="com.jusfoun.jusfouninquire.ui.activity.LoginActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/my_style_horizontal"-->
+            <!--android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden" />-->
 
         <!-- 设置公司-->
         <activity
@@ -555,12 +555,12 @@
 
 
         <!-- 企信宝2.0失信搜索页面-->
-        <activity
-            android:name="com.jusfoun.jusfouninquire.ui.activity.SearchDishonestActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/my_style_horizontal"
-            android:windowSoftInputMode="adjustResize" />
+        <!--<activity-->
+            <!--android:name="com.jusfoun.jusfouninquire.ui.activity.SearchDishonestActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/my_style_horizontal"-->
+            <!--android:windowSoftInputMode="adjustResize" />-->
         <!-- 企信宝2.0.4热门资讯页面-->
         <activity
             android:name="com.jusfoun.jusfouninquire.ui.activity.HotConsultingActivity"
@@ -754,10 +754,10 @@
         </activity>
 
         <!-- 分享内容编辑页 -->
-        <activity
-            android:name="com.umeng.socialize.editorpage.ShareActivity"
-            android:excludeFromRecents="true"
-            android:theme="@style/Theme.UMDefault" />
+        <!--<activity-->
+            <!--android:name="com.umeng.socialize.editorpage.ShareActivity"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:theme="@style/Theme.UMDefault" />-->
 
 
         <!-- 微信回调activity -->
@@ -767,16 +767,16 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.siccredit.guoxin.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="wxd930ea5d5a258f4f" />
-            </intent-filter>
-        </activity>
+        <!--<activity-->
+            <!--android:name="com.siccredit.guoxin.wxapi.WXPayEntryActivity"-->
+            <!--android:exported="true"-->
+            <!--android:launchMode="singleTop">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<data android:scheme="wxd930ea5d5a258f4f" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <!-- TODO 给吴国哨用的输入url，输出爬取内容页面 -->
         <activity
@@ -855,45 +855,45 @@
         </receiver>
 
         <!-- Required SDK核心功能-->
-        <receiver
-            android:name="cn.jpush.android.service.AlarmReceiver"
-            android:exported="false" />
+        <!--<receiver-->
+            <!--android:name="cn.jpush.android.service.AlarmReceiver"-->
+            <!--android:exported="false" />-->
 
         <!-- User defined.  For test only  用户自定义的广播接收器-->
-        <receiver
-            android:name="com.siccredit.guoxin.receiver.JPushReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" />
-                <!--Required  用户注册SDK的intent-->
-                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <!--Required  用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <!--Required  用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
-                <!--Required  用户打开自定义通知栏的intent-->
-                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
-                <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
-                <action android:name="cn.jpush.android.intent.CONNECTION" />
-                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.siccredit.guoxin" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name="com.siccredit.guoxin.receiver.JPushReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="cn.jpush.android.intent.REGISTRATION" />-->
+                <!--&lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt;-->
+                <!--<action android:name="cn.jpush.android.intent.UNREGISTRATION" />-->
+                <!--<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />-->
+                <!--&lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt;-->
+                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />-->
+                <!--&lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt;-->
+                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />-->
+                <!--&lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt;-->
+                <!--<action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />-->
+                <!--&lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;-->
+                <!--<action android:name="cn.jpush.android.intent.CONNECTION" />-->
+                <!--&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;-->
+                <!--<category android:name="com.siccredit.guoxin" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
 
         <!-- Required  . Enable it you can get statistics data with channel -->
-        <meta-data
-            android:name="JPUSH_CHANNEL"
-            android:value="developer-default" />
-        <meta-data
-            android:name="JPUSH_APPKEY"
-            android:value="@string/jpush_key" />
+        <!--<meta-data-->
+            <!--android:name="JPUSH_CHANNEL"-->
+            <!--android:value="developer-default" />-->
+        <!--<meta-data-->
+            <!--android:name="JPUSH_APPKEY"-->
+            <!--android:value="@string/jpush_key" />-->
         <!--  激光推送apikey-->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="@string/baidu_map_key" />
+        <!--<meta-data-->
+            <!--android:name="com.baidu.lbsapi.API_KEY"-->
+            <!--android:value="@string/baidu_map_key" />-->
         <!--百度地图apikey-->
 
 
@@ -907,16 +907,16 @@
 
 
         <!-- 下载更新队列 -->
-        <service android:name="com.jusfoun.jusfouninquire.net.update.UpdateOSService"></service>
+        <!--<service android:name="com.jusfoun.jusfouninquire.net.update.UpdateOSService"></service>-->
 
         <!-- 加载图片service -->
-        <service android:name="com.jusfoun.jusfouninquire.service.LoadImageService"></service>
+        <!--<service android:name="com.jusfoun.jusfouninquire.service.LoadImageService"></service>-->
 
         <!-- 加载公告图片service -->
-        <service android:name="com.jusfoun.jusfouninquire.service.LoadNoticeImageService"></service>
+        <!--<service android:name="com.jusfoun.jusfouninquire.service.LoadNoticeImageService"></service>-->
 
 
-        <service android:name="com.jusfoun.jusfouninquire.ui.util.crawl.service.WebService" />
+        <!--<service android:name="com.jusfoun.jusfouninquire.ui.util.crawl.service.WebService" />-->
         <!--<receiver android:name=".ui.util.crawl.receiver.WebReceiver"-->
         <!--android:process=":process1"/>-->
 
@@ -926,23 +926,23 @@
         <!--<receiver android:name=".ui.util.crawl.receiver.GuardReceiver"-->
         <!--android:process=":process2"/>-->
 
-        <service android:name="com.jusfoun.jusfouninquire.ui.util.crawl.service.StartService" />
-        <receiver android:name="com.jusfoun.jusfouninquire.ui.util.crawl.TaskBroadcastReceiver" />
+        <!--<service android:name="com.jusfoun.jusfouninquire.ui.util.crawl.service.StartService" />-->
+        <!--<receiver android:name="com.jusfoun.jusfouninquire.ui.util.crawl.TaskBroadcastReceiver" />-->
 
 
         <!-- 您从百度网站获取的 APP KEY -->
-        <meta-data
-            android:name="BaiduMobAd_STAT_ID"
-            android:value="@string/baidu_statistics_key_new" />
+        <!--<meta-data-->
+            <!--android:name="BaiduMobAd_STAT_ID"-->
+            <!--android:value="@string/baidu_statistics_key_new" />-->
         <!-- 渠道商编号 -->
         <!-- 是否开启错误日志统计,默认为 false -->
-        <meta-data
-            android:name="BaiduMobAd_EXCEPTION_LOG"
-            android:value="false" />
+        <!--<meta-data-->
+            <!--android:name="BaiduMobAd_EXCEPTION_LOG"-->
+            <!--android:value="false" />-->
         <!-- 日志发送策略,可选值:APP_START、ONCE_A_DAY、SET_TIME_INTERVAL, 默认为 APP_START -->
-        <meta-data
-            android:name="BaiduMobAd_SEND_STRATEGY"
-            android:value="APP_START" />
+        <!--<meta-data-->
+            <!--android:name="BaiduMobAd_SEND_STRATEGY"-->
+            <!--android:value="APP_START" />-->
 
         <!-- 日志发送策略 为 SET_TIME_INTERVAL 时,需设定时间间隔(取消下 行注释)。取值为 1-24 的整数,默认为 1 -->
         <!-- <meta-data

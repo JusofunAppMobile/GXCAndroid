@@ -72,7 +72,8 @@ public class MonitorListFragment extends BaseListFragment {
     private void refreshHeadViewTip() {
         UserModel user = AppUtils.getUser();
         if (user == null || user.vipStatus == 0)
-            headView.setTip("成为VIP掌握企业风险动态");
+            headView.setTip("");
+//            headView.setTip("成为VIP掌握企业风险动态");
         else
             headView.setTip("");
     }

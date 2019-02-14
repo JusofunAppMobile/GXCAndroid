@@ -4,14 +4,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.gxc.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.SearchContactListModel;
-import com.jusfoun.jusfouninquire.net.model.SearchListModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.ui.adapter.ContactsListAdapter;
 import com.jusfoun.jusfouninquire.ui.view.TitleView;
 import com.jusfoun.jusfouninquire.ui.view.XListView;
+import com.siccredit.guoxin.R;
 
 /**
  * @author zhaoyapeng

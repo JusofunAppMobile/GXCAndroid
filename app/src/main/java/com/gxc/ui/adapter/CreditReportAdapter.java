@@ -1,6 +1,5 @@
 package com.gxc.ui.adapter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Html;
@@ -12,7 +11,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gxc.model.CreditReportModel;
 import com.gxc.ui.activity.ConfirmOrderActivity;
 import com.gxc.ui.activity.WebActivity;
-import com.gxc.ui.dialog.VIPDialog;
 import com.siccredit.guoxin.R;
 
 /**
@@ -56,23 +54,23 @@ public class CreditReportAdapter extends BaseQuickAdapter<CreditReportModel.Cred
             }
         });
 
-        if ("1".equals(item.isVIP)) {
+//        if ("1".equals(item.isVIP)) {
             reportText.setText("获取报告");
-        } else {
-            reportText.setText("购买报告");
-        }
+//        } else {
+//            reportText.setText("购买报告");
+//        }
 
         reportText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("1".equals(item.isVIP)) {
+//                if ("1".equals(item.isVIP)) {
                     Intent intent = new Intent(mContext, ConfirmOrderActivity.class);
                     intent.putExtra("model", item);
                     intent.putExtra("type", helper.getAdapterPosition());
                     mContext.startActivity(intent);
-                } else {
-                    new VIPDialog((Activity) mContext).show();
-                }
+//                } else {
+//                    new VIPDialog((Activity) mContext).show();
+//                }
 
             }
         });

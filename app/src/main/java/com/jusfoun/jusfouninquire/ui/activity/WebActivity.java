@@ -23,8 +23,8 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.gxc.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.callback.NetWorkCallBack;
 import com.jusfoun.jusfouninquire.net.model.AdItemModel;
 import com.jusfoun.jusfouninquire.net.model.LoginModel;
@@ -42,6 +42,7 @@ import com.jusfoun.jusfouninquire.ui.widget.CustomWebViewClent;
 import com.jusfoun.jusfouninquire.ui.widget.EmailSendDialog;
 import com.jusfoun.jusfouninquire.ui.widget.ShareDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.siccredit.guoxin.R;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.HashMap;

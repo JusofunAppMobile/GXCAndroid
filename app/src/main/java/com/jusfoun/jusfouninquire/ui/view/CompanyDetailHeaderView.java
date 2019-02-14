@@ -22,17 +22,17 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.gxc.model.CorporateInfoModel;
+import com.gxc.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.InquireApplication;
-import com.siccredit.guoxin.R;
 import com.jusfoun.jusfouninquire.net.model.CompanyDetailModel;
 import com.jusfoun.jusfouninquire.net.model.ContactsModel;
 import com.jusfoun.jusfouninquire.net.model.UserInfoModel;
 import com.jusfoun.jusfouninquire.net.util.TouchUtil;
 import com.jusfoun.jusfouninquire.ui.activity.BaiduMapActivity;
 import com.jusfoun.jusfouninquire.ui.activity.ExportContactsActivity;
-import com.jusfoun.jusfouninquire.ui.activity.LoginActivity;
 import com.jusfoun.jusfouninquire.ui.activity.WebActivity;
 import com.jusfoun.jusfouninquire.ui.util.RefreshAnimUtil;
+import com.siccredit.guoxin.R;
 
 import java.util.ArrayList;
 import java.util.List;

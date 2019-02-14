@@ -28,7 +28,6 @@ import com.gxc.ui.activity.CreditReportActivity;
 import com.gxc.ui.activity.LoginActivity;
 import com.gxc.ui.adapter.DongJGAdapter;
 import com.gxc.ui.adapter.ShareholderAdapter;
-import com.gxc.ui.dialog.VIPDialog;
 import com.gxc.ui.view.BottomBarView;
 import com.gxc.ui.view.CompanyMapView;
 import com.gxc.utils.AppUtils;
@@ -190,7 +189,7 @@ public class CompanyDetailActivity extends BaseActivity {
                     return;
                 UserModel user = AppUtils.getUser();
                 if (user == null) {
-                    startActivity(com.gxc.ui.activity.LoginActivity.class);
+                    startActivity(LoginActivity.class);
                     return;
                 }
                 if (position == 0) {
@@ -378,10 +377,10 @@ public class CompanyDetailActivity extends BaseActivity {
             startActivity(LoginActivity.class);
             return false;
         }
-        if (user.vipStatus == 1)
+//        if (user.vipStatus == 1)
             return true;
-        new VIPDialog(this).show();
-        return false;
+//        new VIPDialog(this).show();
+//        return false;
     }
 
     public void showShareDialog() {
@@ -672,7 +671,7 @@ public class CompanyDetailActivity extends BaseActivity {
     private void collectHandle() {
         UserModel user = AppUtils.getUser();
         if (user == null) {
-            startActivity(com.gxc.ui.activity.LoginActivity.class);
+            startActivity(LoginActivity.class);
             return;
         }
 
