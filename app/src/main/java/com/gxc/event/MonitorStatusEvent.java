@@ -8,4 +8,5 @@ import com.jusfoun.jusfouninquire.service.event.IEvent;
  * @Description ${}
  */
 public class MonitorStatusEvent implements IEvent {
+    
 }
