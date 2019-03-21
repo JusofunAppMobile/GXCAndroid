@@ -37,4 +37,5 @@ public abstract class ResponseCall implements Observer<NetModel> {
     public abstract void success(NetModel model);
 
     public abstract void error();
+    
 }
