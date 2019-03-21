@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class CreditDataModel extends NetModel {
 
-
     public static class CompanyInfo extends NetModel {
         public String companyName;
         //        public String code;

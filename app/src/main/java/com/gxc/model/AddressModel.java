@@ -8,5 +8,4 @@ public class AddressModel {
     public int pid;
     public String name;
     public List<AddressModel> children;
-
 }

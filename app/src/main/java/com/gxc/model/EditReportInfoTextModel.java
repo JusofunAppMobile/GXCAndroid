@@ -18,7 +18,6 @@ public class EditReportInfoTextModel extends BaseModel {
     public String introduce;
 
 
-
     public String product;
     public String tag;
     public String url;

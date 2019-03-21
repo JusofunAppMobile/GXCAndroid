@@ -24,7 +24,6 @@ public class CertificationModel extends NetModel {
 //    }
 //    }
 
-
     public String companyname;
     public String name;
     public String phone;

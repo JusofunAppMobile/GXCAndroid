@@ -12,9 +12,7 @@ import java.io.Serializable;
  */
 public class CreditReportModel extends BaseModel implements Serializable{
 
-
     public CreditReportItemModel data;
-
 
 //    {
 //    "result": "0",

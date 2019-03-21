@@ -13,9 +13,7 @@ import java.util.List;
  */
 public class ErrorMenuModel extends NetModel {
 
-
     public List<ObjectionItem> objectionList;
-
 
     public static class ObjectionItem {
         public List<CompanyDetailMenuModel> menuList;

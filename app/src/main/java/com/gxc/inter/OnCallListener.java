@@ -8,5 +8,4 @@ package com.gxc.inter;
 public interface OnCallListener {
 
     void call();
-
 }

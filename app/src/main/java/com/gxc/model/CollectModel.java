@@ -7,7 +7,6 @@ package com.gxc.model;
  */
 public class CollectModel {
 
-
     /**
      * companyid : 93821560
      * companyname : 93821560

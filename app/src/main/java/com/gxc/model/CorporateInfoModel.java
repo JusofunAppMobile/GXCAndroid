@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class CorporateInfoModel extends NetModel implements Serializable {
 
-
     public CompanyInfo companyInfo;
 
     public static class CompanyInfo {
