@@ -26,7 +26,6 @@ import de.greenrobot.event.EventBus;
 public abstract class BaseFragment extends Fragment {
 
     protected ViewGroup rootView;
-
     protected Activity activity;
     private LoadingDialog loadingDialog;
 
